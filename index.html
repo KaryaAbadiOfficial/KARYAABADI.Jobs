@@ -9,12 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script>
-tailwind.config={
-  darkMode:'class',
-  theme:{extend:{
-    fontFamily:{dp:['Playfair Display','serif'],bd:['Outfit','sans-serif']}
-  }}
-}
+tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{dp:['Playfair Display','serif'],bd:['Outfit','sans-serif']}}}}
 </script>
 <style>
 :root{--bg:#f3f4f6;--fg:#1f2937;--mt:#6b7280;--ac:#dc2626;--cd:#ffffff;--bd:#e5e7eb;--ib:#fff;--fi-bg:#fff;--fi-txt:#111;--hd-bg:#000;--hd-tx:#fff}
@@ -30,12 +25,12 @@ select.fi{cursor:pointer;appearance:auto}
 .sh h3{font-size:13px;font-weight:700;color:var(--fg);margin:0;display:flex;align-items:center;gap:8px}
 .sh i.chv{font-size:10px;color:var(--mt);transition:transform .25s}
 .sh.cl i.chv{transform:rotate(-90deg)}
-.sb{overflow:hidden;transition:max-height .35s ease,opacity .25s;max-height:3000px;opacity:1;padding:12px 0}
+.sb{overflow:hidden;transition:max-height .35s ease,opacity .25s;max-height:5000px;opacity:1;padding:12px 0}
 .sb.cl{max-height:0;opacity:0;padding:0}
-.tc{flex-shrink:0;width:128px;padding:14px 10px;background:#fff;border:2px solid transparent;border-radius:12px;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
+.tc{flex-shrink:0;width:110px;padding:12px 8px;background:#fff;border:2px solid transparent;border-radius:12px;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
 .tc:hover{box-shadow:0 6px 16px rgba(0,0,0,.1);transform:translateY(-3px)}
 .tc.on{border-color:var(--ac);background:var(--bg)}
-.tc .th{width:100%;aspect-ratio:1/1;background:var(--bg);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;transition:background .2s}
+.tc .th{width:100%;aspect-ratio:1/1;background:var(--bg);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;transition:background .2s}
 .tc.on .th{background:#fef2f2}
 .pb{width:120px;aspect-ratio:2/3;border:2px dashed var(--bd);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:border-color .2s;background:var(--ib);position:relative}
 .pb:hover{border-color:var(--ac)}
@@ -46,10 +41,10 @@ select.fi{cursor:pointer;appearance:auto}
 .rb:hover{background:#dc2626;color:#fff}
 .fb{width:32px;height:32px;border:1.5px solid var(--bd);border-radius:8px;background:var(--cd);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--fg);transition:all .15s}
 .fb:hover{border-color:var(--ac);color:var(--ac)}
-.a4{width:210mm;background:#fff;position:relative;overflow:hidden;color:#000;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.a4{width:210mm;background:#fff;color:#000;box-shadow:0 10px 30px rgba(0,0,0,.1);position:relative}
 .tst{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--fg);color:var(--cd);padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:9999;transition:transform .4s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:8px}
 .tst.sh{transform:translateX(-50%) translateY(0)}
-.mt{flex:1;padding:12px;text-align:center;font-size:12px;font-weight:700;border:none;background:transparent;color:var(--mt);cursor:pointer;transition:all .2s;border-bottom:2.5px solid transparent;font-family:'Outfit',sans-serif}
+.mt{flex:1;padding:12px 8px;text-align:center;font-size:12px;font-weight:700;border:none;background:transparent;color:var(--mt);cursor:pointer;transition:all .2s;border-bottom:2.5px solid transparent;font-family:'Outfit',sans-serif}
 .mt.on{color:var(--ac);border-bottom-color:var(--ac);background:rgba(220,38,38,.05)}
 @keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .fu{animation:fu .3s ease both}
@@ -58,34 +53,43 @@ select.fi{cursor:pointer;appearance:auto}
 .rstb:hover{background:#fef2f2;border-color:#dc2626}
 .mtgl{cursor:pointer;padding:8px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;transition:.2s}
 .mtgl:hover{background:rgba(255,255,255,.2)}
+body.dark .tc{background:#1f2937;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+body.dark .tc.on{background:#111827}
+body.dark .tc .th{background:#111827}
+body.dark .tc.on .th{background:#1c0a0a}
+body.dark .rb{background:#3b1111}
+body.dark .fb{background:#374151}
+body.dark .rstb{border-color:#7f1d1d;color:#f87171}
+body.dark .rstb:hover{background:#3b1111}
+@media(max-width:640px){.tc{width:96px;padding:10px 6px}.tc .th{margin-bottom:6px}.tc h4{font-size:10px}.tc p{font-size:8.5px}.fi{padding:9px 12px;font-size:12px}.sh{padding:12px 0}.sh h3{font-size:12px}.pb{width:100px}}
 </style>
 </head>
 <body class="antialiased">
 
 <header class="sticky top-0 z-50 shadow-lg border-b border-gray-800" style="background:var(--hd-bg);color:var(--hd-tx)">
-<div class="max-w-[1740px] mx-auto flex items-center justify-between px-5 py-3">
-  <div class="flex items-center gap-3">
-    <img src="https://z-cdn-media.chatglm.cn/files/4caaa295-54d9-406e-b564-a55ad59cdbcc.png?auth_key=1875686346-6607cd62573c471ca93896b196393843-0-187a6a334027bba6b12b7657ddb537ef" alt="Logo Karya Abadi" class="h-10 w-auto object-contain">
+<div class="max-w-[1740px] mx-auto flex items-center justify-between px-4 sm:px-5 py-3">
+  <div class="flex items-center gap-2 sm:gap-3">
+    <img src="https://z-cdn-media.chatglm.cn/files/4caaa295-54d9-406e-b564-a55ad59cdbcc.png?auth_key=1875686346-6607cd62573c471ca93896b196393843-0-187a6a334027bba6b12b7657ddb537ef" alt="Logo Karya Abadi" class="h-8 sm:h-10 w-auto object-contain">
     <div class="flex items-center leading-none">
-      <span class="text-white text-xl md:text-2xl font-black tracking-tight">KARYA ABADI</span>
-      <span class="text-red-600 font-black ml-1" style="font-size:12px">.Jobs</span>
+      <span class="text-white text-lg sm:text-2xl font-black tracking-tight">KARYA ABADI</span>
+      <span class="text-white font-black ml-1" style="font-size:11px">.Jobs</span>
     </div>
   </div>
-  <div class="flex items-center gap-3">
-    <button onclick="toggleMode()" class="mtgl" title="Ganti Mode"><i id="modeIcon" class="fas fa-moon"></i></button>
-    <button onclick="cfrmReset()" class="rstb hidden sm:inline-flex text-red-400 border-red-900 hover:bg-red-900/20"><i class="fas fa-rotate-left"></i> Reset</button>
-    <button onclick="dlPDF()" id="dlb" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-lg transition-all flex items-center gap-2 text-sm shadow-md active:scale-95"><i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span></button>
+  <div class="flex items-center gap-2 sm:gap-3">
+    <button onclick="toggleMode()" class="mtgl" title="Ganti Mode" aria-label="Ganti mode gelap atau terang"><i id="modeIcon" class="fas fa-moon text-sm"></i></button>
+    <button onclick="cfrmReset()" class="rstb hidden sm:inline-flex text-red-400 border-red-900 hover:bg-red-900/20" aria-label="Reset semua data"><i class="fas fa-rotate-left"></i> Reset</button>
+    <button onclick="dlPDF()" id="dlb" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-all flex items-center gap-2 text-xs sm:text-sm shadow-md active:scale-95" aria-label="Download PDF"><i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span></button>
   </div>
 </div>
 </header>
 
-<section class="px-5 py-3 border-b" style="background:var(--cd);border-color:var(--bd)">
+<section class="px-4 sm:px-5 py-3 border-b" style="background:var(--cd);border-color:var(--bd)">
 <div class="max-w-[1740px] mx-auto">
   <div class="flex items-center gap-2 mb-2.5">
     <span class="text-[10px] font-bold bg-black text-white px-2.5 py-0.5 rounded-full">CV</span>
     <span class="text-[10px] font-bold bg-red-600 text-white px-2.5 py-0.5 rounded-full">SURAT LAMARAN</span>
   </div>
-  <div class="flex gap-3 overflow-x-auto pb-1" id="tc"></div>
+  <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-1 -mx-1 px-1" id="tc" style="-webkit-overflow-scrolling:touch"></div>
 </div>
 </section>
 
@@ -94,12 +98,12 @@ select.fi{cursor:pointer;appearance:auto}
   <button class="mt" id="mp" onclick="smt('prev')"><i class="fas fa-eye mr-1"></i>Preview</button>
 </div>
 
-<div class="max-w-[1740px] mx-auto px-5 py-4 flex flex-col lg:flex-row gap-4">
+<div class="max-w-[1740px] mx-auto px-4 sm:px-5 py-4 flex flex-col lg:flex-row gap-4">
   <div id="fp" class="w-full lg:w-[400px] flex-shrink-0 lg:max-h-[calc(100vh-220px)] lg:overflow-y-auto">
     <div class="rounded-xl shadow-sm border overflow-hidden" id="fc" style="background:var(--cd);border-color:var(--bd)"></div>
   </div>
   <div id="pp" class="flex-1 hidden lg:block">
-    <div class="rounded-xl p-4 overflow-auto flex justify-center" id="psc" style="max-height:calc(100vh-220px);background:var(--bg)">
+    <div class="rounded-xl p-3 sm:p-4 overflow-auto flex justify-center" id="psc" style="max-height:calc(100vh-220px);background:var(--bg)">
       <div id="psr" style="transform-origin:top center"></div>
     </div>
   </div>
@@ -127,7 +131,9 @@ select.fi{cursor:pointer;appearance:auto}
 
 <script>
 const DS={tpl:'cv01',foto:null,ff:'Times New Roman',fs:11,dp:{nama:'',ttl:'',jk:'',bangsa:'',agama:'',tb:'',bb:'',alamat:'',kec:'',hp:'',status:'',email:'',dusun:'',rtrw:'',desa:''},pr:{lulusan:'',jurusan:''},pd:[{n:'',tl:''},{n:'',tl:''},{n:'',tl:''}],px:[{pt:'',al:'',kp:'',jb:'',tm:'',ts:''}],hs:['','','','','','','',''],ss:['','','','','','',''],sr:{kota:'',tgl:'',lamp:'',npt:'',apt:'',apt2:'',sum:'',pos:'',ptk:'',fpl:'1'},lm:['','','']};
+
 let S=JSON.parse(JSON.stringify(DS));
+
 const TPL=[
   {id:'cv01',tp:'cv',nm:'CV Model 01',ds:'Klasik dengan foto',ic:'fa-id-card'},
   {id:'cv02',tp:'cv',nm:'CV Model 02',ds:'Modern minimalis',ic:'fa-user-tie'},
@@ -137,63 +143,139 @@ const TPL=[
   {id:'sl-ts',tp:'sl',nm:'Tulis Tangan Spesifik',ds:'Format tulis tangan',ic:'fa-pen-fancy'},
   {id:'sl-tu',tp:'sl',nm:'Tulis Tangan Umum',ds:'Tulis tangan umum',ic:'fa-pen'}
 ];
-let _svT=null;
-function saveLS(){clearTimeout(_svT);_svT=setTimeout(()=>{try{localStorage.setItem('cvb_v26',JSON.stringify(S))}catch(e){}},400)}
-function loadLS(){try{const d=JSON.parse(localStorage.getItem('cvb_v26'));if(d&&d.tpl){Object.assign(S,d);if(!S.dp.rtrw)S.dp.rtrw='';return true}}catch(e){}return false}
+
+let _svT=null,_rT=null;
+
+function saveLS(){clearTimeout(_svT);_svT=setTimeout(()=>{try{localStorage.setItem('cvb_v30',JSON.stringify(S))}catch(e){}},400)}
+
+function loadLS(){
+  try{
+    const d=JSON.parse(localStorage.getItem('cvb_v30'));
+    if(d&&d.tpl){
+      if(!d.sr)d.sr={};if(d.sr.pos===undefined)d.sr.pos='';if(d.sr.fpl===undefined)d.sr.fpl='1';
+      if(!d.dp)d.dp={};if(d.dp.rtrw===undefined)d.dp.rtrw='';if(d.dp.dusun===undefined)d.dp.dusun='';if(d.dp.desa===undefined)d.dp.desa='';
+      Object.assign(S,d);return true;
+    }
+  }catch(e){}
+  return false;
+}
+
 const V=x=>x||'';
 const E=x=>(x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const isCV=()=>TPL.find(t=>t.id===S.tpl)?.tp==='cv';
 const hasFt=()=>['cv01','cv02','cv03'].includes(S.tpl);
 const isSp=()=>S.tpl==='sl-os'||S.tpl==='sl-ts';
 const isTT=()=>S.tpl==='sl-ts'||S.tpl==='sl-tu';
-function hasAny(){const d=S.dp;return d.nama||d.ttl||d.email||d.hp||S.pr.lulusan||S.sr.npt||S.pd.some(p=>p.n)||S.px.some(p=>p.pt)}
+
+function hasAny(){
+  const d=S.dp;
+  if(d.nama||d.ttl||d.email||d.hp||S.pr.lulusan)return true;
+  if(S.pd.some(p=>p.n)||S.px.some(p=>p.pt))return true;
+  if(S.sr.npt||S.sr.pos||S.sr.kota||S.sr.apt||S.sr.sum)return true;
+  return false;
+}
+
 function toast(m){const t=document.getElementById('tst');document.getElementById('tsm').textContent=m;t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),2400)}
-function smt(t){document.getElementById('mf').classList.toggle('on',t==='form');document.getElementById('mp').classList.toggle('on',t==='prev');document.getElementById('fp').classList.toggle('hidden',t!=='form');document.getElementById('pp').classList.toggle('hidden',t!=='prev');if(t==='prev')setTimeout(sclP,50)}
+function smt(t){document.getElementById('mf').classList.toggle('on',t==='form');document.getElementById('mp').classList.toggle('on',t==='prev');document.getElementById('fp').classList.toggle('hidden',t!=='form');document.getElementById('pp').classList.toggle('hidden',t!=='prev');if(t==='prev')setTimeout(sclP,80)}
 function tgs(el){el.classList.toggle('cl');el.nextElementSibling.classList.toggle('cl')}
 function adjFS(d){S.fs=Math.max(9,Math.min(16,Math.round((S.fs+d)*10)/10));const i=document.getElementById('fsi');if(i)i.value=S.fs;uP()}
 function cfrmReset(){document.getElementById('rstm').classList.remove('hidden')}
-function doReset(){S=JSON.parse(JSON.stringify(DS));try{localStorage.removeItem('cvb_v26')}catch(e){}document.getElementById('rstm').classList.add('hidden');rTC();rF();rPV();toast('Semua data berhasil direset')}
+function doReset(){S=JSON.parse(JSON.stringify(DS));try{localStorage.removeItem('cvb_v30')}catch(e){}document.getElementById('rstm').classList.add('hidden');rTC();rF();rPV();toast('Semua data berhasil direset')}
 function selT(id){S.tpl=id;rTC();rF();rPV();saveLS()}
-function toggleMode(){document.body.classList.toggle('dark');document.getElementById('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon'}
+function toggleMode(){document.body.classList.toggle('dark');document.getElementById('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon';setTimeout(sclP,60)}
 
 function rTC(){
   document.getElementById('tc').innerHTML=TPL.map(t=>`
-    <div class="tc ${t.id===S.tpl?'on':''}" onclick="selT('${t.id}')">
-      <div class="th"><i class="fas ${t.ic} text-3xl text-red-600"></i></div>
-      <h4 class="font-bold text-[11px] leading-tight dark:text-white">${t.nm}</h4>
-      <p class="text-[9.5px] text-gray-400 mt-1">${t.ds}</p>
+    <div class="tc ${t.id===S.tpl?'on':''}" onclick="selT('${t.id}')" role="button" tabindex="0" aria-label="Pilih ${t.nm}">
+      <div class="th"><i class="fas ${t.ic} text-2xl sm:text-3xl text-red-600"></i></div>
+      <h4 class="font-bold text-[10px] sm:text-[11px] leading-tight dark:text-white">${t.nm}</h4>
+      <p class="text-[8.5px] sm:text-[9.5px] text-gray-400 mt-1">${t.ds}</p>
     </div>`).join('');
 }
 
-function rF(){const f=document.getElementById('fc');let h=rDS();if(hasFt())h+=rFS();h+=rDP();if(isCV())h+=rPR();if(isCV())h+=rPD();if(isCV())h+=rPX();if(isCV())h+=rKH();if(!isCV())h+=rSR();f.innerHTML=h;sclP()}
+function rF(){
+  const f=document.getElementById('fc');let h=rDS();
+  if(hasFt())h+=rFS();
+  h+=rDP();
+  if(isCV())h+=rPR();
+  if(isCV())h+=rPD();
+  if(isCV())h+=rPX();
+  if(isCV())h+=rKH();
+  if(!isCV())h+=rSR();
+  f.innerHTML=h;sclP();
+}
 
-function rDS(){return`<div class="p-4"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-cog text-red-600"></i>Pengaturan Tampilan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-3"><label class="fl">Jenis Font</label><select class="fi" onchange="S.ff=this.value;uP()">${['Times New Roman','Arial','Calibri','Cambria','Garamond'].map(f=>`<option ${S.ff===f?'selected':''}>${f}</option>`).join('')}</select></div><div class="mb-3"><label class="fl">Ukuran Font</label><div class="flex items-center gap-2"><button class="fb" onclick="adjFS(-0.5)">-</button><input type="number" id="fsi" class="fi text-center" style="width:72px;padding:6px" value="${S.fs}" min="9" max="16" step="0.5" onchange="S.fs=Math.max(9,Math.min(16,parseFloat(this.value)||11));this.value=S.fs;uP()"><button class="fb" onclick="adjFS(0.5)">+</button><span class="text-[11px] text-gray-500 ml-1">pt</span></div></div></div></div>`}
+function rDS(){
+  return`<div class="p-4"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-cog text-red-600"></i>Pengaturan Tampilan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-3"><label class="fl">Jenis Font</label><select class="fi" onchange="S.ff=this.value;uP()">${['Times New Roman','Arial','Calibri','Cambria','Garamond'].map(f=>`<option ${S.ff===f?'selected':''}>${f}</option>`).join('')}</select></div><div class="mb-3"><label class="fl">Ukuran Font</label><div class="flex items-center gap-2"><button class="fb" onclick="adjFS(-0.5)" aria-label="Kurangi ukuran font">-</button><input type="number" id="fsi" class="fi text-center" style="width:72px;padding:6px" value="${S.fs}" min="9" max="16" step="0.5" onchange="S.fs=Math.max(9,Math.min(16,parseFloat(this.value)||11));this.value=S.fs;uP()"><button class="fb" onclick="adjFS(0.5)" aria-label="Tambah ukuran font">+</button><span class="text-[11px] text-gray-500 ml-1">pt</span></div></div></div></div>`;
+}
 
-function rFS(){const im=S.foto?`<img src="${S.foto}" alt="foto">`:`<i class="fas fa-camera text-gray-400 text-lg mb-0.5"></i><span class="text-[9px] text-gray-400 font-medium">4x6 cm</span>`;return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-image text-red-600"></i>Pas Foto</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="pb" onclick="document.getElementById('fi').click()">${im}<input type="file" id="fi" accept="image/*" hidden onchange="hFT(this)"></div><p class="text-[9.5px] mt-1.5" style="color:var(--mt)">Ukuran 4x6 cm, presisi tanpa terpotong</p>${S.foto?`<button class="rb mt-1.5" onclick="event.stopPropagation();rmFT()"><i class="fas fa-trash"></i></button>`:''}</div></div>`}
+function rFS(){
+  const im=S.foto?`<img src="${S.foto}" alt="Pas foto">`:`<i class="fas fa-camera text-gray-400 text-lg mb-0.5"></i><span class="text-[9px] text-gray-400 font-medium">4x6 cm</span>`;
+  return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-image text-red-600"></i>Pas Foto</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="pb" onclick="document.getElementById('fi').click()">${im}<input type="file" id="fi" accept="image/*" hidden onchange="hFT(this)"></div><p class="text-[9.5px] mt-1.5" style="color:var(--mt)">Ukuran 4x6 cm, presisi tanpa terpotong</p>${S.foto?`<button class="rb mt-1.5" onclick="event.stopPropagation();rmFT()" aria-label="Hapus foto"><i class="fas fa-trash"></i></button>`:''}</div></div>`;
+}
 
-function rDP(){const d=S.dp;const r=(l,id,v,o)=>{if(o)return`<div class="mb-2.5"><label class="fl">${l}</label><select class="fi" onchange="S.dp.${id}=this.value;uP()">${o.map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></div>`;return`<div class="mb-2.5"><label class="fl">${l}</label><input class="fi" value="${E(v)}" placeholder="..." oninput="S.dp.${id}=this.value;uP()"></div>`};return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-user text-red-600"></i>Data Pribadi</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">${r('Nama Lengkap','nama',d.nama)}${r('Tempat, Tanggal Lahir','ttl',d.ttl)}${r('Jenis Kelamin','jk',d.jk,['','Laki-laki','Perempuan'])}${r('Bangsa','bangsa',d.bangsa)}${r('Agama','agama',d.agama)}<div class="grid grid-cols-2 gap-2.5">${r('Tinggi Badan (cm)','tb',d.tb)}${r('Berat Badan (kg)','bb',d.bb)}</div><div class="mb-2.5"><label class="fl">Dusun</label><input class="fi" value="${E(d.dusun)}" placeholder="..." oninput="S.dp.dusun=this.value;uP()"></div><div class="mb-2.5"><label class="fl">RT / RW</label><input class="fi" value="${E(d.rtrw)}" placeholder="..." oninput="S.dp.rtrw=this.value;uP()"></div><div class="mb-2.5"><label class="fl">Desa / Kelurahan</label><input class="fi" value="${E(d.desa)}" placeholder="..." oninput="S.dp.desa=this.value;uP()"></div><div class="mb-2.5"><label class="fl">Jl. Alamat (Utama)</label><textarea class="fi" rows="2" placeholder="Jl. ..." oninput="S.dp.alamat=this.value;uP()">${V(d.alamat)}</textarea></div>${r('Kec. / Kab. / Kota','kec',d.kec)}<div class="grid grid-cols-2 gap-2.5">${r('No. HP','hp',d.hp)}${r('Status','status',d.status,['Belum Menikah','Menikah'])}</div>${r('Email','email',d.email)}</div></div>`}
+function rDP(){
+  const d=S.dp;
+  const r=(l,id,v,o)=>{
+    if(o)return`<div class="mb-2.5"><label class="fl">${l}</label><select class="fi" onchange="S.dp.${id}=this.value;uP()">${o.map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></div>`;
+    return`<div class="mb-2.5"><label class="fl">${l}</label><input class="fi" value="${E(v)}" placeholder="..." oninput="S.dp.${id}=this.value;uP()"></div>`;
+  };
+  return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-user text-red-600"></i>Data Pribadi</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">${r('Nama Lengkap','nama',d.nama)}${r('Tempat, Tanggal Lahir','ttl',d.ttl)}${r('Jenis Kelamin','jk',d.jk,['','Laki-laki','Perempuan'])}${r('Bangsa','bangsa',d.bangsa)}${r('Agama','agama',d.agama)}<div class="grid grid-cols-2 gap-2.5">${r('Tinggi Badan (cm)','tb',d.tb)}${r('Berat Badan (kg)','bb',d.bb)}</div>${r('Dusun','dusun',d.dusun)}${r('RT / RW','rtrw',d.rtrw)}${r('Desa / Kelurahan','desa',d.desa)}<div class="mb-2.5"><label class="fl">Jl. Alamat (Utama)</label><textarea class="fi" rows="2" placeholder="Jl. ..." oninput="S.dp.alamat=this.value;uP()">${V(d.alamat)}</textarea></div>${r('Kec. / Kab. / Kota','kec',d.kec)}<div class="grid grid-cols-2 gap-2.5">${r('No. HP','hp',d.hp)}${r('Status','status',d.status,['Belum Menikah','Menikah'])}</div>${r('Email','email',d.email)}</div></div>`;
+}
 
-function rPR(){const p=S.pr;return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-align-left text-red-600"></i>Profil</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-2.5"><label class="fl">Lulusan</label><input class="fi" value="${E(p.lulusan)}" placeholder="S1, D3, SMK..." oninput="S.pr.lulusan=this.value;uP()"></div><div class="mb-2.5"><label class="fl">Jurusan</label><input class="fi" value="${E(p.jurusan)}" placeholder="Nama jurusan" oninput="S.pr.jurusan=this.value;uP()"></div></div></div>`}
+function rPR(){const p=S.pr;return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-align-left text-red-600"></i>Profil</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-2.5"><label class="fl">Lulusan</label><input class="fi" value="${E(p.lulusan)}" placeholder="S1, D3, SMK..." oninput="S.pr.lulusan=this.value;uP()"></div><div class="mb-2.5"><label class="fl">Jurusan</label><input class="fi" value="${E(p.jurusan)}" placeholder="Nama jurusan" oninput="S.pr.jurusan=this.value;uP()"></div></div></div>`}
 
-function rPD(){let rw=S.pd.map((p,i)=>`<div class="p-3 rounded-lg mb-2 fu" style="background:var(--bg)"><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-red-600">Pendidikan ${i+1}</span><button class="rb" onclick="S.pd.splice(${i},1);rF();uP()"><i class="fas fa-times"></i></button></div><div class="mb-2"><label class="fl">Nama Sekolah</label><input class="fi" value="${E(p.n)}" placeholder="..." oninput="S.pd[${i}].n=this.value;uP()"></div><div><label class="fl">Tahun Lulus</label><input class="fi" value="${E(p.tl)}" placeholder="0000" oninput="S.pd[${i}].tl=this.value;uP()"></div></div>`).join('');return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-graduation-cap text-red-600"></i>Pendidikan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">${rw}<button class="ab" onclick="S.pd.push({n:'',tl:''});rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`}
+function rPD(){
+  let rw=S.pd.map((p,i)=>`<div class="p-3 rounded-lg mb-2 fu" style="background:var(--bg)"><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-red-600">Pendidikan ${i+1}</span><button class="rb" onclick="S.pd.splice(${i},1);rF();uP()" aria-label="Hapus pendidikan ${i+1}"><i class="fas fa-times"></i></button></div><div class="mb-2"><label class="fl">Nama Sekolah</label><input class="fi" value="${E(p.n)}" placeholder="..." oninput="S.pd[${i}].n=this.value;uP()"></div><div><label class="fl">Tahun Lulus</label><input class="fi" value="${E(p.tl)}" placeholder="0000/0000" oninput="S.pd[${i}].tl=this.value;uP()"></div></div>`).join('');
+  return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-graduation-cap text-red-600"></i>Pendidikan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">${rw}<button class="ab" onclick="S.pd.push({n:'',tl:''});rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`;
+}
 
-function rPX(){let rw=S.px.map((p,i)=>`<div class="p-3 rounded-lg mb-2 fu" style="background:var(--bg)"><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-red-600">Pengalaman ${i+1}</span><button class="rb" onclick="S.px.splice(${i},1);rF();uP()"><i class="fas fa-times"></i></button></div><div class="mb-2"><label class="fl">Nama Perusahaan (PT.)</label><input class="fi" value="${E(p.pt)}" placeholder="..." oninput="S.px[${i}].pt=this.value;uP()"></div><div class="mb-2"><label class="fl">Jl. Alamat Perusahaan</label><input class="fi" value="${E(p.al)}" placeholder="Jl. ..." oninput="S.px[${i}].al=this.value;uP()"></div><div class="mb-2"><label class="fl">Kota / Kode Pos</label><input class="fi" value="${E(p.kp)}" placeholder="Kota, Kode Pos" oninput="S.px[${i}].kp=this.value;uP()"></div><div class="mb-2"><label class="fl">Jabatan / Posisi</label><input class="fi" value="${E(p.jb)}" placeholder="..." oninput="S.px[${i}].jb=this.value;uP()"></div><div class="grid grid-cols-2 gap-2"><div><label class="fl">Mulai</label><input class="fi" value="${E(p.tm)}" placeholder="00/00/0000" oninput="S.px[${i}].tm=this.value;uP()"></div><div><label class="fl">Selesai</label><input class="fi" value="${E(p.ts)}" placeholder="00/00/0000" oninput="S.px[${i}].ts=this.value;uP()"></div></div></div>`).join('');return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-briefcase text-red-600"></i>Pengalaman</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">${rw}<button class="ab" onclick="S.px.push({pt:'',al:'',kp:'',jb:'',tm:'',ts:''});rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`}
+function rPX(){
+  let rw=S.px.map((p,i)=>`<div class="p-3 rounded-lg mb-2 fu" style="background:var(--bg)"><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-red-600">Pengalaman ${i+1}</span><button class="rb" onclick="S.px.splice(${i},1);rF();uP()" aria-label="Hapus pengalaman ${i+1}"><i class="fas fa-times"></i></button></div><div class="mb-2"><label class="fl">Nama Perusahaan (PT.)</label><input class="fi" value="${E(p.pt)}" placeholder="..." oninput="S.px[${i}].pt=this.value;uP()"></div><div class="mb-2"><label class="fl">Jl. Alamat Perusahaan</label><input class="fi" value="${E(p.al)}" placeholder="Jl. ..." oninput="S.px[${i}].al=this.value;uP()"></div><div class="mb-2"><label class="fl">Kota / Kode Pos</label><input class="fi" value="${E(p.kp)}" placeholder="Kota, Kode Pos" oninput="S.px[${i}].kp=this.value;uP()"></div><div class="mb-2"><label class="fl">Jabatan / Posisi</label><input class="fi" value="${E(p.jb)}" placeholder="..." oninput="S.px[${i}].jb=this.value;uP()"></div><div class="grid grid-cols-2 gap-2"><div><label class="fl">Mulai</label><input class="fi" value="${E(p.tm)}" placeholder="00/00/0000" oninput="S.px[${i}].tm=this.value;uP()"></div><div><label class="fl">Selesai</label><input class="fi" value="${E(p.ts)}" placeholder="00/00/0000" oninput="S.px[${i}].ts=this.value;uP()"></div></div></div>`).join('');
+  return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-briefcase text-red-600"></i>Pengalaman</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">${rw}<button class="ab" onclick="S.px.push({pt:'',al:'',kp:'',jb:'',tm:'',ts:''});rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`;
+}
 
-function rKH(){const rl=(arr,k)=>arr.map((x,i)=>`<div class="flex items-center gap-2 mb-1.5"><input class="fi flex-1" value="${E(x)}" placeholder="..." oninput="S.${k}[${i}]=this.value;uP()"><button class="rb" onclick="S.${k}.splice(${i},1);rF();uP()"><i class="fas fa-times"></i></button></div>`).join('');return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-cogs text-red-600"></i>Keahlian</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><p class="fl mb-1.5">Hard Skill</p>${rl(S.hs,'hs')}<button class="ab mb-3" onclick="S.hs.push('');rF();uP()"><i class="fas fa-plus"></i>Tambah</button><p class="fl mb-1.5">Soft Skill</p>${rl(S.ss,'ss')}<button class="ab" onclick="S.ss.push('');rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`}
+function rKH(){
+  const rl=(arr,k)=>arr.map((x,i)=>`<div class="flex items-center gap-2 mb-1.5"><input class="fi flex-1" value="${E(x)}" placeholder="..." oninput="S.${k}[${i}]=this.value;uP()"><button class="rb" onclick="S.${k}.splice(${i},1);rF();uP()" aria-label="Hapus item"><i class="fas fa-times"></i></button></div>`).join('');
+  return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-cogs text-red-600"></i>Keahlian</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><p class="fl mb-1.5">Hard Skill</p>${rl(S.hs,'hs')}<button class="ab mb-3" onclick="S.hs.push('');rF();uP()"><i class="fas fa-plus"></i>Tambah</button><p class="fl mb-1.5">Soft Skill</p>${rl(S.ss,'ss')}<button class="ab" onclick="S.ss.push('');rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`;
+}
 
-function rSR(){const s=S.sr,r=(l,id,v)=>`<div class="mb-2.5"><label class="fl">${l}</label><input class="fi" value="${E(v)}" placeholder="..." oninput="S.sr.${id}=this.value;uP()"></div>`;let lr=S.lm.map((l,i)=>`<div class="flex items-center gap-2 mb-1.5"><input class="fi flex-1" value="${E(l)}" placeholder="Nama dokumen..." oninput="S.lm[${i}]=this.value;uP()"><button class="rb" onclick="S.lm.splice(${i},1);rF();uP()"><i class="fas fa-times"></i></button></div>`).join('');let fplHtml='';if(isTT())fplHtml=`<div class="mb-2.5"><label class="fl">Lembar Pas Foto</label><input type="number" class="fi" value="${E(s.fpl)}" min="1" placeholder="1" oninput="S.sr.fpl=this.value;uP()"></div>`;return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)"><h3><i class="fas fa-envelope text-red-600"></i>Detail Surat</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="grid grid-cols-2 gap-2.5">${r('Kota Pengirim','kota',s.kota)}${r('Tanggal','tgl',s.tgl)}${r('Nama Perusahaan (PT.)','npt',s.npt)}${r('Jl. Alamat Perusahaan (baris 1)','apt',s.apt)}${r('Kec./Kab. Perusahaan (baris 2)','apt2',s.apt2)}${r('Sumber Informasi','sum',s.sum)}${isSp()?r('Posisi yang Dilamar','pos',s.pos):''}${r('Pendidikan Terakhir','ptk',s.ptk)}${fplHtml}<p class="fl mt-3 mb-1.5">Lampiran Tambahan${isTT()?' (No.1 & 2 otomatis)':''}</p>${lr}<button class="ab" onclick="S.lm.push('');rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`}
+function rSR(){
+  const s=S.sr;const r=(l,id,v)=>`<div class="mb-2.5"><label class="fl">${l}</label><input class="fi" value="${E(v)}" placeholder="..." oninput="S.sr.${id}=this.value;uP()"></div>`;
+  let lr=S.lm.map((l,i)=>`<div class="flex items-center gap-2 mb-1.5"><input class="fi flex-1" value="${E(l)}" placeholder="Nama dokumen..." oninput="S.lm[${i}]=this.value;uP()"><button class="rb" onclick="S.lm.splice(${i},1);rF();uP()" aria-label="Hapus lampiran"><i class="fas fa-times"></i></button></div>`).join('');
+  let fplHtml='';if(isTT())fplHtml=r('Lembar Pas Foto','fpl',s.fpl);
+  let posHtml='';if(isSp())posHtml=r('Posisi yang Dilamar','pos',s.pos);
+  return`<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-envelope text-red-600"></i>Detail Surat</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="grid grid-cols-2 gap-2.5">${r('Kota Pengirim','kota',s.kota)}${r('Tanggal','tgl',s.tgl)}${r('Nama Perusahaan (PT.)','npt',s.npt)}${r('Jl. Alamat (baris 1)','apt',s.apt)}${r('Kec./Kab. (baris 2)','apt2',s.apt2)}${r('Sumber Informasi','sum',s.sum)}${posHtml}${r('Pendidikan Terakhir','ptk',s.ptk)}${fplHtml}</div><p class="fl mt-4 mb-1.5">Lampiran Tambahan${isTT()?' (No.1 & 2 otomatis)':''}</p>${lr}<button class="ab" onclick="S.lm.push('');rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>`;
+}
 
 function hFT(inp){const f=inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=e=>{S.foto=e.target.result;rF();uP()};rd.readAsDataURL(f)}
 function rmFT(){S.foto=null;rF();uP()}
-function uP(){const c=document.getElementById('psc'),st=c.scrollTop;rPV();c.scrollTop=st;saveLS()}
 
-function rPV(){const sc=document.getElementById('psr');let h='';if(S.tpl==='cv01')h=gCV1();else if(S.tpl==='cv02')h=gCV2();else if(S.tpl==='cv03')h=gCV3();else h=gSL();const emp=!hasAny();sc.innerHTML=`<div class="a4" id="a4p">${h}${emp?`<div class="ph"><i class="fas fa-keyboard text-4xl mb-3"></i><p style="font-size:14px;font-weight:600;margin:0">Mulai isi formulir di sebelah kiri</p><p style="font-size:11px;margin:4px 0 0;color:#bbb">Preview akan otomatis diperbarui</p></div>`:''}</div>`;setTimeout(sclP,30)}
+function uP(){clearTimeout(_rT);_rT=setTimeout(()=>{const c=document.getElementById('psc');if(!c)return;const st=c.scrollTop;rPV();c.scrollTop=st;saveLS()},80)}
 
-function sclP(){const c=document.getElementById('psc'),p=document.getElementById('a4p');if(!p||!c)return;const cw=c.clientWidth-32,pw=p.offsetWidth;if(!pw)return;const s=Math.min(1,cw/pw);p.style.transform=`scale(${s})`;p.style.transformOrigin='top center';const sc=document.getElementById('psr');sc.style.width=pw+'px';sc.style.height=(p.offsetHeight*s)+'px'}
+function rPV(){
+  const sc=document.getElementById('psr');let h='';
+  if(S.tpl==='cv01')h=gCV1();else if(S.tpl==='cv02')h=gCV2();else if(S.tpl==='cv03')h=gCV3();else h=gSL();
+  const emp=!hasAny();
+  sc.innerHTML=`<div class="a4" id="a4p">${h}${emp?`<div class="ph"><i class="fas fa-keyboard text-4xl mb-3"></i><p style="font-size:14px;font-weight:600;margin:0">Mulai isi formulir di sebelah kiri</p><p style="font-size:11px;margin:4px 0 0;color:#bbb">Preview akan otomatis diperbarui</p></div>`:''}</div>`;
+  setTimeout(sclP,40);
+}
+
+function sclP(){
+  const c=document.getElementById('psc'),p=document.getElementById('a4p');
+  if(!p||!c)return;const cw=c.clientWidth-24;
+  p.style.transform='none';
+  const pw=p.offsetWidth,ph=p.offsetHeight;
+  if(!pw)return;
+  const s=Math.min(1,cw/pw);
+  p.style.transform=`scale(${s})`;p.style.transformOrigin='top center';
+  const sc=document.getElementById('psr');
+  sc.style.width=pw+'px';sc.style.height=Math.ceil(ph*s)+'px';
+}
 
 function a4s(){return`font-family:'${S.ff}',serif;font-size:${S.fs}pt;line-height:1.65;color:#000;`}
 function sT(t){return`<div style="font-size:${S.fs+1}pt;font-weight:bold;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid #000;padding-bottom:2px;margin-bottom:8px;margin-top:14px">${t}</div>`}
-function prT(){const l=V(S.pr.lulusan),j=V(S.pr.jurusan);if(!l&&!j)return'';return`Saya lulusan ${l} dengan latar belakang jurusan ${j}. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.`}
+function prT(){const l=V(S.pr.lulusan),j=V(S.pr.jurusan);if(!l&&!j)return'';return`Saya lulusan ${l} dengan latar belakang jurusan ${j}. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.`;}
 function prP(txt){return`<p style="text-align:justify;text-justify:inter-word;word-spacing:-0.02em;margin:0 0 4px">${txt}</p>`;}
 function prPN(txt){return`<p style="text-align:justify;text-justify:inter-word;word-spacing:-0.06em;margin:0 0 4px">${txt}</p>`;}
 function ftMM(){if(!S.foto)return'';return`<img src="${S.foto}" style="width:40mm;height:60mm;object-fit:contain;border:1px solid #ccc;border-radius:2px;">`}
@@ -211,66 +293,54 @@ function khC1R(){const h=S.hs.filter(x=>x),s=S.ss.filter(x=>x);if(!h.length&&!s.
 function gCV1(){
   const d=S.dp,pt=prT();
   const fc=S.foto?`<td style="vertical-align:top;text-align:right;padding-left:8mm;width:40mm">${ftMM()}</td>`:'';
-  return`<div style="${a4s()}padding:20mm">
- ${pt||S.foto?`<table style="width:100%;border-collapse:collapse;border-spacing:0"><tr>
-<td style="vertical-align:top;padding:0;margin:0">
-  <div style="margin-right:${S.foto?'4mm':'0'}">${pt?`${sT('PROFIL')}${prP(pt)}`:''}</div>
-</td>
- ${fc}
-</tr></table>`:''}
- ${sT('DATA PRIBADI')}
-<table style="width:100%;border-collapse:collapse;border-spacing:0;font-size:${S.fs}pt">
- ${dR('Nama',d.nama)}${dR('Tempat, Tanggal Lahir',d.ttl)}${dR('Jenis Kelamin',d.jk)}${dR('Bangsa',d.bangsa)}${dR('Agama',d.agama)}${dR('Tinggi Badan',d.tb?d.tb+' cm':'')}${dR('Berat Badan',d.bb?d.bb+' kg':'')}
- ${almR2(d)}
- ${dR('No. Hp',d.hp)}${dR('Status',d.status)}${dR('Email',d.email)}
-</table>
- ${pdC3()}${pxC3()}${khC3()}
-</div>`}
+  return`<div style="${a4s()}padding:20mm">${pt||S.foto?`<table style="width:100%;border-collapse:collapse;border-spacing:0"><tr><td style="vertical-align:top;padding:0;margin:0"><div style="margin-right:${S.foto?'4mm':'0'}">${pt?`${sT('PROFIL')}${prP(pt)}`:''}</div></td>${fc}</tr></table>`:''}${sT('DATA PRIBADI')}<table style="width:100%;border-collapse:collapse;border-spacing:0;font-size:${S.fs}pt">${dR('Nama',d.nama)}${dR('Tempat, Tanggal Lahir',d.ttl)}${dR('Jenis Kelamin',d.jk)}${dR('Bangsa',d.bangsa)}${dR('Agama',d.agama)}${dR('Tinggi Badan',d.tb?d.tb+' cm':'')}${dR('Berat Badan',d.bb?d.bb+' kg':'')}${almR2(d)}${dR('No. Hp',d.hp)}${dR('Status',d.status)}${dR('Email',d.email)}</table>${pdC3()}${pxC3()}${khC3()}</div>`;
+}
 
 function gCV2(){
-  const d=S.dp,pt=prT();
-  let info='';
+  const d=S.dp,pt=prT();let info='';
   if(d.ttl)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${E(d.ttl)}</div>`;
   const ln2=[d.jk,d.bangsa,d.agama,d.tb?d.tb+' cm':'',d.bb?d.bb+' kg':''].filter(Boolean).join(' | ');
   if(ln2)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${ln2}</div>`;
-  const a1=[d.dusun,d.rtrw].filter(Boolean).join(' | ');
-  if(a1)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${E(a1)}</div>`;
-  const a2=[d.desa,d.kec].filter(Boolean).join(' | ');
-  if(a2)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${E(a2)}</div>`;
-  const ln5=[d.hp?`No. Hp ${E(d.hp)}`:'',d.status].filter(Boolean).join(' | ');
-  if(ln5)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${ln5}</div>`;
+  const a1=[d.dusun,d.rtrw].filter(Boolean).join(' | ');if(a1)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${E(a1)}</div>`;
+  const a2=[d.desa,d.kec].filter(Boolean).join(' | ');if(a2)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${E(a2)}</div>`;
+  const ln5=[d.hp?`No. Hp ${E(d.hp)}`:'',d.status].filter(Boolean).join(' | ');if(ln5)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${ln5}</div>`;
   if(d.email)info+=`<div style="font-size:${S.fs-.5}pt;color:#444;margin-bottom:2px">${E(d.email)}</div>`;
-  return`<div style="${a4s()}padding:20mm">
-<table style="width:100%;border-collapse:collapse;border-spacing:0;margin-bottom:8px">
-<tr>
-<td style="vertical-align:top;width:70%">
- ${d.nama?`<div style="font-size:${S.fs+4}pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">${E(d.nama)}</div>`:''}
- ${info}
-</td>
-<td style="vertical-align:top;width:30%;text-align:right;padding-left:10mm;padding-top:2mm">
- ${S.foto?ftMM():''}
-</td>
-</tr></table>
- ${pt?`${sT('PROFIL')}${prP(pt)}`:''}
- ${pdC3()}${pxC3()}${khC3()}
-</div>`}
+  return`<div style="${a4s()}padding:20mm"><table style="width:100%;border-collapse:collapse;border-spacing:0;margin-bottom:8px"><tr><td style="vertical-align:top;width:70%">${d.nama?`<div style="font-size:${S.fs+4}pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">${E(d.nama)}</div>`:''}${info}</td><td style="vertical-align:top;width:30%;text-align:right;padding-left:10mm;padding-top:2mm">${S.foto?ftMM():''}</td></tr></table>${pt?`${sT('PROFIL')}${prP(pt)}`:''}${pdC3()}${pxC3()}${khC3()}</div>`;
+}
 
+/* === CV 03 — FIX: Alamat sidebar pakai <div> terpisah dengan display:block eksplisit === */
 function gCV3(){
-  const d=S.dp,pt=prT();
-  let html='';
+  const d=S.dp,pt=prT();let html='';
   if(S.foto)html+=`<div style="text-align:center;margin-bottom:3em">${ftMM()}</div>`;
   if(d.ttl)html+=`<div style="margin-bottom:2em"><div style="font-weight:bold">Tempat, Tanggal Lahir</div><div>${E(d.ttl)}</div></div>`;
-  if(d.dusun||d.rtrw||d.desa||d.kec){
+
+  /* Alamat — setiap baris = <div> sendiri dengan display:block eksplisit,
+     dipisahkan dari container parent flex agar tidak saling menempel */
+  const almLines=[];
+  if(d.dusun) almLines.push(E(d.dusun));
+  if(d.rtrw) almLines.push(E(d.rtrw));
+  if(d.desa) almLines.push(E(d.desa));
+  /* Pisahkan kec per koma, trim spasi di awal/akhir saja, biarkan spasi tengah utuh */
+  if(d.kec){
+    d.kec.split(',').forEach(function(part){
+      var trimmed = part.replace(/^\s+|\s+$/g, '');
+      if(trimmed) almLines.push(E(trimmed));
+    });
+  }
+  if(almLines.length){
     html+=`<div style="margin-bottom:2em"><div style="font-weight:bold">Alamat</div>`;
-    if(d.dusun)html+=`<div>${E(d.dusun)}</div>`;
-    if(d.rtrw)html+=`<div>${E(d.rtrw)}</div>`;
-    if(d.desa)html+=`<div>${E(d.desa)}</div>`;
-    if(d.kec){const p=d.kec.split(',');html+=`<div>${E(p[0].trim())}</div>`;if(p[1])html+=`<div>${E(p[1].trim())}</div>`;}
+    for(var ai=0;ai<almLines.length;ai++){
+      html+=`<div style="display:block;clear:both">${almLines[ai]}</div>`;
+    }
     html+=`</div>`;
   }
+
   const od=[['Jenis Kelamin',d.jk],['Bangsa',d.bangsa],['Agama',d.agama],['Tinggi Badan',d.tb?d.tb+' cm':''],['Berat Badan',d.bb?d.bb+' kg':''],['Status',d.status],['No. HP',d.hp],['Email',d.email]].filter(x=>x[1]);
   html+=od.map(x=>`<div style="margin-bottom:2em"><div style="font-weight:bold">${x[0]}</div><div>${E(x[1])}</div></div>`).join('');
-  return`<div style="${a4s()}display:flex;min-height:297mm"><div style="width:35%;background:#f0f0f0;height:100%;padding:20mm 11mm;border-right:2.5px solid #000;box-sizing:border-box">${html}</div><div style="width:65%;padding:20mm 16mm"><div style="font-size:${S.fs+5}pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #000">${E(d.nama)}</div>${pt?prPN(pt):''}${pdC2Y()}${pxC3R()}${khC1R()}</div></div>`}
+
+  /* Sidebar: flex-shrink:0 mencegah kompresi, display:block memastikan flow normal */
+  return`<div style="${a4s()}display:flex"><div style="width:35%;flex-shrink:0;display:block;background:#f0f0f0;padding:20mm 11mm;border-right:2.5px solid #000;box-sizing:border-box">${html}</div><div style="width:65%;padding:20mm 16mm"><div style="font-size:${S.fs+5}pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #000">${E(d.nama)}</div>${pt?prPN(pt):''}${pdC2Y()}${pxC3R()}${khC1R()}</div></div>`;
+}
 
 function gSL(){
   const d=S.dp,s=S.sr,sp=isSp(),tt=isTT();
@@ -284,29 +354,30 @@ function gSL(){
   const pfx=tt?'Fotokopi':'Scan';S.lm.filter(x=>x).forEach(x=>items.push(`${pfx} ${E(x)}`));
   const tl=items.length,lh=items.map((l,i)=>`<div style="padding:1px 0">${i+1}. ${l}</div>`).join('');
   const aptL=[s.apt,s.apt2].filter(Boolean);
-  return`<div style="${a4s()}padding:20mm"><div style="text-align:right;margin-bottom:18px">${E(s.kota)}, ${E(s.tgl)}</div>
-<table style="width:auto;border-collapse:collapse;border-spacing:0;margin:0"><tr><td style="padding:1px 14px 1px 0;white-space:nowrap;text-align:left">Hal</td><td style="padding:1px 4px 1px 0;white-space:nowrap">:</td><td style="padding:1px 0">Lamaran Pekerjaan</td></tr><tr><td style="padding:1px 14px 1px 0;white-space:nowrap;text-align:left">Lampiran</td><td style="padding:1px 4px 1px 0;white-space:nowrap">:</td><td style="padding:1px 0">${tl} lembar</td></tr></table>
-<div style="margin:14px 0 0 0">Kepada Yth,</div>
-<div style="margin-bottom:12px"><div>Bapak/Ibu HRD</div><div>PT. ${E(s.npt)}</div>${aptL[0]?`<div>${E(aptL[0])}</div>`:''}${aptL[1]?`<div>${E(aptL[1])}</div>`:''}</div>
-<div style="margin-bottom:10px">Dengan hormat,</div>
-<p style="text-align:justify;margin-bottom:10px">${op}</p>
-<div style="margin-bottom:10px">Saya yang bertanda tangan di bawah ini:</div>
-<table style="width:auto;border-collapse:collapse;border-spacing:0">${dpH}</table>
-<div style="margin:12px 0">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div>
-<div style="margin-bottom:14px">${lh}</div>
-<p style="text-align:justify;margin-bottom:22px">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</p>
-<div style="text-align:right"><div>Hormat saya,</div><div style="height:55px"></div><div style="font-weight:bold">${E(d.nama)}</div></div>
-</div>`}
+  return`<div style="${a4s()}padding:20mm"><div style="text-align:right;margin-bottom:18px">${E(s.kota)}, ${E(s.tgl)}</div><table style="width:auto;border-collapse:collapse;border-spacing:0;margin:0"><tr><td style="padding:1px 14px 1px 0;white-space:nowrap;text-align:left">Hal</td><td style="padding:1px 4px 1px 0;white-space:nowrap">:</td><td style="padding:1px 0">Lamaran Pekerjaan</td></tr><tr><td style="padding:1px 14px 1px 0;white-space:nowrap;text-align:left">Lampiran</td><td style="padding:1px 4px 1px 0;white-space:nowrap">:</td><td style="padding:1px 0">${tl} lembar</td></tr></table><div style="margin:14px 0 0 0">Kepada Yth,</div><div style="margin-bottom:12px"><div>Bapak/Ibu HRD</div><div>PT. ${E(s.npt)}</div>${aptL[0]?`<div>${E(aptL[0])}</div>`:''}${aptL[1]?`<div>${E(aptL[1])}</div>`:''}</div><div style="margin-bottom:10px">Dengan hormat,</div><p style="text-align:justify;margin-bottom:10px">${op}</p><div style="margin-bottom:10px">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;border-collapse:collapse;border-spacing:0">${dpH}</table><div style="margin:12px 0">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-bottom:14px">${lh}</div><p style="text-align:justify;margin-bottom:22px">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</p><div style="text-align:right"><div>Hormat saya,</div><div style="height:55px"></div><div style="font-weight:bold">${E(d.nama)}</div></div></div>`;
+}
 
 function dlPDF(){
+  if(!hasAny()){toast('Isi minimal satu data terlebih dahulu');return;}
   const b=document.getElementById('dlb');b.disabled=true;b.innerHTML='<i class="fas fa-spinner fa-spin"></i><span class="hidden sm:inline">Memproses...</span>';
-  const pg=document.getElementById('a4p'),cl=pg.cloneNode(true);cl.style.transform='none';cl.style.width='210mm';
+  const pg=document.getElementById('a4p');
+  if(!pg){b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';return;}
+  const cl=pg.cloneNode(true);
+  cl.style.transform='none';cl.style.overflow='visible';cl.style.boxShadow='none';cl.style.width='210mm';
   const ph=cl.querySelector('.ph');if(ph)ph.remove();
   const rd=document.getElementById('pdr');rd.innerHTML='';rd.appendChild(cl);
+  void cl.offsetWidth;
   const nm=S.dp.nama||'Dokumen',tn=TPL.find(t=>t.id===S.tpl)?.nm||'Dokumen';
   const fn=`${tn}_${nm}.pdf`.replace(/\s+/g,'_');
-  setTimeout(()=>{html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',width:cl.offsetWidth,height:cl.offsetHeight},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(cl).save().then(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('PDF berhasil diunduh!')}).catch(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('Gagal mengunduh PDF')})},200);
+  setTimeout(()=>{
+    html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:'legacy'}}).from(cl).save().then(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('PDF berhasil diunduh!');}).catch(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('Gagal mengunduh PDF');});
+  },300);
 }
+
+document.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('sh')){e.preventDefault();tgs(e.target);}
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('tc')){e.preventDefault();e.target.click();}
+});
 
 loadLS();rTC();rF();rPV();
 window.addEventListener('resize',()=>sclP());
