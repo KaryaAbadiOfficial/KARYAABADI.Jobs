@@ -48,7 +48,7 @@ select.fi{cursor:pointer;appearance:auto}
 .mt.on{color:var(--ac);border-bottom-color:var(--ac);background:rgba(220,38,38,.05)}
 @keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .fu{animation:fu .3s ease both}
-.ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#ccc;pointer-events:none}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#ccc;pointer-events:none;z-index:2}
 .rstb{background:none;border:1.5px solid #fecaca;color:#dc2626;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:5px}
 .rstb:hover{background:#fef2f2;border-color:#dc2626}
 .mtgl{cursor:pointer;padding:8px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;transition:.2s}
@@ -133,6 +133,7 @@ body.dark .rstb:hover{background:#3b1111}
 const DS={tpl:'cv01',foto:null,ff:'Times New Roman',fs:11,dp:{nama:'',ttl:'',jk:'',bangsa:'',agama:'',tb:'',bb:'',alamat:'',kec:'',hp:'',status:'',email:'',dusun:'',rtrw:'',desa:''},pr:{lulusan:'',jurusan:''},pd:[{n:'',tl:''},{n:'',tl:''},{n:'',tl:''}],px:[{pt:'',al:'',kp:'',jb:'',tm:'',ts:''}],hs:['','','','','','','',''],ss:['','','','','','',''],sr:{kota:'',tgl:'',lamp:'',npt:'',apt:'',apt2:'',sum:'',pos:'',ptk:'',fpl:'1'},lm:['','','']};
 
 let S=JSON.parse(JSON.stringify(DS));
+let _fitScale=1,_fitting=false;
 
 const TPL=[
   {id:'cv01',tp:'cv',nm:'CV Model 01',ds:'Klasik dengan foto',ic:'fa-id-card'},
@@ -146,11 +147,11 @@ const TPL=[
 
 let _svT=null,_rT=null;
 
-function saveLS(){clearTimeout(_svT);_svT=setTimeout(()=>{try{localStorage.setItem('cvb_v30',JSON.stringify(S))}catch(e){}},400)}
+function saveLS(){clearTimeout(_svT);_svT=setTimeout(()=>{try{localStorage.setItem('cvb_v31',JSON.stringify(S))}catch(e){}},400)}
 
 function loadLS(){
   try{
-    const d=JSON.parse(localStorage.getItem('cvb_v30'));
+    const d=JSON.parse(localStorage.getItem('cvb_v31'));
     if(d&&d.tpl){
       if(!d.sr)d.sr={};if(d.sr.pos===undefined)d.sr.pos='';if(d.sr.fpl===undefined)d.sr.fpl='1';
       if(!d.dp)d.dp={};if(d.dp.rtrw===undefined)d.dp.rtrw='';if(d.dp.dusun===undefined)d.dp.dusun='';if(d.dp.desa===undefined)d.dp.desa='';
@@ -176,12 +177,12 @@ function hasAny(){
 }
 
 function toast(m){const t=document.getElementById('tst');document.getElementById('tsm').textContent=m;t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),2400)}
-function smt(t){document.getElementById('mf').classList.toggle('on',t==='form');document.getElementById('mp').classList.toggle('on',t==='prev');document.getElementById('fp').classList.toggle('hidden',t!=='form');document.getElementById('pp').classList.toggle('hidden',t!=='prev');if(t==='prev')setTimeout(sclP,80)}
+function smt(t){document.getElementById('mf').classList.toggle('on',t==='form');document.getElementById('mp').classList.toggle('on',t==='prev');document.getElementById('fp').classList.toggle('hidden',t!=='form');document.getElementById('pp').classList.toggle('hidden',t!=='prev');if(t==='prev')setTimeout(()=>{autoFit()},80)}
 function tgs(el){el.classList.toggle('cl');el.nextElementSibling.classList.toggle('cl')}
-function adjFS(d){S.fs=Math.max(9,Math.min(16,Math.round((S.fs+d)*10)/10));const i=document.getElementById('fsi');if(i)i.value=S.fs;uP()}
+function adjFS(d){S.fs=Math.max(9,Math.min(16,Math.round((S.fs+d)*10)/10));const i=document.getElementById('fsi');if(i)i.value=S.fs;_fitScale=1;rPV()}
 function cfrmReset(){document.getElementById('rstm').classList.remove('hidden')}
-function doReset(){S=JSON.parse(JSON.stringify(DS));try{localStorage.removeItem('cvb_v30')}catch(e){}document.getElementById('rstm').classList.add('hidden');rTC();rF();rPV();toast('Semua data berhasil direset')}
-function selT(id){S.tpl=id;rTC();rF();rPV();saveLS()}
+function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;try{localStorage.removeItem('cvb_v31')}catch(e){}document.getElementById('rstm').classList.add('hidden');rTC();rF();rPV();toast('Semua data berhasil direset')}
+function selT(id){S.tpl=id;_fitScale=1;rTC();rF();rPV();saveLS()}
 function toggleMode(){document.body.classList.toggle('dark');document.getElementById('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon';setTimeout(sclP,60)}
 
 function rTC(){
@@ -206,7 +207,7 @@ function rF(){
 }
 
 function rDS(){
-  return`<div class="p-4"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-cog text-red-600"></i>Pengaturan Tampilan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-3"><label class="fl">Jenis Font</label><select class="fi" onchange="S.ff=this.value;uP()">${['Times New Roman','Arial','Calibri','Cambria','Garamond'].map(f=>`<option ${S.ff===f?'selected':''}>${f}</option>`).join('')}</select></div><div class="mb-3"><label class="fl">Ukuran Font</label><div class="flex items-center gap-2"><button class="fb" onclick="adjFS(-0.5)" aria-label="Kurangi ukuran font">-</button><input type="number" id="fsi" class="fi text-center" style="width:72px;padding:6px" value="${S.fs}" min="9" max="16" step="0.5" onchange="S.fs=Math.max(9,Math.min(16,parseFloat(this.value)||11));this.value=S.fs;uP()"><button class="fb" onclick="adjFS(0.5)" aria-label="Tambah ukuran font">+</button><span class="text-[11px] text-gray-500 ml-1">pt</span></div></div></div></div>`;
+  return`<div class="p-4"><div class="sh" onclick="tgs(this)" role="button" tabindex="0" aria-expanded="true"><h3><i class="fas fa-cog text-red-600"></i>Pengaturan Tampilan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-3"><label class="fl">Jenis Font</label><select class="fi" onchange="S.ff=this.value;_fitScale=1;uP()">${['Times New Roman','Arial','Calibri','Cambria','Garamond'].map(f=>`<option ${S.ff===f?'selected':''}>${f}</option>`).join('')}</select></div><div class="mb-3"><label class="fl">Ukuran Font</label><div class="flex items-center gap-2"><button class="fb" onclick="adjFS(-0.5)" aria-label="Kurangi ukuran font">-</button><input type="number" id="fsi" class="fi text-center" style="width:72px;padding:6px" value="${S.fs}" min="9" max="16" step="0.5" onchange="S.fs=Math.max(9,Math.min(16,parseFloat(this.value)||11));this.value=S.fs;_fitScale=1;rPV()"><button class="fb" onclick="adjFS(0.5)" aria-label="Tambah ukuran font">+</button><span class="text-[11px] text-gray-500 ml-1">pt</span></div></div></div></div>`;
 }
 
 function rFS(){
@@ -257,8 +258,43 @@ function rPV(){
   const sc=document.getElementById('psr');let h='';
   if(S.tpl==='cv01')h=gCV1();else if(S.tpl==='cv02')h=gCV2();else if(S.tpl==='cv03')h=gCV3();else h=gSL();
   const emp=!hasAny();
-  sc.innerHTML=`<div class="a4" id="a4p">${h}${emp?`<div class="ph"><i class="fas fa-keyboard text-4xl mb-3"></i><p style="font-size:14px;font-weight:600;margin:0">Mulai isi formulir di sebelah kiri</p><p style="font-size:11px;margin:4px 0 0;color:#bbb">Preview akan otomatis diperbarui</p></div>`:''}</div>`;
-  setTimeout(sclP,40);
+  sc.innerHTML=`<div class="a4" id="a4p"><div class="a4-inner" style="zoom:${_fitScale}">${h}${emp?`<div class="ph"><i class="fas fa-keyboard text-4xl mb-3"></i><p style="font-size:14px;font-weight:600;margin:0">Mulai isi formulir di sebelah kiri</p><p style="font-size:11px;margin:4px 0 0;color:#bbb">Preview akan otomatis diperbarui</p></div>`:''}</div></div>`;
+  setTimeout(autoFit,40);
+}
+
+/* === AUTO FIT: otomatis sesuaikan zoom agar muat tepat 1 lembar A4 === */
+function autoFit(){
+  if(_fitting)return;
+  _fitting=true;
+  requestAnimationFrame(()=>{
+    const a4=document.getElementById('a4p');
+    if(!a4||!hasAny()){_fitScale=1;_fitting=false;sclP();return}
+    const inner=a4.firstElementChild;
+    if(!inner){_fitting=false;sclP();return}
+
+    /* Ukur tinggi alami konten */
+    inner.style.zoom='1';
+    a4.style.height='297mm';
+    a4.style.overflow='hidden';
+    void a4.offsetHeight;
+
+    const totalH=a4.scrollHeight;
+    const boxH=a4.offsetHeight;
+
+    a4.style.height='';
+    a4.style.overflow='';
+
+    if(totalH<=boxH+2){
+      inner.style.zoom='1';
+      _fitScale=1;
+    }else{
+      const scale=Math.max(0.45,(boxH-2)/totalH);
+      inner.style.zoom=scale;
+      _fitScale=scale;
+    }
+    _fitting=false;
+    sclP();
+  });
 }
 
 function sclP(){
@@ -308,37 +344,18 @@ function gCV2(){
   return`<div style="${a4s()}padding:20mm"><table style="width:100%;border-collapse:collapse;border-spacing:0;margin-bottom:8px"><tr><td style="vertical-align:top;width:70%">${d.nama?`<div style="font-size:${S.fs+4}pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">${E(d.nama)}</div>`:''}${info}</td><td style="vertical-align:top;width:30%;text-align:right;padding-left:10mm;padding-top:2mm">${S.foto?ftMM():''}</td></tr></table>${pt?`${sT('PROFIL')}${prP(pt)}`:''}${pdC3()}${pxC3()}${khC3()}</div>`;
 }
 
-/* === CV 03 — FIX: Alamat sidebar pakai <div> terpisah dengan display:block eksplisit === */
 function gCV3(){
   const d=S.dp,pt=prT();let html='';
   if(S.foto)html+=`<div style="text-align:center;margin-bottom:3em">${ftMM()}</div>`;
   if(d.ttl)html+=`<div style="margin-bottom:2em"><div style="font-weight:bold">Tempat, Tanggal Lahir</div><div>${E(d.ttl)}</div></div>`;
-
-  /* Alamat — setiap baris = <div> sendiri dengan display:block eksplisit,
-     dipisahkan dari container parent flex agar tidak saling menempel */
   const almLines=[];
-  if(d.dusun) almLines.push(E(d.dusun));
-  if(d.rtrw) almLines.push(E(d.rtrw));
-  if(d.desa) almLines.push(E(d.desa));
-  /* Pisahkan kec per koma, trim spasi di awal/akhir saja, biarkan spasi tengah utuh */
-  if(d.kec){
-    d.kec.split(',').forEach(function(part){
-      var trimmed = part.replace(/^\s+|\s+$/g, '');
-      if(trimmed) almLines.push(E(trimmed));
-    });
-  }
-  if(almLines.length){
-    html+=`<div style="margin-bottom:2em"><div style="font-weight:bold">Alamat</div>`;
-    for(var ai=0;ai<almLines.length;ai++){
-      html+=`<div style="display:block;clear:both">${almLines[ai]}</div>`;
-    }
-    html+=`</div>`;
-  }
-
+  if(d.dusun)almLines.push(E(d.dusun));
+  if(d.rtrw)almLines.push(E(d.rtrw));
+  if(d.desa)almLines.push(E(d.desa));
+  if(d.kec){d.kec.split(',').forEach(function(part){var trimmed=part.replace(/^\s+|\s+$/g,'');if(trimmed)almLines.push(E(trimmed))})}
+  if(almLines.length){html+=`<div style="margin-bottom:2em"><div style="font-weight:bold">Alamat</div>`;for(var ai=0;ai<almLines.length;ai++){html+=`<div style="display:block;clear:both">${almLines[ai]}</div>`}html+=`</div>`}
   const od=[['Jenis Kelamin',d.jk],['Bangsa',d.bangsa],['Agama',d.agama],['Tinggi Badan',d.tb?d.tb+' cm':''],['Berat Badan',d.bb?d.bb+' kg':''],['Status',d.status],['No. HP',d.hp],['Email',d.email]].filter(x=>x[1]);
   html+=od.map(x=>`<div style="margin-bottom:2em"><div style="font-weight:bold">${x[0]}</div><div>${E(x[1])}</div></div>`).join('');
-
-  /* Sidebar: flex-shrink:0 mencegah kompresi, display:block memastikan flow normal */
   return`<div style="${a4s()}display:flex"><div style="width:35%;flex-shrink:0;display:block;background:#f0f0f0;padding:20mm 11mm;border-right:2.5px solid #000;box-sizing:border-box">${html}</div><div style="width:65%;padding:20mm 16mm"><div style="font-size:${S.fs+5}pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #000">${E(d.nama)}</div>${pt?prPN(pt):''}${pdC2Y()}${pxC3R()}${khC1R()}</div></div>`;
 }
 
@@ -363,14 +380,19 @@ function dlPDF(){
   const pg=document.getElementById('a4p');
   if(!pg){b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';return;}
   const cl=pg.cloneNode(true);
-  cl.style.transform='none';cl.style.overflow='visible';cl.style.boxShadow='none';cl.style.width='210mm';
+  cl.style.transform='none';
+  cl.style.overflow='hidden';
+  cl.style.boxShadow='none';
+  cl.style.width='210mm';
+  /* Paksa tinggi tepat A4 agar PDF selalu 1 lembar */
+  cl.style.height='297mm';
   const ph=cl.querySelector('.ph');if(ph)ph.remove();
   const rd=document.getElementById('pdr');rd.innerHTML='';rd.appendChild(cl);
   void cl.offsetWidth;
   const nm=S.dp.nama||'Dokumen',tn=TPL.find(t=>t.id===S.tpl)?.nm||'Dokumen';
   const fn=`${tn}_${nm}.pdf`.replace(/\s+/g,'_');
   setTimeout(()=>{
-    html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:'legacy'}}).from(cl).save().then(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('PDF berhasil diunduh!');}).catch(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('Gagal mengunduh PDF');});
+    html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:'avoid-all'}}).from(cl).save().then(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('PDF berhasil diunduh!');}).catch(()=>{rd.innerHTML='';b.disabled=false;b.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';toast('Gagal mengunduh PDF');});
   },300);
 }
 
