@@ -161,8 +161,8 @@ var _fitScale=1,_fitting=false,_activeCat='cv',_curPad=20,_cv3Pad=null,_svT=null
 var CATS=[{id:'cv',label:'CV',icon:'fa-file-lines'},{id:'sl',label:'Surat Melamar Pekerjaan',icon:'fa-envelope'}];
 var TPL=[{id:'cv01',cat:'cv',nm:'CV Model 01',ds:'Klasik dengan foto',ic:'fa-id-card'},{id:'cv02',cat:'cv',nm:'CV Model 02',ds:'Modern minimalis',ic:'fa-user-tie'},{id:'cv03',cat:'cv',nm:'CV Model 03',ds:'Layout sidebar',ic:'fa-table-columns'},{id:'sl-os',cat:'sl',nm:'via Email (Posisi)',ds:'Lowongan spesifik',ic:'fa-envelope-open-text'},{id:'sl-ou',cat:'sl',nm:'via Email (Umum)',ds:'Tanpa posisi',ic:'fa-at'},{id:'sl-ts',cat:'sl',nm:'Tertulis (Posisi)',ds:'Tulis tangan spesifik',ic:'fa-pen-fancy'},{id:'sl-tu',cat:'sl',nm:'Tertulis (Umum)',ds:'Tulis tangan umum',ic:'fa-pen-nib'}];
 function $(id){return document.getElementById(id)}
-function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v50',JSON.stringify(S))}catch(e){}},500)}
-function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v50'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
+function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v51',JSON.stringify(S))}catch(e){}},500)}
+function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v51'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
 function V(x){return x||''}
 function E(x){return(x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function tplOf(id){return TPL.find(function(t){return t.id===id})}
@@ -176,7 +176,7 @@ function smt(t){$('mf').classList.toggle('on',t==='form');$('mp').classList.togg
 function tgs(el){el.classList.toggle('cl');el.nextElementSibling.classList.toggle('cl')}
 function adjSP(d){S.sp=Math.max(6,Math.min(28,S.sp+d));var i=$('spi');if(i)i.value=S.sp;_fitScale=1;rPV();saveLS()}
 function cfrmReset(){$('rstm').classList.remove('hidden')}
-function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v50')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
+function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v51')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
 function selT(id){S.tpl=id;_fitScale=1;_curPad=20;_cv3Pad=null;rTC();rF();rPV();saveLS()}
 function toggleMode(){document.body.classList.toggle('dark');$('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon';setTimeout(sclP,60)}
 function rTC(){var isCVA=_activeCat==='cv';$('catTabs').innerHTML=CATS.map(function(c){var a=c.id===_activeCat;return'<button class="'+(c.id==='cv'?(a?'ctab cv-a':'ctab cv-i'):(a?'ctab sl-a':'ctab sl-i'))+'" onclick="swCat(\''+c.id+'\')"><i class="fas '+c.icon+' mr-1.5"></i>'+c.label+'</button>'}).join('');var items=TPL.filter(function(t){return t.cat===_activeCat});var onCls=isCVA?'on-red':'on-wh';var icC=isCVA?'text-red-600':'text-gray-700';$('tc').innerHTML=items.map(function(t){return'<div class="tc '+(t.id===S.tpl?onCls:'')+'" onclick="selT(\''+t.id+'\')" role="button" tabindex="0"><div class="th"><i class="fas '+t.ic+' text-2xl sm:text-3xl '+(t.id===S.tpl?icC:'text-gray-400')+'"></i></div><h4 class="font-bold text-[10px] sm:text-[11px] leading-tight dark:text-white">'+t.nm+'</h4><p class="text-[8.5px] sm:text-[9.5px] text-gray-400 mt-1">'+t.ds+'</p></div>'}).join('')}
@@ -194,7 +194,6 @@ function hFT(inp){var f=inp.files[0];if(!f)return;var rd=new FileReader();rd.onl
 function rmFT(){S.foto=null;rF();uP()}
 function uP(){clearTimeout(_rT);_rT=setTimeout(function(){var c=$('psc');if(!c)return;var st=c.scrollTop;rPV();c.scrollTop=st;saveLS()},100)}
 
-/* ★ PERBAIKAN: CV3 tidak pakai wrapper padding (padding sudah di dalam gCV3) */
 function rPV(){
     var sc=$('psr');
     var h='';
@@ -208,7 +207,6 @@ function rPV(){
     requestAnimationFrame(autoFit);
 }
 
-/* ★ PERBAIKAN: autoFit untuk CV3 pastikan wrapper padding = 0, tambah level lebih agresif */
 function autoFit(){
     if(_fitting)return;
     _fitting=true;
@@ -226,7 +224,6 @@ function autoFit(){
                 if(a4.scrollHeight<=a4.offsetHeight+2){_curPad=p;fit=true;break}
             }
         }else{
-            /* ★ CV3: wrapper TANPA padding, padding hanya di sidebar & main */
             inner.style.padding='0mm';
             var sb=inner.querySelector('[data-cv3="sb"]'),mn=inner.querySelector('[data-cv3="mn"]');
             var lvls=[
@@ -257,7 +254,6 @@ function autoFit(){
     });
 }
 
-/* ★ PERBAIKAN: showOV cek langsung scrollHeight vs offsetHeight */
 function showOV(a4){
     var w=document.getElementById('ovfw');
     if(!w){w=document.createElement('div');w.id='ovfw';w.className='ovfw';a4.appendChild(w)}
@@ -306,7 +302,6 @@ function gCV1(){
 
 function gCV2(){var d=S.dp,pt=prT();var info='';function infoL(t){if(t)info+='<div style="font-size:11pt;color:#444;margin-bottom:3px">'+t+'</div>'}infoL(E(d.ttl));var l2=[d.jk,d.bangsa,d.agama,d.tb?d.tb+' cm':'',d.bb?d.bb+' kg':''].filter(Boolean).join('  |  ');infoL(l2);infoL(E(d.alamat));var a1=[d.dusun,d.rtrw].filter(Boolean).join('  |  ');infoL(a1);var a2=[d.desa,d.kec].filter(Boolean).join('  |  ');infoL(a2);var l5=[d.hp?'No. Hp '+E(d.hp):'',d.status].filter(Boolean).join('  |  ');infoL(l5);infoL(E(d.email));return'<div style="'+a4s()+'"><table style="width:100%;border-collapse:collapse;margin-bottom:10px"><tr><td style="vertical-align:top;width:70%">'+(d.nama?'<div style="font-size:16pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">'+E(d.nama)+'</div>':'')+info+'</td><td style="vertical-align:top;width:30%;text-align:right;padding-left:8mm;padding-top:2mm">'+(S.foto?ftMM():'')+'</td></tr></table>'+(pt?sT('PROFIL')+prPN(pt):'')+pdC3()+pxC3()+khC3()+'</div>'}
 
-/* ★ PERBAIKAN: gCV3 terima parameter padOverride agar PDF bisa pakai padding berbeda */
 function gCV3(padO){
     var d=S.dp,pt=prT();
     var pad=padO||_cv3Pad||[20,11,20,16];
@@ -338,7 +333,37 @@ function gSL(){
     return'<div style="'+a4s()+'"><div style="text-align:right;margin-bottom:18px">'+E(s.kota)+', '+E(s.tgl)+'</div><table style="width:auto;border-collapse:collapse;margin:0"><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Hal</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">Lamaran Pekerjaan</td></tr><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Lampiran</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+tl+' lembar</td></tr></table><div style="margin:14px 0 0 0">Kepada Yth,</div><div style="margin-bottom:12px"><div>Bapak/Ibu HRD</div><div>PT. '+E(s.npt)+'</div>'+(ap[0]?'<div>'+E(ap[0])+'</div>':'')+(ap[1]?'<div>'+E(ap[1])+'</div>':'')+'</div><div style="margin-bottom:10px">Dengan hormat,</div><p style="text-align:justify;margin-bottom:10px">'+op+'</p><div style="margin-bottom:10px">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;border-collapse:collapse">'+dpH+'</table><div style="margin:12px 0">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-bottom:14px">'+lh+'</div><p style="text-align:justify;margin-bottom:22px">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</p><div style="text-align:right"><div>Hormat saya,</div><div style="height:55px"></div><div style="font-weight:bold">'+E(d.nama)+'</div></div></div>';
 }
 
-/* ★ PERBAIKAN TOTAL: PDF tidak clone, generate konten segar tanpa zoom */
+/* ============================================================
+   CV3 VERSI TABLE — khusus untuk PDF (html2canvas tidak
+   mendukung flexbox dengan baik, jadi kita pakai <table>)
+   ============================================================ */
+function gCV3PDF(pad){
+    var d=S.dp,pt=prT();
+    var p=pad||[20,11,20,16];
+    var sbH='';
+    if(S.foto)sbH+='<tr><td colspan="2" style="text-align:center;padding:0 0 10px 0">'+ftMM()+'</td></tr>';
+    function sbi(l,v){if(!v)return'';return'<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">'+E(v)+'</td></tr>'}
+    function sbm(l,lines){if(!lines.length)return'';var h='<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">';lines.forEach(function(ln,i){if(i>0)h+='<br>';h+=E(ln)});h+='</td></tr>';return h}
+    sbH+=sbi('Tempat, Tanggal Lahir',d.ttl);
+    var al=[];if(d.alamat){var di=d.alamat.indexOf('Ds.');if(di!==-1){var b=d.alamat.substring(0,di).replace(/\s+$/,''),a=d.alamat.substring(di);if(b)al.push(b);if(a)al.push(a.replace(/^\s+/,''))}else al.push(d.alamat)}if(d.dusun)al.push(d.dusun);if(d.rtrw)al.push(d.rtrw);if(d.desa)al.push(d.desa);if(d.kec)d.kec.split(',').forEach(function(x){var t=x.replace(/^\s+|\s+$/g,'');if(t)al.push(t)});
+    sbH+=sbm('Alamat',al);
+    sbH+=sbi('Jenis Kelamin',d.jk);sbH+=sbi('Bangsa',d.bangsa);sbH+=sbi('Agama',d.agama);
+    sbH+=sbi('Tinggi Badan',d.tb?d.tb+' cm':'');sbH+=sbi('Berat Badan',d.bb?d.bb+' kg':'');
+    sbH+=sbi('Status',d.status);sbH+=sbi('No. HP',d.hp);sbH+=sbi('Email',d.email);
+
+    var mnH='<div style="font-size:17pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #000">'+E(d.nama)+'</div>';
+    if(pt)mnH+=prPN(pt);
+    mnH+=pdC2Y();mnH+=pxC3R();mnH+=khC1R();
+
+    return'<table style="width:100%;border-collapse:collapse;'+a4s()+'"><tr>'+
+        '<td style="width:35%;vertical-align:top;background:#f0f0f0;padding:'+p[0]+'mm '+p[1]+'mm;border-right:2.5px solid #000">'+sbH+'</td>'+
+        '<td style="width:65%;vertical-align:top;padding:'+p[2]+'mm '+p[3]+'mm">'+mnH+'</td>'+
+        '</tr></table>';
+}
+
+/* ============================================================
+   PDF DOWNLOAD — diperbaiki total
+   ============================================================ */
 function dlPDF(){
     if(!hasAny()){toast('Isi minimal satu data terlebih dahulu');return}
     if(typeof html2pdf==='undefined'){
@@ -353,46 +378,85 @@ function dlPDF(){
     var btn=$('dlb');
     btn.disabled=true;
     btn.innerHTML='<i class="fas fa-spinner fa-spin"></i><span class="hidden sm:inline">Memproses...</span>';
-    setTimeout(function(){try{_doPDF(btn)}catch(e){console.error('PDF:',e);_rstBtn(btn);toast('Gagal mengunduh PDF')}},80);
+    setTimeout(function(){
+        (document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+            try{_doPDF(btn)}catch(e){console.error('PDF:',e);_rstBtn(btn);toast('Gagal mengunduh PDF')}
+        });
+    },80);
 }
 function _rstBtn(btn){btn.disabled=false;btn.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>'}
 
 function _doPDF(btn){
-    /* Ukuran A4 dalam pixel (96dpi) */
+    /* Dimensi A4 dalam pixel (96 dpi) */
     var A4W=794,A4H=1123;
     var isCV3=S.tpl==='cv03';
 
-    /* Buat container segar di viewport (bukan off-screen!) */
+    /* Simpan state asli agar bisa di-restore */
+    var origFS=FS,origFSH=FSH,origPad=_curPad;
+
+    /* Buat container dan TAMBAHKAN KE DOM — wajib agar html2canvas
+       bisa menghitung layout (computed style) dengan benar */
     var c=document.createElement('div');
-    c.style.cssText='width:'+A4W+'px;height:'+A4H+'px;background:#fff;color:#000;position:fixed;top:0;left:0;z-index:-10;overflow:hidden;pointer-events:none;';
+    c.style.cssText='width:'+A4W+'px;height:'+A4H+'px;background:#fff;color:#000;position:fixed;top:0;left:0;z-index:-9999;overflow:hidden;pointer-events:none;';
+    document.body.appendChild(c);
 
-    /* Generate konten segar — tanpa zoom, tanpa wrapper padding untuk CV3 */
-    var html='';
-    if(S.tpl==='cv01')html=gCV1();
-    else if(S.tpl==='cv02')html=gCV2();
-    else if(isCV3)html=gCV3();
-    else html=gSL();
-
-    if(isCV3){
-        c.innerHTML=html;
-    }else{
-        c.innerHTML='<div style="padding:'+_curPad+'mm">'+html+'</div>';
-    }
-
-    /* Pastikan tidak ada zoom tersisa */
-    c.querySelectorAll('*').forEach(function(el){
-        if(el.style.zoom)el.style.zoom='1';
-    });
-
-    void c.offsetHeight;
-
-    /* Cek overflow dan atur agar muat */
-    _fitPDF(c,html,isCV3);
+    /* Scroll ke atas supaya elemen fixed di posisi yang benar */
+    var origScrollY=window.scrollY;
+    window.scrollTo(0,0);
 
     var nm=S.dp.nama||'Dokumen';
     var tn=tplOf(S.tpl)?tplOf(S.tpl).nm:'Dokumen';
     var fn=(tn+'_'+nm).replace(/\s+/g,'_')+'.pdf';
 
+    /* Helper: generate HTML dan render ke container, return true jika muat */
+    function tryRender(padArg){
+        var html='';
+        if(S.tpl==='cv01')html=gCV1();
+        else if(S.tpl==='cv02')html=gCV2();
+        else if(isCV3)html=gCV3PDF(padArg);
+        else html=gSL();
+
+        if(!isCV3){
+            c.innerHTML='<div style="padding:'+_curPad+'mm">'+html+'</div>';
+        }else{
+            c.innerHTML=html;
+        }
+        void c.offsetHeight;
+        return c.scrollHeight<=A4H+2;
+    }
+
+    var ok=false;
+
+    /* --- Strategi 1: pakai pengaturan saat ini --- */
+    ok=tryRender(isCV3?[20,11,20,16]:null);
+
+    /* --- Strategi 2: kurangi padding saja --- */
+    if(!ok){
+        if(!isCV3){
+            var pads=[15,12,10,8,5,3];
+            for(var i=0;i<pads.length;i++){_curPad=pads[i];if(tryRender(null)){ok=true;break}}
+        }else{
+            var lvls=[[16,9,16,13],[13,8,13,11],[10,7,10,9],[8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3]];
+            for(var i=0;i<lvls.length;i++){if(tryRender(lvls[i])){ok=true;break}}
+        }
+    }
+
+    /* --- Strategi 3: perkecil font + kurangi padding --- */
+    if(!ok){
+        var fSizes=[11,10.5,10,9.5,9];
+        for(var fi=0;fi<fSizes.length;fi++){
+            FS=fSizes[fi];FSH=FS+1;
+            if(!isCV3){
+                _curPad=[12,10,8,5,3][Math.min(fi,4)];
+                if(tryRender(null)){ok=true;break}
+            }else{
+                var p3=[[10,6,10,8],[8,5,8,6],[6,4,6,5],[4,3,4,3],[3,2,3,2]][Math.min(fi,4)];
+                if(tryRender(p3)){ok=true;break}
+            }
+        }
+    }
+
+    /* Generate PDF dari container yang sudah di-DOM */
     html2pdf().set({
         margin:0,
         filename:fn,
@@ -403,56 +467,25 @@ function _doPDF(btn){
             backgroundColor:'#ffffff',
             width:A4W,
             height:A4H,
-            logging:false
+            logging:false,
+            scrollX:0,
+            scrollY:0
         },
         jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
         pagebreak:{mode:['avoid-all','css','legacy']}
     }).from(c).save().then(function(){
-        if(c.parentNode)document.body.removeChild(c);
+        /* Bersihkan */
+        document.body.removeChild(c);
+        window.scrollTo(0,origScrollY);
+        FS=origFS;FSH=origFSH;_curPad=origPad;
         _rstBtn(btn);toast('PDF berhasil diunduh!');
-    }).catch(function(e){
-        console.error('PDF save error:',e);
+    }).catch(function(err){
+        console.error('PDF save error:',err);
         if(c.parentNode)document.body.removeChild(c);
+        window.scrollTo(0,origScrollY);
+        FS=origFS;FSH=origFSH;_curPad=origPad;
         _rstBtn(btn);toast('Gagal mengunduh PDF');
     });
-}
-
-/* ★ Fungsi fitting khusus PDF: coba kurangi padding, lalu scale sebagai last resort */
-function _fitPDF(c,html,isCV3){
-    if(c.scrollHeight<=c.clientHeight+2)return;
-
-    if(!isCV3){
-        /* Template biasa: kurangi padding wrapper */
-        var pads=[15,12,10,8,5,3];
-        for(var i=0;i<pads.length;i++){
-            c.innerHTML='<div style="padding:'+pads[i]+'mm">'+html+'</div>';
-            void c.offsetHeight;
-            if(c.scrollHeight<=c.clientHeight+2)return;
-        }
-        /* Last resort: scale transform */
-        c.innerHTML='<div style="padding:3mm">'+html+'</div>';
-        void c.offsetHeight;
-        _applyScale(c.firstElementChild,c);
-    }else{
-        /* CV3: coba level padding yang lebih kecil */
-        var lvls=[[16,9,16,13],[13,8,13,11],[10,7,10,9],[8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3],[2,1.5,2,2]];
-        for(var i=0;i<lvls.length;i++){
-            c.innerHTML=gCV3(lvls[i]);
-            void c.offsetHeight;
-            if(c.scrollHeight<=c.clientHeight+2)return;
-        }
-        /* Last resort: scale dengan padding minimum */
-        c.innerHTML=gCV3([2,1.5,2,2]);
-        void c.offsetHeight;
-        _applyScale(c.firstElementChild,c);
-    }
-}
-
-function _applyScale(el,container){
-    var sc=Math.max(0.4,(container.clientHeight-2)/container.scrollHeight);
-    el.style.transform='scale('+sc+')';
-    el.style.transformOrigin='top left';
-    el.style.width=(100/sc)+'%';
 }
 
 document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')){if(e.target.classList.contains('sh')){e.preventDefault();tgs(e.target)}if(e.target.classList.contains('tc')||e.target.classList.contains('ctab')){e.preventDefault();e.target.click()}}});
