@@ -93,16 +93,15 @@ body.dark .rstb:hover{background:#3b1111}
 
 /* PDF Generation Container - Hidden from View */
 #pdf-wrapper {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: -9999px;
     width: 210mm;
     min-height: 297mm;
     background: #ffffff;
     color: #000000;
-    z-index: -1000;
-    overflow: hidden;
-    box-sizing: border-box;
+    z-index: 10000; /* Very high z-index to ensure visibility to renderer */
+    overflow: visible;
 }
 </style>
 </head>
@@ -135,7 +134,7 @@ body.dark .rstb:hover{background:#3b1111}
 
 <div class="flex lg:hidden border-b" style="background:var(--cd);border-color:var(--bd)">
   <button class="mt on" id="mf" onclick="smt('form')"><i class="fas fa-edit mr-1"></i>Formulir</button>
-  <button class="mt" id="mp" onclick="smt('prev')"><i class="fas fa-eye mr-1"></i>Preview</button>
+  <button class="mt" id="mp" onclick="smt('preview')"><i class="fas fa-eye mr-1"></i>Preview</button>
 </div>
 
 <div class="max-w-[1740px] mx-auto px-4 sm:px-5 py-4 flex flex-col lg:flex-row gap-4">
@@ -177,8 +176,8 @@ var _fitScale=1,_fitting=false,_activeCat='cv',_curPad=20,_cv3Pad=null,_svT=null
 var CATS=[{id:'cv',label:'CV',icon:'fa-file-lines'},{id:'sl',label:'Surat Melamar Pekerjaan',icon:'fa-envelope'}];
 var TPL=[{id:'cv01',cat:'cv',nm:'CV Model 01',ds:'Klasik dengan foto',ic:'fa-id-card'},{id:'cv02',cat:'cv',nm:'CV Model 02',ds:'Modern minimalis',ic:'fa-user-tie'},{id:'cv03',cat:'cv',nm:'CV Model 03',ds:'Layout sidebar',ic:'fa-table-columns'},{id:'sl-os',cat:'sl',nm:'via Email (Posisi)',ds:'Lowongan spesifik',ic:'fa-envelope-open-text'},{id:'sl-ou',cat:'sl',nm:'via Email (Umum)',ds:'Tanpa posisi',ic:'fa-at'},{id:'sl-ts',cat:'sl',nm:'Tertulis (Posisi)',ds:'Tulis tangan spesifik',ic:'fa-pen-fancy'},{id:'sl-tu',cat:'sl',nm:'Tertulis (Umum)',ds:'Tulis tangan umum',ic:'fa-pen-nib'}];
 function $(id){return document.getElementById(id)}
-function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v52',JSON.stringify(S))}catch(e){}},500)}
-function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v52'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
+function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v53',JSON.stringify(S))}catch(e){}},500)}
+function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v53'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
 function V(x){return x||''}
 function E(x){return(x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function tplOf(id){return TPL.find(function(t){return t.id===id})}
@@ -192,7 +191,7 @@ function smt(t){$('mf').classList.toggle('on',t==='form');$('mp').classList.togg
 function tgs(el){el.classList.toggle('cl');el.nextElementSibling.classList.toggle('cl')}
 function adjSP(d){S.sp=Math.max(6,Math.min(28,S.sp+d));var i=$('spi');if(i)i.value=S.sp;_fitScale=1;rPV();saveLS()}
 function cfrmReset(){$('rstm').classList.remove('hidden')}
-function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v52')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
+function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v53')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
 function selT(id){S.tpl=id;_fitScale=1;_curPad=20;_cv3Pad=null;rTC();rF();rPV();saveLS()}
 function toggleMode(){document.body.classList.toggle('dark');$('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon';setTimeout(sclP,60)}
 function rTC(){var isCVA=_activeCat==='cv';$('catTabs').innerHTML=CATS.map(function(c){var a=c.id===_activeCat;return'<button class="'+(c.id==='cv'?(a?'ctab cv-a':'ctab cv-i'):(a?'ctab sl-a':'ctab sl-i'))+'" onclick="swCat(\''+c.id+'\')"><i class="fas '+c.icon+' mr-1.5"></i>'+c.label+'</button>'}).join('');var items=TPL.filter(function(t){return t.cat===_activeCat});var onCls=isCVA?'on-red':'on-wh';var icC=isCVA?'text-red-600':'text-gray-700';$('tc').innerHTML=items.map(function(t){return'<div class="tc '+(t.id===S.tpl?onCls:'')+'" onclick="selT(\''+t.id+'\')" role="button" tabindex="0"><div class="th"><i class="fas '+t.ic+' text-2xl sm:text-3xl '+(t.id===S.tpl?icC:'text-gray-400')+'"></i></div><h4 class="font-bold text-[10px] sm:text-[11px] leading-tight dark:text-white">'+t.nm+'</h4><p class="text-[8.5px] sm:text-[9.5px] text-gray-400 mt-1">'+t.ds+'</p></div>'}).join('')}
@@ -350,7 +349,7 @@ function gSL(){
 }
 
 /* ============================================================
-   PDF ENGINE - ROBUST VERSION
+   PDF ENGINE - FINAL FIX (Async & Wait for Images)
    ============================================================ */
 function dlPDF(){
     if(!hasAny()){toast('Isi minimal satu data terlebih dahulu');return}
@@ -367,7 +366,6 @@ function dlPDF(){
     btn.disabled=true;
     btn.innerHTML='<i class="fas fa-spinner fa-spin"></i><span class="hidden sm:inline">Memproses...</span>';
     
-    // Timeout to allow UI to update (show spinner)
     setTimeout(function(){
         (document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
             try{processPDF(btn)}catch(e){console.error(e);resetBtn(btn);toast('Terjadi kesalahan sistem')}
@@ -387,89 +385,96 @@ function processPDF(btn){
     var tn = tplOf(S.tpl) ? tplOf(S.tpl).nm : 'Dokumen';
     var fn = (tn + '_' + nm).replace(/\s+/g, '_') + '.pdf';
     
+    // Function to wait for images inside the wrapper to load
+    var waitForImages = function(element) {
+        var images = element.getElementsByTagName('img');
+        var promises = [];
+        for(var i=0; i<images.length; i++) {
+            if(!images[i].complete) {
+                promises.push(new Promise(function(resolve) {
+                    images[i].onload = resolve;
+                    images[i].onerror = resolve; // Proceed even if image fails
+                }));
+            }
+        }
+        return Promise.all(promises);
+    };
+
     // Helper to generate HTML and fit it
     function renderAndFit(paddingVal, fontSizeVal) {
-        // Temporarily set global font size variables
         var oldFS = FS, oldFSH = FSH;
-        FS = fontSizeVal;
-        FSH = fontSizeVal + 1;
+        FS = fontSizeVal; FSH = fontSizeVal + 1;
         
         var html = '';
         if(S.tpl === 'cv01') html = gCV1();
         else if(S.tpl === 'cv02') html = gCV2();
-        else if(isCV3) html = gCV3PDF(); // Use table version for CV03
+        else if(isCV3) html = gCV3PDF(); 
         else html = gSL();
         
-        wrapper.innerHTML = '<div style="padding:'+paddingVal+'mm;box-sizing:border-box;min-height:297mm;">' + html + '</div>';
+        wrapper.innerHTML = '<div id="pdf-content" style="padding:'+paddingVal+'mm;box-sizing:border-box;min-height:297mm;">' + html + '</div>';
         
         // Force reflow
         void wrapper.offsetHeight;
         
-        var fits = wrapper.scrollHeight <= 1125; // 297mm approx 1123-1125px at 96dpi
-        
-        // Restore font size
         FS = oldFS; FSH = oldFSH;
-        return fits;
+        return wrapper.scrollHeight <= 1125;
     }
 
-    // STRATEGY 1: Try current user settings (estimated)
-    // Default padding 20mm, Font 12
+    // 1. Try Default
     var ok = renderAndFit(20, 12);
-
-    // STRATEGY 2: Reduce Padding
+    // 2. Reduce Padding
     if(!ok) {
         var pads = [15, 12, 10, 8, 5, 3];
         for(var i=0; i<pads.length; i++) {
             if(renderAndFit(pads[i], 12)) { ok = true; break; }
         }
     }
-
-    // STRATEGY 3: Reduce Font and Padding
+    // 3. Reduce Font & Padding
     if(!ok) {
         var fSizes = [11, 10.5, 10, 9.5, 9];
         for(var j=0; j<fSizes.length; j++) {
-            // Corresponding padding gets smaller as font gets smaller
             var p = [12, 10, 8, 6, 4][j]; 
             if(renderAndFit(p, fSizes[j])) { ok = true; break; }
         }
     }
-    
-    // If still not ok, we proceed anyway with the smallest settings to minimize overflow
-    if(!ok) {
-        renderAndFit(3, 9);
-    }
+    if(!ok) renderAndFit(3, 9);
 
-    // Generate PDF options
-    var opt = {
-        margin: 0,
-        filename: fn,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-            scale: 2, // High res
-            useCORS: true,
-            logging: false,
-            scrollY: 0,
-            windowWidth: 794 // Force A4 width calculation
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'] }
-    };
+    // 4. WAIT FOR IMAGES AND RENDER
+    // This is the fix for empty PDFs. We wait for images to load inside the hidden wrapper.
+    waitForImages(wrapper).then(function() {
+        // Give browser a moment to paint the loaded images
+        setTimeout(function() {
+            var opt = {
+                margin: 0,
+                filename: fn,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false,
+                    scrollY: -window.scrollY, // Capture relative to viewport
+                    windowWidth: 794 
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'] }
+            };
 
-    // Save
-    html2pdf().set(opt).from(wrapper).save().then(function(){
-        resetBtn(btn);
-        toast('PDF berhasil diunduh!');
-    }).catch(function(err){
-        console.error(err);
-        resetBtn(btn);
-        toast('Gagal mengunduh PDF');
+            html2pdf().set(opt).from(wrapper).save().then(function(){
+                resetBtn(btn);
+                toast('PDF berhasil diunduh!');
+            }).catch(function(err){
+                console.error(err);
+                resetBtn(btn);
+                toast('Gagal mengunduh PDF');
+            });
+        }, 500); // 500ms delay to ensure rendering is complete
     });
 }
 
 /* Special Table-based Generator for CV03 to ensure PDF stability */
 function gCV3PDF(){
     var d=S.dp,pt=prT();
-    var p = [20, 11, 20, 16]; // Default padding
+    var p = [20, 11, 20, 16]; 
     
     var sbH='';
     if(S.foto) sbH+='<tr><td colspan="2" style="text-align:center;padding:0 0 10px 0">'+ftMM()+'</td></tr>';
