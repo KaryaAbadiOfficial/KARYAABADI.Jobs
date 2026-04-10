@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KARYA ABADI - CV Builder (Fixed PDF)</title>
+<title>KARYA ABADI - CV Builder (Final Fix)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -91,17 +91,20 @@ body.dark .rstb:hover{background:#3b1111}
 @media(max-width:640px){.tc{width:100px;padding:10px 6px}.tc .th{margin-bottom:6px}.tc h4{font-size:10px;line-height:1.2}.tc p{font-size:8.5px}.fi{padding:9px 12px;font-size:12px}.sh{padding:12px 0}.sh h3{font-size:12px}.pb{width:80px}.ctab{padding:7px 12px;font-size:11px}.ovfw{font-size:9px;padding:5px 10px;bottom:5px}}
 @media(min-width:641px) and (max-width:1023px){.tc{width:108px}}
 
-/* PDF Generation Container - Hidden from View */
+/* CRITICAL PDF FIX */
 #pdf-wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: -9999px;
-    width: 210mm;
-    min-height: 297mm;
+    left: 0;
+    width: 794px; /* A4 width at 96 DPI */
+    height: 1123px; /* A4 height at 96 DPI */
     background: #ffffff;
     color: #000000;
-    z-index: 10000; /* Very high z-index to ensure visibility to renderer */
-    overflow: visible;
+    z-index: 99999;
+    visibility: hidden; /* Hidden but occupies space/position so html2canvas sees it */
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 </style>
 </head>
@@ -167,6 +170,7 @@ body.dark .rstb:hover{background:#3b1111}
   </div>
 </div>
 
+<!-- Container khusus PDF -->
 <div id="pdf-wrapper"></div>
 
 <script>
@@ -176,8 +180,8 @@ var _fitScale=1,_fitting=false,_activeCat='cv',_curPad=20,_cv3Pad=null,_svT=null
 var CATS=[{id:'cv',label:'CV',icon:'fa-file-lines'},{id:'sl',label:'Surat Melamar Pekerjaan',icon:'fa-envelope'}];
 var TPL=[{id:'cv01',cat:'cv',nm:'CV Model 01',ds:'Klasik dengan foto',ic:'fa-id-card'},{id:'cv02',cat:'cv',nm:'CV Model 02',ds:'Modern minimalis',ic:'fa-user-tie'},{id:'cv03',cat:'cv',nm:'CV Model 03',ds:'Layout sidebar',ic:'fa-table-columns'},{id:'sl-os',cat:'sl',nm:'via Email (Posisi)',ds:'Lowongan spesifik',ic:'fa-envelope-open-text'},{id:'sl-ou',cat:'sl',nm:'via Email (Umum)',ds:'Tanpa posisi',ic:'fa-at'},{id:'sl-ts',cat:'sl',nm:'Tertulis (Posisi)',ds:'Tulis tangan spesifik',ic:'fa-pen-fancy'},{id:'sl-tu',cat:'sl',nm:'Tertulis (Umum)',ds:'Tulis tangan umum',ic:'fa-pen-nib'}];
 function $(id){return document.getElementById(id)}
-function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v53',JSON.stringify(S))}catch(e){}},500)}
-function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v53'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
+function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v54',JSON.stringify(S))}catch(e){}},500)}
+function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v54'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
 function V(x){return x||''}
 function E(x){return(x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function tplOf(id){return TPL.find(function(t){return t.id===id})}
@@ -191,7 +195,7 @@ function smt(t){$('mf').classList.toggle('on',t==='form');$('mp').classList.togg
 function tgs(el){el.classList.toggle('cl');el.nextElementSibling.classList.toggle('cl')}
 function adjSP(d){S.sp=Math.max(6,Math.min(28,S.sp+d));var i=$('spi');if(i)i.value=S.sp;_fitScale=1;rPV();saveLS()}
 function cfrmReset(){$('rstm').classList.remove('hidden')}
-function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v53')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
+function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v54')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
 function selT(id){S.tpl=id;_fitScale=1;_curPad=20;_cv3Pad=null;rTC();rF();rPV();saveLS()}
 function toggleMode(){document.body.classList.toggle('dark');$('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon';setTimeout(sclP,60)}
 function rTC(){var isCVA=_activeCat==='cv';$('catTabs').innerHTML=CATS.map(function(c){var a=c.id===_activeCat;return'<button class="'+(c.id==='cv'?(a?'ctab cv-a':'ctab cv-i'):(a?'ctab sl-a':'ctab sl-i'))+'" onclick="swCat(\''+c.id+'\')"><i class="fas '+c.icon+' mr-1.5"></i>'+c.label+'</button>'}).join('');var items=TPL.filter(function(t){return t.cat===_activeCat});var onCls=isCVA?'on-red':'on-wh';var icC=isCVA?'text-red-600':'text-gray-700';$('tc').innerHTML=items.map(function(t){return'<div class="tc '+(t.id===S.tpl?onCls:'')+'" onclick="selT(\''+t.id+'\')" role="button" tabindex="0"><div class="th"><i class="fas '+t.ic+' text-2xl sm:text-3xl '+(t.id===S.tpl?icC:'text-gray-400')+'"></i></div><h4 class="font-bold text-[10px] sm:text-[11px] leading-tight dark:text-white">'+t.nm+'</h4><p class="text-[8.5px] sm:text-[9.5px] text-gray-400 mt-1">'+t.ds+'</p></div>'}).join('')}
@@ -349,7 +353,7 @@ function gSL(){
 }
 
 /* ============================================================
-   PDF ENGINE - FINAL FIX (Async & Wait for Images)
+   FINAL PDF ENGINE - VISIBILITY FIX
    ============================================================ */
 function dlPDF(){
     if(!hasAny()){toast('Isi minimal satu data terlebih dahulu');return}
@@ -384,23 +388,10 @@ function processPDF(btn){
     var nm = S.dp.nama || 'Dokumen';
     var tn = tplOf(S.tpl) ? tplOf(S.tpl).nm : 'Dokumen';
     var fn = (tn + '_' + nm).replace(/\s+/g, '_') + '.pdf';
-    
-    // Function to wait for images inside the wrapper to load
-    var waitForImages = function(element) {
-        var images = element.getElementsByTagName('img');
-        var promises = [];
-        for(var i=0; i<images.length; i++) {
-            if(!images[i].complete) {
-                promises.push(new Promise(function(resolve) {
-                    images[i].onload = resolve;
-                    images[i].onerror = resolve; // Proceed even if image fails
-                }));
-            }
-        }
-        return Promise.all(promises);
-    };
 
-    // Helper to generate HTML and fit it
+    // Force scroll to top to avoid calculation issues
+    window.scrollTo(0,0);
+
     function renderAndFit(paddingVal, fontSizeVal) {
         var oldFS = FS, oldFSH = FSH;
         FS = fontSizeVal; FSH = fontSizeVal + 1;
@@ -411,13 +402,12 @@ function processPDF(btn){
         else if(isCV3) html = gCV3PDF(); 
         else html = gSL();
         
-        wrapper.innerHTML = '<div id="pdf-content" style="padding:'+paddingVal+'mm;box-sizing:border-box;min-height:297mm;">' + html + '</div>';
+        wrapper.innerHTML = '<div id="pdf-content" style="padding:'+paddingVal+'mm;box-sizing:border-box;min-height:1123px; color:black; background:white;">' + html + '</div>';
         
-        // Force reflow
         void wrapper.offsetHeight;
         
         FS = oldFS; FSH = oldFSH;
-        return wrapper.scrollHeight <= 1125;
+        return wrapper.scrollHeight <= 1123;
     }
 
     // 1. Try Default
@@ -439,39 +429,36 @@ function processPDF(btn){
     }
     if(!ok) renderAndFit(3, 9);
 
-    // 4. WAIT FOR IMAGES AND RENDER
-    // This is the fix for empty PDFs. We wait for images to load inside the hidden wrapper.
-    waitForImages(wrapper).then(function() {
-        // Give browser a moment to paint the loaded images
-        setTimeout(function() {
-            var opt = {
-                margin: 0,
-                filename: fn,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true,
-                    logging: false,
-                    scrollY: -window.scrollY, // Capture relative to viewport
-                    windowWidth: 794 
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['css', 'legacy'] }
-            };
+    // Wait for everything to settle (Images and Paint)
+    setTimeout(function(){
+        var opt = {
+            margin: 0,
+            filename: fn,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true,
+                logging: false,
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: 794 // Force A4 width context
+            },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['css', 'legacy'] }
+        };
 
-            html2pdf().set(opt).from(wrapper).save().then(function(){
-                resetBtn(btn);
-                toast('PDF berhasil diunduh!');
-            }).catch(function(err){
-                console.error(err);
-                resetBtn(btn);
-                toast('Gagal mengunduh PDF');
-            });
-        }, 500); // 500ms delay to ensure rendering is complete
-    });
+        html2pdf().set(opt).from(wrapper).save().then(function(){
+            resetBtn(btn);
+            toast('PDF berhasil diunduh!');
+        }).catch(function(err){
+            console.error(err);
+            resetBtn(btn);
+            toast('Gagal mengunduh PDF');
+        });
+    }, 500); // 500ms Paint delay
 }
 
-/* Special Table-based Generator for CV03 to ensure PDF stability */
+/* Special Table-based Generator for CV03 */
 function gCV3PDF(){
     var d=S.dp,pt=prT();
     var p = [20, 11, 20, 16]; 
