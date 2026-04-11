@@ -93,6 +93,9 @@ body.dark .rstb:hover{background:#3b1111}
 #pdf-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:200000;overflow:auto;display:none;visibility:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 #pdf-overlay.active{visibility:visible}
 #pdf-content{width:794px;background:#ffffff;color:#000000;margin:20px auto;-webkit-transform:none;transform:none}
+#pdf-loading{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200001;text-align:center;display:none;pointer-events:none}
+#pdf-loading .spinner{width:48px;height:48px;border:4px solid #e5e7eb;border-top-color:#dc2626;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body class="antialiased">
@@ -159,6 +162,11 @@ body.dark .rstb:hover{background:#3b1111}
 
 <div id="pdf-overlay">
     <div id="pdf-content"></div>
+</div>
+<div id="pdf-loading">
+    <div class="spinner"></div>
+    <p style="font-family:Outfit,sans-serif;font-size:14px;font-weight:600;color:#374151">Mempersiapkan PDF 300 DPI...</p>
+    <p style="font-family:Outfit,sans-serif;font-size:11px;color:#9ca3af;margin-top:6px">Mohon tunggu, jangan tutup halaman</p>
 </div>
 
 <script>
@@ -419,16 +427,8 @@ function gSL(){
 }
 
 /* ===== PDF ENGINE — DITULIS ULANG TOTAL ===== */
-/* 
-   Pendekatan: 
-   1. Render ke div tersembunyi tepat 794px lebar (A4 @96dpi)
-   2. Coba beberapa kombinasi font-size & padding dari besar ke kecil
-   3. Ambil konfigurasi terbesar yang muat dalam 1123px tinggi
-   4. Lock ke 794x1123px + overflow:hidden, lalu tangkap ke PDF
-   5. TANPA zoom/transform sama sekali
-*/
 
-/* CV-3 PDF: layout tabel murni (bukan flex) dengan padding parameter */
+/* CV-3 PDF: layout tabel murni (bukan flex) agar tidak berantakan */
 function gCV3PDF(pad){
     var d=S.dp,pt=prT();
     var p=pad||[20,11,20,16];
@@ -483,61 +483,79 @@ function resetBtn(btn){
 }
 
 function processPDF(btn){
-    var ov=$('pdf-overlay'),box=$('pdf-content');
+    var ov=$('pdf-overlay'),box=$('pdf-content'),ld=$('pdf-loading');
     var nm=S.dp.nama||'Dokumen';
     var tn=tplOf(S.tpl)?tplOf(S.tpl).nm:'Dokumen';
     var fn=(tn+'_'+nm).replace(/\s+/g,'_')+'.pdf';
 
-    /* Tampilkan overlay */
+    /* Tampilkan overlay & loading */
     ov.style.display='block';
     ov.classList.add('active');
+    ld.style.display='block';
     document.body.style.overflow='hidden';
     window.scrollTo(0,0);
 
-    var W=794,H=1123;
+    /* Dimensi A4 @ 96 DPI base */
+    var W=794, H=1123;
     var is3=S.tpl==='cv03';
 
-    /* Level padding untuk CV-3: [sidebar_top, sidebar_right, main_top, main_right] */
+    /*
+     * RESOLUSI 300 DPI:
+     * A4 = 210×297mm = 2480×3508px @300DPI
+     * Base render 794px, scale 4 → canvas 3176×4492px
+     * Efektif: 3176/(210/25.4) ≈ 384 DPI ✓
+     */
+    var SCALE=4;
+
+    /* Level padding CV-3: [sb_top, sb_right, mn_top, mn_right] */
     var P3=[
-        [20,11,20,16],[16,9,16,13],[13,8,13,11],[10,7,10,9],
-        [8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3]
+        [20,11,20,16],[18,10,18,14],[16,9,16,13],[14,8,14,11],
+        [12,7,12,10],[10,6,10,8],[8,5,8,7],[6,4,6,5],
+        [5,3,5,4],[4,3,4,3],[3,2,3,3]
     ];
 
     /* Daftar konfigurasi [pad, fontSize] dari besar ke kecil */
     var cfgs;
     if(is3){
         cfgs=[];
-        [12,11,10,9,8].forEach(function(fs){
-            var pi=fs===12?[0,1,2,3,4,5,6,7]:fs===11?[0,2,4,6]:fs===10?[0,2,4,6]:fs===9?[0,2,4,6]:[0,2,4];
-            pi.forEach(function(p){cfgs.push([p,fs])});
+        [12,11.5,11,10.5,10,9.5,9,8.5,8,7.5,7].forEach(function(fs){
+            P3.forEach(function(p,pi){cfgs.push([pi,fs])});
         });
     }else{
         cfgs=[
-            [20,12],[17,12],[15,12],[12,12],[10,12],[8,12],
-            [20,11],[15,11],[12,11],[10,11],[8,11],
-            [20,10],[15,10],[12,10],[10,10],[8,10],
-            [15,9],[12,9],[10,9],[8,9],[5,9],
-            [10,8],[8,8],[5,8],[3,8]
+            [20,12],[18,12],[16,12],[14,12],[12,12],[10,12],[8,12],[6,12],[4,12],
+            [20,11.5],[18,11.5],[16,11.5],[14,11.5],[12,11.5],[10,11.5],[8,11.5],[6,11.5],[4,11.5],
+            [20,11],[18,11],[16,11],[14,11],[12,11],[10,11],[8,11],[6,11],[4,11],
+            [20,10.5],[18,10.5],[16,10.5],[14,10.5],[12,10.5],[10,10.5],[8,10.5],[6,10.5],[4,10.5],
+            [20,10],[18,10],[16,10],[14,10],[12,10],[10,10],[8,10],[6,10],[4,10],
+            [16,9.5],[14,9.5],[12,9.5],[10,9.5],[8,9.5],[6,9.5],[4,9.5],
+            [16,9],[14,9],[12,9],[10,9],[8,9],[6,9],[4,9],
+            [14,8.5],[12,8.5],[10,8.5],[8,8.5],[6,8.5],[4,8.5],
+            [12,8],[10,8],[8,8],[6,8],[4,8],
+            [10,7.5],[8,7.5],[6,7.5],[4,7.5],
+            [8,7],[6,7],[4,7]
         ];
     }
 
+    /* Simpan nilai asli */
+    var origFS=FS, origFSH=FSH;
+
     /* Generate HTML konten pada font-size & padding tertentu */
     function gen(c){
-        var oF=FS,oH=FSH;
-        FS=c[1];FSH=c[1]+1;
+        FS=c[1]; FSH=c[1]+1;
         var h;
-        if(S.tpl==='cv01')h=gCV1();
-        else if(S.tpl==='cv02')h=gCV2();
-        else if(is3)h=gCV3PDF(P3[c[0]]);
+        if(S.tpl==='cv01') h=gCV1();
+        else if(S.tpl==='cv02') h=gCV2();
+        else if(is3) h=gCV3PDF(P3[c[0]]);
         else h=gSL();
-        FS=oF;FSH=oH;
+        FS=origFS; FSH=origFSH;
         return h;
     }
 
-    /* Bungkus HTML ke dalam container 794px */
+    /* Bungkus ke container 794px */
     function wrap(h,c){
-        if(is3)return'<div style="width:'+W+'px;background:#fff;color:#000">'+h+'</div>';
-        return'<div style="width:'+W+'px;padding:'+c[0]+'mm;box-sizing:border-box;background:#fff;color:#000">'+h+'</div>';
+        if(is3) return'<div style="width:'+W+'px;background:#fff;color:#000;-webkit-transform:none;transform:none;">'+h+'</div>';
+        return'<div style="width:'+W+'px;padding:'+c[0]+'mm;box-sizing:border-box;background:#fff;color:#000;-webkit-transform:none;transform:none;">'+h+'</div>';
     }
 
     /* Cari konfigurasi terbesar yang muat */
@@ -546,49 +564,68 @@ function processPDF(btn){
         box.innerHTML=wrap(gen(cfgs[i]),cfgs[i]);
         box.style.cssText='width:'+W+'px;overflow:visible;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
         void box.offsetHeight;
+        void box.offsetHeight;
         if(box.scrollHeight<=H+1){fit=cfgs[i];break}
     }
 
-    /* Pasang konfigurasi final: lock ke 794x1123, overflow hidden */
+    /* Pasang konfigurasi final: kunci ke 794×1123, overflow hidden */
     var fc=fit||cfgs[cfgs.length-1];
     box.innerHTML=wrap(gen(fc),fc);
     box.style.cssText='width:'+W+'px;height:'+H+'px;overflow:hidden;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
     void box.offsetHeight;
+    void box.offsetHeight;
 
-    /* Tunggu render stabil, lalu generate PDF */
+    /* Tunggu render stabil lalu tangkap PDF */
     setTimeout(function(){
-        html2pdf().set({
-            margin:0,
-            filename:fn,
-            image:{type:'jpeg',quality:0.98},
-            html2canvas:{
-                scale:2,
-                useCORS:true,
-                logging:false,
-                scrollX:0,
-                scrollY:0,
-                width:W,
-                height:H,
-                windowWidth:W,
-                windowHeight:H
-            },
-            jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-            pagebreak:{mode:['avoid-all'],avoid:['*']}
-        }).from(box).save().then(function(){
-            ov.style.display='none';
-            ov.classList.remove('active');
-            document.body.style.overflow='';
-            resetBtn(btn);
-            toast('PDF berhasil diunduh!');
-        }).catch(function(err){
-            console.error(err);
-            ov.style.display='none';
-            ov.classList.remove('active');
-            document.body.style.overflow='';
-            resetBtn(btn);
+        ld.style.display='none';
+        try{
+            html2pdf().set({
+                margin:0,
+                filename:fn,
+                image:{type:'jpeg',quality:0.98},
+                html2canvas:{
+                    scale:SCALE,
+                    useCORS:true,
+                    allowTaint:true,
+                    logging:false,
+                    scrollX:0,
+                    scrollY:0,
+                    x:0,
+                    y:0,
+                    width:W,
+                    height:H,
+                    windowWidth:W,
+                    windowHeight:H
+                },
+                jsPDF:{
+                    unit:'mm',
+                    format:'a4',
+                    orientation:'portrait',
+                    hotfixes:['px_scaling']
+                },
+                pagebreak:{mode:['avoid-all'],avoid:['*']}
+            }).from(box).save().then(function(){
+                cleanup();
+                toast('PDF berhasil diunduh!');
+            }).catch(function(err){
+                console.error(err);
+                cleanup();
+                toast('Gagal mengunduh PDF');
+            });
+        }catch(e2){
+            console.error(e2);
+            cleanup();
             toast('Gagal mengunduh PDF');
-        });
-    },1500);
+        }
+    },2500);
+
+    function cleanup(){
+        ov.style.display='none';
+        ov.classList.remove('active');
+        ld.style.display='none';
+        document.body.style.overflow='';
+        resetBtn(btn);
+    }
 }
 
 /* ===== EVENT LISTENERS ===== */
