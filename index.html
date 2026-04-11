@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>KARYA ABADI - CV Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{dp:['Playfair Display','serif'],bd:['Outfit','sans-serif']}}}}
+</script>
+<style>
+:root{--bg:#f3f4f6;--fg:#1f2937;--mt:#6b7280;--ac:#dc2626;--cd:#ffffff;--bd:#e5e7eb;--ib:#fff;--fi-bg:#fff;--fi-txt:#111;--hd-bg:#000;--hd-tx:#fff}
+body.dark{--bg:#111827;--fg:#f3f4f6;--mt:#9ca3af;--cd:#1f2937;--bd:#374151;--ib:#1f2937;--fi-bg:#374151;--fi-txt:#f3f4f6;--hd-bg:#000;--hd-tx:#fff}
+*{box-sizing:border-box;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);margin:0;transition:background .3s,color .3s}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,var(--bd) .8px,transparent .8px);background-size:22px 22px;opacity:.35;pointer-events:none;z-index:0}
+body.dark::after{opacity:.15}
+header,section,div[style*="z-index"],footer,.tst,#rstm{position:relative;z-index:1}
+.fi{width:100%;padding:10px 14px;border:1.5px solid var(--bd);border-radius:8px;background:var(--fi-bg);color:var(--fi-txt);font-family:'Outfit',sans-serif;font-size:13px;transition:border-color .2s,box-shadow .2s;outline:none}
+.fi:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.fi::placeholder{color:var(--mt)}
+select.fi{cursor:pointer;appearance:auto}
+.fl{display:block;font-size:11px;font-weight:700;color:var(--mt);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.sh{display:flex;align-items:center;justify-content:space-between;padding:14px 0;cursor:pointer;user-select:none;border-bottom:1px solid var(--bd)}
+.sh h3{font-size:13px;font-weight:700;color:var(--fg);margin:0;display:flex;align-items:center;gap:8px}
+.sh i.chv{font-size:10px;color:var(--mt);transition:transform .25s}
+.sh.cl i.chv{transform:rotate(-90deg)}
+.sb{overflow:hidden;transition:max-height .35s ease,opacity .25s;max-height:5000px;opacity:1;padding:12px 0}
+.sb.cl{max-height:0;opacity:0;padding:0}
+.tc{flex-shrink:0;width:115px;padding:12px 8px;background:#fff;border:2px solid transparent;border-radius:12px;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center}
+.tc:hover{box-shadow:0 8px 20px rgba(0,0,0,.1);transform:translateY(-3px)}
+.tc.on-red{border-color:#dc2626;background:#fef2f2;box-shadow:0 0 0 1px #dc2626,0 6px 16px rgba(220,38,38,.15)}
+.tc.on-wh{border-color:#374151;background:#f9fafb;box-shadow:0 0 0 1px #374151,0 6px 16px rgba(0,0,0,.08)}
+body.dark .tc{background:#1f2937;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+body.dark .tc.on-red{background:#1c0a0a;border-color:#dc2626;box-shadow:0 0 0 1px #dc2626,0 6px 16px rgba(220,38,38,.2)}
+body.dark .tc.on-wh{background:#111827;border-color:#6b7280;box-shadow:0 0 0 1px #6b7280,0 6px 16px rgba(0,0,0,.3)}
+.tc .th{width:100%;aspect-ratio:1/1;background:var(--bg);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.tc.on-red .th{background:#fee2e2}
+.tc.on-wh .th{background:#e5e7eb}
+body.dark .tc .th{background:#111827}
+body.dark .tc.on-red .th{background:#3b1111}
+body.dark .tc.on-wh .th{background:#1f2937}
+.pb{width:90px;aspect-ratio:3/4;border:2px dashed var(--bd);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:border-color .2s,background .2s;background:var(--ib);position:relative}
+.pb:hover{border-color:var(--ac);background:rgba(220,38,38,.03)}
+.pb img{width:100%;height:100%;object-fit:contain;object-position:center;position:absolute;inset:0}
+.ab{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border:1.5px dashed var(--bd);border-radius:7px;background:transparent;color:var(--mt);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.ab:hover{border-color:var(--ac);color:var(--ac);background:rgba(220,38,38,.05)}
+.rb{width:28px;height:28px;border:none;background:#fee2e2;color:#dc2626;border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s;flex-shrink:0}
+.rb:hover{background:#dc2626;color:#fff}
+.fb{width:32px;height:32px;border:1.5px solid var(--bd);border-radius:8px;background:var(--cd);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--fg);transition:all .15s}
+.fb:hover{border-color:var(--ac);color:var(--ac)}
+.a4{width:210mm;height:297mm;background:#fff;color:#000;box-shadow:0 10px 40px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);position:relative;will-change:transform;border-radius:2px;overflow:hidden}
+.tst{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:#111;color:#fff;padding:12px 24px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:9999;transition:transform .4s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:8px}
+body.dark .tst{background:#f3f4f6;color:#111}
+.tst.sh{transform:translateX(-50%) translateY(0)}
+.mt{flex:1;padding:12px 8px;text-align:center;font-size:12px;font-weight:700;border:none;background:transparent;color:var(--mt);cursor:pointer;transition:all .2s;border-bottom:2.5px solid transparent;font-family:'Outfit',sans-serif}
+.mt.on{color:var(--ac);border-bottom-color:var(--ac);background:rgba(220,38,38,.05)}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fu .3s ease both}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:2;background:radial-gradient(ellipse at center,rgba(220,38,38,.04) 0%,transparent 65%)}
+.rstb{background:none;border:1.5px solid #fecaca;color:#dc2626;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:5px}
+.rstb:hover{background:#fef2f2;border-color:#dc2626}
+.mtgl{cursor:pointer;padding:8px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;transition:.2s}
+.mtgl:hover{background:rgba(255,255,255,.2)}
+.ctab{padding:8px 16px;border-radius:9999px;font-size:12px;font-weight:700;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);border:1.5px solid transparent;font-family:'Outfit',sans-serif;white-space:nowrap}
+.ctab.cv-a{background:#dc2626;color:#fff;border-color:#dc2626;box-shadow:0 2px 8px rgba(220,38,38,.25)}
+.ctab.cv-i{background:transparent;color:#6b7280;border-color:#e5e7eb}
+.ctab.cv-i:hover{border-color:#dc2626;color:#dc2626}
+.ctab.sl-a{background:#fff;color:#111827;border-color:#d1d5db;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.ctab.sl-i{background:transparent;color:#6b7280;border-color:#e5e7eb}
+.ctab.sl-i:hover{border-color:#9ca3af;color:#374151}
+body.dark .ctab.cv-i{border-color:#374151;color:#9ca3af}
+body.dark .ctab.cv-i:hover{border-color:#dc2626;color:#dc2626}
+body.dark .ctab.sl-a{background:#1f2937;color:#f3f4f6;border-color:#4b5563;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+body.dark .ctab.sl-i{border-color:#374151;color:#9ca3af}
+body.dark .ctab.sl-i:hover{border-color:#6b7280;color:#d1d5db}
+.hdr-line{height:2px;background:linear-gradient(90deg,#dc2626 0%,#f97316 30%,#dc2626 60%,#991b1b 100%);background-size:300% 100%;animation:hdr-shimmer 4s ease-in-out infinite}
+@keyframes hdr-shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.a4-inner{transition:opacity .12s ease}
+.ovfw{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:#dc2626;color:#fff;padding:6px 16px;border-radius:8px;font-size:10.5px;font-weight:700;z-index:10;display:flex;align-items:center;gap:6px;font-family:Outfit,sans-serif;box-shadow:0 4px 12px rgba(220,38,38,.35);pointer-events:none;white-space:nowrap;max-width:95%;text-align:center}
+@media(prefers-reduced-motion:reduce){.hdr-line{animation:none}.fu{animation:none}.a4-inner{transition:none}.tc{transition:none}.ctab{transition:none}body::after{display:none}}
+body.dark .rb{background:#3b1111}
+body.dark .fb{background:#374151}
+body.dark .rstb{border-color:#7f1d1d;color:#f87171}
+body.dark .rstb:hover{background:#3b1111}
+@media(max-width:640px){.tc{width:100px;padding:10px 6px}.tc .th{margin-bottom:6px}.tc h4{font-size:10px;line-height:1.2}.tc p{font-size:8.5px}.fi{padding:9px 12px;font-size:12px}.sh{padding:12px 0}.sh h3{font-size:12px}.pb{width:80px}.ctab{padding:7px 12px;font-size:11px}.ovfw{font-size:9px;padding:5px 10px;bottom:5px}}
+@media(min-width:641px) and (max-width:1023px){.tc{width:108px}}
+#pdf-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:200000;overflow:auto;display:none;visibility:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#pdf-overlay.active{visibility:visible}
+#pdf-content{width:794px;background:#ffffff;color:#000000;margin:20px auto;-webkit-transform:none;transform:none}
+</style>
+</head>
+<body class="antialiased">
+
+<header class="sticky top-0 z-50 shadow-lg border-b border-gray-800" style="background:var(--hd-bg);color:var(--hd-tx)">
+<div class="max-w-[1740px] mx-auto flex items-center justify-between px-4 sm:px-5 py-3">
+  <div class="flex items-center gap-2 sm:gap-3">
+    <img src="https://z-cdn-media.chatglm.cn/files/4caaa295-54d9-406e-b564-a55ad59cdbcc.png?auth_key=1875686346-6607cd62573c471ca93896b196393843-0-187a6a334027bba6b12b7657ddb537ef" alt="Logo" class="h-8 sm:h-10 w-auto object-contain">
+    <div class="flex items-center leading-none">
+      <span class="text-white text-lg sm:text-2xl font-black tracking-tight">KARYA ABADI</span>
+      <span class="text-white font-black ml-1" style="font-size:11px">.Jobs</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-2 sm:gap-3">
+    <button onclick="toggleMode()" class="mtgl" aria-label="Ganti mode"><i id="modeIcon" class="fas fa-moon text-sm"></i></button>
+    <button onclick="cfrmReset()" class="rstb hidden sm:inline-flex text-red-400 border-red-900 hover:bg-red-900/20" aria-label="Reset"><i class="fas fa-rotate-left"></i> Reset</button>
+    <button onclick="dlPDF()" id="dlb" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-all flex items-center gap-2 text-xs sm:text-sm shadow-md active:scale-95" aria-label="Download PDF"><i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span></button>
+  </div>
+</div>
+<div class="hdr-line"></div>
+</header>
+
+<section class="px-4 sm:px-5 py-3 border-b" style="background:var(--cd);border-color:var(--bd)">
+<div class="max-w-[1740px] mx-auto">
+  <div class="flex items-center gap-2 sm:gap-3 mb-3" id="catTabs"></div>
+  <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-1 -mx-1 px-1" id="tc" style="-webkit-overflow-scrolling:touch"></div>
+</div>
+</section>
+
+<div class="flex lg:hidden border-b" style="background:var(--cd);border-color:var(--bd)">
+  <button class="mt on" id="mf" onclick="smt('form')"><i class="fas fa-edit mr-1"></i>Formulir</button>
+  <button class="mt" id="mp" onclick="smt('preview')"><i class="fas fa-eye mr-1"></i>Preview</button>
+</div>
+
+<div class="max-w-[1740px] mx-auto px-4 sm:px-5 py-4 flex flex-col lg:flex-row gap-4">
+  <div id="fp" class="w-full lg:w-[400px] flex-shrink-0 lg:max-h-[calc(100vh-220px)] lg:overflow-y-auto">
+    <div class="rounded-xl shadow-sm border overflow-hidden" id="fc" style="background:var(--cd);border-color:var(--bd)"></div>
+  </div>
+  <div id="pp" class="flex-1 hidden lg:block">
+    <div class="rounded-xl p-3 sm:p-4 overflow-auto flex justify-center" id="psc" style="max-height:calc(100vh-220px);background:var(--bg)">
+      <div id="psr" style="transform-origin:top center"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="py-6 text-center text-xs font-medium" style="color:var(--mt);background:var(--bg);border-top:1px solid var(--bd)">
+  <p>&copy; 2024 Karya Abadi. All rights reserved.</p>
+</footer>
+
+<div class="tst" id="tst"><i class="fas fa-check-circle" style="color:#22c55e"></i><span id="tsm"></span></div>
+
+<div id="rstm" class="fixed inset-0 z-[999] flex items-center justify-center p-4 hidden">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="document.getElementById('rstm').classList.add('hidden')"></div>
+  <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-w-sm w-full fu text-center">
+    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-exclamation-triangle text-red-600 text-xl"></i></div>
+    <h3 class="text-lg font-bold mb-2 dark:text-white">Reset Semua Data?</h3>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Semua data yang telah diisi akan dihapus permanen.</p>
+    <div class="flex gap-3">
+      <button onclick="document.getElementById('rstm').classList.add('hidden')" class="flex-1 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 text-sm font-bold hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white transition">Batal</button>
+      <button onclick="doReset()" class="flex-1 py-2.5 rounded-xl bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">Ya, Reset</button>
+    </div>
+  </div>
+</div>
+
+<div id="pdf-overlay">
+    <div id="pdf-content"></div>
+</div>
+
+<script>
+var DS={tpl:'cv01',foto:null,ff:'Times New Roman',sp:14,dp:{nama:'',ttl:'',jk:'',bangsa:'',agama:'',tb:'',bb:'',alamat:'',kec:'',hp:'',status:'',email:'',dusun:'',rtrw:'',desa:''},pr:{lulusan:'',jurusan:''},pd:[{n:'',tl:''},{n:'',tl:''},{n:'',tl:''}],px:[{pt:'',al:'',kp:'',jb:'',tm:'',ts:''}],hs:['','','','','','','',''],ss:['','','','','','',''],sr:{kota:'',tgl:'',lamp:'',npt:'',apt:'',apt2:'',sum:'',pos:'',ptk:'',fpl:'1'},lm:['','','']};
+var S=JSON.parse(JSON.stringify(DS));
+var _fitScale=1,_fitting=false,_activeCat='cv',_curPad=20,_cv3Pad=null,_svT=null,_rT=null;
+var CATS=[{id:'cv',label:'CV',icon:'fa-file-lines'},{id:'sl',label:'Surat Melamar Pekerjaan',icon:'fa-envelope'}];
+var TPL=[{id:'cv01',cat:'cv',nm:'CV Model 01',ds:'Klasik dengan foto',ic:'fa-id-card'},{id:'cv02',cat:'cv',nm:'CV Model 02',ds:'Modern minimalis',ic:'fa-user-tie'},{id:'cv03',cat:'cv',nm:'CV Model 03',ds:'Layout sidebar',ic:'fa-table-columns'},{id:'sl-os',cat:'sl',nm:'via Email (Posisi)',ds:'Lowongan spesifik',ic:'fa-envelope-open-text'},{id:'sl-ou',cat:'sl',nm:'via Email (Umum)',ds:'Tanpa posisi',ic:'fa-at'},{id:'sl-ts',cat:'sl',nm:'Tertulis (Posisi)',ds:'Tulis tangan spesifik',ic:'fa-pen-fancy'},{id:'sl-tu',cat:'sl',nm:'Tertulis (Umum)',ds:'Tulis tangan umum',ic:'fa-pen-nib'}];
+function $(id){return document.getElementById(id)}
+function saveLS(){clearTimeout(_svT);_svT=setTimeout(function(){try{localStorage.setItem('cvb_v57',JSON.stringify(S))}catch(e){}},500)}
+function loadLS(){try{var d=JSON.parse(localStorage.getItem('cvb_v57'));if(d&&d.tpl){if(!d.sr)d.sr={};['pos','fpl'].forEach(function(k){if(d.sr[k]===undefined)d.sr[k]=k==='fpl'?'1':''});if(!d.dp)d.dp={};['rtrw','dusun','desa'].forEach(function(k){if(d.dp[k]===undefined)d.dp[k]=''});if(d.sp===undefined)d.sp=14;Object.assign(S,d);return true}}catch(e){}return false}
+function V(x){return x||''}
+function E(x){return(x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function tplOf(id){return TPL.find(function(t){return t.id===id})}
+function isCV(){return tplOf(S.tpl)?tplOf(S.tpl).cat==='cv':false}
+function hasFt(){return['cv01','cv02','cv03'].indexOf(S.tpl)!==-1}
+function isSp(){return S.tpl==='sl-os'||S.tpl==='sl-ts'}
+function isTT(){return S.tpl==='sl-ts'||S.tpl==='sl-tu'}
+function hasAny(){var d=S.dp;if(d.nama||d.ttl||d.email||d.hp||S.pr.lulusan)return true;if(S.pd.some(function(p){return p.n}))return true;if(S.px.some(function(p){return p.pt}))return true;if(S.sr.npt||S.sr.pos||S.sr.kota||S.sr.apt||S.sr.sum)return true;return false}
+function toast(m){var t=$('tst');$('tsm').textContent=m;t.classList.add('sh');setTimeout(function(){t.classList.remove('sh')},2400)}
+function smt(t){$('mf').classList.toggle('on',t==='form');$('mp').classList.toggle('on',t==='preview');$('fp').classList.toggle('hidden',t!=='form');$('pp').classList.toggle('hidden',t!=='preview');if(t==='preview')setTimeout(autoFit,80)}
+function tgs(el){el.classList.toggle('cl');el.nextElementSibling.classList.toggle('cl')}
+function adjSP(d){S.sp=Math.max(6,Math.min(28,S.sp+d));var i=$('spi');if(i)i.value=S.sp;_fitScale=1;rPV();saveLS()}
+function cfrmReset(){$('rstm').classList.remove('hidden')}
+function doReset(){S=JSON.parse(JSON.stringify(DS));_fitScale=1;_curPad=20;_cv3Pad=null;try{localStorage.removeItem('cvb_v57')}catch(e){}$('rstm').classList.add('hidden');_activeCat='cv';rTC();rF();rPV();toast('Semua data berhasil direset')}
+function selT(id){S.tpl=id;_fitScale=1;_curPad=20;_cv3Pad=null;rTC();rF();rPV();saveLS()}
+function toggleMode(){document.body.classList.toggle('dark');$('modeIcon').className=document.body.classList.contains('dark')?'fas fa-sun':'fas fa-moon';setTimeout(sclP,60)}
+function rTC(){var isCVA=_activeCat==='cv';$('catTabs').innerHTML=CATS.map(function(c){var a=c.id===_activeCat;return'<button class="'+(c.id==='cv'?(a?'ctab cv-a':'ctab cv-i'):(a?'ctab sl-a':'ctab sl-i'))+'" onclick="swCat(\''+c.id+'\')"><i class="fas '+c.icon+' mr-1.5"></i>'+c.label+'</button>'}).join('');var items=TPL.filter(function(t){return t.cat===_activeCat});var onCls=isCVA?'on-red':'on-wh';var icC=isCVA?'text-red-600':'text-gray-700';$('tc').innerHTML=items.map(function(t){return'<div class="tc '+(t.id===S.tpl?onCls:'')+'" onclick="selT(\''+t.id+'\')" role="button" tabindex="0"><div class="th"><i class="fas '+t.ic+' text-2xl sm:text-3xl '+(t.id===S.tpl?icC:'text-gray-400')+'"></i></div><h4 class="font-bold text-[10px] sm:text-[11px] leading-tight dark:text-white">'+t.nm+'</h4><p class="text-[8.5px] sm:text-[9.5px] text-gray-400 mt-1">'+t.ds+'</p></div>'}).join('')}
+function swCat(cat){_activeCat=cat;if(tplOf(S.tpl)?tplOf(S.tpl).cat!==cat:false){var f=TPL.find(function(t){return t.cat===cat});if(f)S.tpl=f.id}_fitScale=1;_curPad=20;_cv3Pad=null;rTC();rF();rPV();saveLS()}
+function rF(){var f=$('fc');var h=rDS();if(hasFt())h+=rFS();h+=rDP();if(isCV())h+=rPR();if(isCV())h+=rPD();if(isCV())h+=rPX();if(isCV())h+=rKH();if(!isCV())h+=rSR();f.innerHTML=h;sclP()}
+function rDS(){return'<div class="p-4"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-cog text-red-600"></i>Pengaturan Tampilan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-3"><label class="fl">Jenis Font</label><select class="fi" onchange="S.ff=this.value;_fitScale=1;_cv3Pad=null;uP()">'+['Times New Roman','Arial','Calibri','Cambria','Garamond'].map(function(f){return'<option '+(S.ff===f?'selected':'')+'>'+f+'</option>'}).join('')+'</select></div><div class="mb-3"><label class="fl">Jarak Antar Bagian</label><div class="flex items-center gap-2"><button class="fb" onclick="adjSP(-2)" aria-label="Kurangi">-</button><input type="number" id="spi" class="fi text-center" style="width:72px;padding:6px" value="'+S.sp+'" min="6" max="28" step="2" onchange="S.sp=Math.max(6,Math.min(28,parseInt(this.value)||14));this.value=S.sp;_fitScale=1;_cv3Pad=null;rPV();saveLS()"><button class="fb" onclick="adjSP(2)" aria-label="Tambah">+</button><span class="text-[11px] text-gray-500 ml-1">pt</span></div><p class="text-[9.5px] mt-1" style="color:var(--mt)">Jarak antara PROFIL, DATA PRIBADI, PENDIDIKAN, dll.</p></div></div></div>'}
+function rFS(){var im=S.foto?'<img src="'+S.foto+'" alt="Foto">':'<i class="fas fa-camera text-gray-400 text-base mb-0.5"></i><span class="text-[9px] text-gray-400 font-medium">3x4 cm</span>';return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-image text-red-600"></i>Pas Foto</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="pb" onclick="$(\'fi\').click()">'+im+'<input type="file" id="fi" accept="image/*" hidden onchange="hFT(this)"></div><p class="text-[9.5px] mt-1.5" style="color:var(--mt)">Pas foto 3x4 cm, ditampilkan utuh</p>'+(S.foto?'<button class="rb mt-1.5" onclick="event.stopPropagation();rmFT()" aria-label="Hapus foto"><i class="fas fa-trash"></i></button>':'')+'</div></div>'}
+function rDP(){var d=S.dp;function r(l,id,v,o){if(o)return'<div class="mb-2.5"><label class="fl">'+l+'</label><select class="fi" onchange="S.dp.'+id+'=this.value;uP()">'+o.map(function(x){return'<option '+(v===x?'selected':'')+'>'+x+'</option>'}).join('')+'</select></div>';return'<div class="mb-2.5"><label class="fl">'+l+'</label><input class="fi" value="'+E(v)+'" placeholder="..." oninput="S.dp.'+id+'=this.value;uP()"></div>'}return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-user text-red-600"></i>Data Pribadi</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">'+r('Nama Lengkap','nama',d.nama)+r('Tempat, Tanggal Lahir','ttl',d.ttl)+r('Jenis Kelamin','jk',d.jk,['','Laki-laki','Perempuan'])+r('Bangsa','bangsa',d.bangsa)+r('Agama','agama',d.agama)+'<div class="grid grid-cols-2 gap-2.5">'+r('Tinggi Badan (cm)','tb',d.tb)+r('Berat Badan (kg)','bb',d.bb)+'</div>'+r('Dusun','dusun',d.dusun)+r('RT / RW','rtrw',d.rtrw)+r('Desa / Kelurahan','desa',d.desa)+'<div class="mb-2.5"><label class="fl">Alamat (Jl. Utama)</label><textarea class="fi" rows="2" placeholder="Jl. ..." oninput="S.dp.alamat=this.value;uP()">'+V(d.alamat)+'</textarea></div>'+r('Kec. / Kab. / Kota','kec',d.kec)+'<div class="grid grid-cols-2 gap-2.5">'+r('No. HP','hp',d.hp)+r('Status','status',d.status,['Belum Menikah','Menikah'])+'</div>'+r('Email','email',d.email)+'</div></div>'}
+function rPR(){var p=S.pr;return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-align-left text-red-600"></i>Profil</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="mb-2.5"><label class="fl">Lulusan</label><input class="fi" value="'+E(p.lulusan)+'" placeholder="S1, D3, SMK..." oninput="S.pr.lulusan=this.value;uP()"></div><div class="mb-2.5"><label class="fl">Jurusan</label><input class="fi" value="'+E(p.jurusan)+'" placeholder="Nama jurusan" oninput="S.pr.jurusan=this.value;uP()"></div></div></div>'}
+function rPD(){var rw=S.pd.map(function(p,i){return'<div class="p-3 rounded-lg mb-2 fu" style="background:var(--bg)"><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-red-600">Pendidikan '+(i+1)+'</span><button class="rb" onclick="S.pd.splice('+i+',1);rF();uP()" aria-label="Hapus"><i class="fas fa-times"></i></button></div><div class="mb-2"><label class="fl">Nama Sekolah</label><input class="fi" value="'+E(p.n)+'" placeholder="..." oninput="S.pd['+i+'].n=this.value;uP()"></div><div><label class="fl">Tahun Lulus</label><input class="fi" value="'+E(p.tl)+'" placeholder="0000/0000" oninput="S.pd['+i+'].tl=this.value;uP()"></div></div>'}).join('');return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-graduation-cap text-red-600"></i>Pendidikan</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">'+rw+'<button class="ab" onclick="S.pd.push({n:\'\',tl:\'\'});rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>'}
+function rPX(){var rw=S.px.map(function(p,i){return'<div class="p-3 rounded-lg mb-2 fu" style="background:var(--bg)"><div class="flex items-center justify-between mb-2"><span class="text-[10px] font-bold text-red-600">Pengalaman '+(i+1)+'</span><button class="rb" onclick="S.px.splice('+i+',1);rF();uP()" aria-label="Hapus"><i class="fas fa-times"></i></button></div><div class="mb-2"><label class="fl">Jabatan / Posisi</label><input class="fi" value="'+E(p.jb)+'" placeholder="..." oninput="S.px['+i+'].jb=this.value;uP()"></div><div class="mb-2"><label class="fl">Nama Perusahaan (PT.)</label><input class="fi" value="'+E(p.pt)+'" placeholder="..." oninput="S.px['+i+'].pt=this.value;uP()"></div><div class="mb-2"><label class="fl">Jl. Alamat Perusahaan</label><input class="fi" value="'+E(p.al)+'" placeholder="Jl. ..." oninput="S.px['+i+'].al=this.value;uP()"></div><div class="mb-2"><label class="fl">Kota / Kode Pos</label><input class="fi" value="'+E(p.kp)+'" placeholder="Kota, Kode Pos" oninput="S.px['+i+'].kp=this.value;uP()"></div><div class="grid grid-cols-2 gap-2"><div><label class="fl">Mulai</label><input class="fi" value="'+E(p.tm)+'" placeholder="00/00/0000" oninput="S.px['+i+'].tm=this.value;uP()"></div><div><label class="fl">Selesai</label><input class="fi" value="'+E(p.ts)+'" placeholder="00/00/0000" oninput="S.px['+i+'].ts=this.value;uP()"></div></div></div>'}).join('');return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-briefcase text-red-600"></i>Pengalaman</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb">'+rw+'<button class="ab" onclick="S.px.push({pt:\'\',al:\'\',kp:\'\',jb:\'\',tm:\'\',ts:\'\'});rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>'}
+function rKH(){function rl(arr,k){return arr.map(function(x,i){return'<div class="flex items-center gap-2 mb-1.5"><input class="fi flex-1" value="'+E(x)+'" placeholder="..." oninput="S.'+k+'['+i+']=this.value;uP()"><button class="rb" onclick="S.'+k+'.splice('+i+',1);rF();uP()" aria-label="Hapus"><i class="fas fa-times"></i></button></div>'}).join('')}return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-cogs text-red-600"></i>Keahlian</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><p class="fl mb-1.5">Hard Skill</p>'+rl(S.hs,'hs')+'<button class="ab mb-3" onclick="S.hs.push(\'\');rF();uP()"><i class="fas fa-plus"></i>Tambah</button><p class="fl mb-1.5">Soft Skill</p>'+rl(S.ss,'ss')+'<button class="ab" onclick="S.ss.push(\'\');rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>'}
+function rSR(){var s=S.sr;function r(l,id,v){return'<div class="mb-2.5"><label class="fl">'+l+'</label><input class="fi" value="'+E(v)+'" placeholder="..." oninput="S.sr.'+id+'=this.value;uP()"></div>'}var lr=S.lm.map(function(l,i){return'<div class="flex items-center gap-2 mb-1.5"><input class="fi flex-1" value="'+E(l)+'" placeholder="Nama dokumen..." oninput="S.lm['+i+']=this.value;uP()"><button class="rb" onclick="S.lm.splice('+i+',1);rF();uP()" aria-label="Hapus"><i class="fas fa-times"></i></button></div>'}).join('');var fpl='';if(isTT())fpl=r('Lembar Pas Foto','fpl',s.fpl);var pos='';if(isSp())pos=r('Posisi yang Dilamar','pos',s.pos);return'<div class="px-4 pb-4 border-t" style="border-color:var(--bd)"><div class="sh" onclick="tgs(this)" role="button" tabindex="0"><h3><i class="fas fa-envelope text-red-600"></i>Detail Surat</h3><i class="fas fa-chevron-down chv"></i></div><div class="sb"><div class="grid grid-cols-2 gap-2.5">'+r('Kota Pengirim','kota',s.kota)+r('Tanggal','tgl',s.tgl)+r('Nama Perusahaan (PT.)','npt',s.npt)+r('Jl. Alamat (baris 1)','apt',s.apt)+r('Kec./Kab. (baris 2)','apt2',s.apt2)+r('Sumber Informasi','sum',s.sum)+pos+r('Pendidikan Terakhir','ptk',s.ptk)+fpl+'</div><p class="fl mt-4 mb-1.5">Lampiran Tambahan'+(isTT()?' (No.1 & 2 otomatis)':'')+'</p>'+lr+'<button class="ab" onclick="S.lm.push(\'\');rF();uP()"><i class="fas fa-plus"></i>Tambah</button></div></div>'}
+function hFT(inp){var f=inp.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(e){S.foto=e.target.result;rF();uP()};rd.readAsDataURL(f)}
+function rmFT(){S.foto=null;rF();uP()}
+function uP(){clearTimeout(_rT);_rT=setTimeout(function(){var c=$('psc');if(!c)return;var st=c.scrollTop;rPV();c.scrollTop=st;saveLS()},100)}
+
+function rPV(){
+    var sc=$('psr');
+    var h='';
+    if(S.tpl==='cv01')h=gCV1();
+    else if(S.tpl==='cv02')h=gCV2();
+    else if(S.tpl==='cv03')h=gCV3();
+    else h=gSL();
+    var emp=!hasAny();
+    var opd=S.tpl==='cv03'?'0mm':_curPad+'mm';
+    sc.innerHTML='<div class="a4" id="a4p"><div class="a4-inner" style="zoom:'+_fitScale+';padding:'+opd+'">'+h+(emp?'<div class="ph"><i class="fas fa-keyboard" style="font-size:48px;color:#e5e7eb;margin-bottom:12px"></i><p style="font-size:15px;font-weight:700;margin:0;color:#9ca3af">Mulai isi formulir di sebelah kiri</p><p style="font-size:11px;margin:6px 0 0;color:#d1d5db">Preview otomatis diperbarui saat mengetik</p></div>':'')+'</div></div>';
+    requestAnimationFrame(autoFit);
+}
+
+function autoFit(){
+    if(_fitting)return;
+    _fitting=true;
+    requestAnimationFrame(function(){
+        var a4=$('a4p'),inner=a4?a4.firstElementChild:null;
+        if(!a4||!hasAny()||!inner){_fitScale=1;_curPad=20;_cv3Pad=null;_fitting=false;sclP();return}
+        var isCV3=S.tpl==='cv03',fit=false;
+        if(!isCV3){
+            var pads=[20,17,14,12,10];
+            for(var pi=0;pi<pads.length;pi++){
+                var p=pads[pi];
+                inner.style.zoom='1';
+                inner.style.padding=p+'mm';
+                void a4.offsetHeight;
+                if(a4.scrollHeight<=a4.offsetHeight+2){_curPad=p;fit=true;break}
+            }
+        }else{
+            inner.style.padding='0mm';
+            var sb=inner.querySelector('[data-cv3="sb"]'),mn=inner.querySelector('[data-cv3="mn"]');
+            var lvls=[[20,11,20,16],[16,9,16,13],[13,8,13,11],[10,7,10,9],[8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3]];
+            for(var li=0;li<lvls.length;li++){
+                var lv=lvls[li],st=lv[0],sr=lv[1],mt=lv[2],mr=lv[3];
+                inner.style.zoom='1';
+                if(sb)sb.style.padding=st+'mm '+sr+'mm';
+                if(mn)mn.style.padding=mt+'mm '+mr+'mm';
+                void a4.offsetHeight;
+                if(a4.scrollHeight<=a4.offsetHeight+2){_cv3Pad=[st,sr,mt,mr];fit=true;break}
+            }
+        }
+        if(!fit){
+            void a4.offsetHeight;
+            var s=Math.max(0.5,(a4.offsetHeight-2)/a4.scrollHeight);
+            inner.style.zoom=s;
+            _fitScale=s;
+        }else{
+            inner.style.zoom='1';
+            _fitScale=1;
+        }
+        showOV(a4);
+        _fitting=false;
+        sclP();
+    });
+}
+
+function showOV(a4){
+    var w=document.getElementById('ovfw');
+    if(!w){w=document.createElement('div');w.id='ovfw';w.className='ovfw';a4.appendChild(w)}
+    if(a4.scrollHeight>a4.offsetHeight+4){
+        w.style.display='flex';
+        w.innerHTML='<i class="fas fa-exclamation-triangle"></i> Konten melebihi 1 halaman — kurangi isi atau perkecil jarak';
+    }else{
+        w.style.display='none';
+    }
+}
+
+function sclP(){var c=$('psc'),p=$('a4p');if(!p||!c)return;var cw=c.clientWidth-24;p.style.transform='none';var pw=p.offsetWidth,ph=p.offsetHeight;if(!pw)return;var s=Math.min(1,cw/pw);p.style.transform='scale('+s+')';p.style.transformOrigin='top center';var sc=$('psr');sc.style.width=pw+'px';sc.style.height=Math.ceil(ph*s)+'px'}
+
+/* ===== KONSTANTA TIPOGRAFI & TABEL ===== */
+var FS=12,FSH=13,LW=140,CP=3,CSG=6,CP1=2,CSG1=5,SBG=1.6;
+function a4s(lh){return'font-family:\''+S.ff+'\',serif;font-size:'+FS+'pt;line-height:'+(lh||1.5)+';color:#000;'}
+function sT(t,opts){var mt=S.sp;if(opts===true)mt=0;else if(opts&&typeof opts==='object'&&opts.mt!==undefined)mt=opts.mt;return'<div style="font-size:'+FSH+'pt;font-weight:bold;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid #000;padding-bottom:2px;margin-bottom:8px;margin-top:'+mt+'pt">'+t+'</div>'}
+function prT(){var l=V(S.pr.lulusan),j=V(S.pr.jurusan);if(!l&&!j)return'';return'Saya lulusan '+l+' dengan latar belakang jurusan '+j+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}
+function prP(t){return'<p style="text-align:justify;margin:0 0 2px">'+t+'</p>'}
+function prPN(t){return'<p style="text-align:justify;margin:0 0 4px">'+t+'</p>'}
+function ftMM(){return S.foto?'<img src="'+S.foto+'" style="width:30mm;height:40mm;object-fit:contain;object-position:center;border:1px solid #ccc;border-radius:2px">':''}
+function dR(l,v,cp,csg){cp=cp||CP;csg=csg||CSG;return v?'<tr><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap;width:'+LW+'px">'+l+'</td><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap">:</td><td style="padding:'+cp+'px 0;vertical-align:top">'+E(v)+'</td></tr>':''}
+function almR2(d,cp,csg){cp=cp||CP;csg=csg||CSG;var parts=[d.alamat,d.dusun,d.rtrw,d.desa,d.kec].filter(Boolean);if(!parts.length)return'';var h='<tr><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap;width:'+LW+'px">Alamat</td><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap">:</td><td style="padding:'+cp+'px 0;vertical-align:top">'+E(parts[0])+'</td></tr>';for(var i=1;i<parts.length;i++)h+='<tr><td style="padding:0"></td><td style="padding:0"></td><td style="padding:'+cp+'px 0;vertical-align:top">'+E(parts[i])+'</td></tr>';return h}
+
+/* ===== KOMPONEN TABEL BAGIAN CV ===== */
+function pdC3(){
+    var it=S.pd.filter(function(p){return p.n||p.tl});
+    if(!it.length)return'';
+    return sT('PENDIDIKAN')+'<table style="width:100%;border-collapse:collapse">'+
+        it.map(function(p){
+            return'<tr><td style="padding:'+CP+'px '+CSG+'px '+CP+'px 0;text-align:left;width:70%">'+E(p.n)+'</td><td style="padding:'+CP+'px 0;text-align:left;width:30%">'+E(p.tl)+'</td></tr>';
+        }).join('')+'</table>';
+}
+function pdC2Y(){return pdC3()}
+function pxC3(){
+    var it=S.px.filter(function(p){return p.pt||p.jb});
+    if(!it.length)return'';
+    return sT('PENGALAMAN')+'<table style="width:100%;border-collapse:collapse">'+
+        it.map(function(p,i){
+            var pr=E(p.tm)+(p.ts?' - '+E(p.ts):'');
+            var h='<tr><td style="padding:'+CP+'px '+CSG+'px '+CP+'px 0;text-align:left;vertical-align:top;width:65%;font-weight:bold">'+E(p.jb)+'</td><td style="padding:'+CP+'px 0;text-align:left;vertical-align:top;white-space:nowrap;width:35%">'+pr+'</td></tr>';
+            if(p.pt)h+='<tr><td style="padding:0 '+CSG+'px 1px 0;text-align:left;vertical-align:top;font-weight:normal">'+E(p.pt)+'</td><td></td></tr>';
+            if(p.al)h+='<tr><td style="padding:0 '+CSG+'px 1px 0;text-align:left;vertical-align:top">'+E(p.al)+'</td><td></td></tr>';
+            if(p.kp)h+='<tr><td style="padding:0 '+CSG+'px '+CP+'px 0;text-align:left;vertical-align:top">'+E(p.kp)+'</td><td></td></tr>';
+            if(i<it.length-1)h+='<tr><td colspan="2" style="height:6px"></td></tr>';
+            return h;
+        }).join('')+'</table>';
+}
+function pxC3R(){
+    var it=S.px.filter(function(p){return p.pt||p.jb});
+    if(!it.length)return'';
+    return sT('PENGALAMAN')+it.map(function(p,i){
+        var h='';
+        if(p.jb)h+='<div style="font-weight:bold">'+E(p.jb)+'</div>';
+        if(p.pt)h+='<div>'+E(p.pt)+'</div>';
+        if(p.al)h+='<div>'+E(p.al)+'</div>';
+        if(p.tm||p.ts)h+='<div>'+E(p.tm)+(p.ts?' - '+E(p.ts):'')+'</div>';
+        if(i<it.length-1)h+='<div style="height:6px"></div>';
+        return h;
+    }).join('');
+}
+var KC1='42%',KC2='30%',KC3='28%';
+function khC3(){
+    var h=S.hs.filter(function(x){return x}),s=S.ss.filter(function(x){return x});
+    if(!h.length&&!s.length)return'';
+    var html=sT('KEAHLIAN')+'<table style="width:100%;border-collapse:collapse">';
+    function blk(lb,arr){
+        var mid=Math.ceil(arr.length/2),lm=arr.slice(0,mid),rt=arr.slice(mid),rows=Math.max(lm.length,rt.length,1);
+        html+='<tr><td rowspan="'+rows+'" style="padding:'+CP+'px '+CSG+'px '+CP+'px 0;vertical-align:top;text-align:left;width:'+KC1+';font-weight:bold">'+lb+'</td><td style="padding:'+CP+'px '+CSG+'px;vertical-align:top;text-align:left;width:'+KC2+'">'+(lm[0]?E(lm[0]):'')+'</td><td style="padding:'+CP+'px 0 '+CP+'px '+CSG+'px;vertical-align:top;text-align:left;width:'+KC3+'">'+(rt[0]?E(rt[0]):'')+'</td></tr>';
+        for(var i=1;i<rows;i++)html+='<tr><td style="padding:'+CP+'px '+CSG+'px;vertical-align:top;text-align:left">'+(lm[i]?E(lm[i]):'')+'</td><td style="padding:'+CP+'px 0 '+CP+'px '+CSG+'px;vertical-align:top;text-align:left">'+(rt[i]?E(rt[i]):'')+'</td></tr>';
+    }
+    if(h.length)blk('Hard Skill',h);
+    if(h.length&&s.length)html+='<tr><td colspan="3" style="height:1em"></td></tr>';
+    if(s.length)blk('Soft Skill',s);
+    html+='</table>';
+    return html;
+}
+function khC1R(){
+    var h=S.hs.filter(function(x){return x}),s=S.ss.filter(function(x){return x});
+    if(!h.length&&!s.length)return'';
+    var html=sT('KEAHLIAN');
+    if(h.length){html+='<div style="font-weight:bold">Hard Skill :</div>';h.forEach(function(x){html+='<div>'+E(x)+'</div>'})}
+    if(h.length&&s.length)html+='<div style="height:8px"></div>';
+    if(s.length){html+='<div style="font-weight:bold">Soft Skill :</div>';s.forEach(function(x){html+='<div>'+E(x)+'</div>'})}
+    return html;
+}
+
+/* ===== GENERATOR PREVIEW CV ===== */
+function gCV1(){
+    var d=S.dp,pt=prT(),c=CP1,g=CSG1;
+    var left='';
+    if(pt){left+=sT('PROFIL',true)+'<div style="max-height:60mm;overflow:hidden">'+prP(pt)+'</div>';}
+    left+=sT('DATA PRIBADI')+'<table style="width:100%;border-collapse:collapse">'+
+        dR('Nama',d.nama,c,g)+dR('Tempat, Tanggal Lahir',d.ttl,c,g)+dR('Jenis Kelamin',d.jk,c,g)+
+        dR('Bangsa',d.bangsa,c,g)+dR('Agama',d.agama,c,g)+dR('Tinggi Badan',d.tb?d.tb+' cm':'',c,g)+
+        dR('Berat Badan',d.bb?d.bb+' kg':'',c,g)+almR2(d,c,g)+dR('No. Hp',d.hp,c,g)+
+        dR('Status',d.status,c,g)+dR('Email',d.email,c,g)+'</table>';
+    var h='<div style="'+a4s(1.45)+'">';
+    if(S.foto){h+='<table style="width:100%;border-collapse:collapse"><tr><td style="vertical-align:top;padding-right:8mm">'+left+'</td><td style="vertical-align:top;text-align:right;padding-left:8mm;width:30mm">'+ftMM()+'</td></tr></table>';}
+    else{h+=left;}
+    h+=pdC3()+pxC3()+khC3()+'</div>';
+    return h;
+}
+function gCV2(){
+    var d=S.dp,pt=prT();
+    var info='';
+    function infoL(t){if(t)info+='<div style="font-size:11pt;color:#444;margin-bottom:3px">'+t+'</div>'}
+    infoL(E(d.ttl));
+    var l2=[d.jk,d.bangsa,d.agama].filter(Boolean).join('  |  ');
+    infoL(l2);
+    var l3=[d.tb?d.tb+' cm':'',d.bb?d.bb+' kg':''].filter(Boolean).join('  |  ');
+    infoL(l3);
+    infoL(E(d.alamat));
+    var a1=[d.dusun,d.rtrw].filter(Boolean).join('  |  ');
+    if(a1)infoL(a1);
+    var a2=[d.desa,d.kec].filter(Boolean).join('  |  ');
+    if(a2)infoL(a2);
+    infoL(d.status);
+    var l5=[d.hp?'No. Hp '+E(d.hp):'',E(d.email)].filter(Boolean).join('  |  ');
+    infoL(l5);
+    return'<div style="'+a4s()+'"><table style="width:100%;border-collapse:collapse;margin-bottom:10px"><tr><td style="vertical-align:top;width:70%">'+(d.nama?'<div style="font-size:16pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">'+E(d.nama)+'</div>':'')+info+'</td><td style="vertical-align:top;width:30%;text-align:right;padding-left:8mm;padding-top:2mm">'+(S.foto?ftMM():'')+'</td></tr></table>'+(pt?sT('PROFIL')+prPN(pt):'')+pdC3()+pxC3()+khC3()+'</div>';
+}
+function gCV3(){
+    var d=S.dp,pt=prT();
+    var pad=_cv3Pad||[20,11,20,16];
+    var sb='';
+    if(S.foto)sb+='<div style="text-align:center;margin-bottom:'+SBG+'em">'+ftMM()+'</div>';
+    function sbi(l,v){if(!v)return'';return'<div style="margin-bottom:'+SBG+'em"><div style="font-weight:bold;margin-bottom:1px">'+l+'</div><div>'+E(v)+'</div></div>'}
+    function sbm(l,lines){if(!lines.length)return'';var h='<div style="margin-bottom:'+SBG+'em"><div style="font-weight:bold;margin-bottom:1px">'+l+'</div>';lines.forEach(function(ln,i){if(i>0)h+='<br>';h+=E(ln)});h+='</div>';return h}
+    sb+=sbi('Tempat, Tanggal Lahir',d.ttl);
+    sb+=sbi('Jenis Kelamin',d.jk);
+    sb+=sbi('Bangsa',d.bangsa);
+    sb+=sbi('Agama',d.agama);
+    sb+=sbi('Tinggi Badan',d.tb?d.tb+' cm':'');
+    sb+=sbi('Berat Badan',d.bb?d.bb+' kg':'');
+    var al=[];if(d.alamat){var di=d.alamat.indexOf('Ds.');if(di!==-1){var b=d.alamat.substring(0,di).replace(/\s+$/,''),a=d.alamat.substring(di);if(b)al.push(b);if(a)al.push(a.replace(/^\s+/,''))}else al.push(d.alamat)}if(d.dusun)al.push(d.dusun);if(d.rtrw)al.push(d.rtrw);if(d.desa)al.push(d.desa);if(d.kec)d.kec.split(',').forEach(function(x){var t=x.replace(/^\s+|\s+$/g,'');if(t)al.push(t)});
+    sb+=sbm('Alamat',al);
+    sb+=sbi('No. HP',d.hp);
+    sb+=sbi('Email',d.email);
+    sb+=sbi('Status',d.status);
+    var mnH='<div style="font-size:17pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #000">'+E(d.nama)+'</div>';
+    if(pt)mnH+=prPN(pt);
+    mnH+=pdC2Y()+pxC3R()+khC1R();
+    return'<div style="'+a4s()+'display:flex"><div data-cv3="sb" style="width:35%;flex-shrink:0;display:block;background:#f0f0f0;padding:'+pad[0]+'mm '+pad[1]+'mm;border-right:2.5px solid #000;box-sizing:border-box">'+sb+'</div><div data-cv3="mn" style="width:65%;padding:'+pad[2]+'mm '+pad[3]+'mm">'+mnH+'</div></div>';
+}
+function gSL(){
+    var d=S.dp,s=S.sr,sp=isSp(),tt=isTT();
+    var op=sp?'Sesuai dengan informasi adanya lowongan pekerjaan di PT. '+E(s.npt)+' yang saya peroleh dari '+E(s.sum)+', saya bermaksud untuk melamar pekerjaan sebagai '+E(s.pos)+'.':'Sesuai dengan informasi adanya lowongan pekerjaan di PT. '+E(s.npt)+' yang saya peroleh dari '+E(s.sum)+', saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu '+(tt?'Pimpin':'pimpin')+'.';
+    var dl=[['Nama',d.nama],['Tempat dan Tanggal Lahir',d.ttl],['Jenis Kelamin',d.jk],['Agama',d.agama],['Status',d.status],['Pendidikan Terakhir',s.ptk]];
+    var dpH='';dl.forEach(function(r){if(r[1])dpH+='<tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">'+r[0]+'</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+E(r[1])+'</td></tr>'});
+    var addrParts=[d.alamat,d.dusun,d.rtrw,d.desa,d.kec].filter(Boolean);
+    if(addrParts.length){dpH+='<tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Alamat</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+E(addrParts[0])+'</td></tr>';for(var i=1;i<addrParts.length;i++)dpH+='<tr><td colspan="2" style="padding:0"></td><td style="padding:2px 0">'+E(addrParts[i])+'</td></tr>';}
+    if(d.email)dpH+='<tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Email</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+E(d.email)+'</td></tr>';
+    if(d.hp)dpH+='<tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">No HP</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+E(d.hp)+'</td></tr>';
+    var items=[];if(tt){items.push('CV / Daftar Riwayat Hidup');items.push('Pas Foto terbaru ('+(parseInt(s.fpl)||1)+' Lembar)')}var pfx=tt?'Fotokopi':'Scan';S.lm.filter(function(x){return x}).forEach(function(x){items.push(pfx+' '+E(x))});
+    var tl=items.length;var lh=items.map(function(l,i){return'<div style="padding:1px 0">'+(i+1)+'. '+l+'</div>'}).join('');
+    var ap=[s.apt,s.apt2].filter(Boolean);
+    return'<div style="'+a4s()+'"><div style="text-align:right;margin-bottom:18px">'+E(s.kota)+', '+E(s.tgl)+'</div><table style="width:auto;border-collapse:collapse;margin:0"><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Hal</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">Lamaran Pekerjaan</td></tr><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Lampiran</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+tl+' lembar</td></tr></table><div style="margin:14px 0 0 0">Kepada Yth,</div><div style="margin-bottom:12px"><div>Bapak/Ibu HRD</div><div>PT. '+E(s.npt)+'</div>'+(ap[0]?'<div>'+E(ap[0])+'</div>':'')+(ap[1]?'<div>'+E(ap[1])+'</div>':'')+'</div><div style="margin-bottom:10px">Dengan hormat,</div><p style="text-align:justify;margin-bottom:10px">'+op+'</p><div style="margin-bottom:10px">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;border-collapse:collapse">'+dpH+'</table><div style="margin:12px 0">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-bottom:14px">'+lh+'</div><p style="text-align:justify;margin-bottom:22px">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</p><div style="text-align:right"><div>Hormat saya,</div><div style="height:55px"></div><div style="font-weight:bold">'+E(d.nama)+'</div></div></div>';
+}
+
+/* ===== PDF ENGINE — DITULIS ULANG TOTAL ===== */
+/* 
+   Pendekatan: 
+   1. Render ke div tersembunyi tepat 794px lebar (A4 @96dpi)
+   2. Coba beberapa kombinasi font-size & padding dari besar ke kecil
+   3. Ambil konfigurasi terbesar yang muat dalam 1123px tinggi
+   4. Lock ke 794x1123px + overflow:hidden, lalu tangkap ke PDF
+   5. TANPA zoom/transform sama sekali
+*/
+
+/* CV-3 PDF: layout tabel murni (bukan flex) dengan padding parameter */
+function gCV3PDF(pad){
+    var d=S.dp,pt=prT();
+    var p=pad||[20,11,20,16];
+    var sbH='';
+    if(S.foto)sbH+='<tr><td colspan="2" style="text-align:center;padding:0 0 10px 0">'+ftMM()+'</td></tr>';
+    function sbi(l,v){if(!v)return'';return'<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap;width:35%">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">'+E(v)+'</td></tr>'}
+    function sbm(l,lines){if(!lines.length)return'';var h='<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap;width:35%">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">';lines.forEach(function(ln,i){if(i>0)h+='<br>';h+=E(ln)});h+='</td></tr>';return h}
+    sbH+=sbi('Tempat, Tanggal Lahir',d.ttl);
+    sbH+=sbi('Jenis Kelamin',d.jk);
+    sbH+=sbi('Bangsa',d.bangsa);
+    sbH+=sbi('Agama',d.agama);
+    sbH+=sbi('Tinggi Badan',d.tb?d.tb+' cm':'');
+    sbH+=sbi('Berat Badan',d.bb?d.bb+' kg':'');
+    var al=[];if(d.alamat){var di=d.alamat.indexOf('Ds.');if(di!==-1){var b=d.alamat.substring(0,di).replace(/\s+$/,''),a=d.alamat.substring(di);if(b)al.push(b);if(a)al.push(a.replace(/^\s+/,''))}else al.push(d.alamat)}if(d.dusun)al.push(d.dusun);if(d.rtrw)al.push(d.rtrw);if(d.desa)al.push(d.desa);if(d.kec)d.kec.split(',').forEach(function(x){var t=x.replace(/^\s+|\s+$/g,'');if(t)al.push(t)});
+    sbH+=sbm('Alamat',al);
+    sbH+=sbi('No. HP',d.hp);
+    sbH+=sbi('Email',d.email);
+    sbH+=sbi('Status',d.status);
+    var mnH='<div style="font-size:17pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #000">'+E(d.nama)+'</div>';
+    if(pt)mnH+=prPN(pt);
+    mnH+=pdC2Y()+pxC3R()+khC1R();
+    return'<table style="width:100%;border-collapse:collapse;'+a4s()+'"><tr>'+
+        '<td style="width:35%;vertical-align:top;background:#f0f0f0;padding:'+p[0]+'mm '+p[1]+'mm;border-right:2.5px solid #000;box-sizing:border-box">'+sbH+'</td>'+
+        '<td style="width:65%;vertical-align:top;padding:'+p[2]+'mm '+p[3]+'mm;box-sizing:border-box">'+mnH+'</td>'+
+        '</tr></table>';
+}
+
+function dlPDF(){
+    if(!hasAny()){toast('Isi minimal satu data terlebih dahulu');return}
+    if(typeof html2pdf==='undefined'){
+        toast('Memuat library PDF, tunggu sebentar...');
+        var s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        s.onload=function(){dlPDF()};
+        s.onerror=function(){toast('Gagal memuat library PDF. Periksa koneksi internet.')};
+        document.head.appendChild(s);
+        return;
+    }
+    var btn=$('dlb');
+    btn.disabled=true;
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i><span class="hidden sm:inline">Memproses...</span>';
+    setTimeout(function(){
+        (document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+            try{processPDF(btn)}catch(e){console.error(e);resetBtn(btn);toast('Terjadi kesalahan sistem')}
+        });
+    },100);
+}
+
+function resetBtn(btn){
+    btn.disabled=false;
+    btn.innerHTML='<i class="fas fa-download"></i><span class="hidden sm:inline">Download PDF</span>';
+}
+
+function processPDF(btn){
+    var ov=$('pdf-overlay'),box=$('pdf-content');
+    var nm=S.dp.nama||'Dokumen';
+    var tn=tplOf(S.tpl)?tplOf(S.tpl).nm:'Dokumen';
+    var fn=(tn+'_'+nm).replace(/\s+/g,'_')+'.pdf';
+
+    /* Tampilkan overlay */
+    ov.style.display='block';
+    ov.classList.add('active');
+    document.body.style.overflow='hidden';
+    window.scrollTo(0,0);
+
+    var W=794,H=1123;
+    var is3=S.tpl==='cv03';
+
+    /* Level padding untuk CV-3: [sidebar_top, sidebar_right, main_top, main_right] */
+    var P3=[
+        [20,11,20,16],[16,9,16,13],[13,8,13,11],[10,7,10,9],
+        [8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3]
+    ];
+
+    /* Daftar konfigurasi [pad, fontSize] dari besar ke kecil */
+    var cfgs;
+    if(is3){
+        cfgs=[];
+        [12,11,10,9,8].forEach(function(fs){
+            var pi=fs===12?[0,1,2,3,4,5,6,7]:fs===11?[0,2,4,6]:fs===10?[0,2,4,6]:fs===9?[0,2,4,6]:[0,2,4];
+            pi.forEach(function(p){cfgs.push([p,fs])});
+        });
+    }else{
+        cfgs=[
+            [20,12],[17,12],[15,12],[12,12],[10,12],[8,12],
+            [20,11],[15,11],[12,11],[10,11],[8,11],
+            [20,10],[15,10],[12,10],[10,10],[8,10],
+            [15,9],[12,9],[10,9],[8,9],[5,9],
+            [10,8],[8,8],[5,8],[3,8]
+        ];
+    }
+
+    /* Generate HTML konten pada font-size & padding tertentu */
+    function gen(c){
+        var oF=FS,oH=FSH;
+        FS=c[1];FSH=c[1]+1;
+        var h;
+        if(S.tpl==='cv01')h=gCV1();
+        else if(S.tpl==='cv02')h=gCV2();
+        else if(is3)h=gCV3PDF(P3[c[0]]);
+        else h=gSL();
+        FS=oF;FSH=oH;
+        return h;
+    }
+
+    /* Bungkus HTML ke dalam container 794px */
+    function wrap(h,c){
+        if(is3)return'<div style="width:'+W+'px;background:#fff;color:#000">'+h+'</div>';
+        return'<div style="width:'+W+'px;padding:'+c[0]+'mm;box-sizing:border-box;background:#fff;color:#000">'+h+'</div>';
+    }
+
+    /* Cari konfigurasi terbesar yang muat */
+    var fit=null;
+    for(var i=0;i<cfgs.length;i++){
+        box.innerHTML=wrap(gen(cfgs[i]),cfgs[i]);
+        box.style.cssText='width:'+W+'px;overflow:visible;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
+        void box.offsetHeight;
+        if(box.scrollHeight<=H+1){fit=cfgs[i];break}
+    }
+
+    /* Pasang konfigurasi final: lock ke 794x1123, overflow hidden */
+    var fc=fit||cfgs[cfgs.length-1];
+    box.innerHTML=wrap(gen(fc),fc);
+    box.style.cssText='width:'+W+'px;height:'+H+'px;overflow:hidden;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
+    void box.offsetHeight;
+
+    /* Tunggu render stabil, lalu generate PDF */
+    setTimeout(function(){
+        html2pdf().set({
+            margin:0,
+            filename:fn,
+            image:{type:'jpeg',quality:0.98},
+            html2canvas:{
+                scale:2,
+                useCORS:true,
+                logging:false,
+                scrollX:0,
+                scrollY:0,
+                width:W,
+                height:H,
+                windowWidth:W,
+                windowHeight:H
+            },
+            jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+            pagebreak:{mode:['avoid-all'],avoid:['*']}
+        }).from(box).save().then(function(){
+            ov.style.display='none';
+            ov.classList.remove('active');
+            document.body.style.overflow='';
+            resetBtn(btn);
+            toast('PDF berhasil diunduh!');
+        }).catch(function(err){
+            console.error(err);
+            ov.style.display='none';
+            ov.classList.remove('active');
+            document.body.style.overflow='';
+            resetBtn(btn);
+            toast('Gagal mengunduh PDF');
+        });
+    },1500);
+}
+
+/* ===== EVENT LISTENERS ===== */
+document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')){if(e.target.classList.contains('sh')){e.preventDefault();tgs(e.target)}if(e.target.classList.contains('tc')||e.target.classList.contains('ctab')){e.preventDefault();e.target.click()}}});
+loadLS();_activeCat=tplOf(S.tpl)?tplOf(S.tpl).cat:'cv';rTC();rF();rPV();window.addEventListener('resize',sclP);
+if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){document.querySelectorAll('.fu').forEach(function(el){el.style.animation='none'});var hl=document.querySelector('.hdr-line');if(hl)hl.style.animation='none'}
+</script>
+</body>
+</html>
