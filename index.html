@@ -90,12 +90,9 @@ body.dark .rstb{border-color:#7f1d1d;color:#f87171}
 body.dark .rstb:hover{background:#3b1111}
 @media(max-width:640px){.tc{width:100px;padding:10px 6px}.tc .th{margin-bottom:6px}.tc h4{font-size:10px;line-height:1.2}.tc p{font-size:8.5px}.fi{padding:9px 12px;font-size:12px}.sh{padding:12px 0}.sh h3{font-size:12px}.pb{width:80px}.ctab{padding:7px 12px;font-size:11px}.ovfw{font-size:9px;padding:5px 10px;bottom:5px}}
 @media(min-width:641px) and (max-width:1023px){.tc{width:108px}}
-#pdf-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:200000;overflow:auto;display:none;visibility:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#pdf-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:200000;overflow:auto;display:none;visibility:hidden}
 #pdf-overlay.active{visibility:visible}
-#pdf-content{width:794px;background:#ffffff;color:#000000;margin:20px auto;-webkit-transform:none;transform:none}
-#pdf-loading{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200001;text-align:center;display:none;pointer-events:none}
-#pdf-loading .spinner{width:48px;height:48px;border:4px solid #e5e7eb;border-top-color:#dc2626;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
-@keyframes spin{to{transform:rotate(360deg)}}
+.pdf-content-box{width:794px;min-height:1123px;background:#ffffff;color:#000000;margin:20px auto;box-shadow:0 0 30px rgba(0,0,0,0.5)}
 </style>
 </head>
 <body class="antialiased">
@@ -161,12 +158,7 @@ body.dark .rstb:hover{background:#3b1111}
 </div>
 
 <div id="pdf-overlay">
-    <div id="pdf-content"></div>
-</div>
-<div id="pdf-loading">
-    <div class="spinner"></div>
-    <p style="font-family:Outfit,sans-serif;font-size:14px;font-weight:600;color:#374151">Mempersiapkan PDF...</p>
-    <p style="font-family:Outfit,sans-serif;font-size:11px;color:#9ca3af;margin-top:6px">Mohon tunggu, jangan tutup halaman</p>
+    <div id="pdf-content" class="pdf-content-box"></div>
 </div>
 
 <script>
@@ -241,7 +233,10 @@ function autoFit(){
         }else{
             inner.style.padding='0mm';
             var sb=inner.querySelector('[data-cv3="sb"]'),mn=inner.querySelector('[data-cv3="mn"]');
-            var lvls=[[20,11,20,16],[16,9,16,13],[13,8,13,11],[10,7,10,9],[8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3]];
+            var lvls=[
+                [20,11,20,16],[16,9,16,13],[13,8,13,11],[10,7,10,9],
+                [8,5,8,7],[6,4,6,5],[4,3,4,4],[3,2,3,3]
+            ];
             for(var li=0;li<lvls.length;li++){
                 var lv=lvls[li],st=lv[0],sr=lv[1],mt=lv[2],mr=lv[3];
                 inner.style.zoom='1';
@@ -290,7 +285,9 @@ function ftMM(){return S.foto?'<img src="'+S.foto+'" style="width:30mm;height:40
 function dR(l,v,cp,csg){cp=cp||CP;csg=csg||CSG;return v?'<tr><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap;width:'+LW+'px">'+l+'</td><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap">:</td><td style="padding:'+cp+'px 0;vertical-align:top">'+E(v)+'</td></tr>':''}
 function almR2(d,cp,csg){cp=cp||CP;csg=csg||CSG;var parts=[d.alamat,d.dusun,d.rtrw,d.desa,d.kec].filter(Boolean);if(!parts.length)return'';var h='<tr><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap;width:'+LW+'px">Alamat</td><td style="padding:'+cp+'px '+csg+'px '+cp+'px 0;vertical-align:top;white-space:nowrap">:</td><td style="padding:'+cp+'px 0;vertical-align:top">'+E(parts[0])+'</td></tr>';for(var i=1;i<parts.length;i++)h+='<tr><td style="padding:0"></td><td style="padding:0"></td><td style="padding:'+cp+'px 0;vertical-align:top">'+E(parts[i])+'</td></tr>';return h}
 
-/* ===== KOMPONEN TABEL BAGIAN CV ===== */
+/* ===== KOMPONEN TABEL BAGIAN CV (SESUAI DESAIN DOCX) ===== */
+
+/* PENDIDIKAN — 2 kolom: Nama Sekolah | Tahun Lulus */
 function pdC3(){
     var it=S.pd.filter(function(p){return p.n||p.tl});
     if(!it.length)return'';
@@ -299,7 +296,11 @@ function pdC3(){
             return'<tr><td style="padding:'+CP+'px '+CSG+'px '+CP+'px 0;text-align:left;width:70%">'+E(p.n)+'</td><td style="padding:'+CP+'px 0;text-align:left;width:30%">'+E(p.tl)+'</td></tr>';
         }).join('')+'</table>';
 }
+
+/* PENDIDIKAN — CV-3 juga 2 kolom (sama format) */
 function pdC2Y(){return pdC3()}
+
+/* PENGALAMAN — CV-1 & CV-2: 2 kolom (Jabatan/Posisi + detail perusahaan | Periode) */
 function pxC3(){
     var it=S.px.filter(function(p){return p.pt||p.jb});
     if(!it.length)return'';
@@ -314,6 +315,8 @@ function pxC3(){
             return h;
         }).join('')+'</table>';
 }
+
+/* PENGALAMAN — CV-3: vertikal sederhana (Jabatan, PT, Jl) tanpa kolom periode */
 function pxC3R(){
     var it=S.px.filter(function(p){return p.pt||p.jb});
     if(!it.length)return'';
@@ -327,6 +330,8 @@ function pxC3R(){
         return h;
     }).join('');
 }
+
+/* KEAHLIAN — CV-1 & CV-2: 3 kolom (Label | Kolom1 | Kolom2) */
 var KC1='42%',KC2='30%',KC3='28%';
 function khC3(){
     var h=S.hs.filter(function(x){return x}),s=S.ss.filter(function(x){return x});
@@ -343,17 +348,27 @@ function khC3(){
     html+='</table>';
     return html;
 }
+
+/* KEAHLIAN — CV-3: vertikal dengan label "Hard Skill :" dan "Soft Skill :" */
 function khC1R(){
     var h=S.hs.filter(function(x){return x}),s=S.ss.filter(function(x){return x});
     if(!h.length&&!s.length)return'';
     var html=sT('KEAHLIAN');
-    if(h.length){html+='<div style="font-weight:bold">Hard Skill :</div>';h.forEach(function(x){html+='<div>'+E(x)+'</div>'})}
+    if(h.length){
+        html+='<div style="font-weight:bold">Hard Skill :</div>';
+        h.forEach(function(x){html+='<div>'+E(x)+'</div>'});
+    }
     if(h.length&&s.length)html+='<div style="height:8px"></div>';
-    if(s.length){html+='<div style="font-weight:bold">Soft Skill :</div>';s.forEach(function(x){html+='<div>'+E(x)+'</div>'})}
+    if(s.length){
+        html+='<div style="font-weight:bold">Soft Skill :</div>';
+        s.forEach(function(x){html+='<div>'+E(x)+'</div>'});
+    }
     return html;
 }
 
 /* ===== GENERATOR PREVIEW CV ===== */
+
+/* CV Model 01 — PROFIL + DATA PRIBADI (tabel kiri) + Foto (kanan atas) + PENDIDIKAN/PENGALAMAN/KEAHLIAN */
 function gCV1(){
     var d=S.dp,pt=prT(),c=CP1,g=CSG1;
     var left='';
@@ -369,6 +384,8 @@ function gCV1(){
     h+=pdC3()+pxC3()+khC3()+'</div>';
     return h;
 }
+
+/* CV Model 02 — NAMA besar + info baris + Foto kanan atas + PROFIL + PENDIDIKAN/PENGALAMAN/KEAHLIAN */
 function gCV2(){
     var d=S.dp,pt=prT();
     var info='';
@@ -388,6 +405,8 @@ function gCV2(){
     infoL(l5);
     return'<div style="'+a4s()+'"><table style="width:100%;border-collapse:collapse;margin-bottom:10px"><tr><td style="vertical-align:top;width:70%">'+(d.nama?'<div style="font-size:16pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">'+E(d.nama)+'</div>':'')+info+'</td><td style="vertical-align:top;width:30%;text-align:right;padding-left:8mm;padding-top:2mm">'+(S.foto?ftMM():'')+'</td></tr></table>'+(pt?sT('PROFIL')+prPN(pt):'')+pdC3()+pxC3()+khC3()+'</div>';
 }
+
+/* CV Model 03 — Sidebar kiri (data pribadi) + Konten kanan (NAMA + PROFIL + PENDIDIKAN/PENGALAMAN/KEAHLIAN) */
 function gCV3(){
     var d=S.dp,pt=prT();
     var pad=_cv3Pad||[20,11,20,16];
@@ -411,6 +430,8 @@ function gCV3(){
     mnH+=pdC2Y()+pxC3R()+khC1R();
     return'<div style="'+a4s()+'display:flex"><div data-cv3="sb" style="width:35%;flex-shrink:0;display:block;background:#f0f0f0;padding:'+pad[0]+'mm '+pad[1]+'mm;border-right:2.5px solid #000;box-sizing:border-box">'+sb+'</div><div data-cv3="mn" style="width:65%;padding:'+pad[2]+'mm '+pad[3]+'mm">'+mnH+'</div></div>';
 }
+
+/* SURAT LAMARAN — tetap sama */
 function gSL(){
     var d=S.dp,s=S.sr,sp=isSp(),tt=isTT();
     var op=sp?'Sesuai dengan informasi adanya lowongan pekerjaan di PT. '+E(s.npt)+' yang saya peroleh dari '+E(s.sum)+', saya bermaksud untuk melamar pekerjaan sebagai '+E(s.pos)+'.':'Sesuai dengan informasi adanya lowongan pekerjaan di PT. '+E(s.npt)+' yang saya peroleh dari '+E(s.sum)+', saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu '+(tt?'Pimpin':'pimpin')+'.';
@@ -426,35 +447,7 @@ function gSL(){
     return'<div style="'+a4s()+'"><div style="text-align:right;margin-bottom:18px">'+E(s.kota)+', '+E(s.tgl)+'</div><table style="width:auto;border-collapse:collapse;margin:0"><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Hal</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">Lamaran Pekerjaan</td></tr><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Lampiran</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+tl+' lembar</td></tr></table><div style="margin:14px 0 0 0">Kepada Yth,</div><div style="margin-bottom:12px"><div>Bapak/Ibu HRD</div><div>PT. '+E(s.npt)+'</div>'+(ap[0]?'<div>'+E(ap[0])+'</div>':'')+(ap[1]?'<div>'+E(ap[1])+'</div>':'')+'</div><div style="margin-bottom:10px">Dengan hormat,</div><p style="text-align:justify;margin-bottom:10px">'+op+'</p><div style="margin-bottom:10px">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;border-collapse:collapse">'+dpH+'</table><div style="margin:12px 0">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-bottom:14px">'+lh+'</div><p style="text-align:justify;margin-bottom:22px">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</p><div style="text-align:right"><div>Hormat saya,</div><div style="height:55px"></div><div style="font-weight:bold">'+E(d.nama)+'</div></div></div>';
 }
 
-/* ===== PDF ENGINE — DIPERBAIKI: download manual dengan MIME type application/pdf ===== */
-
-function gCV3PDF(pad){
-    var d=S.dp,pt=prT();
-    var p=pad||[20,11,20,16];
-    var sbH='';
-    if(S.foto)sbH+='<tr><td colspan="2" style="text-align:center;padding:0 0 10px 0">'+ftMM()+'</td></tr>';
-    function sbi(l,v){if(!v)return'';return'<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap;width:35%">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">'+E(v)+'</td></tr>'}
-    function sbm(l,lines){if(!lines.length)return'';var h='<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap;width:35%">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">';lines.forEach(function(ln,i){if(i>0)h+='<br>';h+=E(ln)});h+='</td></tr>';return h}
-    sbH+=sbi('Tempat, Tanggal Lahir',d.ttl);
-    sbH+=sbi('Jenis Kelamin',d.jk);
-    sbH+=sbi('Bangsa',d.bangsa);
-    sbH+=sbi('Agama',d.agama);
-    sbH+=sbi('Tinggi Badan',d.tb?d.tb+' cm':'');
-    sbH+=sbi('Berat Badan',d.bb?d.bb+' kg':'');
-    var al=[];if(d.alamat){var di=d.alamat.indexOf('Ds.');if(di!==-1){var b=d.alamat.substring(0,di).replace(/\s+$/,''),a=d.alamat.substring(di);if(b)al.push(b);if(a)al.push(a.replace(/^\s+/,''))}else al.push(d.alamat)}if(d.dusun)al.push(d.dusun);if(d.rtrw)al.push(d.rtrw);if(d.desa)al.push(d.desa);if(d.kec)d.kec.split(',').forEach(function(x){var t=x.replace(/^\s+|\s+$/g,'');if(t)al.push(t)});
-    sbH+=sbm('Alamat',al);
-    sbH+=sbi('No. HP',d.hp);
-    sbH+=sbi('Email',d.email);
-    sbH+=sbi('Status',d.status);
-    var mnH='<div style="font-size:17pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #000">'+E(d.nama)+'</div>';
-    if(pt)mnH+=prPN(pt);
-    mnH+=pdC2Y()+pxC3R()+khC1R();
-    return'<table style="width:100%;border-collapse:collapse;'+a4s()+'"><tr>'+
-        '<td style="width:35%;vertical-align:top;background:#f0f0f0;padding:'+p[0]+'mm '+p[1]+'mm;border-right:2.5px solid #000;box-sizing:border-box">'+sbH+'</td>'+
-        '<td style="width:65%;vertical-align:top;padding:'+p[2]+'mm '+p[3]+'mm;box-sizing:border-box">'+mnH+'</td>'+
-        '</tr></table>';
-}
-
+/* ===== PDF ENGINE ===== */
 function dlPDF(){
     if(!hasAny()){toast('Isi minimal satu data terlebih dahulu');return}
     if(typeof html2pdf==='undefined'){
@@ -482,221 +475,81 @@ function resetBtn(btn){
 }
 
 function processPDF(btn){
-    var ov=$('pdf-overlay'),box=$('pdf-content'),ld=$('pdf-loading');
+    var overlay=$('pdf-overlay');
+    var contentBox=$('pdf-content');
     var nm=S.dp.nama||'Dokumen';
     var tn=tplOf(S.tpl)?tplOf(S.tpl).nm:'Dokumen';
     var fn=(tn+'_'+nm).replace(/\s+/g,'_')+'.pdf';
 
-    ov.style.display='block';
-    ov.classList.add('active');
-    ld.style.display='block';
-    document.body.style.overflow='hidden';
+    overlay.style.display='flex';
+    overlay.classList.add('active');
     window.scrollTo(0,0);
 
-    var W=794, H=1123;
-    var is3=S.tpl==='cv03';
-
-    /*
-     * Scale 3: canvas 2382×3369px → efektif ~288 DPI
-     * Cukup tajam untuk cetak & lebih stabil di perangkat dengan RAM terbatas
-     */
-    var SCALE=3;
-
-    var P3=[
-        [20,11,20,16],[18,10,18,14],[16,9,16,13],[14,8,14,11],
-        [12,7,12,10],[10,6,10,8],[8,5,8,7],[6,4,6,5],
-        [5,3,5,4],[4,3,4,3],[3,2,3,3]
-    ];
-
-    var cfgs;
-    if(is3){
-        cfgs=[];
-        [12,11.5,11,10.5,10,9.5,9,8.5,8,7.5,7].forEach(function(fs){
-            P3.forEach(function(p,pi){cfgs.push([pi,fs])});
-        });
-    }else{
-        cfgs=[
-            [20,12],[18,12],[16,12],[14,12],[12,12],[10,12],[8,12],[6,12],[4,12],
-            [20,11.5],[18,11.5],[16,11.5],[14,11.5],[12,11.5],[10,11.5],[8,11.5],[6,11.5],[4,11.5],
-            [20,11],[18,11],[16,11],[14,11],[12,11],[10,11],[8,11],[6,11],[4,11],
-            [20,10.5],[18,10.5],[16,10.5],[14,10.5],[12,10.5],[10,10.5],[8,10.5],[6,10.5],[4,10.5],
-            [20,10],[18,10],[16,10],[14,10],[12,10],[10,10],[8,10],[6,10],[4,10],
-            [16,9.5],[14,9.5],[12,9.5],[10,9.5],[8,9.5],[6,9.5],[4,9.5],
-            [16,9],[14,9],[12,9],[10,9],[8,9],[6,9],[4,9],
-            [14,8.5],[12,8.5],[10,8.5],[8,8.5],[6,8.5],[4,8.5],
-            [12,8],[10,8],[8,8],[6,8],[4,8],
-            [10,7.5],[8,7.5],[6,7.5],[4,7.5],
-            [8,7],[6,7],[4,7]
-        ];
+    function renderHTML(paddingVal,fontSizeVal){
+        var oldFS=FS,oldFSH=FSH;
+        FS=fontSizeVal;FSH=fontSizeVal+1;
+        var html='';
+        if(S.tpl==='cv01')html=gCV1();
+        else if(S.tpl==='cv02')html=gCV2();
+        else if(S.tpl==='cv03')html=gCV3PDFTable();
+        else html=gSL();
+        FS=oldFS;FSH=oldFSH;
+        return'<div style="padding:'+paddingVal+'mm;box-sizing:border-box;min-height:1123px;color:black;background:white;width:794px;">'+html+'</div>';
     }
 
-    var origFS=FS, origFSH=FSH;
+    var ok=false;
+    contentBox.innerHTML=renderHTML(20,12);
+    if(contentBox.scrollHeight<=1125)ok=true;
+    if(!ok){var pads=[15,12,10,8,5,3];for(var i=0;i<pads.length;i++){contentBox.innerHTML=renderHTML(pads[i],12);if(contentBox.scrollHeight<=1125){ok=true;break}}}
+    if(!ok){var fSizes=[11,10.5,10,9.5,9];for(var j=0;j<fSizes.length;j++){var p=[12,10,8,6,4][j];contentBox.innerHTML=renderHTML(p,fSizes[j]);if(contentBox.scrollHeight<=1125){ok=true;break}}}
+    if(!ok)contentBox.innerHTML=renderHTML(3,9);
 
-    function gen(c){
-        FS=c[1]; FSH=c[1]+1;
-        var h;
-        if(S.tpl==='cv01') h=gCV1();
-        else if(S.tpl==='cv02') h=gCV2();
-        else if(is3) h=gCV3PDF(P3[c[0]]);
-        else h=gSL();
-        FS=origFS; FSH=origFSH;
-        return h;
-    }
+    void overlay.offsetHeight;
 
-    function wrap(h,c){
-        if(is3) return'<div style="width:'+W+'px;background:#fff;color:#000;-webkit-transform:none;transform:none;">'+h+'</div>';
-        return'<div style="width:'+W+'px;padding:'+c[0]+'mm;box-sizing:border-box;background:#fff;color:#000;-webkit-transform:none;transform:none;">'+h+'</div>';
-    }
-
-    var fit=null;
-    for(var i=0;i<cfgs.length;i++){
-        box.innerHTML=wrap(gen(cfgs[i]),cfgs[i]);
-        box.style.cssText='width:'+W+'px;overflow:visible;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
-        void box.offsetHeight;
-        void box.offsetHeight;
-        if(box.scrollHeight<=H+1){fit=cfgs[i];break}
-    }
-
-    var fc=fit||cfgs[cfgs.length-1];
-    box.innerHTML=wrap(gen(fc),fc);
-    box.style.cssText='width:'+W+'px;height:'+H+'px;overflow:hidden;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
-    void box.offsetHeight;
-    void box.offsetHeight;
-
-    /* ===== PERUBAHAN UTAMA: pakai output('blob') + download manual ===== */
     setTimeout(function(){
-        ld.style.display='none';
-        try{
-            html2pdf().set({
-                margin: 0,
-                filename: fn,
-                image: {type: 'jpeg', quality: 0.95},
-                html2canvas: {
-                    scale: SCALE,
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false,
-                    scrollX: 0,
-                    scrollY: 0,
-                    x: 0,
-                    y: 0,
-                    width: W,
-                    height: H,
-                    windowWidth: W,
-                    windowHeight: H
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait',
-                    hotfixes: ['px_scaling']
-                },
-                pagebreak: {mode: ['avoid-all'], avoid: ['*']}
-            })
-            .from(box)
-            .output('blob')
-            .then(function(blob) {
-                /* Validasi blob benar-benar berisi PDF */
-                if (!blob || blob.size < 512) {
-                    throw new Error('Blob PDF kosong atau terlalu kecil (' + (blob ? blob.size : 0) + ' bytes)');
-                }
+        var opt={
+            margin:0,filename:fn,
+            image:{type:'jpeg',quality:0.98},
+            html2canvas:{scale:2,useCORS:true,logging:false,scrollX:0,scrollY:0,windowWidth:794,windowHeight:1123},
+            jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+            pagebreak:{mode:['css','legacy']}
+        };
+        html2pdf().set(opt).from(contentBox).save().then(function(){
+            overlay.style.display='none';overlay.classList.remove('active');resetBtn(btn);toast('PDF berhasil diunduh!');
+        }).catch(function(err){
+            console.error(err);overlay.style.display='none';overlay.classList.remove('active');resetBtn(btn);toast('Gagal mengunduh PDF');
+        });
+    },1000);
+}
 
-                /* Buat URL object dari blob */
-                var blobUrl = URL.createObjectURL(blob);
+/* CV-3 khusus PDF — pakai tabel murni (bukan flex) agar stabil */
+function gCV3PDFTable(){
+    var d=S.dp,pt=prT();
+    var p=[20,11,20,16];
+    var sbH='';
+    if(S.foto)sbH+='<tr><td colspan="2" style="text-align:center;padding:0 0 10px 0">'+ftMM()+'</td></tr>';
+    function sbi(l,v){if(!v)return'';return'<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap;width:35%">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">'+E(v)+'</td></tr>'}
+    function sbm(l,lines){if(!lines.length)return'';var h='<tr><td style="font-weight:bold;padding:3px 6px 1px 0;vertical-align:top;white-space:nowrap;width:35%">'+l+'</td><td style="padding:3px 0 1px 0;vertical-align:top">';lines.forEach(function(ln,i){if(i>0)h+='<br>';h+=E(ln)});h+='</td></tr>';return h}
+    sbH+=sbi('Tempat, Tanggal Lahir',d.ttl);
+    sbH+=sbi('Jenis Kelamin',d.jk);
+    sbH+=sbi('Bangsa',d.bangsa);
+    sbH+=sbi('Agama',d.agama);
+    sbH+=sbi('Tinggi Badan',d.tb?d.tb+' cm':'');
+    sbH+=sbi('Berat Badan',d.bb?d.bb+' kg':'');
+    var al=[];if(d.alamat){var di=d.alamat.indexOf('Ds.');if(di!==-1){var b=d.alamat.substring(0,di).replace(/\s+$/,''),a=d.alamat.substring(di);if(b)al.push(b);if(a)al.push(a.replace(/^\s+/,''))}else al.push(d.alamat)}if(d.dusun)al.push(d.dusun);if(d.rtrw)al.push(d.rtrw);if(d.desa)al.push(d.desa);if(d.kec)d.kec.split(',').forEach(function(x){var t=x.replace(/^\s+|\s+$/g,'');if(t)al.push(t)});
+    sbH+=sbm('Alamat',al);
+    sbH+=sbi('No. HP',d.hp);
+    sbH+=sbi('Email',d.email);
+    sbH+=sbi('Status',d.status);
 
-                /* Buat elemen <a> sementara untuk trigger download */
-                var link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = fn;
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
+    var mnH='<div style="font-size:17pt;font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #000">'+E(d.nama)+'</div>';
+    if(pt)mnH+=prPN(pt);
+    mnH+=pdC2Y()+pxC3R()+khC1R();
 
-                /* Bersihkan setelah download dimulai */
-                setTimeout(function() {
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(blobUrl);
-                }, 300);
-
-                cleanup();
-                toast('PDF berhasil diunduh!');
-            })
-            .catch(function(err) {
-                console.error('PDF blob generation failed:', err);
-
-                /* Fallback: coba dengan scale lebih kecil */
-                fallbackPDF(box, fn, W, H, function() {
-                    cleanup();
-                    toast('PDF berhasil diunduh!');
-                }, function(e2) {
-                    console.error('PDF fallback also failed:', e2);
-                    cleanup();
-                    toast('Gagal mengunduh PDF. Coba kurangi konten.');
-                });
-            });
-        }catch(e2){
-            console.error(e2);
-            cleanup();
-            toast('Gagal mengunduh PDF');
-        }
-    }, 2500);
-
-    /* ===== Fallback: scale 2 jika scale 3 gagal ===== */
-    function fallbackPDF(el, filename, w, h, onSuccess, onError) {
-        try {
-            html2pdf().set({
-                margin: 0,
-                filename: filename,
-                image: {type: 'jpeg', quality: 0.90},
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false,
-                    scrollX: 0, scrollY: 0,
-                    x: 0, y: 0,
-                    width: w, height: h,
-                    windowWidth: w, windowHeight: h
-                },
-                jsPDF: {
-                    unit: 'mm', format: 'a4',
-                    orientation: 'portrait',
-                    hotfixes: ['px_scaling']
-                },
-                pagebreak: {mode: ['avoid-all'], avoid: ['*']}
-            })
-            .from(el)
-            .output('blob')
-            .then(function(blob) {
-                if (!blob || blob.size < 512) {
-                    throw new Error('Fallback blob juga kosong');
-                }
-                var blobUrl = URL.createObjectURL(blob);
-                var link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = filename;
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(function() {
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(blobUrl);
-                }, 300);
-                onSuccess();
-            })
-            .catch(onError);
-        } catch(e) {
-            onError(e);
-        }
-    }
-
-    function cleanup(){
-        ov.style.display='none';
-        ov.classList.remove('active');
-        ld.style.display='none';
-        document.body.style.overflow='';
-        resetBtn(btn);
-    }
+    return'<table style="width:100%;border-collapse:collapse;'+a4s()+'"><tr>'+
+        '<td style="width:35%;vertical-align:top;background:#f0f0f0;padding:'+p[0]+'mm '+p[1]+'mm;border-right:2.5px solid #000;box-sizing:border-box">'+sbH+'</td>'+
+        '<td style="width:65%;vertical-align:top;padding:'+p[2]+'mm '+p[3]+'mm;box-sizing:border-box">'+mnH+'</td>'+
+        '</tr></table>';
 }
 
 /* ===== EVENT LISTENERS ===== */
