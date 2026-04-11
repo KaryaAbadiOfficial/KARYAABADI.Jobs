@@ -165,7 +165,7 @@ body.dark .rstb:hover{background:#3b1111}
 </div>
 <div id="pdf-loading">
     <div class="spinner"></div>
-    <p style="font-family:Outfit,sans-serif;font-size:14px;font-weight:600;color:#374151">Mempersiapkan PDF 300 DPI...</p>
+    <p style="font-family:Outfit,sans-serif;font-size:14px;font-weight:600;color:#374151">Mempersiapkan PDF...</p>
     <p style="font-family:Outfit,sans-serif;font-size:11px;color:#9ca3af;margin-top:6px">Mohon tunggu, jangan tutup halaman</p>
 </div>
 
@@ -426,9 +426,8 @@ function gSL(){
     return'<div style="'+a4s()+'"><div style="text-align:right;margin-bottom:18px">'+E(s.kota)+', '+E(s.tgl)+'</div><table style="width:auto;border-collapse:collapse;margin:0"><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Hal</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">Lamaran Pekerjaan</td></tr><tr><td style="padding:2px 14px 2px 0;white-space:nowrap;text-align:left">Lampiran</td><td style="padding:2px 6px 2px 0;white-space:nowrap">:</td><td style="padding:2px 0">'+tl+' lembar</td></tr></table><div style="margin:14px 0 0 0">Kepada Yth,</div><div style="margin-bottom:12px"><div>Bapak/Ibu HRD</div><div>PT. '+E(s.npt)+'</div>'+(ap[0]?'<div>'+E(ap[0])+'</div>':'')+(ap[1]?'<div>'+E(ap[1])+'</div>':'')+'</div><div style="margin-bottom:10px">Dengan hormat,</div><p style="text-align:justify;margin-bottom:10px">'+op+'</p><div style="margin-bottom:10px">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;border-collapse:collapse">'+dpH+'</table><div style="margin:12px 0">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-bottom:14px">'+lh+'</div><p style="text-align:justify;margin-bottom:22px">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</p><div style="text-align:right"><div>Hormat saya,</div><div style="height:55px"></div><div style="font-weight:bold">'+E(d.nama)+'</div></div></div>';
 }
 
-/* ===== PDF ENGINE — DITULIS ULANG TOTAL ===== */
+/* ===== PDF ENGINE — DIPERBAIKI: download manual dengan MIME type application/pdf ===== */
 
-/* CV-3 PDF: layout tabel murni (bukan flex) agar tidak berantakan */
 function gCV3PDF(pad){
     var d=S.dp,pt=prT();
     var p=pad||[20,11,20,16];
@@ -488,33 +487,27 @@ function processPDF(btn){
     var tn=tplOf(S.tpl)?tplOf(S.tpl).nm:'Dokumen';
     var fn=(tn+'_'+nm).replace(/\s+/g,'_')+'.pdf';
 
-    /* Tampilkan overlay & loading */
     ov.style.display='block';
     ov.classList.add('active');
     ld.style.display='block';
     document.body.style.overflow='hidden';
     window.scrollTo(0,0);
 
-    /* Dimensi A4 @ 96 DPI base */
     var W=794, H=1123;
     var is3=S.tpl==='cv03';
 
     /*
-     * RESOLUSI 300 DPI:
-     * A4 = 210×297mm = 2480×3508px @300DPI
-     * Base render 794px, scale 4 → canvas 3176×4492px
-     * Efektif: 3176/(210/25.4) ≈ 384 DPI ✓
+     * Scale 3: canvas 2382×3369px → efektif ~288 DPI
+     * Cukup tajam untuk cetak & lebih stabil di perangkat dengan RAM terbatas
      */
-    var SCALE=4;
+    var SCALE=3;
 
-    /* Level padding CV-3: [sb_top, sb_right, mn_top, mn_right] */
     var P3=[
         [20,11,20,16],[18,10,18,14],[16,9,16,13],[14,8,14,11],
         [12,7,12,10],[10,6,10,8],[8,5,8,7],[6,4,6,5],
         [5,3,5,4],[4,3,4,3],[3,2,3,3]
     ];
 
-    /* Daftar konfigurasi [pad, fontSize] dari besar ke kecil */
     var cfgs;
     if(is3){
         cfgs=[];
@@ -537,10 +530,8 @@ function processPDF(btn){
         ];
     }
 
-    /* Simpan nilai asli */
     var origFS=FS, origFSH=FSH;
 
-    /* Generate HTML konten pada font-size & padding tertentu */
     function gen(c){
         FS=c[1]; FSH=c[1]+1;
         var h;
@@ -552,13 +543,11 @@ function processPDF(btn){
         return h;
     }
 
-    /* Bungkus ke container 794px */
     function wrap(h,c){
         if(is3) return'<div style="width:'+W+'px;background:#fff;color:#000;-webkit-transform:none;transform:none;">'+h+'</div>';
         return'<div style="width:'+W+'px;padding:'+c[0]+'mm;box-sizing:border-box;background:#fff;color:#000;-webkit-transform:none;transform:none;">'+h+'</div>';
     }
 
-    /* Cari konfigurasi terbesar yang muat */
     var fit=null;
     for(var i=0;i<cfgs.length;i++){
         box.innerHTML=wrap(gen(cfgs[i]),cfgs[i]);
@@ -568,56 +557,138 @@ function processPDF(btn){
         if(box.scrollHeight<=H+1){fit=cfgs[i];break}
     }
 
-    /* Pasang konfigurasi final: kunci ke 794×1123, overflow hidden */
     var fc=fit||cfgs[cfgs.length-1];
     box.innerHTML=wrap(gen(fc),fc);
     box.style.cssText='width:'+W+'px;height:'+H+'px;overflow:hidden;margin:20px auto;background:#fff;-webkit-transform:none;transform:none;';
     void box.offsetHeight;
     void box.offsetHeight;
 
-    /* Tunggu render stabil lalu tangkap PDF */
+    /* ===== PERUBAHAN UTAMA: pakai output('blob') + download manual ===== */
     setTimeout(function(){
         ld.style.display='none';
         try{
             html2pdf().set({
-                margin:0,
-                filename:fn,
-                image:{type:'jpeg',quality:0.98},
-                html2canvas:{
-                    scale:SCALE,
-                    useCORS:true,
-                    allowTaint:true,
-                    logging:false,
-                    scrollX:0,
-                    scrollY:0,
-                    x:0,
-                    y:0,
-                    width:W,
-                    height:H,
-                    windowWidth:W,
-                    windowHeight:H
+                margin: 0,
+                filename: fn,
+                image: {type: 'jpeg', quality: 0.95},
+                html2canvas: {
+                    scale: SCALE,
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    width: W,
+                    height: H,
+                    windowWidth: W,
+                    windowHeight: H
                 },
-                jsPDF:{
-                    unit:'mm',
-                    format:'a4',
-                    orientation:'portrait',
-                    hotfixes:['px_scaling']
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait',
+                    hotfixes: ['px_scaling']
                 },
-                pagebreak:{mode:['avoid-all'],avoid:['*']}
-            }).from(box).save().then(function(){
+                pagebreak: {mode: ['avoid-all'], avoid: ['*']}
+            })
+            .from(box)
+            .output('blob')
+            .then(function(blob) {
+                /* Validasi blob benar-benar berisi PDF */
+                if (!blob || blob.size < 512) {
+                    throw new Error('Blob PDF kosong atau terlalu kecil (' + (blob ? blob.size : 0) + ' bytes)');
+                }
+
+                /* Buat URL object dari blob */
+                var blobUrl = URL.createObjectURL(blob);
+
+                /* Buat elemen <a> sementara untuk trigger download */
+                var link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = fn;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+
+                /* Bersihkan setelah download dimulai */
+                setTimeout(function() {
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(blobUrl);
+                }, 300);
+
                 cleanup();
                 toast('PDF berhasil diunduh!');
-            }).catch(function(err){
-                console.error(err);
-                cleanup();
-                toast('Gagal mengunduh PDF');
+            })
+            .catch(function(err) {
+                console.error('PDF blob generation failed:', err);
+
+                /* Fallback: coba dengan scale lebih kecil */
+                fallbackPDF(box, fn, W, H, function() {
+                    cleanup();
+                    toast('PDF berhasil diunduh!');
+                }, function(e2) {
+                    console.error('PDF fallback also failed:', e2);
+                    cleanup();
+                    toast('Gagal mengunduh PDF. Coba kurangi konten.');
+                });
             });
         }catch(e2){
             console.error(e2);
             cleanup();
             toast('Gagal mengunduh PDF');
         }
-    },2500);
+    }, 2500);
+
+    /* ===== Fallback: scale 2 jika scale 3 gagal ===== */
+    function fallbackPDF(el, filename, w, h, onSuccess, onError) {
+        try {
+            html2pdf().set({
+                margin: 0,
+                filename: filename,
+                image: {type: 'jpeg', quality: 0.90},
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    scrollX: 0, scrollY: 0,
+                    x: 0, y: 0,
+                    width: w, height: h,
+                    windowWidth: w, windowHeight: h
+                },
+                jsPDF: {
+                    unit: 'mm', format: 'a4',
+                    orientation: 'portrait',
+                    hotfixes: ['px_scaling']
+                },
+                pagebreak: {mode: ['avoid-all'], avoid: ['*']}
+            })
+            .from(el)
+            .output('blob')
+            .then(function(blob) {
+                if (!blob || blob.size < 512) {
+                    throw new Error('Fallback blob juga kosong');
+                }
+                var blobUrl = URL.createObjectURL(blob);
+                var link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = filename;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(function() {
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(blobUrl);
+                }, 300);
+                onSuccess();
+            })
+            .catch(onError);
+        } catch(e) {
+            onError(e);
+        }
+    }
 
     function cleanup(){
         ov.style.display='none';
