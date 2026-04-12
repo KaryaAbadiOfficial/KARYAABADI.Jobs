@@ -40,11 +40,14 @@ body{font-family:'DM Sans',sans-serif;transition:background .3s,color .3s}
 .dark .fi:focus{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.18)}
 .fl{font-size:11.5px;font-weight:600;margin-bottom:2px;display:block;color:#555}.dark .fl{color:#aaa}
 textarea.fi{resize:vertical;min-height:55px}
-.dyn-btn{font-size:11px;padding:4px 10px;border-radius:5px;font-weight:600;cursor:pointer;transition:all .15s;border:none}
-.dyn-btn:hover{filter:brightness(1.1)}.dyn-btn:active{transform:scale(.96)}
+select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:30px}
+.dyn-btn{font-size:13px;width:28px;height:28px;padding:0;border-radius:6px;font-weight:600;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center}
+.dyn-btn:hover{filter:brightness(1.1)}.dyn-btn:active{transform:scale(.92)}
 input[type=range]{-webkit-appearance:none;height:6px;border-radius:3px;background:#d1d5db;outline:none;flex:1}
 .dark input[type=range]{background:#333}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#DC2626;cursor:pointer}
+.logo-box{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#000000;border-radius:8px;overflow:hidden}
+.logo-box img{width:100%;height:100%;object-fit:contain;padding:4px}
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-100 dark:text-gray-100 text-gray-800 min-h-screen flex flex-col">
@@ -52,8 +55,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 
 <header class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-brand-border">
   <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <img src="https://z-cdn-media.chatglm.cn/files/ebcd768e-a00c-4b6e-a0dd-17e9a5249985.png?auth_key=1875922570-3f960e782f4346bdb4c49cfd7d041a29-0-aeaaf8c7ad7e6240d2fddc53ac3d3eef" alt="Logo" class="h-9 w-9 rounded">
+    <div class="flex items-center gap-2.5">
+      <div class="logo-box">
+        <img src="https://z-cdn-media.chatglm.cn/files/ebcd768e-a00c-4b6e-a0dd-17e9a5249985.png?auth_key=1875922570-3f960e782f4346bdb4c49cfd7d041a29-0-aeaaf8c7ad7e6240d2fddc53ac3d3eef" alt="Logo">
+      </div>
       <span class="text-white font-bold text-lg tracking-wide">KARYA ABADI</span><span class="text-white font-bold text-sm">.Jobs</span>
     </div>
     <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-brand-card flex items-center justify-center hover:bg-brand-red/20 transition" aria-label="Toggle dark mode">
@@ -106,7 +111,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 <script>
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
-var eduList=[{t:'',y:''},{t:'',y:''},{t:'',y:''}];
+var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:''}];
 var hSkills=['','','','','',''];
 var sSkills=['','','','','',''];
@@ -114,7 +119,7 @@ var sSkills=['','','','','',''];
 var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'}];
 var ST_M=[{id:'s-op',name:'Online (Posisi)',pos:true,on:true},{id:'s-ou',name:'Online (Umum)',pos:false,on:true},{id:'s-tp',name:'Tulis Tangan (Posisi)',pos:true,on:false},{id:'s-tu',name:'Tulis Tangan (Umum)',pos:false,on:false}];
 
-function v(id){return document.getElementById(id)?document.getElementById(id).value:''}
+function v(id){var el=document.getElementById(id);return el?el.value:''}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function toast(msg,type){type=type||'success';var d=document.createElement('div');d.className='toast-item '+type;d.textContent=msg;document.getElementById('toast-box').appendChild(d);requestAnimationFrame(function(){d.classList.add('show')});setTimeout(function(){d.classList.remove('show');setTimeout(function(){d.remove()},300)},2500)}
 function applyPageStyle(){var p=document.getElementById('a4-page');if(!p)return;p.style.fontFamily=selFont;p.style.fontSize=selSize+'pt';p.style.lineHeight=selLH}
@@ -131,28 +136,30 @@ function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),
 
 function fldH(id,lb,ph,dv){var va=dv!==undefined?' value="'+esc(dv)+'"':'';return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'"'+va+' oninput="renderPreview()"></div>'}
 function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:36px" placeholder="'+(ph||'')+'" oninput="renderPreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-semibold">'+unit+'</span></div></div>'}
+function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><div class="relative"><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events-none"></i></div></div>';return h}
+var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="renderPreview()"></textarea></div>'}
 function secH(lb){return'<div class="dark:text-brand-red text-red-600 font-bold text-sm mt-4 mb-2 flex items-center gap-2"><span class="w-1 h-4 bg-brand-red rounded-full inline-block"></span>'+lb+'</div>'}
 function photoH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200"><label class="fl"><i class="fa-solid fa-camera mr-1 text-brand-red"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-24 h-32 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-300 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-xs dark:text-gray-500 text-gray-400 text-center px-1"><i class="fa-solid fa-upload text-lg mb-1"></i><br>Pas Foto</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="text-xs dark:text-gray-500 text-gray-400">JPG/PNG, Maks 2MB</span></div></div>'}
-function settingsH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200 space-y-3"><div class="fl mb-1"><i class="fa-solid fa-sliders mr-1 text-brand-red"></i> Pengaturan Tampilan</div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();renderPreview()"><span id="sz-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-10 text-right">'+selSize+'pt</span></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();renderPreview()"><span id="lh-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-6 text-right">'+selLH+'</span></div></div></div>'}
-function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn bg-green-600 text-white"><i class="fa-solid fa-plus mr-1"></i>Tambah</button><button onclick="'+rmFn+'" class="dyn-btn bg-red-600 text-white"><i class="fa-solid fa-minus mr-1"></i>Kurangi</button></div>'}
+function settingsH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200 space-y-3"><div class="fl mb-1"><i class="fa-solid fa-sliders mr-1 text-brand-red"></i> Pengaturan Tampilan</div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Font Dokumen</label><div class="relative"><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events-none"></i></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();renderPreview()"><span id="sz-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-10 text-right">'+selSize+'pt</span></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();renderPreview()"><span id="lh-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-6 text-right">'+selLH+'</span></div></div></div>'}
+function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn bg-green-600 text-white" title="Tambah"><i class="fa-solid fa-plus"></i></button><button onclick="'+rmFn+'" class="dyn-btn bg-red-600 text-white" title="Kurangi"><i class="fa-solid fa-minus"></i></button></div>'}
 
-function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Tingkat</label><input class="fi" placeholder="" value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;renderPreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;renderPreview()"></div></div>'}).join('')}
+function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;renderPreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;renderPreview()"></div></div>'}).join('')}
 function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<hr class="dark:border-brand-border border-gray-200 my-3">';h+='<div class="space-y-2"><div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;renderPreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="Tanggal Bulan Tahun" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;renderPreview()"></div></div><div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;renderPreview()"></div><div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;renderPreview()"></div><div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;renderPreview()"></div></div>';return h}).join('')}
 
 function renderSkIF(arr,cid,title,type){
   var c=document.getElementById(cid);if(!c)return;var h='';
   for(var i=0;i<arr.length;i++){
-    h+='<div class="flex gap-2 items-center"><input class="fi flex-1" placeholder="Keahlian '+(i+1)+'" value="'+esc(arr[i])+'" oninput="window._updSk(\''+type+'\','+i+',this.value)"><button onclick="window._rmSk(\''+type+'\','+i+')" class="w-8 h-8 rounded flex items-center justify-center bg-red-100 dark:bg-red-900/30 text-red-600 hover:bg-red-200 dark:hover:bg-red-900/50 transition flex-shrink-0" title="Hapus"><i class="fa-solid fa-xmark text-xs"></i></button></div>';
+    h+='<div class="flex gap-2 items-center"><input class="fi flex-1" placeholder="Keahlian '+(i+1)+'" value="'+esc(arr[i])+'" oninput="window._updSk(\''+type+'\','+i+',this.value)"><button onclick="window._rmSk(\''+type+'\','+i+')" class="w-7 h-7 rounded flex items-center justify-center bg-red-100 dark:bg-red-900/30 text-red-600 hover:bg-red-200 dark:hover:bg-red-900/50 transition flex-shrink-0" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>';
   }
-  h+='<button onclick="window._addSk(\''+type+'\')" class="dyn-btn bg-green-600 text-white mt-2"><i class="fa-solid fa-plus mr-1"></i>Tambah Keahlian</button>';
+  h+='<button onclick="window._addSk(\''+type+'\')" class="dyn-btn bg-green-600 text-white mt-2" title="Tambah"><i class="fa-solid fa-plus"></i></button>';
   c.innerHTML=h;
 }
 window._updSk=function(type,idx,val){if(type==='hard')hSkills[idx]=val;else sSkills[idx]=val;renderPreview()};
 window._rmSk=function(type,idx){var arr=type==='hard'?hSkills:sSkills;if(arr.length>1){arr.splice(idx,1);renderSkIF(arr,type==='hard'?'hard-c':'soft-c',type==='hard'?'Hard Skill':'Soft Skill',type);renderPreview()}};
 window._addSk=function(type){var arr=type==='hard'?hSkills:sSkills;arr.push('');renderSkIF(arr,type==='hard'?'hard-c':'soft-c',type==='hard'?'Hard Skill':'Soft Skill',type);renderPreview()};
 
-function addEdu(){eduList.push({t:'',y:''});renderEduF();renderPreview()}
+function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
 function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:''});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
@@ -166,7 +173,7 @@ function renderForm(){
       h+=taH('profil','Profil (opsional, isi jika ingin mengubah)','Saya lulusan ….. dengan latar belakang jurusan ….. .Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
       h+=secH('Data Pribadi');
       h+=fldH('nama','Nama','.....');h+=fldH('ttl','Tempat, Tanggal Lahir','.....');
-      h+=fldH('jk','Jenis Kelamin','.....');h+=fldH('bangsa','Bangsa','.....');
+      h+=selH('jk','Jenis Kelamin',jkOpts);h+=fldH('bangsa','Bangsa','.....');
       h+=fldH('agama','Agama','.....');h+=fldUnit('tb','Tinggi Badan','.....','cm');
       h+=fldUnit('bb','Berat Badan','.....','kg');h+=fldH('alamat1','Alamat','.....');
       h+=fldH('alamat2','Alamat lanjutan','.....');h+=fldH('nohp','No. HP','.....');
@@ -174,16 +181,18 @@ function renderForm(){
     }
     if(curTpl==='cv2'){
       h+=fldH('nama','Nama (Judul)','.....');
-      h+=fldH('ttl','Tempat, Tanggal Lahir','.....');h+=fldH('jk','Jenis Kelamin','.....');
-      h+=fldH('bangsa','Bangsa','.....');h+=fldH('agama','Agama','.....');
+      h+=fldH('ttl','Tempat, Tanggal Lahir','.....');
+      h+=selH('jk','Jenis Kelamin',jkOpts);h+=fldH('bangsa','Bangsa','.....');
+      h+=fldH('agama','Agama','.....');
       h+=fldUnit('tb','Tinggi Badan','.....','cm');h+=fldUnit('bb','Berat Badan','.....','kg');
       h+=fldH('alamat1','Alamat','.....');h+=fldH('status','Status','.....');
       h+=fldH('nohp','No. HP','.....');h+=fldH('email','Email','.....');
       h+=taH('profil','Profil (opsional, isi jika ingin mengubah)','Saya lulusan ….. dengan latar belakang jurusan ….. .Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
     }
     if(curTpl==='cv3'){
-      h+=fldH('ttl','Tempat, Tanggal Lahir','.....');h+=fldH('jk','Jenis Kelamin','.....');
-      h+=fldH('bangsa','Bangsa','.....');h+=fldH('agama','Agama','.....');
+      h+=fldH('ttl','Tempat, Tanggal Lahir','.....');
+      h+=selH('jk','Jenis Kelamin',jkOpts);h+=fldH('bangsa','Bangsa','.....');
+      h+=fldH('agama','Agama','.....');
       h+=fldUnit('tb','Tinggi Badan','.....','cm');h+=fldUnit('bb','Berat Badan','.....','kg');
       h+=fldH('alamat1','Jalan','Jl. .....');
       h+=fldH('alamat2','Desa/Kelurahan','.....');
@@ -210,7 +219,7 @@ function renderForm(){
     if(m.pos)h+=fldH('sPosisi','Posisi yang Dilamar','.....');
     h+=secH('Data Pribadi');
     h+=fldH('nama','Nama','.....');h+=fldH('ttl','Tempat dan Tanggal Lahir','.....');
-    h+=fldH('jk','Jenis Kelamin','.....');h+=fldH('agama','Agama','.....');
+    h+=selH('jk','Jenis Kelamin',jkOpts);h+=fldH('agama','Agama','.....');
     h+=fldH('pendAkhir','Pendidikan Terakhir','.....');
     h+=fldH('alamat1','Alamat','.....');
     h+=fldH('alamat2','Alamat lanjutan','.....');
@@ -278,8 +287,8 @@ function renderCV3(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',A1=v('alamat1')||'………………………..',A2=v('alamat2')||'………………………..',A3=v('alamat3')||'………………………..',A4=v('alamat4')||'………………………..',HP=v('nohp')||'………………………..',EM=v('email')||'………………………..';
   var defPr='Saya lulusan ….. dengan latar belakang jurusan ….. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.';
   var PR=getProfil(defPr);
-  function di(l,val){return'<div style="margin-bottom:2mm"><div style="color:#555">'+l+'</div><div>'+val+'</div></div>'}
-  var alamatLines=[esc(A1),esc(A2),esc(A3),esc(A4)].filter(Boolean);
+  function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+l+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}
+  var alamatLines=[esc(A1),esc(A2),esc(A3),esc(A4)].filter(function(x){return x&&x!=='………………………..'});
   var alamatBlock=alamatLines.length?alamatLines.map(function(l){return'<div>'+l+'</div>'}).join(''):'<div>………………………..</div>';
   return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:4mm;border-right:1.5pt solid #000"><div style="text-align:center;margin-bottom:10mm">'+fotoImg()+'</div>'+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('Alamat',alamatBlock)+di('No. HP',esc(HP))+di('Email',esc(EM))+'</td><td style="vertical-align:top;padding-left:4mm"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;margin-bottom:2mm">'+esc(N)+'</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skPH('Hard Skill',hSkills)+skPH('Soft Skill',sSkills)+'</td></tr></table>';
 }
@@ -337,7 +346,7 @@ function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*10
 function resetForm(){
   document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});
   photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');
-  if(curCat==='cv'){eduList=[{t:'',y:''},{t:'',y:''},{t:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','Hard Skill','hard');renderSkIF(sSkills,'soft-c','Soft Skill','soft');savedCV={}}
+  if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','Hard Skill','hard');renderSkIF(sSkills,'soft-c','Soft Skill','soft');savedCV={}}
   else{savedSurat={}}
   renderPreview();toast('Formulir berhasil direset','info');
 }
