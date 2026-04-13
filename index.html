@@ -164,7 +164,7 @@ function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),
 
 function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
 function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:36px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-semibold">'+unit+'</span></div></div></div>'}
-function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><div class="relative"><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events-none"></i></div></div></div>';return h}
+function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><div class="relative"><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events:none"></i></div></div></div>';return h}
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="dark:text-brand-red text-red-600 font-bold text-sm mt-4 mb-2 flex items-center gap-3"><span class="w-1 h-4 bg-brand-red rounded-full inline-block"></span>'+lb+'</div>'}
@@ -233,7 +233,7 @@ function renderLampF(){
       if(i===0){
         h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">1.</div><div class="flex-1 text-xs font-semibold dark:text-gray-300 text-gray-600 py-2">CV/Daftar Riwayat Hidup</div></div>';
       }else if(i===1){
-        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">2.</div><div class="flex-1 text-xs font-semibold dark:text-gray-300 text-gray-600 py-2">Pas Foto</div></div>';
+        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">2.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-300 text-gray-600 self-center px-0.5">Pas Foto </div><input class="fi flex-1 fi-s" placeholder="ukuran 3x4, 2 lembar" value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"></div>';
       }else{
         h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-300 text-gray-600 self-center px-0.5">Fotokopi </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
       }
@@ -399,7 +399,8 @@ function renderSuratP(){
     }
   }else{
     li.push('CV/Daftar Riwayat Hidup');lc++;
-    li.push('Pas Foto');lc++;
+    var pfVal=lampList[1]&&lampList[1].trim();
+    li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;
     for(var i=2;i<lampList.length;i++){
       var val=lampList[i]&&lampList[i].trim();
       if(!val)continue;
