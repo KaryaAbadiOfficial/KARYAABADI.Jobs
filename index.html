@@ -251,13 +251,13 @@ function renderForm(){
       h+=addressFormH();
     }
     if(curTpl==='cv3'){
+      h+=taH('profil','Profil (opsional, isi jika ingin mengubah)','Saya lulusan ….. dengan latar belakang jurusan ….. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
       h+=fldH('nama','Nama','.....');h+=fldH('ttl','Tempat, Tanggal Lahir','.....');
       h+=selH('jk','Jenis Kelamin',jkOpts);h+=fldH('bangsa','Bangsa','.....');
       h+=fldH('agama','Agama','.....');h+=fldUnit('tb','Tinggi Badan','.....','cm');
       h+=fldUnit('bb','Berat Badan','.....','kg');
       h+=fldH('nohp','No. HP','.....');h+=fldH('status','Status','.....');
       h+=fldH('email','Email','.....');
-      h+=taH('profil','Profil (opsional, isi jika ingin mengubah)','Saya lulusan ….. dengan latar belakang jurusan ….. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
       h+=addressFormH3();
     }
     h+=secH('Pendidikan');h+='<div id="edu-c"></div>';h+=dynBtns('addEdu()','rmEdu()');
@@ -323,7 +323,7 @@ function renderCV1(){
   var a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';
   var PR=getProfil('Saya lulusan ….. dengan latar belakang jurusan ….. .Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
   function dp(l,val){return'<tr><td class="dl">'+l+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}
-  return'<div style="display:flex;gap:8mm"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+sk3col('Hard Skill',hSkills)+sk3col('Soft Skill',sSkills);
+  return'<div style="display:flex;gap:8mm"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+sk3col('Hard Skill',hSkills)+sk3col('Soft Skill',sSkills);
 }
 
 function renderCV2(){
