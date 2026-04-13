@@ -86,7 +86,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         <span class="tagline-text">"Ciptakan peluang karir impianmu"</span>
       </div>
     </div>
-    <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-brand-card flex items-center justify-center hover:bg-brand-red/20 transition" aria-label="Toggle dark mode">
+    <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-brand-card flex items-center justify-content-center hover:bg-brand-red/20 transition" aria-label="Toggle dark mode">
       <i class="dark:hidden fa-solid fa-moon text-sm text-white"></i>
       <i class="hidden dark:inline fa-solid fa-sun text-sm text-white"></i>
     </button>
@@ -138,8 +138,9 @@ var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:''}];
-var hSkills=['','','','','','','',''];
-var sSkills=['','','','','','','',''];
+var hSkills=['','','','','','','','','',''];
+var sSkills=['','','','','','','','','',''];
+var lampList=['',''];
 var _rpTimer=null;
 
 var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'}];
@@ -151,8 +152,8 @@ function toast(msg,type){type=type||'success';var d=document.createElement('div'
 function applyPageStyle(){var p=document.getElementById('a4-page');if(!p)return;p.style.fontFamily=selFont;p.style.fontSize=selSize+'pt';p.style.lineHeight=selLH}
 function schedulePreview(){if(_rpTimer)clearTimeout(_rpTimer);_rpTimer=setTimeout(renderPreview,60)}
 
-function saveStatic(){var d={};document.querySelectorAll('.fi-s').forEach(function(el){if(el.id)d[el.id]=el.value});if(curCat==='cv')savedCV=d;else savedSurat=d}
-function restoreStatic(){var d=curCat==='cv'?savedCV:savedSurat;if(!d||!Object.keys(d).length)return;Object.keys(d).forEach(function(id){var el=document.getElementById(id);if(el)el.value=d[id]})}
+function saveStatic(){var d={};document.querySelectorAll('.fi-s').forEach(function(el){if(el.id)d[el.id]=el.value});if(curCat==='cv')savedCV=d;else{savedSurat=d;savedSurat._lamp=lampList.slice()}}
+function restoreStatic(){var d=curCat==='cv'?savedCV:savedSurat;if(!d||!Object.keys(d).length)return;Object.keys(d).forEach(function(id){if(id==='_lamp')return;var el=document.getElementById(id);if(el)el.value=d[id]});if(curCat==='surat'&&d._lamp){lampList=d._lamp.slice();renderLampF()}}
 function restorePhoto(){if(!photoData)return;var img=document.getElementById('photo-thumb');if(img){img.src=photoData;img.classList.remove('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.add('hidden')}
 
 function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-op';updCatTabs();renderTplTabs();renderForm();renderPreview()}
@@ -162,13 +163,13 @@ function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;document.getElementByI
 function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),pp=document.getElementById('preview-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');pp.classList.add('hidden','lg:flex');mf.classList.add('active');mp.classList.remove('active')}else{fp.classList.add('hidden');pp.classList.remove('hidden','lg:flex');pp.classList.add('flex');mp.classList.add('active');mf.classList.remove('active')}setTimeout(scalePreview,80)}
 
 function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
-function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:36px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-semibold">'+unit+'</span></div></div>'}
-function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><div class="relative"><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events-none"></i></div></div>';return h}
+function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:36px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-semibold">'+unit+'</span></div></div></div>'}
+function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><div class="relative"><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events-none"></i></div></div></div>';return h}
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="dark:text-brand-red text-red-600 font-bold text-sm mt-4 mb-2 flex items-center gap-3"><span class="w-1 h-4 bg-brand-red rounded-full inline-block"></span>'+lb+'</div>'}
-function photoH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200"><label class="fl flex items-center gap-2"><i class="fa-solid fa-camera text-brand-red"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-24 h-32 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-300 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-xs dark:text-gray-500 text-gray-400 text-center px-1"><i class="fa-solid fa-upload text-lg mb-1"></i><br>Pas Foto</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="text-xs dark:text-gray-500 text-gray-400">JPG/PNG, Maks 2MB</span></div></div>'}
-function settingsH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200 space-y-3"><div class="fl mb-1 flex items-center gap-2"><i class="fa-solid fa-sliders text-brand-red"></i> Pengaturan Tampilan</div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Font Dokumen</label><div class="relative"><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events-none"></i></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-10 text-right">'+selSize+'pt</span></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-6 text-right">'+selLH+'</span></div></div></div>'}
+function photoH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200"><label class="fl flex items-center gap-2"><i class="fa-solid fa-camera text-brand-red"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-24 h-32 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-300 flex flex-col items-center justify-content-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-xs dark:text-gray-500 text-gray-400 text-center px-1"><i class="fa-solid fa-upload text-lg mb-1"></i><br>Pas Foto</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="text-xs dark:text-gray-500 text-gray-400">JPG/PNG, Maks 2MB</span></div></div></div>'}
+function settingsH(){return'<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200 space-y-3"><div class="fl mb-1 flex items-center gap-2"><i class="fa-solid fa-sliders text-brand-red"></i> Pengaturan Tampilan</div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Font Dokumen</label><div class="relative"><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select><i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-400 text-gray-500 pointer-events:none"></i></div></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-10 text-right">'+selSize+'pt</span></div></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="text-xs font-semibold dark:text-gray-300 text-gray-600 w-6 text-right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus"></i></button></div>'}
 
 function addressFormH(){
@@ -218,10 +219,46 @@ function renderSkIF(arr,cid,type){
   h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus"></i></button>';
   c.innerHTML=h;
 }
+
+function renderLampF(){
+  var c=document.getElementById('lamp-c');if(!c)return;
+  var m=ST_M.find(function(t){return t.id===curTpl});
+  var isEmail=m&&m.on;
+  if(!isEmail&&lampList.length<2){while(lampList.length<2)lampList.push('')}
+  var h='';
+  for(var i=0;i<lampList.length;i++){
+    if(isEmail){
+      h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-300 text-gray-600 self-center px-0.5">Scan </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
+    }else{
+      if(i===0){
+        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">1.</div><div class="flex-1 text-xs font-semibold dark:text-gray-300 text-gray-600 py-2">CV/Daftar Riwayat Hidup</div></div>';
+      }else if(i===1){
+        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">2.</div><div class="flex-1 text-xs font-semibold dark:text-gray-300 text-gray-600 py-2">Pas Foto</div></div>';
+      }else{
+        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-7 text-xs dark:text-gray-400 text-gray-500 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-300 text-gray-600 self-center px-0.5">Fotokopi </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
+      }
+    }
+  }
+  h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah Lampiran"><i class="fa-solid fa-plus"></i></button>';
+  c.innerHTML=h;
+}
+
 window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else sSkills[i]=val;schedulePreview()};
 window._rsk=function(t,i){var a=t==='hard'?hSkills:sSkills;if(a.length>1){a.splice(i,1);renderSkIF(a,t==='hard'?'hard-c':'soft-c',t);schedulePreview()}};
 window._ask=function(t){var a=t==='hard'?hSkills:sSkills;a.push('');renderSkIF(a,t==='hard'?'hard-c':'soft-c',t);schedulePreview()};
+window._rlamp=function(i){
+  var m=ST_M.find(function(t){return t.id===curTpl});
+  if(m&&!m.on){
+    if(i<2)return;
+    if(lampList.length<=2)return;
+  }else{
+    if(lampList.length<=1)return;
+  }
+  lampList.splice(i,1);renderLampF();schedulePreview();
+};
+function addLamp(){lampList.push('');renderLampF();schedulePreview()}
 
+function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
 function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
 function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:''});renderExpF();renderPreview()}
@@ -270,6 +307,7 @@ function renderForm(){
   }else{
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
     var h='';
+    h+=settingsH();
     h+='<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200"><label class="fl flex items-center gap-2"><i class="fa-solid fa-calendar-days text-brand-red"></i> Tempat dan Waktu (ketik manual)</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="text-xs dark:text-gray-400 text-gray-500 mb-1 block">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';
     h+=fldH('sPt','Nama Perusahaan (PT. ...)','PT. .....');
     h+=fldH('sJl','Alamat Perusahaan (Jl. ...)','Jl. .....');
@@ -283,11 +321,10 @@ function renderForm(){
     h+=fldH('alamat1','Alamat','.....');h+=fldH('alamat2','Alamat lanjutan','.....');
     h+=fldH('email','Email','.....@gmail.com');h+=fldH('nohp','No. HP','.....');
     h+=secH('Daftar Lampiran');
-    var pre=m.on?'Scan':'Fotokopi';
-    if(!m.on){h+=fldH('lamp0','1. CV / Daftar Riwayat Hidup','','CV / Daftar Riwayat Hidup');h+=fldH('lamp1','2. Pas Foto','','Pas Foto');for(var i=2;i<12;i++)h+=fldH('lamp'+i,(i+1)+'. '+pre+' .....',pre+' .....')}
-    else{for(var i=0;i<12;i++)h+=fldH('lamp'+i,(i+1)+'. '+pre+' .....',pre+' .....')}
+    h+='<div id="lamp-c"></div>';
     h+=fldH('sTtd','Nama Tanda Tangan','.....');
     fc.innerHTML=h;
+    renderLampF();
   }
   restoreStatic();restorePhoto();
   fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');
@@ -352,11 +389,25 @@ function renderSuratP(){
   var PT=v('sPt')||'……………….',JL=v('sJl')||'……………….',JL2=v('sJl2')||'',SUM=v('sSumber')||'……………….',POS=v('sPosisi')||'……………….';
   var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',AG=v('agama')||'……………….',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
   var lt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
-  var li=[];
-  if(!m.on){li.push(v('lamp0')||'CV / Daftar Riwayat Hidup');li.push(v('lamp1')||'Pas Foto');for(var i=2;i<12;i++){var val=v('lamp'+i);if(val&&val.trim())li.push('Fotokopi '+val.trim())}}
-  else{for(var i=0;i<12;i++){var val=v('lamp'+i);if(val&&val.trim())li.push('Scan '+val.trim())}}
-  var lc=li.length;
+
+  var li=[];var lc=0;
+  if(m.on){
+    for(var i=0;i<lampList.length;i++){
+      var val=lampList[i]&&lampList[i].trim();
+      if(!val)continue;
+      li.push('Scan '+val);lc++;
+    }
+  }else{
+    li.push('CV/Daftar Riwayat Hidup');lc++;
+    li.push('Pas Foto');lc++;
+    for(var i=2;i<lampList.length;i++){
+      var val=lampList[i]&&lampList[i].trim();
+      if(!val)continue;
+      li.push('Fotokopi '+val);lc++;
+    }
+  }
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
+
   function dr(l,val){return'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap">'+l+'</td><td style="padding-top:.5mm">: '+val+'</td></tr>'}
   var al2r=AL2?'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap">&nbsp;</td><td style="padding-top:.5mm;padding-left:2mm">'+esc(AL2)+'</td></tr>':'';
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
@@ -384,11 +435,7 @@ function scalePreview(){
   var pw=p.offsetWidth,ww=w.clientWidth-32;
   if(!pw||!ww)return;
   var sc=Math.min(1,ww/pw);
-  s.style.transform='none';
-  s.style.transformOrigin='';
-  s.style.width='';
-  s.style.height='';
-  s.style.zoom=sc;
+  s.style.transform='none';s.style.transformOrigin='';s.style.width='';s.style.height='';s.style.zoom=sc;
 }
 
 function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}var r=new FileReader();r.onload=function(ev){photoData=ev.target.result;var img=document.getElementById('photo-thumb');img.src=photoData;img.classList.remove('hidden');document.getElementById('photo-ph').classList.add('hidden');renderPreview()};r.readAsDataURL(f)}
@@ -396,8 +443,8 @@ function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*10
 function resetForm(){
   document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});
   photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');
-  if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','',''];sSkills=['','','','','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');savedCV={}}
-  else{savedSurat={}}
+  if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','',''];sSkills=['','','','','','','','','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');savedCV={}}
+  else{lampList=['',''];renderLampF();savedSurat={}}
   renderPreview();toast('Formulir berhasil direset','info');
 }
 
