@@ -450,10 +450,11 @@ function resetForm(){
 }
 
 /**
- * FUNGSI DOWNLOAD PDF YANG TELAH DIPERBAIKI
- * - Mendukung multi-halaman otomatis jika konten panjang.
- * - Tidak akan menyertakan halaman kosong (blank page) di belakang.
- * - Mengatur page break agar tidak memotong teks di tengah.
+ * PERBAIKAN FINAL: PDF TANPA HALAMAN KOSONG
+ * - Hapus minHeight yang memaksa satu halaman penuh.
+ * - Biarkan tinggi elemen mengikuti konten (auto).
+ * - Jika konten pendek -> PDF 1 halaman (isi sedikit).
+ * - Jika konten panjang -> PDF multi halaman (isi penuh).
  */
 async function downloadPDF(){
   var btn=document.getElementById('btn-pdf');
@@ -466,44 +467,44 @@ async function downloadPDF(){
   var container=document.getElementById('pdf-offscreen');
   container.innerHTML='';
 
-  // Clone konten untuk diproses di luar layar
+  // Clone elemen
   var cl=page.cloneNode(true);
 
-  // PENTING: Reset style agar konten bisa mengalir bebas (multi-page)
-  // Kita ubah tinggi menjadi 'auto' dan hapus overflow:hidden
+  // PENTING: Reset style untuk membiarkan konten mengalir tanpa dipaksa 1 halaman penuh
   cl.style.height = 'auto'; 
-  cl.style.minHeight = '297mm'; // Pastikan halaman pertama tetap penuh jika konten sedikit
+  cl.style.minHeight = '0'; // <--- Perbaikan utama: Tidak ada paksaan tinggi
+  cl.style.width = '210mm'; // Lebar tetap standar A4
   cl.style.overflow = 'visible';
   cl.style.position = 'relative';
   cl.style.margin = '0';
   cl.style.boxShadow = 'none';
   
-  // Terapkan font yang dipilih user
+  // Terapkan font user
   cl.style.fontFamily = selFont;
   cl.style.fontSize = selSize+'pt';
   cl.style.lineHeight = selLH;
 
   container.appendChild(cl);
   
-  // Beri jeda waktu singkat agar browser selesai render clone
+  // Render delay
   await new Promise(function(resolve){setTimeout(resolve,100)});
 
   try {
-    // Konfigurasi html2pdf
+    // Konfigurasi PDF
     var opt = {
-      margin:       0, // Margin 0, kita gunakan padding dari CSS .a4-page
+      margin:       0, 
       filename:     (curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',
       image:        { type: 'jpeg', quality: 0.95 },
       html2canvas:  {
-        scale: 2,             // Skala tinggi untuk hasil tajam
+        scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        width: cl.offsetWidth  // Ambil lebar penuh elemen
+        width: cl.offsetWidth 
       },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      // Konfigurasi pemisah halaman cerdas
-      pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] } 
+      // Aturan pemisah halaman
+      pagebreak:    { mode: ['css', 'legacy'] } 
     };
 
     await html2pdf().set(opt).from(cl).save();
@@ -512,7 +513,7 @@ async function downloadPDF(){
     toast('Gagal mengunduh PDF','error');
     console.error(e);
   } finally {
-    container.innerHTML=''; // Bersihkan elemen sementara
+    container.innerHTML=''; 
     btn.disabled=false;
     btn.classList.add('pulse-red');
     btn.style.opacity='1';
