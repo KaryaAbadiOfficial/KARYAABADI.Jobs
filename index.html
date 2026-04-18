@@ -136,7 +136,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   </div>
 </footer>
 
-<div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible"></div>
+<!-- Container tersembunyi untuk proses rendering PDF -->
+<div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible; width: 210mm;"></div>
 
 <script>
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
@@ -262,12 +263,6 @@ window._rlamp=function(i){
   lampList.splice(i,1);renderLampF();schedulePreview();
 };
 function addLamp(){lampList.push('');renderLampF();schedulePreview()}
-
-function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
-function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
-function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
-function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:''});renderExpF();renderPreview()}
-function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
 function renderForm(){
   var fc=document.getElementById('form-content');
@@ -454,16 +449,74 @@ function resetForm(){
   renderPreview();toast('Formulir berhasil direset','info');
 }
 
+/**
+ * FUNGSI DOWNLOAD PDF YANG TELAH DIPERBAIKI
+ * - Mendukung multi-halaman otomatis jika konten panjang.
+ * - Tidak akan menyertakan halaman kosong (blank page) di belakang.
+ * - Mengatur page break agar tidak memotong teks di tengah.
+ */
 async function downloadPDF(){
-  var btn=document.getElementById('btn-pdf');btn.disabled=true;btn.classList.remove('pulse-red');btn.style.opacity='0.6';
-  toast('Menghasilkan PDF...','info');
-  var page=document.getElementById('a4-page');var container=document.getElementById('pdf-offscreen');container.innerHTML='';
-  var cl=page.cloneNode(true);cl.style.fontFamily=selFont;cl.style.fontSize=selSize+'pt';cl.style.lineHeight=selLH;cl.style.zoom='1';cl.style.transform='none';cl.style.position='relative';cl.style.margin='0';cl.style.boxShadow='none';
+  var btn=document.getElementById('btn-pdf');
+  btn.disabled=true;
+  btn.classList.remove('pulse-red');
+  btn.style.opacity='0.6';
+  toast('Memproses PDF...','info');
+
+  var page=document.getElementById('a4-page');
+  var container=document.getElementById('pdf-offscreen');
+  container.innerHTML='';
+
+  // Clone konten untuk diproses di luar layar
+  var cl=page.cloneNode(true);
+
+  // PENTING: Reset style agar konten bisa mengalir bebas (multi-page)
+  // Kita ubah tinggi menjadi 'auto' dan hapus overflow:hidden
+  cl.style.height = 'auto'; 
+  cl.style.minHeight = '297mm'; // Pastikan halaman pertama tetap penuh jika konten sedikit
+  cl.style.overflow = 'visible';
+  cl.style.position = 'relative';
+  cl.style.margin = '0';
+  cl.style.boxShadow = 'none';
+  
+  // Terapkan font yang dipilih user
+  cl.style.fontFamily = selFont;
+  cl.style.fontSize = selSize+'pt';
+  cl.style.lineHeight = selLH;
+
   container.appendChild(cl);
-  await new Promise(function(resolve){setTimeout(resolve,400)});
-  try{await html2pdf().set({margin:0,filename:(curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff',width:cl.offsetWidth,height:cl.offsetHeight},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(cl).save();toast('PDF berhasil diunduh!')}
-  catch(e){toast('Gagal mengunduh PDF','error');console.error(e)}
-  finally{container.innerHTML='';btn.disabled=false;btn.classList.add('pulse-red');btn.style.opacity='1'}
+  
+  // Beri jeda waktu singkat agar browser selesai render clone
+  await new Promise(function(resolve){setTimeout(resolve,100)});
+
+  try {
+    // Konfigurasi html2pdf
+    var opt = {
+      margin:       0, // Margin 0, kita gunakan padding dari CSS .a4-page
+      filename:     (curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',
+      image:        { type: 'jpeg', quality: 0.95 },
+      html2canvas:  {
+        scale: 2,             // Skala tinggi untuk hasil tajam
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        width: cl.offsetWidth  // Ambil lebar penuh elemen
+      },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      // Konfigurasi pemisah halaman cerdas
+      pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] } 
+    };
+
+    await html2pdf().set(opt).from(cl).save();
+    toast('PDF berhasil diunduh!');
+  } catch (e) {
+    toast('Gagal mengunduh PDF','error');
+    console.error(e);
+  } finally {
+    container.innerHTML=''; // Bersihkan elemen sementara
+    btn.disabled=false;
+    btn.classList.add('pulse-red');
+    btn.style.opacity='1';
+  }
 }
 
 function toggleDark(){document.documentElement.classList.toggle('dark');localStorage.setItem('ka-dark',document.documentElement.classList.contains('dark')?'1':'0');setTimeout(scalePreview,100)}
