@@ -205,6 +205,11 @@ function addressFormH3(){
 }
 
 function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
+
+// FUNGSI TAMBAH UNTUK PENDIDIKAN (PERBAIKAN)
+function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
+function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
+
 function renderExpF(){
   var c=document.getElementById('exp-c');if(!c)return;
   c.innerHTML=expList.map(function(e,i){
@@ -217,6 +222,11 @@ function renderExpF(){
       '<div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div></div>';
     return h}).join('');
 }
+
+// FUNGSI TAMBAH UNTUK PENGALAMAN (PERBAIKAN)
+function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:''});renderExpF();renderPreview()}
+function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
+
 function renderSkIF(arr,cid,type){
   var c=document.getElementById(cid);if(!c)return;var h='';
   for(var i=0;i<arr.length;i++){
