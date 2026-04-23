@@ -115,10 +115,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <nav class="bg-brand-dark border-b border-brand-border/50 flex-shrink-0">
   <div class="max-w-7xl mx-auto px-4 flex">
     <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
-      <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV
+      <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
     </button>
     <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-white/70 transition-colors">
-      <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Lamaran
+      <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
     </button>
   </div>
 </nav>
@@ -294,11 +294,12 @@ function renderSuratP(){
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
   var lampLabel=m.on?'Data scan':'lembar';
   function dr(l,val){return'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap;text-align:left">'+l+'</td><td style="padding-top:.5mm;text-align:left">: '+val+'</td></tr>'}
-  var al2r=AL2?'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap;text-align:left">&nbsp;</td><td style="padding-top:.5mm;padding-left:2mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
+  var al2r=AL2?'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap;text-align:left">&nbsp;</td><td style="padding-top:.5mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
   var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' '+lampLabel+'</td></tr></table>';
+  /* Alamat Perusahaan: rata kiri semua, termasuk Alamat Lanjutan */
   var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
-  if(JL2&&JL2.trim())at+='<div style="padding-left:5mm;text-align:left">'+esc(JL2.trim())+'</div>';
+  if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2.trim())+'</div>';
   at+='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div><div style="margin-top:4mm;text-align:justify">'+esc(pembukaText)+'</div>';
   var dp='<div style="margin-top:3mm;text-align:left">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;margin-top:1mm;margin-bottom:1mm">'+dr('Nama',esc(N))+dr('Tempat dan Tanggal Lahir',esc(TTL))+dr('Jenis Kelamin',esc(JK))+dr('Agama',esc(AG))+dr('Pendidikan Terakhir',esc(PA))+dr('Alamat',esc(AL))+al2r+dr('Email',esc(EM))+dr('No HP',esc(HP))+'</table>';
   var lm='<div style="margin-top:2mm;text-align:left">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-left:5mm;margin-top:1mm">'+lamps+'</div>';
