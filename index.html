@@ -153,7 +153,7 @@ var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:''}];
 var hSkills=['','','','','','','','','',''];
-var sSkills=['','','','','','','','','',''];
+var sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];
 var lampList=['',''];
 var _rpTimer=null;
 
@@ -330,6 +330,11 @@ function renderForm(){
     h+=fldH('sJl2','Alamat lanjutan (opsional)','.....');
     h+=fldH('sSumber','Sumber Informasi','.....');
     if(m.pos)h+=fldH('sPosisi','Posisi yang Dilamar','.....');
+    h+=secH('Kalimat Pembuka & Penutup');
+    h+='<div class="dark:bg-brand-card bg-white rounded-xl p-4 border dark:border-brand-border border-gray-200 space-y-3"><div class="text-xs dark:text-gray-400 text-gray-500 mb-1"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk menggunakan kalimat otomatis</div>';
+    h+=taH('sPembuka','Kalimat Pembuka','(Otomatis berdasarkan data di atas)');
+    h+=taH('sPenutup','Kalimat Penutup','(Otomatis berdasarkan template)');
+    h+='</div>';
     h+=secH('Data Pribadi');
     h+=fldH('nama','Nama','.....');h+=fldH('ttl','Tempat dan Tanggal Lahir','.....');
     h+=selH('jk','Jenis Kelamin',jkOpts);h+=fldH('agama','Agama','.....');
@@ -352,22 +357,39 @@ function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t
 function expPH(list){return list.map(function(e){return'<div style="margin-bottom:2mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div></div>'}).join('')}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
-function sk3col(title,skills){
-  var items=(skills||[]).filter(function(s){return s&&s.trim()});
-  if(!items.length)items=['……………….','……………….','……………….','……………….'];
-  var half=Math.ceil(items.length/2),left=items.slice(0,half),right=items.slice(half);
-  function buildCol(arr){
-    var h='';
-    for(var i=0;i<arr.length;i++){
-      h+='<div style="text-align:right">'+esc(arr[i])+'</div>';
+/* CV1 & CV2: Hard Skill & Soft Skill dalam satu tabel, kolom 2 & 3 lurus, dengan jarak spasi antar keduanya */
+function skCombined(hardSkills,softSkills){
+  var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
+  var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
+  if(!hItems.length)hItems=['……………….','……………….','……………….','……………….'];
+  if(!sItems.length)sItems=['……………….','……………….','……………….','……………….'];
+  var maxLen=Math.max(hItems.length,sItems.length);
+  while(hItems.length<maxLen)hItems.push('');
+  while(sItems.length<maxLen)sItems.push('');
+  var half=Math.ceil(maxLen/2);
+  var hLeft=hItems.slice(0,half),hRight=hItems.slice(half);
+  var sLeft=sItems.slice(0,half),sRight=sItems.slice(half);
+  var h='<table style="width:100%">';
+  /* Hard Skill */
+  for(var i=0;i<half;i++){
+    if(i===0){
+      h+='<tr><td style="width:48mm;font-weight:600;vertical-align:top" rowspan="'+half+'">Hard Skill</td><td style="text-align:right">'+esc(hLeft[i])+'</td><td style="text-align:right">'+esc(hRight[i])+'</td></tr>';
+    }else{
+      h+='<tr><td style="text-align:right">'+esc(hLeft[i])+'</td><td style="text-align:right">'+esc(hRight[i])+'</td></tr>';
     }
-    return h;
   }
-  return '<table style="width:100%;margin-bottom:2mm"><tr>'+
-    '<td style="width:48mm;font-weight:600;vertical-align:top;padding-right:0">'+title+'</td>'+
-    '<td style="vertical-align:top">'+buildCol(left)+'</td>'+
-    '<td style="vertical-align:top">'+buildCol(right)+'</td>'+
-    '</tr></table>';
+  /* Jarak spasi antara Hard Skill dan Soft Skill */
+  h+='<tr><td colspan="3" style="height:3mm;padding:0;font-size:0;line-height:0">&nbsp;</td></tr>';
+  /* Soft Skill */
+  for(var i=0;i<half;i++){
+    if(i===0){
+      h+='<tr><td style="width:48mm;font-weight:600;vertical-align:top" rowspan="'+half+'">Soft Skill</td><td style="text-align:right">'+esc(sLeft[i])+'</td><td style="text-align:right">'+esc(sRight[i])+'</td></tr>';
+    }else{
+      h+='<tr><td style="text-align:right">'+esc(sLeft[i])+'</td><td style="text-align:right">'+esc(sRight[i])+'</td></tr>';
+    }
+  }
+  h+='</table>';
+  return h;
 }
 
 function skCV3single(hardSkills,softSkills){
@@ -379,21 +401,23 @@ function skCV3single(hardSkills,softSkills){
   if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';return h;
 }
 
+/* CV1: Pas Foto kiri, PROFIL kanan dengan jarak jauh */
 function renderCV1(){
   var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',BN=v('bangsa')||'……………….',AG=v('agama')||'……………….',TB=v('tb')||'……………….',BB=v('bb')||'……………….',HP=v('nohp')||'……………….',ST=v('status')||'……………….',EM=v('email')||'……………….';
   var a1=joinAddr(v('alamat1'),v('alamat2'))||'………………….';
   var a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';
   var PR=getProfil('Saya lulusan ….. dengan latar belakang jurusan ….. .Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
   function dp(l,val){return'<tr><td class="dl">'+l+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}
-  return'<div style="display:flex;gap:8mm"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+sk3col('Hard Skill',hSkills)+sk3col('Soft Skill',sSkills);
+  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills);
 }
 
+/* CV2: Pas Foto kiri, NAMA kanan dengan jarak jauh */
 function renderCV2(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';
   var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat';
   var al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';
   var PR=getProfil('Saya lulusan ….. dengan latar belakang jurusan ….. .Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.');
-  return'<div style="display:flex;gap:8mm;justify-content:space-between"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:right"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3mm">'+esc(N)+'</div><div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+'</div><div>'+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+sk3col('Hard Skill',hSkills)+sk3col('Soft Skill',sSkills);
+  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:right"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3mm">'+esc(N)+'</div><div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+'</div><div>'+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills);
 }
 
 function renderCV3(){
@@ -407,12 +431,21 @@ function renderCV3(){
   return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:12mm;border-right:1.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:12mm">'+rs+'</td></tr></table>';
 }
 
+/* Surat: Alamat rata kiri, Pembuka & Penutup bisa disesuaikan */
 function renderSuratP(){
   var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return'';
   var sK=v('sKota')||'……………….',sT=v('sTgl')||'……………….',sBT=v('sBlnThn')||'……………….';
   var PT=v('sPt')||'……………….',JL=v('sJl')||'……………….',JL2=v('sJl2')||'',SUM=v('sSumber')||'……………….',POS=v('sPosisi')||'……………….';
   var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',AG=v('agama')||'……………….',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
-  var lt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
+
+  var autoLt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
+  var autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+autoLt+'.';
+  var customPembuka=v('sPembuka')&&v('sPembuka').trim();
+  var pembukaText=customPembuka?customPembuka:autoPembuka;
+
+  var autoPenutup='Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
+  var customPenutup=v('sPenutup')&&v('sPenutup').trim();
+  var penutupText=customPenutup?customPenutup:autoPenutup;
 
   var li=[];var lc=0;
   if(m.on){
@@ -437,12 +470,12 @@ function renderSuratP(){
   var al2r=AL2?'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap">&nbsp;</td><td style="padding-top:.5mm;padding-left:2mm">'+esc(AL2)+'</td></tr>':'';
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
   var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' lembar</td></tr></table>';
-  var at='<div style="margin-top:2mm">Kepada Yth,</div><div>Bapak/Ibu HRD</div><div>'+esc(PT)+'</div><div>'+esc(JL)+'</div>';
-  if(JL2&&JL2.trim())at+='<div style="padding-left:5mm">'+esc(JL2.trim())+'</div>';
-  at+='<div style="margin-top:4mm">Dengan hormat,</div><div style="margin-top:4mm">Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+lt+'.</div>';
-  var dp='<div style="margin-top:3mm">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;margin-top:1mm;margin-bottom:1mm">'+dr('Nama',esc(N))+dr('Tempat dan Tanggal Lahir',esc(TTL))+dr('Jenis Kelamin',esc(JK))+dr('Agama',esc(AG))+dr('Pendidikan Terakhir',esc(PA))+dr('Alamat',esc(AL))+al2r+dr('Email',esc(EM))+dr('No HP',esc(HP))+'</table>';
-  var lm='<div style="margin-top:2mm">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-left:5mm;margin-top:1mm">'+lamps+'</div>';
-  var pn='<div style="margin-top:3mm;text-align:justify">Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.</div>';
+  var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
+  if(JL2&&JL2.trim())at+='<div style="padding-left:5mm;text-align:left">'+esc(JL2.trim())+'</div>';
+  at+='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div><div style="margin-top:4mm;text-align:justify">'+esc(pembukaText)+'</div>';
+  var dp='<div style="margin-top:3mm;text-align:left">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;margin-top:1mm;margin-bottom:1mm">'+dr('Nama',esc(N))+dr('Tempat dan Tanggal Lahir',esc(TTL))+dr('Jenis Kelamin',esc(JK))+dr('Agama',esc(AG))+dr('Pendidikan Terakhir',esc(PA))+dr('Alamat',esc(AL))+al2r+dr('Email',esc(EM))+dr('No HP',esc(HP))+'</table>';
+  var lm='<div style="margin-top:2mm;text-align:left">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-left:5mm;margin-top:1mm">'+lamps+'</div>';
+  var pn='<div style="margin-top:3mm;text-align:justify">'+esc(penutupText)+'</div>';
   var td='<div style="margin-top:4mm;text-align:right"><div>Hormat saya,</div><div style="margin-top:12mm;font-weight:700">'+esc(TTD)+'</div></div>';
   return tw+hl+at+dp+lm+pn+td;
 }
@@ -468,7 +501,7 @@ function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*10
 function resetForm(){
   document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});
   photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');
-  if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','',''];sSkills=['','','','','','','','','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');savedCV={}}
+  if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');savedCV={}}
   else{lampList=['',''];renderLampF();savedSurat={}}
   renderPreview();toast('Formulir berhasil direset','info');
 }
