@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="monetag" content="7b7c813623dd1a3d5ee8ca917364d6be">
-  <script>(function(s){s.dataset.zone='10918699',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script src="https://5gvci.com/act/files/tag.min.js?z=10918657" data-cfasync="false" async></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-adsense-account" content="ca-pub-8274110224999928">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V7805VX4T"></script>
@@ -135,7 +133,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div id="form-content" class="space-y-3 fade-up"></div>
     <div class="flex gap-3 mt-6 mb-6">
       <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
-      <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
+      <!-- MODIFIED BUTTON: Added window.open to direct link -->
+      <button onclick="downloadPDF(); window.open('https://omg10.com/4/10918734', '_blank');" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
     </div>
   </div>
   <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 dark:bg-brand-dark/50 bg-gray-100 min-h-0 pv-scroll">
@@ -325,20 +324,6 @@ function toggleDark(){document.documentElement.classList.toggle('dark');localSto
 
 function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');updateVH();renderTplTabs();renderForm();renderPreview();window.addEventListener('resize',function(){updateVH();scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')})}
 document.addEventListener('DOMContentLoaded',init);
-</script>
-  <!-- Monetag Anchor Ads Bottom -->
-<script type="text/javascript">
-    (function() {
-        var script = document.createElement('script');
-        script.src = '//cdn.monetag.com/script.js';
-        script.async = true;
-
-        script.setAttribute('data-zone', '3303280');
-        script.setAttribute('data-format', 'anchor');
-        script.setAttribute('data-anchor', 'bottom');
-
-        document.body.appendChild(script);
-    })();
 </script>
 </body>
 </html>
