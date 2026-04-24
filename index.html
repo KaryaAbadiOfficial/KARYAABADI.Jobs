@@ -133,8 +133,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div id="form-content" class="space-y-3 fade-up"></div>
     <div class="flex gap-3 mt-6 mb-6">
       <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
-      <!-- MODIFIED BUTTON: Added window.open to direct link -->
-      <button onclick="downloadPDF(); window.open('https://omg10.com/4/10918734', '_blank');" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
+      <!-- Tombol kembali ke fungsi downloadPDF() saja -->
+      <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
     </div>
   </div>
   <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 dark:bg-brand-dark/50 bg-gray-100 min-h-0 pv-scroll">
@@ -318,7 +318,45 @@ function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*10
 
 function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');savedCV={}}else{lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
 
-async function downloadPDF(){var btn=document.getElementById('btn-pdf');btn.disabled=true;btn.classList.remove('pulse-red');btn.style.opacity='.6';toast('Memproses PDF...','info');var page=document.getElementById('a4-page');var container=document.getElementById('pdf-offscreen');container.innerHTML='';var cl=page.cloneNode(true);cl.style.height='auto';cl.style.minHeight='0';cl.style.width='210mm';cl.style.overflow='visible';cl.style.position='relative';cl.style.margin='0';cl.style.boxShadow='none';cl.style.fontFamily=selFont;cl.style.fontSize=selSize+'pt';cl.style.lineHeight=selLH;container.appendChild(cl);await new Promise(function(resolve){setTimeout(resolve,100)});try{var opt={margin:0,filename:(curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',image:{type:'jpeg',quality:.95},html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff',width:cl.offsetWidth},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};await html2pdf().set(opt).from(cl).save();toast('PDF berhasil diunduh!')}catch(e){toast('Gagal mengunduh PDF','error');console.error(e)}finally{container.innerHTML='';btn.disabled=false;btn.classList.add('pulse-red');btn.style.opacity='1'}}
+async function downloadPDF(){
+    var btn=document.getElementById('btn-pdf');
+    btn.disabled=true;
+    btn.classList.remove('pulse-red');
+    btn.style.opacity='.6';
+    toast('Memproses PDF...','info');
+    var page=document.getElementById('a4-page');
+    var container=document.getElementById('pdf-offscreen');
+    container.innerHTML='';
+    var cl=page.cloneNode(true);
+    cl.style.height='auto';
+    cl.style.minHeight='0';
+    cl.style.width='210mm';
+    cl.style.overflow='visible';
+    cl.style.position='relative';
+    cl.style.margin='0';
+    cl.style.boxShadow='none';
+    cl.style.fontFamily=selFont;
+    cl.style.fontSize=selSize+'pt';
+    cl.style.lineHeight=selLH;
+    container.appendChild(cl);
+    await new Promise(function(resolve){setTimeout(resolve,100)});
+    try{
+        var opt={margin:0,filename:(curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',image:{type:'jpeg',quality:.95},html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff',width:cl.offsetWidth},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};
+        await html2pdf().set(opt).from(cl).save();
+        toast('PDF berhasil diunduh!');
+    }catch(e){
+        toast('Gagal mengunduh PDF','error');
+        console.error(e);
+    }finally{
+        // Direct Link dibuka di sini, setelah proses PDF selesai (sukses atau gagal)
+        window.open('https://omg10.com/4/10918734', '_blank');
+        
+        container.innerHTML='';
+        btn.disabled=false;
+        btn.classList.add('pulse-red');
+        btn.style.opacity='1';
+    }
+}
 
 function toggleDark(){document.documentElement.classList.toggle('dark');localStorage.setItem('ka-dark',document.documentElement.classList.contains('dark')?'1':'0');setTimeout(function(){scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')},100)}
 
