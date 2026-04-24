@@ -326,5 +326,19 @@ function toggleDark(){document.documentElement.classList.toggle('dark');localSto
 function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');updateVH();renderTplTabs();renderForm();renderPreview();window.addEventListener('resize',function(){updateVH();scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')})}
 document.addEventListener('DOMContentLoaded',init);
 </script>
+  <!-- Monetag Anchor Ads Bottom -->
+<script type="text/javascript">
+    (function() {
+        var script = document.createElement('script');
+        script.src = '//cdn.monetag.com/script.js';
+        script.async = true;
+
+        script.setAttribute('data-zone', '3303280');
+        script.setAttribute('data-format', 'anchor');
+        script.setAttribute('data-anchor', 'bottom');
+
+        document.body.appendChild(script);
+    })();
+</script>
 </body>
 </html>
