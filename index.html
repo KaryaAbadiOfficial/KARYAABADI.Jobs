@@ -417,16 +417,31 @@ document.addEventListener('DOMContentLoaded',init);
 </style>
 
 <script>
-var DELAY_SHOW = 5000;      // tampil tiap 5 detik
-var DISPLAY_TIME = 3000;    // tampil 3 detik
-var REOPEN_DELAY = 300000;  // 5 menit (300.000 ms)
+var DELAY_SHOW = 5000;
+var DISPLAY_TIME = 3000;
+var REOPEN_DELAY = 300000; // 5 menit
 
 function canShowNotif() {
   var lastClosed = localStorage.getItem("notifClosedTime");
   if (!lastClosed) return true;
+  return (Date.now() - lastClosed) > REOPEN_DELAY;
+}
 
-  var now = Date.now();
-  return (now - lastClosed) > REOPEN_DELAY;
+// 🔥 auto kecilkan teks agar tetap 1 baris di HP
+function fitTextOneLine() {
+  var el = document.querySelector("#topNotif .notif-text");
+  if (!el) return;
+
+  var parent = el.parentElement;
+  var maxWidth = parent.offsetWidth - 40; // ruang tombol X
+  var fontSize = window.innerWidth < 480 ? 12 : 14;
+
+  el.style.whiteSpace = "nowrap";
+
+  while (el.scrollWidth > maxWidth && fontSize > 9) {
+    fontSize--;
+    el.style.fontSize = fontSize + "px";
+  }
 }
 
 function showNotif() {
@@ -439,6 +454,8 @@ function showNotif() {
   if (!notif) return;
 
   notif.style.top = "10px";
+
+  fitTextOneLine(); // penting untuk HP
 
   setTimeout(function() {
     notif.style.top = "-80px";
@@ -455,8 +472,11 @@ window.closeNotif = function() {
   localStorage.setItem("notifClosedTime", Date.now());
 }
 
-// start
+// jalankan
 setTimeout(showNotif, 1000);
+
+// update saat layar berubah
+window.addEventListener("resize", fitTextOneLine);
 </script>
 </body>
 </html>
