@@ -363,5 +363,81 @@ function toggleDark(){document.documentElement.classList.toggle('dark');localSto
 function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');updateVH();renderTplTabs();renderForm();renderPreview();window.addEventListener('resize',function(){updateVH();scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')})}
 document.addEventListener('DOMContentLoaded',init);
 </script>
+  <!-- NOTIFIKASI TOP -->
+<div id="topNotif">
+  <span class="notif-text">
+    Hasil Download Pdf<br>
+    Cek di File Manager
+  </span>
+  <span class="notif-close" onclick="closeNotif()">✖</span>
+</div>
+
+<style>
+#topNotif {
+  position: fixed;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: fit-content;       /* auto mengikuti isi */
+  max-width: 90%;           /* biar tidak kepanjangan di HP */
+  
+  background: #d32f2f;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  
+  padding: 12px 45px 12px 20px;
+  font-size: 16px;
+  
+  z-index: 9999;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  border-radius: 0 0 12px 12px;
+
+  transition: top 0.5s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* teks */
+.notif-text {
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* tombol close */
+.notif-close {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+</style>
+
+<script>
+// kalau belum pernah di-close
+if (!localStorage.getItem("notifClosed")) {
+
+  function showNotif() {
+    var notif = document.getElementById("topNotif");
+    notif.style.top = "0";
+
+    setTimeout(function() {
+      notif.style.top = "-150px";
+    }, 10000); // tampil 10 detik
+  }
+
+  function closeNotif() {
+    var notif = document.getElementById("topNotif");
+    notif.style.top = "-150px";
+    localStorage.setItem("notifClosed", "true");
+  }
+
+  setTimeout(showNotif, 1000);
+  setInterval(showNotif, 15000); // 10 detik tampil + 5 detik jeda
+}
+</script>
 </body>
 </html>
