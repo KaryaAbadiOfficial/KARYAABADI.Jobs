@@ -417,51 +417,46 @@ document.addEventListener('DOMContentLoaded',init);
 </style>
 
 <script>
-function fitTextOneLine() {
-  var el = document.querySelector("#topNotif .notif-text");
-  if (!el) return;
+var DELAY_SHOW = 5000;      // tampil tiap 5 detik
+var DISPLAY_TIME = 3000;    // tampil 3 detik
+var REOPEN_DELAY = 300000;  // 5 menit (300.000 ms)
 
-  var maxWidth = el.parentElement.offsetWidth - 50; // ruang tombol X
-  var fontSize = 13; // mulai dari ukuran normal
+function canShowNotif() {
+  var lastClosed = localStorage.getItem("notifClosedTime");
+  if (!lastClosed) return true;
 
-  el.style.whiteSpace = "nowrap";
-
-  while (el.scrollWidth > maxWidth && fontSize > 9) {
-    fontSize--;
-    el.style.fontSize = fontSize + "px";
-  }
+  var now = Date.now();
+  return (now - lastClosed) > REOPEN_DELAY;
 }
 
-// jalankan saat notif muncul
 function showNotif() {
+  if (!canShowNotif()) {
+    setTimeout(showNotif, 5000);
+    return;
+  }
+
   var notif = document.getElementById("topNotif");
   if (!notif) return;
 
   notif.style.top = "10px";
 
-  fitTextOneLine(); // 🔥 penting
-
   setTimeout(function() {
     notif.style.top = "-80px";
-  }, 3000);
+  }, DISPLAY_TIME);
 
-  setTimeout(showNotif, 5000);
+  setTimeout(showNotif, DELAY_SHOW);
 }
 
-// close tetap sama
 window.closeNotif = function() {
   var notif = document.getElementById("topNotif");
-  notif.style.top = "-80px";
-  localStorage.setItem("notifClosed", "true");
-};
+  if (!notif) return;
 
-// start
-if (!localStorage.getItem("notifClosed")) {
-  setTimeout(showNotif, 1000);
+  notif.style.top = "-80px";
+  localStorage.setItem("notifClosedTime", Date.now());
 }
 
-// resize ulang kalau layar berubah
-window.addEventListener("resize", fitTextOneLine);
+// start
+setTimeout(showNotif, 1000);
 </script>
 </body>
 </html>
