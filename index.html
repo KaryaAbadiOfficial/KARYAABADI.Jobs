@@ -417,26 +417,30 @@ document.addEventListener('DOMContentLoaded',init);
 </style>
 
 <script>
-// kalau belum pernah di-close
 if (!localStorage.getItem("notifClosed")) {
 
   function showNotif() {
     var notif = document.getElementById("topNotif");
-    notif.style.top = "0";
+    if (!notif) return;
+
+    notif.style.top = "10px";
 
     setTimeout(function() {
-      notif.style.top = "-150px";
-    }, 10000); // tampil 10 detik
+      notif.style.top = "-80px";
+    }, 3000);
+
+    setTimeout(showNotif, 5000);
   }
 
-  function closeNotif() {
+  window.closeNotif = function() {
     var notif = document.getElementById("topNotif");
-    notif.style.top = "-150px";
+    if (!notif) return;
+
+    notif.style.top = "-80px";
     localStorage.setItem("notifClosed", "true");
   }
 
   setTimeout(showNotif, 1000);
-  setInterval(showNotif, 15000); // 10 detik tampil + 5 detik jeda
 }
 </script>
 </body>
