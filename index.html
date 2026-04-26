@@ -417,31 +417,51 @@ document.addEventListener('DOMContentLoaded',init);
 </style>
 
 <script>
-if (!localStorage.getItem("notifClosed")) {
+function fitTextOneLine() {
+  var el = document.querySelector("#topNotif .notif-text");
+  if (!el) return;
 
-  function showNotif() {
-    var notif = document.getElementById("topNotif");
-    if (!notif) return;
+  var maxWidth = el.parentElement.offsetWidth - 50; // ruang tombol X
+  var fontSize = 13; // mulai dari ukuran normal
 
-    notif.style.top = "10px";
+  el.style.whiteSpace = "nowrap";
 
-    setTimeout(function() {
-      notif.style.top = "-80px";
-    }, 3000);
-
-    setTimeout(showNotif, 5000);
+  while (el.scrollWidth > maxWidth && fontSize > 9) {
+    fontSize--;
+    el.style.fontSize = fontSize + "px";
   }
+}
 
-  window.closeNotif = function() {
-    var notif = document.getElementById("topNotif");
-    if (!notif) return;
+// jalankan saat notif muncul
+function showNotif() {
+  var notif = document.getElementById("topNotif");
+  if (!notif) return;
 
+  notif.style.top = "10px";
+
+  fitTextOneLine(); // 🔥 penting
+
+  setTimeout(function() {
     notif.style.top = "-80px";
-    localStorage.setItem("notifClosed", "true");
-  }
+  }, 3000);
 
+  setTimeout(showNotif, 5000);
+}
+
+// close tetap sama
+window.closeNotif = function() {
+  var notif = document.getElementById("topNotif");
+  notif.style.top = "-80px";
+  localStorage.setItem("notifClosed", "true");
+};
+
+// start
+if (!localStorage.getItem("notifClosed")) {
   setTimeout(showNotif, 1000);
 }
+
+// resize ulang kalau layar berubah
+window.addEventListener("resize", fitTextOneLine);
 </script>
 </body>
 </html>
