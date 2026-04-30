@@ -98,7 +98,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0">
   <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
     <div class="flex items-center gap-2.5">
-      <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-9 h-9 rounded-lg flex-shrink-0" fetchpriority="high">
+      <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-9 h-9 rounded-lg flex-shrink:0" fetchpriority="high">
       <div class="flex flex-col leading-none">
         <div class="flex items-baseline gap-0.5">
           <span class="text-white font-bold text-base tracking-wide">KARYA ABADI</span><span class="text-white/70 font-bold text-sm">.Jobs</span>
@@ -212,7 +212,7 @@ function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
+function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink:0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
@@ -295,8 +295,19 @@ function renderSuratP(){
   if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
   var lampLabel=m.on?'Data scan':'lembar';
-  function dr(l,val){return'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap;text-align:left">'+l+'</td><td style="padding-top:.5mm;text-align:left">: '+val+'</td></tr>'}
-  var al2r=AL2?'<tr><td style="padding-right:3mm;padding-top:.5mm;white-space:nowrap;text-align:left">&nbsp;</td><td style="padding-top:.5mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
+
+  // CSS String konsisten untuk memastikan alignment presisi
+  var labelStyle='padding-right:3mm;white-space:nowrap;text-align:left;';
+  var colonStyle='width:5mm;text-align:center;';
+  
+  function dr(l,val){
+    // Menggunakan style yang sama persis untuk kolom pertama dan kedua
+    return'<tr><td style="'+labelStyle+'">'+l+'</td><td style="'+colonStyle+'">:</td><td style="padding-top:.5mm;text-align:left">'+val+'</td></tr>';
+  }
+  
+  // Alamat Lanjutan: Kolom pertama harus punya padding-right agar sejajar dengan teks di atasnya
+  var al2r=AL2?'<tr><td style="'+labelStyle+'">&nbsp;</td><td style="'+colonStyle+'">&nbsp;</td><td style="padding-top:.5mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
+  
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
   var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' '+lampLabel+'</td></tr></table>';
   /* Alamat Perusahaan: rata kiri semua, termasuk Alamat Lanjutan */
