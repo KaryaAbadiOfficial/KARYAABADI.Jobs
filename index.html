@@ -674,6 +674,135 @@ window.addEventListener("resize", fitTextOneLine);
   `;
   document.head.appendChild(style);
 
+<script>
+// tampil setelah 3 detik
+setTimeout(function() {
+  if (localStorage.getItem("anchorClosed") !== "true") {
+    document.getElementById("anchorAd").style.bottom = "0";
+  }
+}, 3000);
+
+// close + simpan
+function closeAd() {
+  document.getElementById("anchorAd").style.display = "none";
+  localStorage.setItem("anchorClosed", "true");
+}
+</script>
+  <script>
+(function() {
+
+  if (localStorage.getItem("anchorClosed") === "true") return;
+
+  var linkUtama = "https://omg10.com/4/10633681";
+  var linkBanner = "https://monetag.com/?ref_id=ttxJ";
+
+  var ad = document.createElement("div");
+  ad.id = "anchorAd";
+
+  ad.innerHTML = `
+    <div class="anchor-content">
+      <span class="ad-label">Iklan</span>
+      <span class="close-btn">&times;</span>
+
+      <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0">
+
+      <div class="anchor-text">
+        <b>💰 Hasilkan Uang dari Internet!</b>
+        <span>Dari HP tanpa modal</span>
+        <a href="${linkUtama}" target="_blank">MULAI</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(ad);
+
+  var style = document.createElement("style");
+  style.innerHTML = `
+    #anchorAd {
+      position: fixed;
+      bottom: -300px;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+      z-index: 9999;
+      transition: bottom 0.5s ease;
+      font-family: Arial;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .anchor-content {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      position: relative;
+    }
+
+    .anchor-content img {
+      width: 65px;
+      height: 65px;
+      border-radius: 10px;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    .anchor-text {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .anchor-text b {
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .anchor-text span {
+      font-size: 12px;
+      line-height: 1.2;
+      opacity: 0.85;
+    }
+
+    .anchor-text a {
+      display: inline-block;
+      margin: 6px auto 0;
+      padding: 6px 12px;
+      background: #ff5722;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 8px;
+      top: 5px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #aaa;
+      z-index: 3;
+    }
+
+    .ad-label {
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      font-size: 10px;
+      color: #999;
+    }
+
+    @media (min-width: 768px) {
+      #anchorAd { display: none; }
+    }
+  `;
+  document.head.appendChild(style);
+
   // tampil
   setTimeout(function() {
     ad.style.bottom = "0";
@@ -695,21 +824,6 @@ window.addEventListener("resize", fitTextOneLine);
   };
 
 })();
-</script>
-
-<script>
-// tampil setelah 3 detik
-setTimeout(function() {
-  if (localStorage.getItem("anchorClosed") !== "true") {
-    document.getElementById("anchorAd").style.bottom = "0";
-  }
-}, 3000);
-
-// close + simpan
-function closeAd() {
-  document.getElementById("anchorAd").style.display = "none";
-  localStorage.setItem("anchorClosed", "true");
-}
 </script>
 </body>
 </html>
