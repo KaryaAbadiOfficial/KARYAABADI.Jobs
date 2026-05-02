@@ -82,7 +82,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
 .mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(17,17,17,.95);backdrop-filter:blur(12px);border-top:1px solid #2a2a2a;padding:6px env(safe-area-inset-bottom,6px)}
 .mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
-.mob-bar button.active{color:#DC2626}
+.mob-bar button.active{color:#FACC15} /* PERBAIKAN: Warna Kuning saat Aktif */
 .mob-bar button i{font-size:18px}
 .form-sec{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #2a2a2a;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
@@ -90,6 +90,57 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto}
 @media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 152px)}}
 .pv-scroll{max-height:calc(var(--avh) - 152px);overflow:hidden;display:flex;flex-direction:column}
+
+/* Top Notification */
+#topNotif {
+  position: fixed; top: -150px; left: 50%; transform: translateX(-50%);
+  width: fit-content; max-width: 90%;
+  background: #d32f2f; color: #fff; font-weight: bold; text-align: center;
+  padding: 12px 45px 12px 20px; font-size: 16px; z-index: 9999;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3); border-radius: 0 0 12px 12px;
+  transition: top 0.5s ease; display: flex; align-items: center; justify-content: center;
+}
+.notif-text { line-height: 1.4; word-break: break-word; }
+.notif-close { position: absolute; right: 12px; cursor: pointer; font-size: 16px; }
+
+/* Anchor Ad Style */
+#ad-monetag-anchor {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+    background-color: #ffffff; box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+    border-top: 1px solid #ddd; transform: translateY(100%);
+    transition: transform 0.4s ease-out; font-family: sans-serif;
+}
+#ad-monetag-anchor.active { transform: translateY(0); }
+.ad-inner {
+    max-width: 800px; margin: 0 auto; padding: 10px;
+    display: flex; align-items: center; justify-content: space-between; gap: 15px;
+    position: relative;
+}
+.ad-logo-box {
+    flex: 0 0 70px; width: 70px; height: 70px; border: 1px solid #eee;
+    border-radius: 6px; padding: 5px; background: #fff; overflow: hidden;
+}
+.ad-logo-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ad-text { text-align: center; flex: 1; }
+.ad-line-1 { display: block; font-size: 15px; font-weight: 800; color: #000; }
+.ad-line-2 { display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #333; margin-top: 2px; }
+.ad-btn {
+    background-color: #FF8C00; color: #fff; text-decoration: none;
+    padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 14px; white-space: nowrap;
+}
+.ad-btn:hover { background-color: #e07b00; }
+.ad-close {
+    position: absolute; top: 0; right: 0; border: none; background: none;
+    font-size: 24px; color: #888; cursor: pointer; padding: 0 5px; line-height: 1;
+}
+.ad-close:hover { color: red; }
+@media (max-width: 600px) {
+    .ad-inner { flex-direction: column; text-align: center; gap: 10px; padding-bottom: 15px; }
+    .ad-logo-box { order: 1; width: 60px; height: 60px; }
+    .ad-text { order: 2; }
+    .ad-btn { order: 3; width: 100%; }
+    .ad-line-1 { font-size: 17px; }
+}
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
@@ -133,7 +184,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div id="form-content" class="space-y-3 fade-up"></div>
     <div class="flex gap-3 mt-6 mb-6">
       <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
-      <!-- Tombol kembali ke fungsi downloadPDF() saja -->
       <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
     </div>
   </div>
@@ -170,7 +220,32 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 
+<!-- NOTIFIKASI TOP -->
+<div id="topNotif">
+  <span class="notif-text">
+    Hasil Download Pdf<br>
+    Cek di File Manager
+  </span>
+  <span class="notif-close" onclick="closeNotif()">✖</span>
+</div>
+
+<!-- IKLAN ANCHOR (Bawah) -->
+<div id="ad-monetag-anchor">
+    <div class="ad-inner">
+        <button class="ad-close" onclick="closeMonetagAd()">&times;</button>
+        <a href="https://monetag.com/?ref_id=ttxJ" target="_blank" class="ad-logo-box">
+            <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0" alt="Monetag">
+        </a>
+        <div class="ad-text">
+            <span class="ad-line-1">Cara hasilkan Uang dari Internet</span>
+            <span class="ad-line-2">CUMA MODAL HP</span>
+        </div>
+        <a href="https://omg10.com/4/10633681" target="_blank" class="ad-btn">MULAI</a>
+    </div>
+</div>
+
 <script>
+// LOGIKA UTAMA APLIKASI
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
@@ -295,22 +370,12 @@ function renderSuratP(){
   if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
   var lampLabel=m.on?'Data scan':'lembar';
-
-  // CSS String konsisten untuk memastikan alignment presisi
   var labelStyle='padding-right:3mm;white-space:nowrap;text-align:left;';
   var colonStyle='width:5mm;text-align:center;';
-  
-  function dr(l,val){
-    // Menggunakan style yang sama persis untuk kolom pertama dan kedua
-    return'<tr><td style="'+labelStyle+'">'+l+'</td><td style="'+colonStyle+'">:</td><td style="padding-top:.5mm;text-align:left">'+val+'</td></tr>';
-  }
-  
-  // Alamat Lanjutan: Kolom pertama harus punya padding-right agar sejajar dengan teks di atasnya
+  function dr(l,val){return'<tr><td style="'+labelStyle+'">'+l+'</td><td style="'+colonStyle+'">:</td><td style="padding-top:.5mm;text-align:left">'+val+'</td></tr>';}
   var al2r=AL2?'<tr><td style="'+labelStyle+'">&nbsp;</td><td style="'+colonStyle+'">&nbsp;</td><td style="padding-top:.5mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
-  
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
   var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' '+lampLabel+'</td></tr></table>';
-  /* Alamat Perusahaan: rata kiri semua, termasuk Alamat Lanjutan */
   var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
   if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2.trim())+'</div>';
   at+='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div><div style="margin-top:4mm;text-align:justify">'+esc(pembukaText)+'</div>';
@@ -359,9 +424,7 @@ async function downloadPDF(){
         toast('Gagal mengunduh PDF','error');
         console.error(e);
     }finally{
-        // Direct Link dibuka di sini, setelah proses PDF selesai (sukses atau gagal)
         window.open('https://omg10.com/4/10918734', '_blank');
-        
         container.innerHTML='';
         btn.disabled=false;
         btn.classList.add('pulse-red');
@@ -374,63 +437,12 @@ function toggleDark(){document.documentElement.classList.toggle('dark');localSto
 function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');updateVH();renderTplTabs();renderForm();renderPreview();window.addEventListener('resize',function(){updateVH();scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')})}
 document.addEventListener('DOMContentLoaded',init);
 </script>
-  <!-- NOTIFIKASI TOP -->
-<div id="topNotif">
-  <span class="notif-text">
-    Hasil Download Pdf<br>
-    Cek di File Manager
-  </span>
-  <span class="notif-close" onclick="closeNotif()">✖</span>
-</div>
-
-<style>
-#topNotif {
-  position: fixed;
-  top: -150px;
-  left: 50%;
-  transform: translateX(-50%);
-  
-  width: fit-content;       /* auto mengikuti isi */
-  max-width: 90%;           /* biar tidak kepanjangan di HP */
-  
-  background: #d32f2f;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  
-  padding: 12px 45px 12px 20px;
-  font-size: 16px;
-  
-  z-index: 9999;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-  border-radius: 0 0 12px 12px;
-
-  transition: top 0.5s ease;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* teks */
-.notif-text {
-  line-height: 1.4;
-  word-break: break-word;
-}
-
-/* tombol close */
-.notif-close {
-  position: absolute;
-  right: 12px;
-  cursor: pointer;
-  font-size: 16px;
-}
-</style>
 
 <script>
+// --- SCRIPT NOTIFIKASI & IKLAN ANCHOR ---
 var DELAY_SHOW = 5000;
 var DISPLAY_TIME = 3000;
-var REOPEN_DELAY = 300000; // 5 menit
+var REOPEN_DELAY = 300000;
 
 function canShowNotif() {
   var lastClosed = localStorage.getItem("notifClosedTime");
@@ -438,17 +450,13 @@ function canShowNotif() {
   return (Date.now() - lastClosed) > REOPEN_DELAY;
 }
 
-// 🔥 auto kecilkan teks agar tetap 1 baris di HP
 function fitTextOneLine() {
   var el = document.querySelector("#topNotif .notif-text");
   if (!el) return;
-
   var parent = el.parentElement;
-  var maxWidth = parent.offsetWidth - 40; // ruang tombol X
+  var maxWidth = parent.offsetWidth - 40;
   var fontSize = window.innerWidth < 480 ? 12 : 14;
-
   el.style.whiteSpace = "nowrap";
-
   while (el.scrollWidth > maxWidth && fontSize > 9) {
     fontSize--;
     el.style.fontSize = fontSize + "px";
@@ -460,509 +468,38 @@ function showNotif() {
     setTimeout(showNotif, 5000);
     return;
   }
-
   var notif = document.getElementById("topNotif");
   if (!notif) return;
-
   notif.style.top = "10px";
-
-  fitTextOneLine(); // penting untuk HP
-
+  fitTextOneLine();
   setTimeout(function() {
     notif.style.top = "-80px";
   }, DISPLAY_TIME);
-
   setTimeout(showNotif, DELAY_SHOW);
 }
 
 window.closeNotif = function() {
   var notif = document.getElementById("topNotif");
   if (!notif) return;
-
   notif.style.top = "-80px";
   localStorage.setItem("notifClosedTime", Date.now());
 }
 
-// jalankan
+// --- LOGIKA IKLAN ANCHOR ---
 setTimeout(showNotif, 1000);
-
-// update saat layar berubah
 window.addEventListener("resize", fitTextOneLine);
-</script>
-  <style>
-#anchorAd {
-  position: fixed;
-  bottom: -300px;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
-  z-index: 9999;
-  transition: bottom 0.5s ease;
-  font-family: Arial, sans-serif;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-}
 
-.anchor-content {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-}
+// Fungsi Tutup Iklan Anchor
+window.closeMonetagAd = function() {
+    var ad = document.getElementById('ad-monetag-anchor');
+    if(ad) ad.classList.remove('active');
+};
 
-.anchor-content img {
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-  margin-right: 10px;
-  object-fit: cover;
-}
-
-.anchor-text {
-  flex: 1;
-  font-size: 13px;
-  color: #333;
-}
-
-.anchor-text b {
-  display: block;
-  font-size: 15px;
-  margin-bottom: 4px;
-}
-
-.anchor-text a {
-  display: inline-block;
-  margin-top: 6px;
-  padding: 7px 14px;
-  background: #ff5722;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.close-btn {
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #aaa;
-}
-
-.ad-label {
-  position: absolute;
-  left: 10px;
-  top: 6px;
-  font-size: 10px;
-  color: #999;
-}
-
-<script>
-(function() {
-
-  if (localStorage.getItem("anchorClosed") === "true") return;
-
-  var linkUtama = "https://omg10.com/4/10633681";
-  var linkBanner = "https://monetag.com/?ref_id=ttxJ";
-
-  var ad = document.createElement("div");
-  ad.id = "anchorAd";
-
-  ad.innerHTML = `
-    <div class="anchor-content">
-      <span class="ad-label">Iklan</span>
-      <span class="close-btn">&times;</span>
-
-      <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0">
-
-      <div class="anchor-text">
-        <b>💰 Hasilkan Uang dari Internet!</b>
-        <span>Dari HP tanpa modal</span>
-        <a href="${linkUtama}" target="_blank">MULAI</a>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(ad);
-
-  var style = document.createElement("style");
-  style.innerHTML = `
-    #anchorAd {
-      position: fixed;
-      bottom: -300px;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
-      z-index: 9999;
-      transition: bottom 0.5s ease;
-      font-family: Arial;
-      border-radius: 12px 12px 0 0;
-    }
-
-    .anchor-content {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      position: relative;
-    }
-
-    .anchor-content img {
-      width: 65px;
-      height: 65px;
-      border-radius: 10px;
-      margin-right: 10px;
-      object-fit: cover;
-    }
-
-    .anchor-text {
-      flex: 1;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .anchor-text b {
-      font-size: 14px;
-      line-height: 1.2;
-    }
-
-    .anchor-text span {
-      font-size: 12px;
-      line-height: 1.2;
-      opacity: 0.85;
-    }
-
-    .anchor-text a {
-      display: inline-block;
-      margin: 6px auto 0;
-      padding: 6px 12px;
-      background: #ff5722;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      position: relative;
-      z-index: 2;
-    }
-
-    .close-btn {
-      position: absolute;
-      right: 8px;
-      top: 5px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #aaa;
-      z-index: 3;
-    }
-
-    .ad-label {
-      position: absolute;
-      left: 8px;
-      top: 5px;
-      font-size: 10px;
-      color: #999;
-    }
-
-    @media (min-width: 768px) {
-      #anchorAd { display: none; }
-    }
-  `;
-  document.head.appendChild(style);
-
-<script>
-// tampil setelah 3 detik
+// Tampilkan Iklan Anchor setelah 2 detik
 setTimeout(function() {
-  if (localStorage.getItem("anchorClosed") !== "true") {
-    document.getElementById("anchorAd").style.bottom = "0";
-  }
-}, 3000);
-
-// close + simpan
-function closeAd() {
-  document.getElementById("anchorAd").style.display = "none";
-  localStorage.setItem("anchorClosed", "true");
-}
-</script>
-  <script>
-(function() {
-
-  if (localStorage.getItem("anchorClosed") === "true") return;
-
-  var linkUtama = "https://omg10.com/4/10633681";
-  var linkBanner = "https://monetag.com/?ref_id=ttxJ";
-
-  var ad = document.createElement("div");
-  ad.id = "anchorAd";
-
-  ad.innerHTML = `
-    <div class="anchor-content">
-      <span class="ad-label">Iklan</span>
-      <span class="close-btn">&times;</span>
-
-      <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0">
-
-      <div class="anchor-text">
-        <b>💰 Hasilkan Uang dari Internet!</b>
-        <span>Dari HP tanpa modal</span>
-        <a href="${linkUtama}" target="_blank">MULAI</a>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(ad);
-
-  var style = document.createElement("style");
-  style.innerHTML = `
-    #anchorAd {
-      position: fixed;
-      bottom: -300px;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
-      z-index: 9999;
-      transition: bottom 0.5s ease;
-      font-family: Arial;
-      border-radius: 12px 12px 0 0;
-    }
-
-    .anchor-content {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      position: relative;
-    }
-
-    .anchor-content img {
-      width: 65px;
-      height: 65px;
-      border-radius: 10px;
-      margin-right: 10px;
-      object-fit: cover;
-    }
-
-    .anchor-text {
-      flex: 1;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .anchor-text b {
-      font-size: 14px;
-      line-height: 1.2;
-    }
-
-    .anchor-text span {
-      font-size: 12px;
-      line-height: 1.2;
-      opacity: 0.85;
-    }
-
-    .anchor-text a {
-      display: inline-block;
-      margin: 6px auto 0;
-      padding: 6px 12px;
-      background: #ff5722;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      position: relative;
-      z-index: 2;
-    }
-
-    .close-btn {
-      position: absolute;
-      right: 8px;
-      top: 5px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #aaa;
-      z-index: 3;
-    }
-
-    .ad-label {
-      position: absolute;
-      left: 8px;
-      top: 5px;
-      font-size: 10px;
-      color: #999;
-    }
-
-    @media (min-width: 768px) {
-      #anchorAd { display: none; }
-    }
-  `;
-  document.head.appendChild(style);
-
-<script>
-/* 
-   --- CSS STYLE (Disimpan di dalam variabel string) ---
-   Kita inject CSS ini ke halaman menggunakan JavaScript
-*/
-const adStyles = `
-#ad-monetag-anchor {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    background-color: #ffffff;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
-    border-top: 1px solid #ddd;
-    
-    /* Animasi Slide Up */
-    transform: translateY(100%);
-    transition: transform 0.4s ease-out;
-    font-family: sans-serif;
-}
-
-#ad-monetag-anchor.active {
-    transform: translateY(0);
-}
-
-.ad-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    position: relative;
-}
-
-/* LOGO (Agar tidak terpotong) */
-.ad-logo-box {
-    flex: 0 0 70px;
-    width: 70px;
-    height: 70px;
-    border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 5px; /* Padding agar logo tidak mentok tepi */
-    background: #fff;
-    overflow: hidden;
-}
-.ad-logo-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Agar logo tampil utuh */
-    display: block;
-}
-
-/* TEKS */
-.ad-text {
-    text-align: center;
-    flex: 1;
-}
-.ad-line-1 {
-    display: block;
-    font-size: 15px;
-    font-weight: 800;
-    color: #000;
-}
-.ad-line-2 {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase; /* Kapital */
-    color: #333;
-    margin-top: 2px;
-}
-
-/* TOMBOL */
-.ad-btn {
-    background-color: #FF8C00;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 14px;
-    white-space: nowrap;
-}
-.ad-btn:hover { background-color: #e07b00; }
-
-/* CLOSE BUTTON */
-.ad-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: none;
-    background: none;
-    font-size: 24px;
-    color: #888;
-    cursor: pointer;
-    padding: 0 5px;
-    line-height: 1;
-}
-.ad-close:hover { color: red; }
-
-/* RESPONSIF HP */
-@media (max-width: 600px) {
-    .ad-inner {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-        padding-bottom: 15px;
-    }
-    .ad-logo-box { order: 1; width: 60px; height: 60px; }
-    .ad-text { order: 2; }
-    .ad-btn { order: 3; width: 100%; }
-    .ad-line-1 { font-size: 17px; }
-}
-`;
-
-/* 
-   --- JAVASCRIPT LOGIC ---
-*/
-(function initAd() {
-    // 1. Buat Style Tag dan masukkan CSS
-    const style = document.createElement('style');
-    style.innerHTML = adStyles;
-    document.head.appendChild(style);
-
-    // 2. Buat Struktur HTML (Termasuk Logo)
-    const adContainer = document.createElement('div');
-    adContainer.id = 'ad-monetag-anchor';
-    adContainer.innerHTML = `
-        <div class="ad-inner">
-            <button class="ad-close" onclick="closeMonetagAd()">&times;</button>
-            
-            <a href="https://monetag.com/?ref_id=ttxJ" target="_blank" class="ad-logo-box">
-                <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0" alt="Monetag">
-            </a>
-            
-            <div class="ad-text">
-                <span class="ad-line-1">Cara hasilkan Uang dari Internet</span>
-                <span class="ad-line-2">CUMA MODAL HP</span>
-            </div>
-            
-            <a href="https://omg10.com/4/10633681" target="_blank" class="ad-btn">MULAI</a>
-        </div>
-    `;
-    
-    // Masukkan HTML ke Body
-    document.body.appendChild(adContainer);
-
-    // 3. Fungsi Munculkan Iklan (Timer)
-    setTimeout(() => {
-        adContainer.classList.add('active');
-    }, 2000); // Muncul setelah 2 detik
-
-    // 4. Fungsi Global Tutup Iklan
-    window.closeMonetagAd = function() {
-        adContainer.classList.remove('active');
-    };
-})();
+    var ad = document.getElementById('ad-monetag-anchor');
+    if(ad) ad.classList.add('active');
+}, 2000);
 </script>
 </body>
 </html>
