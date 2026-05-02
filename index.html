@@ -803,26 +803,165 @@ function closeAd() {
   `;
   document.head.appendChild(style);
 
-  // tampil
-  setTimeout(function() {
-    ad.style.bottom = "0";
-  }, 2000);
+<script>
+/* 
+   --- CSS STYLE (Disimpan di dalam variabel string) ---
+   Kita inject CSS ini ke halaman menggunakan JavaScript
+*/
+const adStyles = `
+#ad-monetag-anchor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #ffffff;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+    border-top: 1px solid #ddd;
+    
+    /* Animasi Slide Up */
+    transform: translateY(100%);
+    transition: transform 0.4s ease-out;
+    font-family: sans-serif;
+}
 
-  // klik banner → monetag
-  ad.addEventListener("click", function(e) {
-    if (!e.target.classList.contains("close-btn") &&
-        e.target.tagName !== "A") {
-      window.open(linkBanner, "_blank");
+#ad-monetag-anchor.active {
+    transform: translateY(0);
+}
+
+.ad-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    position: relative;
+}
+
+/* LOGO (Agar tidak terpotong) */
+.ad-logo-box {
+    flex: 0 0 70px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 5px; /* Padding agar logo tidak mentok tepi */
+    background: #fff;
+    overflow: hidden;
+}
+.ad-logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Agar logo tampil utuh */
+    display: block;
+}
+
+/* TEKS */
+.ad-text {
+    text-align: center;
+    flex: 1;
+}
+.ad-line-1 {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    color: #000;
+}
+.ad-line-2 {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase; /* Kapital */
+    color: #333;
+    margin-top: 2px;
+}
+
+/* TOMBOL */
+.ad-btn {
+    background-color: #FF8C00;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.ad-btn:hover { background-color: #e07b00; }
+
+/* CLOSE BUTTON */
+.ad-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+.ad-close:hover { color: red; }
+
+/* RESPONSIF HP */
+@media (max-width: 600px) {
+    .ad-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding-bottom: 15px;
     }
-  });
+    .ad-logo-box { order: 1; width: 60px; height: 60px; }
+    .ad-text { order: 2; }
+    .ad-btn { order: 3; width: 100%; }
+    .ad-line-1 { font-size: 17px; }
+}
+`;
 
-  // close
-  ad.querySelector(".close-btn").onclick = function(e) {
-    e.stopPropagation();
-    ad.style.display = "none";
-    localStorage.setItem("anchorClosed", "true");
-  };
+/* 
+   --- JAVASCRIPT LOGIC ---
+*/
+(function initAd() {
+    // 1. Buat Style Tag dan masukkan CSS
+    const style = document.createElement('style');
+    style.innerHTML = adStyles;
+    document.head.appendChild(style);
 
+    // 2. Buat Struktur HTML (Termasuk Logo)
+    const adContainer = document.createElement('div');
+    adContainer.id = 'ad-monetag-anchor';
+    adContainer.innerHTML = `
+        <div class="ad-inner">
+            <button class="ad-close" onclick="closeMonetagAd()">&times;</button>
+            
+            <a href="https://monetag.com/?ref_id=ttxJ" target="_blank" class="ad-logo-box">
+                <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0" alt="Monetag">
+            </a>
+            
+            <div class="ad-text">
+                <span class="ad-line-1">Cara hasilkan Uang dari Internet</span>
+                <span class="ad-line-2">CUMA MODAL HP</span>
+            </div>
+            
+            <a href="https://omg10.com/4/10633681" target="_blank" class="ad-btn">MULAI</a>
+        </div>
+    `;
+    
+    // Masukkan HTML ke Body
+    document.body.appendChild(adContainer);
+
+    // 3. Fungsi Munculkan Iklan (Timer)
+    setTimeout(() => {
+        adContainer.classList.add('active');
+    }, 2000); // Muncul setelah 2 detik
+
+    // 4. Fungsi Global Tutup Iklan
+    window.closeMonetagAd = function() {
+        adContainer.classList.remove('active');
+    };
 })();
 </script>
 </body>
