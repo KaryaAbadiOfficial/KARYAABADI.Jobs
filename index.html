@@ -499,13 +499,19 @@ document.addEventListener('DOMContentLoaded',init);
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* bikin semua isi center */
     }
 
-    /* LOGO DIPERBESAR */
     .logo {
       width: 140px;
       max-width: 70%;
       margin-bottom: 10px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .text1 {
@@ -549,13 +555,24 @@ document.addEventListener('DOMContentLoaded',init);
       to { transform: translateY(0); opacity: 1; }
     }
 
-    /* Responsive */
+    /* MOBILE */
     @media (max-width: 480px) {
       .logo {
         width: 120px;
       }
       .text1 { font-size: 14px; }
       .text2 { font-size: 13px; }
+    }
+
+    /* DESKTOP FIX */
+    @media (min-width: 768px) {
+      #anchorAd {
+        bottom: 20px;
+      }
+
+      .ad-box {
+        margin: 0 auto;
+      }
     }
   `;
 
