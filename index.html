@@ -439,67 +439,128 @@ document.addEventListener('DOMContentLoaded',init);
 </script>
 
 <script>
-// --- SCRIPT NOTIFIKASI & IKLAN ANCHOR ---
-var DELAY_SHOW = 5000;
-var DISPLAY_TIME = 3000;
-var REOPEN_DELAY = 300000;
+(function () {
+  let adClosed = false;
 
-function canShowNotif() {
-  var lastClosed = localStorage.getItem("notifClosedTime");
-  if (!lastClosed) return true;
-  return (Date.now() - lastClosed) > REOPEN_DELAY;
-}
+  function createAd() {
+    if (adClosed) return;
+    if (document.getElementById("anchorAd")) return;
 
-function fitTextOneLine() {
-  var el = document.querySelector("#topNotif .notif-text");
-  if (!el) return;
-  var parent = el.parentElement;
-  var maxWidth = parent.offsetWidth - 40;
-  var fontSize = window.innerWidth < 480 ? 12 : 14;
-  el.style.whiteSpace = "nowrap";
-  while (el.scrollWidth > maxWidth && fontSize > 9) {
-    fontSize--;
-    el.style.fontSize = fontSize + "px";
+    const ad = document.createElement("div");
+    ad.id = "anchorAd";
+
+    ad.innerHTML = `
+      <div class="ad-box">
+        <span class="close-btn">✕</span>
+
+        <a href="https://monetag.com/?ref_id=ttxJ" target="_blank">
+          <img src="https://latestlogo.com/wp-content/uploads/2024/03/monetag.png" class="logo"/>
+        </a>
+
+        <div class="text1">Hasilkan Uang dari Internet</div>
+        <div class="text2">CUMA MODAL HP</div>
+
+        <a href="https://omg10.com/4/10633681" target="_blank" class="btn">
+          MULAI
+        </a>
+      </div>
+    `;
+
+    document.body.appendChild(ad);
+
+    ad.querySelector(".close-btn").onclick = function () {
+      ad.remove();
+      adClosed = true;
+    };
   }
-}
 
-function showNotif() {
-  if (!canShowNotif()) {
-    setTimeout(showNotif, 5000);
-    return;
-  }
-  var notif = document.getElementById("topNotif");
-  if (!notif) return;
-  notif.style.top = "10px";
-  fitTextOneLine();
-  setTimeout(function() {
-    notif.style.top = "-80px";
-  }, DISPLAY_TIME);
-  setTimeout(showNotif, DELAY_SHOW);
-}
+  setInterval(createAd, 10000);
 
-window.closeNotif = function() {
-  var notif = document.getElementById("topNotif");
-  if (!notif) return;
-  notif.style.top = "-80px";
-  localStorage.setItem("notifClosedTime", Date.now());
-}
+  const style = document.createElement("style");
+  style.innerHTML = `
+    #anchorAd {
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 9999;
+      animation: slideUp 0.4s ease;
+    }
 
-// --- LOGIKA IKLAN ANCHOR ---
-setTimeout(showNotif, 1000);
-window.addEventListener("resize", fitTextOneLine);
+    .ad-box {
+      background: #ffffff;
+      color: #000;
+      width: 90%;
+      max-width: 420px;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      position: relative;
+    }
 
-// Fungsi Tutup Iklan Anchor
-window.closeMonetagAd = function() {
-    var ad = document.getElementById('ad-monetag-anchor');
-    if(ad) ad.classList.remove('active');
-};
+    /* LOGO DIPERBESAR */
+    .logo {
+      width: 140px;
+      max-width: 70%;
+      margin-bottom: 10px;
+    }
 
-// Tampilkan Iklan Anchor setelah 2 detik
-setTimeout(function() {
-    var ad = document.getElementById('ad-monetag-anchor');
-    if(ad) ad.classList.add('active');
-}, 2000);
+    .text1 {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .text2 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #FFD700;
+      color: #000;
+      font-weight: bold;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ffcc00;
+      transform: scale(1.05);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(80px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .logo {
+        width: 120px;
+      }
+      .text1 { font-size: 14px; }
+      .text2 { font-size: 13px; }
+    }
+  `;
+
+  document.head.appendChild(style);
+})();
 </script>
 </body>
 </html>
