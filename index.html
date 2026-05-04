@@ -579,5 +579,84 @@ document.addEventListener('DOMContentLoaded',init);
   document.head.appendChild(style);
 })();
 </script>
+<style>
+.notif{
+    position:fixed;
+    top:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    padding:18px 30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    text-align:center;
+    min-width:280px;
+    z-index:9999;
+    transition:top .5s ease;
+}
+
+.notif.show{
+    top:20px;
+}
+
+.close-btn{
+    position:absolute;
+    top:8px;
+    right:12px;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+    color:#000;
+}
+
+.title{
+    font-size:18px;
+    font-weight:bold;
+    color:#000;
+    margin-bottom:6px;
+}
+
+.desc{
+    font-size:15px;
+    font-weight:bold;
+    color:#000;
+}
+</style>
+
+<div class="notif" id="notif">
+    <div class="close-btn" id="closeNotif">×</div>
+
+    <div class="title">Hasil DOWNLOAD</div>
+    <div class="desc">Cek di File Manager</div>
+</div>
+
+<script>
+const notif = document.getElementById("notif");
+const closeBtn = document.getElementById("closeNotif");
+
+let closed = false;
+
+function showNotif(){
+    if(closed) return;
+
+    notif.classList.add("show");
+
+    setTimeout(() => {
+        notif.classList.remove("show");
+    }, 3000);
+}
+
+setTimeout(showNotif, 5000);
+
+const interval = setInterval(() => {
+    showNotif();
+}, 5000);
+
+closeBtn.addEventListener("click", () => {
+    closed = true;
+    notif.style.display = "none";
+    clearInterval(interval);
+});
+</script>
 </body>
 </html>
