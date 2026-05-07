@@ -153,16 +153,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   overflow:hidden;
   /* Mobile: Static position relative to flow */
   position:relative; 
-  border-radius:0; /* Full width on mobile looks better with 0 radius or small */
-  border-radius:12px; /* Or keep radius */
+  border-radius:12px;
   background:linear-gradient(135deg,#ff7a00,#ff4d00);
   box-shadow:0 5px 15px rgba(0,0,0,0.15);
   flex-shrink: 0;
-  z-index: 40;
+  z-index: 9999; /* PERBAIKAN: Naikkan z-index di atas Header (50) agar tombol bisa diklik */
 }
 
 /* RESPONSIVE HEIGHT MOBILE */
-@media(min-width:480px){ .ads-slider{ height:240px; } }
+@media(min-width:480px){ .ads-slider{ height: 240px; } }
 
 /* DESKTOP: Fixed Bottom Center, Full Content */
 @media(min-width: 1024px){
@@ -236,6 +235,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   align-items:center;
   justify-content:space-between;
   color:white;
+  position: relative; /* Needed for layering context if needed */
+  z-index: 1;
 }
 
 .content{
@@ -247,6 +248,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   align-items:center;
   text-align:center;
   height:100%;
+  z-index: 2; /* Ensure content is above background */
 }
 
 .tag{
@@ -265,7 +267,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   margin-bottom:8px;
   font-weight:bold;
 }
-@media(min-width:480px){ .content h1{ font-size:32px; } }
+@media(min-width:480px){ .content h1{ font-size: 32px; } }
 
 .content p{
   font-size:14px;
@@ -287,6 +289,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   font-size:13px;
   font-weight:bold;
   transition: transform 0.2s;
+  z-index: 10; /* Ensure button is top priority for clicks */
+  position: relative;
 }
 .btn-slider:hover{ transform: scale(1.05); }
 
@@ -294,6 +298,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   width:52%;
   height:100%;
   overflow:hidden;
+  z-index: 1;
 }
 .product-image img{
   width:100%;
@@ -463,9 +468,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 // LOGIKA UTAMA APLIKASI
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
-var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
+var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:''}];
-var hSkills=['','','','','','','','','','','','','',''];
+var hSkills=['','','','','','','','','','','','','','','','','',''];
 var sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];
 var lampList=['',''];
 var _rpTimer=null;
@@ -502,17 +507,17 @@ function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow:hidden flex-shrink:0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
+function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow:hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
-function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
-function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
+function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
+function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 
 function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
 function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
 
-function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<hr class="dark:border-brand-border/50 border-gray-200 my-3">';h+='<div class="space-y-2"><div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="T/B/TH-T/B/TH" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;schedulePreview()"></div></div><div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div><div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div></div>';return h}).join('')}
+function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<hr class="dark:border-brand-border/50 border-gray-200 my-3">';h+='<div class="space-y-2"><div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="T/B/TH-T/B/TH" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;schedulePreview()"></div></div><div><div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div><div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div></div>';return h}).join('')}
 function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:''});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
@@ -533,7 +538,7 @@ function renderForm(){
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="S1 Universitas Indonesia" oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="Teknik Informatika" oninput="schedulePreview()"></div></div></div>';
     if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','Status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH()}
     if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('status','Status','.....')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}
-    if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','Status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH3()}
+    if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH3()}
     h+=secH('Pendidikan');h+='<div id="edu-c" class="card"></div>';h+=dynBtns('addEdu()','rmEdu()');
     h+=secH('Pengalaman');h+='<div id="exp-c" class="card"></div>';h+=dynBtns('addExp()','rmExp()');
     h+=secH('Hard Skill');h+='<div id="hard-c"></div>';
@@ -575,7 +580,7 @@ function renderSuratP(){
   var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return '';
   var sK=v('sKota')||'……………….',sT=v('sTgl')||'……………….',sBT=v('sBlnThn')||'……………….';
   var PT=v('sPt')||'……………….',JL=v('sJl')||'……………….',JL2=v('sJl2')||'',SUM=v('sSumber')||'……………….',POS=v('sPosisi')||'……………….';
-  var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',AG=v('agama')||'……………….',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
+  var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
   var autoLt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
   var autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+autoLt+'.';
   var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;
@@ -607,7 +612,8 @@ function scalePreview(wrapId,scalerId){var w=document.getElementById(wrapId),s=d
 
 function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}var r=new FileReader();r.onload=function(ev){photoData=ev.target.result;var img=document.getElementById('photo-thumb');img.src=photoData;img.classList.remove('hidden');document.getElementById('photo-ph').classList.add('hidden');renderPreview()};r.readAsDataURL(f)}
 
-function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');savedCV={}}else{lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
+function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];
+var lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
 
 async function downloadPDF(){
     var btn=document.getElementById('btn-pdf');
@@ -830,7 +836,8 @@ const banners = [
     desc: "Bahan adem & nyaman dipakai",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/qg90N9771",
-    image: "https://down-bs-id.img.susercontent.com/id-11134207-822wt-mn15inddsvly28.webp"
+    // GAMBAR DIPERBAIKI (Link user request)
+    image: "https://down-id.img.susercontent.com/id/72063fe7324b27868c816b1fdd69b906.webp"
   },
   {
     tag: "Melamar Pekerjaan / Formal",
