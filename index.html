@@ -151,8 +151,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   height:220px; 
   margin-bottom: 15px;
   overflow:hidden;
-  position:relative; /* Mobile: Static flow */
-  border-radius:12px;
+  /* Mobile: Static position relative to flow */
+  position:relative; 
+  border-radius:0; /* Full width on mobile looks better with 0 radius or small */
+  border-radius:12px; /* Or keep radius */
   background:linear-gradient(135deg,#ff7a00,#ff4d00);
   box-shadow:0 5px 15px rgba(0,0,0,0.15);
   flex-shrink: 0;
@@ -172,7 +174,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     width: 600px;   /* Fixed width for desktop floating ad */
     max-width: 90vw; /* Ensure fit on smaller laptops */
     height: 240px;  /* Fixed height */
-    margin: 0;
+    margin: 0; /* Reset margin */
     border-radius: 12px;
     z-index: 10001; /* Above anchor ad */
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -340,6 +342,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
+
+<!-- SLIDER IKLAN CONTAINER (Moved to TOP for Mobile Visibility) -->
+<div id="adsSliderContainer">
+  <div class="ads-slider" id="adsSlider">
+    <button class="close-btn-slider" id="closeAds">✕</button>
+    <div class="slides" id="slides"></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
 <div id="toast-box"></div>
 
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0">
@@ -447,15 +459,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="desc">Cek di File Manager</div>
 </div>
 
-<!-- SLIDER IKLAN CONTAINER -->
-<div id="adsSliderContainer">
-  <div class="ads-slider" id="adsSlider">
-    <button class="close-btn-slider" id="closeAds">✕</button>
-    <div class="slides" id="slides"></div>
-    <div class="dots" id="dots"></div>
-  </div>
-</div>
-
 <script>
 // LOGIKA UTAMA APLIKASI
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
@@ -499,7 +502,7 @@ function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink:0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
+function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow:hidden flex-shrink:0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
