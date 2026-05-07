@@ -816,6 +816,153 @@ body{
   font-weight:bold;
 }
 
+<!-- =========================
+     SLIDER IKLAN 2 KOLOM
+========================= -->
+
+<div class="ads-slider" id="adsSlider">
+
+  <!-- BUTTON CLOSE -->
+  <button class="close-btn" id="closeAds">✕</button>
+
+  <div class="slides" id="slides"></div>
+
+  <!-- DOT -->
+  <div class="dots" id="dots"></div>
+
+</div>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f5f5f5;
+}
+
+/* =========================
+   SLIDER CONTAINER
+========================= */
+
+.ads-slider{
+  width:100%;
+  max-width:100%;
+  height:260px;
+  margin-top:15px;
+  overflow:hidden;
+  position:relative;
+  border-radius:18px;
+  background:linear-gradient(135deg,#ff7a00,#ff4d00);
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* RESPONSIVE */
+
+@media(min-width:480px){
+  .ads-slider{
+    height:280px;
+  }
+}
+
+@media(min-width:768px){
+  .ads-slider{
+    height:320px;
+  }
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  z-index:100;
+  backdrop-filter:blur(3px);
+}
+
+/* =========================
+   SLIDES
+========================= */
+
+.slides{
+  display:flex;
+  height:100%;
+  transition:0.5s ease;
+}
+
+.slide{
+  min-width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:white;
+}
+
+/* =========================
+   KOLOM KIRI
+========================= */
+
+.content{
+  width:48%;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  height:100%;
+}
+
+/* TAG */
+
+.tag{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.2);
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:14px;
+}
+
+/* JUDUL */
+
+.content h1{
+  font-size:28px;
+  line-height:1.2;
+  margin-bottom:12px;
+  font-weight:bold;
+}
+
+/* BUTTON */
+
+.btn{
+  display:inline-block;
+  padding:12px 22px;
+  background:white;
+  color:#ff5500;
+  border-radius:50px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:bold;
+}
+
 /* =========================
    KOLOM KANAN FULL PAS
 ========================= */
@@ -871,7 +1018,7 @@ const banners = [
 
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
+    title: "Kemeja Putih Lengan Panjang",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/qg90N9771",
     image: "https://down-bs-id.img.susercontent.com/id-11134207-822wt-mn15inddsvly28.webp"
@@ -879,7 +1026,7 @@ const banners = [
 
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
+    title: "Kemeja Putih Formal",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/2g7nBs4bmr",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-8224x-mkrdgyey0s1u72.webp"
@@ -887,7 +1034,7 @@ const banners = [
 
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
+    title: "Kemeja Putih Premium",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/2qRDOG0Iwn",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-822wr-mmv658kxyps8b8.webp"
@@ -895,7 +1042,7 @@ const banners = [
 
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
+    title: "Kemeja Kerja Formal",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/8fP0L2TxOm",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-822wi-mn654yfm20aqe4.webp"
@@ -903,19 +1050,13 @@ const banners = [
 
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/8Km9wUuyGN",
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-822wl-mn3o8p4b9te0c5.webp"
-  },
-
-  }
-     tag: "Melamar Pekerjaan / Formal",
-    title: "Celana Panjang",
+    title: "Celana Panjang Formal",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/6L15ZS4qHZ",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-7r98y-ltukzuhq786260.webp"
-  ];
+  }
+
+];
 
 /* =========================
    GENERATE SLIDER
@@ -937,9 +1078,7 @@ banners.forEach((banner,index)=>{
 
         <h1>${banner.title}</h1>
 
-        <p>${banner.desc}</p>
-
-        <a href="${banner.productLink}" class="btn">
+        <a href="${banner.productLink}" class="btn" target="_blank">
           ${banner.button}
         </a>
 
@@ -1022,6 +1161,5 @@ document.getElementById('closeAds').addEventListener('click',()=>{
 });
 
 </script>
-  
 </body>
 </html>
