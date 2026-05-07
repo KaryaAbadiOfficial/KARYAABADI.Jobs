@@ -82,7 +82,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
 .mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(17,17,17,.95);backdrop-filter:blur(12px);border-top:1px solid #2a2a2a;padding:6px env(safe-area-inset-bottom,6px)}
 .mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
-.mob-bar button.active{color:#FACC15} /* PERBAIKAN: Warna Kuning saat Aktif */
+.mob-bar button.active{color:#FACC15}
 .mob-bar button i{font-size:18px}
 .form-sec{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #2a2a2a;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
@@ -141,6 +141,202 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     .ad-btn { order: 3; width: 100%; }
     .ad-line-1 { font-size: 17px; }
 }
+
+/* =========================
+   SLIDER IKLAN CSS
+========================= */
+.ads-slider{
+  width:100%;
+  /* Mobile Height */
+  height:220px; 
+  margin-bottom: 15px;
+  overflow:hidden;
+  position:relative; /* Mobile: Static flow */
+  border-radius:12px;
+  background:linear-gradient(135deg,#ff7a00,#ff4d00);
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+  z-index: 40;
+}
+
+/* RESPONSIVE HEIGHT MOBILE */
+@media(min-width:480px){ .ads-slider{ height:240px; } }
+
+/* DESKTOP: Fixed Bottom Center, Full Content */
+@media(min-width: 1024px){
+  .ads-slider {
+    position: fixed; 
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;   /* Fixed width for desktop floating ad */
+    max-width: 90vw; /* Ensure fit on smaller laptops */
+    height: 240px;  /* Fixed height */
+    margin: 0;
+    border-radius: 12px;
+    z-index: 10001; /* Above anchor ad */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    animation: slideUpCenter 0.6s ease-out;
+  }
+
+  /* Ensure content is visible (not cut) */
+  .ads-slider .tag, .ads-slider p { display: block; }
+  
+  /* Adjust styling for floating box */
+  .content { 
+    padding: 15px; 
+    align-items: center;
+    text-align: center;
+  }
+  .content h1 { 
+    font-size: 18px; 
+    line-height: 1.3; 
+    margin-bottom: 6px; 
+  }
+  .content p {
+    font-size: 13px;
+    margin-bottom: 10px;
+    display: block; /* Ensure visible */
+  }
+  
+  @keyframes slideUpCenter {
+    from { transform: translate(-50%, 100px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+}
+
+.close-btn-slider{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  z-index:101;
+  backdrop-filter:blur(3px);
+}
+
+.slides{
+  display:flex;
+  height:100%;
+  transition:transform 0.5s ease-in-out;
+}
+
+.slide{
+  min-width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:white;
+}
+
+.content{
+  width:48%;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  height:100%;
+}
+
+.tag{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.2);
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.content h1{
+  font-size:24px;
+  line-height:1.2;
+  margin-bottom:8px;
+  font-weight:bold;
+}
+@media(min-width:480px){ .content h1{ font-size:32px; } }
+
+.content p{
+  font-size:14px;
+  line-height:1.4;
+  margin-bottom:15px;
+  opacity:0.95;
+  /* Hidden by default on small mobile screens */
+  display:none;
+}
+@media(min-width:480px){ .content p{ display:block; } }
+
+.btn-slider{
+  display:inline-block;
+  padding:8px 18px;
+  background:white;
+  color:#ff5500;
+  border-radius:50px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:bold;
+  transition: transform 0.2s;
+}
+.btn-slider:hover{ transform: scale(1.05); }
+
+.product-image{
+  width:52%;
+  height:100%;
+  overflow:hidden;
+}
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.dots{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:6px;
+  z-index:100;
+}
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:white;
+  opacity:0.5;
+  cursor:pointer;
+  transition: opacity 0.3s;
+}
+.dot.active{ opacity:1; }
+
+/* Additional notification style fix */
+.notif{
+    position:fixed;
+    top:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    padding:18px 30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    text-align:center;
+    min-width:280px;
+    z-index:10000;
+    transition:top .5s ease;
+    color:#000;
+}
+.notif.show{ top:20px; }
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
@@ -179,8 +375,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div class="max-w-7xl mx-auto px-4 flex gap-2 py-2.5" id="tpl-tabs"></div>
 </div>
 
-<main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-0">
-  <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 dark:bg-brand-black bg-gray-50 min-h-0 fp-scroll">
+<main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-0 relative">
+  <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 dark:bg-brand-black bg-gray-50 min-h-0 fp-scroll mt-2 lg:mt-0">
     <div id="form-content" class="space-y-3 fade-up"></div>
     <div class="flex gap-3 mt-6 mb-6">
       <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
@@ -242,6 +438,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         </div>
         <a href="https://omg10.com/4/10633681" target="_blank" class="ad-btn">MULAI</a>
     </div>
+</div>
+
+<!-- NOTIFIKASI POPUP JS -->
+<div class="notif" id="notif">
+    <div class="close-btn" id="closeNotif">×</div>
+    <div class="title">Hasil DOWNLOAD</div>
+    <div class="desc">Cek di File Manager</div>
+</div>
+
+<!-- SLIDER IKLAN CONTAINER -->
+<div id="adsSliderContainer">
+  <div class="ads-slider" id="adsSlider">
+    <button class="close-btn-slider" id="closeAds">✕</button>
+    <div class="slides" id="slides"></div>
+    <div class="dots" id="dots"></div>
+  </div>
 </div>
 
 <script>
@@ -499,10 +711,9 @@ document.addEventListener('DOMContentLoaded',init);
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       position: relative;
-
       display: flex;
       flex-direction: column;
-      align-items: center; /* bikin semua isi center */
+      align-items: center;
     }
 
     .logo {
@@ -569,7 +780,6 @@ document.addEventListener('DOMContentLoaded',init);
       #anchorAd {
         bottom: 20px;
       }
-
       .ad-box {
         margin: 0 auto;
       }
@@ -578,69 +788,15 @@ document.addEventListener('DOMContentLoaded',init);
 
   document.head.appendChild(style);
 })();
-</script>
-<style>
-.notif{
-    position:fixed;
-    top:-120px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#fff;
-    padding:18px 30px;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-    text-align:center;
-    min-width:280px;
-    z-index:9999;
-    transition:top .5s ease;
-}
 
-.notif.show{
-    top:20px;
-}
-
-.close-btn{
-    position:absolute;
-    top:8px;
-    right:12px;
-    cursor:pointer;
-    font-size:20px;
-    font-weight:bold;
-    color:#000;
-}
-
-.title{
-    font-size:18px;
-    font-weight:bold;
-    color:#000;
-    margin-bottom:6px;
-}
-
-.desc{
-    font-size:15px;
-    font-weight:bold;
-    color:#000;
-}
-</style>
-
-<div class="notif" id="notif">
-    <div class="close-btn" id="closeNotif">×</div>
-
-    <div class="title">Hasil DOWNLOAD</div>
-    <div class="desc">Cek di File Manager</div>
-</div>
-
-<script>
 const notif = document.getElementById("notif");
-const closeBtn = document.getElementById("closeNotif");
+const closeBtnNotif = document.getElementById("closeNotif");
 
-let closed = false;
+let closedNotif = false;
 
 function showNotif(){
-    if(closed) return;
-
+    if(closedNotif) return;
     notif.classList.add("show");
-
     setTimeout(() => {
         notif.classList.remove("show");
     }, 3000);
@@ -652,410 +808,67 @@ const interval = setInterval(() => {
     showNotif();
 }, 5000);
 
-closeBtn.addEventListener("click", () => {
-    closed = true;
-    notif.style.display = "none";
+closeBtnNotif.addEventListener("click", () => {
+    closedNotif = true;
+    notif.style.display = 'none';
     clearInterval(interval);
 });
 </script>
   
 <script>
-<!-- =========================
-     SLIDER IKLAN 2 KOLOM
-========================= -->
-
-<div class="ads-slider" id="adsSlider">
-
-  <!-- BUTTON CLOSE -->
-  <button class="close-btn" id="closeAds">✕</button>
-
-  <div class="slides" id="slides"></div>
-
-  <!-- DOT -->
-  <div class="dots" id="dots"></div>
-
-</div>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f5f5f5;
-}
-
 /* =========================
-   SLIDER CONTAINER
-========================= */
-
-.ads-slider{
-  width:100%;
-  max-width:100%;
-  height:260px;
-  margin-top:15px;
-  overflow:hidden;
-  position:relative;
-  border-radius:18px;
-  background:linear-gradient(135deg,#ff7a00,#ff4d00);
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-
-/* RESPONSIVE */
-
-@media(min-width:480px){
-  .ads-slider{
-    height:280px;
-  }
-}
-
-@media(min-width:768px){
-  .ads-slider{
-    height:320px;
-  }
-}
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:28px;
-  height:28px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,0.25);
-  color:white;
-  font-size:14px;
-  cursor:pointer;
-  z-index:100;
-  backdrop-filter:blur(3px);
-}
-
-/* =========================
-   SLIDES
-========================= */
-
-.slides{
-  display:flex;
-  height:100%;
-  transition:0.5s ease;
-}
-
-.slide{
-  min-width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  color:white;
-}
-
-/* =========================
-   KOLOM KIRI
-========================= */
-
-.content{
-  width:48%;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  height:100%;
-}
-
-/* TAG */
-
-.tag{
-  display:inline-block;
-  padding:7px 14px;
-  border-radius:30px;
-  background:rgba(255,255,255,0.2);
-  font-size:12px;
-  font-weight:bold;
-  margin-bottom:14px;
-}
-
-/* JUDUL */
-
-.content h1{
-  font-size:34px;
-  line-height:1.2;
-  margin-bottom:12px;
-  font-weight:bold;
-}
-
-/* DESKRIPSI */
-
-.content p{
-  font-size:16px;
-  line-height:1.6;
-  margin-bottom:20px;
-  opacity:0.95;
-}
-
-/* BUTTON */
-
-.btn{
-  display:inline-block;
-  padding:12px 22px;
-  background:white;
-  color:#ff5500;
-  border-radius:50px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:bold;
-}
-
-<!-- =========================
-     SLIDER IKLAN 2 KOLOM
-========================= -->
-
-<div class="ads-slider" id="adsSlider">
-
-  <!-- BUTTON CLOSE -->
-  <button class="close-btn" id="closeAds">✕</button>
-
-  <div class="slides" id="slides"></div>
-
-  <!-- DOT -->
-  <div class="dots" id="dots"></div>
-
-</div>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f5f5f5;
-}
-
-/* =========================
-   SLIDER CONTAINER
-========================= */
-
-.ads-slider{
-  width:100%;
-  max-width:100%;
-  height:260px;
-  margin-top:15px;
-  overflow:hidden;
-  position:relative;
-  border-radius:18px;
-  background:linear-gradient(135deg,#ff7a00,#ff4d00);
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-
-/* RESPONSIVE */
-
-@media(min-width:480px){
-  .ads-slider{
-    height:280px;
-  }
-}
-
-@media(min-width:768px){
-  .ads-slider{
-    height:320px;
-  }
-}
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:28px;
-  height:28px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,0.25);
-  color:white;
-  font-size:14px;
-  cursor:pointer;
-  z-index:100;
-  backdrop-filter:blur(3px);
-}
-
-/* =========================
-   SLIDES
-========================= */
-
-.slides{
-  display:flex;
-  height:100%;
-  transition:0.5s ease;
-}
-
-.slide{
-  min-width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  color:white;
-}
-
-/* =========================
-   KOLOM KIRI
-========================= */
-
-.content{
-  width:48%;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  height:100%;
-}
-
-/* TAG */
-
-.tag{
-  display:inline-block;
-  padding:7px 14px;
-  border-radius:30px;
-  background:rgba(255,255,255,0.2);
-  font-size:12px;
-  font-weight:bold;
-  margin-bottom:14px;
-}
-
-/* JUDUL */
-
-.content h1{
-  font-size:28px;
-  line-height:1.2;
-  margin-bottom:12px;
-  font-weight:bold;
-}
-
-/* BUTTON */
-
-.btn{
-  display:inline-block;
-  padding:12px 22px;
-  background:white;
-  color:#ff5500;
-  border-radius:50px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:bold;
-}
-
-/* =========================
-   KOLOM KANAN FULL PAS
-========================= */
-
-.product-image{
-  width:52%;
-  height:100%;
-  overflow:hidden;
-}
-
-.product-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-/* =========================
-   DOTS
-========================= */
-
-.dots{
-  position:absolute;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:6px;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:white;
-  opacity:0.5;
-  cursor:pointer;
-}
-
-.dot.active{
-  opacity:1;
-}
-
-</style>
-
-<script>
-
-/* =========================
-   DATA PRODUK
+   SLIDER IKLAN 2 KOLOM
 ========================= */
 
 const banners = [
-
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih Lengan Panjang",
+    title: "Kemeja Putih lengan panjang",
+    desc: "Bahan adem & nyaman dipakai",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/qg90N9771",
     image: "https://down-bs-id.img.susercontent.com/id-11134207-822wt-mn15inddsvly28.webp"
   },
-
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih Formal",
+    title: "Kemeja Putih lengan panjang",
+    desc: "Model slim fit elegan",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/2g7nBs4bmr",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-8224x-mkrdgyey0s1u72.webp"
   },
-
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih Premium",
+    title: "Kemeja Putih lengan panjang",
+    desc: "Cocok untuk kantor & wisuda",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/2qRDOG0Iwn",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-822wr-mmv658kxyps8b8.webp"
   },
-
   {
     tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Kerja Formal",
+    title: "Kemeja Putih lengan panjang",
+    desc: "Harga terjangkau kualitas premium",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/8fP0L2TxOm",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-822wi-mn654yfm20aqe4.webp"
   },
-
+  {
+    tag: "Melamar Pekerjaan / Formal",
+    title: "Kemeja Putih lengan panjang",
+    desc: "Ready banyak ukuran",
+    button: "Check Out",
+    productLink: "https://s.shopee.co.id/8Km9wUuyGN",
+    image: "https://down-tx-id.img.susercontent.com/id-11134207-822wl-mn3o8p4b9te0c5.webp"
+  },
   {
     tag: "Melamar Pekerjaan / Formal",
     title: "Celana Panjang Formal",
+    desc: "Celana kerja hitam polos",
     button: "Check Out",
     productLink: "https://s.shopee.co.id/6L15ZS4qHZ",
     image: "https://down-tx-id.img.susercontent.com/id-11134207-7r98y-ltukzuhq786260.webp"
   }
-
 ];
 
 /* =========================
@@ -1065,41 +878,30 @@ const banners = [
 const slides = document.getElementById('slides');
 const dotsContainer = document.getElementById('dots');
 
-banners.forEach((banner,index)=>{
-
-  slides.innerHTML += `
-
-    <div class="slide">
-
-      <!-- KOLOM KIRI -->
-      <div class="content">
-
-        <div class="tag">${banner.tag}</div>
-
-        <h1>${banner.title}</h1>
-
-        <a href="${banner.productLink}" class="btn" target="_blank">
-          ${banner.button}
-        </a>
-
-      </div>
-
-      <!-- KOLOM KANAN -->
-      <div class="product-image">
-
-        <img src="${banner.image}" alt="${banner.title}">
-
-      </div>
-
-    </div>
-
-  `;
-
-  dotsContainer.innerHTML += `
-    <span class="dot ${index === 0 ? 'active' : ''}"></span>
-  `;
-
-});
+if(slides && dotsContainer) {
+    banners.forEach((banner,index)=>{
+        slides.innerHTML += `
+        <div class="slide">
+            <!-- KOLOM KIRI -->
+            <div class="content">
+            <div class="tag">${banner.tag}</div>
+            <h1>${banner.title}</h1>
+            <p>${banner.desc || ''}</p>
+            <a href="${banner.productLink}" target="_blank" class="btn-slider">
+                ${banner.button}
+            </a>
+            </div>
+            <!-- KOLOM KANAN -->
+            <div class="product-image">
+            <img src="${banner.image}" alt="${banner.title}">
+            </div>
+        </div>
+        `;
+        dotsContainer.innerHTML += `
+        <span class="dot ${index === 0 ? 'active' : ''}"></span>
+        `;
+    });
+}
 
 /* =========================
    FUNCTION SLIDER
@@ -1110,56 +912,47 @@ const dots = document.querySelectorAll('.dot');
 
 let current = 0;
 
-function showSlide(index){
+if(allSlides.length > 0) {
+    function showSlide(index){
+        if(index >= allSlides.length){
+        current = 0;
+        }else if(index < 0){
+        current = allSlides.length - 1;
+        }else{
+        current = index;
+        }
+        
+        if(slides) slides.style.transform = `translateX(-${current * 100}%)`;
+        
+        dots.forEach(dot=>{
+            dot.classList.remove('active');
+        });
+        
+        if(dots[current]) dots[current].classList.add('active');
+    }
 
-  if(index >= allSlides.length){
-    current = 0;
-  }else if(index < 0){
-    current = allSlides.length - 1;
-  }else{
-    current = index;
-  }
+    /* DOT CLICK */
+    dots.forEach((dot,index)=>{
+        dot.addEventListener('click',()=>{
+            showSlide(index);
+        });
+    });
 
-  slides.style.transform = `translateX(-${current * 100}%)`;
+    /* AUTO SLIDE */
+    setInterval(()=>{
+        showSlide(current + 1);
+    },4000);
 
-  dots.forEach(dot=>{
-    dot.classList.remove('active');
-  });
-
-  dots[current].classList.add('active');
-
+    /* CLOSE ADS */
+    const closeAdsBtn = document.getElementById('closeAds');
+    if(closeAdsBtn) {
+        closeAdsBtn.addEventListener('click',()=>{
+            const slider = document.getElementById('adsSlider');
+            if(slider) slider.style.display='none';
+        });
+    }
 }
-
-/* DOT CLICK */
-
-dots.forEach((dot,index)=>{
-
-  dot.addEventListener('click',()=>{
-
-    showSlide(index);
-
-  });
-
-});
-
-/* AUTO SLIDE */
-
-setInterval(()=>{
-
-  showSlide(current + 1);
-
-},4000);
-
-/* =========================
-   CLOSE ADS
-========================= */
-
-document.getElementById('closeAds').addEventListener('click',()=>{
-
-  document.getElementById('adsSlider').style.display='none';
-
-});
-
 </script>
+  
 </body>
 </html>
