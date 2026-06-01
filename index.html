@@ -27,11 +27,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
 .a4-page table td{padding:.4mm 0;vertical-align:top}
-
-/* PERBAIKAN UKURAN FOTO 3x4 (2.79cm x 3.81cm) */
-.a4-page .fc{width:27.9mm;height:38.1mm;object-fit:cover;flex-shrink:0}
-.a4-page .fp{width:27.9mm;height:38.1mm;border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;flex-shrink:0;text-align:center;line-height:1.4}
-
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
 #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast-item{padding:10px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px)}
@@ -257,7 +252,14 @@ function renderForm(){
   fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');
 }
 
-function fotoImg(){return photoData?'<img src="'+photoData+'" class="fc">':'<div class="fp">Pas Foto<br>3X4</div>'}
+/* PERBAIKAN FOTO: Wrapper Div Lock Ukuran + Object-fit Crop */
+function fotoImg(){
+  var wStyle = 'width:27.9mm;height:38.1mm;flex-shrink:0;overflow:hidden;margin:0 auto;';
+  if(photoData){
+    return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;object-fit:cover;display:block"></div>';
+  }
+  return '<div style="'+wStyle+'border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;text-align:center;line-height:1.4">Pas Foto<br>3X4</div>';
+}
 
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return 'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
 function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t||'……………….')+'</td><td style="text-align:right">'+(e.y||'……………….')+'</td></tr>'});h+='</table>';return h}
