@@ -27,8 +27,11 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
 .a4-page table td{padding:.4mm 0;vertical-align:top}
-.a4-page .fc{width:32mm;height:42mm;object-fit:cover;flex-shrink:0}
-.a4-page .fp{width:32mm;height:42mm;border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;flex-shrink:0;text-align:center;line-height:1.4}
+
+/* PERBAIKAN UKURAN FOTO 3x4 (2.79cm x 3.81cm) */
+.a4-page .fc{width:27.9mm;height:38.1mm;object-fit:cover;flex-shrink:0}
+.a4-page .fp{width:27.9mm;height:38.1mm;border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;flex-shrink:0;text-align:center;line-height:1.4}
+
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
 #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast-item{padding:10px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px)}
@@ -261,7 +264,6 @@ function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t
 function expPH(list){return list.map(function(e){return'<div style="margin-bottom:2mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div></div>'}).join('')}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
-/* PERBAIKAN: Fungsi Skill untuk CV1 & CV2 diubah menjadi Rata Kiri dengan Bullet */
 function skCombined(hardSkills,softSkills){
   var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
   var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
