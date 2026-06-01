@@ -252,9 +252,8 @@ function renderForm(){
   fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');
 }
 
-/* PERBAIKAN FOTO: Wrapper Div Lock Ukuran + Object-fit Crop */
 function fotoImg(){
-  var wStyle = 'width:27.9mm;height:38.1mm;flex-shrink:0;overflow:hidden;margin:0 auto;';
+  var wStyle='width:27.9mm;height:38.1mm;flex-shrink:0;overflow:hidden;margin:0 auto;';
   if(photoData){
     return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;object-fit:cover;display:block"></div>';
   }
@@ -266,34 +265,32 @@ function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t
 function expPH(list){return list.map(function(e){return'<div style="margin-bottom:2mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div></div>'}).join('')}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
+/* === DIUBAH: Kolom 1 = Label, Kolom 2 & 3 = Bullet rata kiri === */
 function skCombined(hardSkills,softSkills){
   var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
   var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
   if(!hItems.length)hItems=['……………….','……………….','……………….','……………….'];
   if(!sItems.length)sItems=['……………….','……………….','……………….','……………….'];
-  var maxLen=Math.max(hItems.length,sItems.length);
-  while(hItems.length<maxLen)hItems.push('');
-  while(sItems.length<maxLen)sItems.push('');
-  var half=Math.ceil(maxLen/2);
-  var hLeft=hItems.slice(0,half),hRight=hItems.slice(half);
-  var sLeft=sItems.slice(0,half),sRight=sItems.slice(half);
-  
-  var h='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';
-  h+='<table style="width:100%">';
-  for(var i=0;i<half;i++){
-    h+='<tr><td style="width:50%;padding:0.2mm 0">\u2022 '+esc(hLeft[i].trim())+'</td>';
-    h+='<td style="width:50%;padding:0.2mm 0">'+(hRight[i]&&hRight[i].trim()?'\u2022 '+esc(hRight[i].trim()):'')+'</td></tr>';
+
+  var halfH=Math.ceil(hItems.length/2);
+  var halfS=Math.ceil(sItems.length/2);
+  var hLeft=hItems.slice(0,halfH),hRight=hItems.slice(halfH);
+  var sLeft=sItems.slice(0,halfS),sRight=sItems.slice(halfS);
+
+  function bulletList(arr){
+    return arr.filter(function(s){return s&&s.trim()}).map(function(s){return '\u2022 '+esc(s.trim())}).join('<br>');
   }
-  h+='</table>';
-  
-  h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';
-  h+='<table style="width:100%">';
-  for(var i=0;i<half;i++){
-    h+='<tr><td style="width:50%;padding:0.2mm 0">\u2022 '+esc(sLeft[i].trim())+'</td>';
-    h+='<td style="width:50%;padding:0.2mm 0">'+(sRight[i]&&sRight[i].trim()?'\u2022 '+esc(sRight[i].trim()):'')+'</td></tr>';
-  }
-  h+='</table>';
-  return h;
+
+  /* Kolom 1 = 22% (label), Kolom 2 = 39% (bullet kiri), Kolom 3 = 39% (bullet kanan) */
+  var html='<table style="width:100%">';
+  html+='<tr><td style="width:22%;font-weight:700;vertical-align:top;padding:0.2mm 2mm 2mm 0">Hard Skill</td>';
+  html+='<td style="width:39%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;text-align:left">'+bulletList(hLeft)+'</td>';
+  html+='<td style="width:39%;vertical-align:top;padding:0.2mm 0;text-align:left">'+bulletList(hRight)+'</td></tr>';
+  html+='<tr><td style="width:22%;font-weight:700;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">Soft Skill</td>';
+  html+='<td style="width:39%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;text-align:left">'+bulletList(sLeft)+'</td>';
+  html+='<td style="width:39%;vertical-align:top;padding:0.2mm 0;text-align:left">'+bulletList(sRight)+'</td></tr>';
+  html+='</table>';
+  return html;
 }
 
 function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';for(var i=0;i<hItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(hItems[i].trim())+'</div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';for(var i=0;i<sItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(sItems[i].trim())+'</div>'}if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';return h}
