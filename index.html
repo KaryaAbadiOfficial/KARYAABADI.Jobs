@@ -2,19 +2,7 @@
 <html lang="id" class="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="monetag" content="7b7c813623dd1a3d5ee8ca917364d6be">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-adsense-account" content="ca-pub-8274110224999928">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5V7805VX4T"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5V7805VX4T');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8274110224999928"
-crossorigin="anonymous"></script>
-<meta name="google-site-verification" content="rtne3ywzZZHemh4e8I6oeUrsIlcQHH94NXjOuhdFzhI" />
 <link rel="icon" type="image/png" href="favicon.png">
 <title>KARYA ABADI.Jobs - Buat CV & Surat Lamaran</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,272 +78,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto}
 @media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 152px)}}
 .pv-scroll{max-height:calc(var(--avh) - 152px);overflow:hidden;display:flex;flex-direction:column}
-
-/* Top Notification */
-#topNotif {
-  position: fixed; top: -150px; left: 50%; transform: translateX(-50%);
-  width: fit-content; max-width: 90%;
-  background: #d32f2f; color: #fff; font-weight: bold; text-align: center;
-  padding: 12px 45px 12px 20px; font-size: 16px; z-index: 9999;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3); border-radius: 0 0 12px 12px;
-  transition: top 0.5s ease; display: flex; align-items: center; justify-content: center;
-}
-.notif-text { line-height: 1.4; word-break: break-word; }
-.notif-close { position: absolute; right: 12px; cursor: pointer; font-size: 16px; }
-
-/* Anchor Ad Style */
-#ad-monetag-anchor {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
-    background-color: #ffffff; box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
-    border-top: 1px solid #ddd; transform: translateY(100%);
-    transition: transform 0.4s ease-out; font-family: sans-serif;
-}
-#ad-monetag-anchor.active { transform: translateY(0); }
-.ad-inner {
-    max-width: 800px; margin: 0 auto; padding: 10px;
-    display: flex; align-items: center; justify-content: space-between; gap: 15px;
-    position: relative;
-}
-.ad-logo-box {
-    flex: 0 0 70px; width: 70px; height: 70px; border: 1px solid #eee;
-    border-radius: 6px; padding: 5px; background: #fff; overflow: hidden;
-}
-.ad-logo-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.ad-text { text-align: center; flex: 1; }
-.ad-line-1 { display: block; font-size: 15px; font-weight: 800; color: #000; }
-.ad-line-2 { display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #333; margin-top: 2px; }
-.ad-btn {
-    background-color: #FF8C00; color: #fff; text-decoration: none;
-    padding: 10px 20px; border-radius: 5px; font-weight: bold; font-size: 14px; white-space: nowrap;
-}
-.ad-btn:hover { background-color: #e07b00; }
-.ad-close {
-    position: absolute; top: 0; right: 0; border: none; background: none;
-    font-size: 24px; color: #888; cursor: pointer; padding: 0 5px; line-height: 1;
-}
-.ad-close:hover { color: red; }
-@media (max-width: 600px) {
-    .ad-inner { flex-direction: column; text-align: center; gap: 10px; padding-bottom: 15px; }
-    .ad-logo-box { order: 1; width: 60px; height: 60px; }
-    .ad-text { order: 2; }
-    .ad-btn { order: 3; width: 100%; }
-    .ad-line-1 { font-size: 17px; }
-}
-
-/* =========================
-   SLIDER IKLAN CSS
-========================= */
-.ads-slider{
-  width:100%;
-  /* Mobile Height */
-  height:220px; 
-  margin-bottom: 15px;
-  overflow:hidden;
-  /* Mobile: Static position relative to flow */
-  position:relative; 
-  border-radius:12px;
-  background:linear-gradient(135deg,#ff7a00,#ff4d00);
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-  flex-shrink: 0;
-  z-index: 9999; /* PERBAIKAN: Naikkan z-index di atas Header (50) agar tombol bisa diklik */
-}
-
-/* RESPONSIVE HEIGHT MOBILE */
-@media(min-width:480px){ .ads-slider{ height: 240px; } }
-
-/* DESKTOP: Fixed Bottom Center, Full Content */
-@media(min-width: 1024px){
-  .ads-slider {
-    position: fixed; 
-    bottom: 20px; 
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;   /* Fixed width for desktop floating ad */
-    max-width: 90vw; /* Ensure fit on smaller laptops */
-    height: 240px;  /* Fixed height */
-    margin: 0; /* Reset margin */
-    border-radius: 12px;
-    z-index: 10001; /* Above anchor ad */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    animation: slideUpCenter 0.6s ease-out;
-  }
-
-  /* Ensure content is visible (not cut) */
-  .ads-slider .tag, .ads-slider p { display: block; }
-  
-  /* Adjust styling for floating box */
-  .content { 
-    padding: 15px; 
-    align-items: center;
-    text-align: center;
-  }
-  .content h1 { 
-    font-size: 18px; 
-    line-height: 1.3; 
-    margin-bottom: 6px; 
-  }
-  .content p {
-    font-size: 13px;
-    margin-bottom: 10px;
-    display: block; /* Ensure visible */
-  }
-  
-  @keyframes slideUpCenter {
-    from { transform: translate(-50%, 100px); opacity: 0; }
-    to { transform: translate(-50%, 0); opacity: 1; }
-  }
-}
-
-.close-btn-slider{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:28px;
-  height:28px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,0.25);
-  color:white;
-  font-size:14px;
-  cursor:pointer;
-  z-index:101;
-  backdrop-filter:blur(3px);
-}
-
-.slides{
-  display:flex;
-  height:100%;
-  transition:transform 0.5s ease-in-out;
-}
-
-.slide{
-  min-width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  color:white;
-  position: relative; /* Needed for layering context if needed */
-  z-index: 1;
-}
-
-.content{
-  width:48%;
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  height:100%;
-  z-index: 2; /* Ensure content is above background */
-}
-
-.tag{
-  display:inline-block;
-  padding:4px 12px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.2);
-  font-size:11px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.content h1{
-  font-size:24px;
-  line-height:1.2;
-  margin-bottom:8px;
-  font-weight:bold;
-}
-@media(min-width:480px){ .content h1{ font-size: 32px; } }
-
-.content p{
-  font-size:14px;
-  line-height:1.4;
-  margin-bottom:15px;
-  opacity:0.95;
-  /* Hidden by default on small mobile screens */
-  display:none;
-}
-@media(min-width:480px){ .content p{ display:block; } }
-
-.btn-slider{
-  display:inline-block;
-  padding:8px 18px;
-  background:white;
-  color:#ff5500;
-  border-radius:50px;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:bold;
-  transition: transform 0.2s;
-  z-index: 10; /* Ensure button is top priority for clicks */
-  position: relative;
-}
-.btn-slider:hover{ transform: scale(1.05); }
-
-.product-image{
-  width:52%;
-  height:100%;
-  overflow:hidden;
-  z-index: 1;
-}
-.product-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.dots{
-  position:absolute;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:6px;
-  z-index:100;
-}
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:white;
-  opacity:0.5;
-  cursor:pointer;
-  transition: opacity 0.3s;
-}
-.dot.active{ opacity:1; }
-
-/* Additional notification style fix */
-.notif{
-    position:fixed;
-    top:-120px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#fff;
-    padding:18px 30px;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-    text-align:center;
-    min-width:280px;
-    z-index:10000;
-    transition:top .5s ease;
-    color:#000;
-}
-.notif.show{ top:20px; }
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
-
-<!-- SLIDER IKLAN CONTAINER (Moved to TOP for Mobile Visibility) -->
-<div id="adsSliderContainer">
-  <div class="ads-slider" id="adsSlider">
-    <button class="close-btn-slider" id="closeAds">✕</button>
-    <div class="slides" id="slides"></div>
-    <div class="dots" id="dots"></div>
-  </div>
-</div>
 
 <div id="toast-box"></div>
 
@@ -433,39 +158,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 
-<!-- NOTIFIKASI TOP -->
-<div id="topNotif">
-  <span class="notif-text">
-    Hasil Download Pdf<br>
-    Cek di File Manager
-  </span>
-  <span class="notif-close" onclick="closeNotif()">✖</span>
-</div>
-
-<!-- IKLAN ANCHOR (Bawah) -->
-<div id="ad-monetag-anchor">
-    <div class="ad-inner">
-        <button class="ad-close" onclick="closeMonetagAd()">&times;</button>
-        <a href="https://monetag.com/?ref_id=ttxJ" target="_blank" class="ad-logo-box">
-            <img src="https://th.bing.com/th/id/R.9d03d8917bca6ffe67984edba2a1b81d?rik=ogM1SaxSuiUqhw&riu=http%3a%2f%2fwww.publishergrowth.com%2fimages%2fthumbnail%2fmonetag-1691434831.webp&ehk=UL8nriacB7150Si0pAzoUa5d6gJ0zfytvy%2boJcpuvNM%3d&risl=&pid=ImgRaw&r=0" alt="Monetag">
-        </a>
-        <div class="ad-text">
-            <span class="ad-line-1">Cara hasilkan Uang dari Internet</span>
-            <span class="ad-line-2">CUMA MODAL HP</span>
-        </div>
-        <a href="https://omg10.com/4/10633681" target="_blank" class="ad-btn">MULAI</a>
-    </div>
-</div>
-
-<!-- NOTIFIKASI POPUP JS -->
-<div class="notif" id="notif">
-    <div class="close-btn" id="closeNotif">×</div>
-    <div class="title">Hasil DOWNLOAD</div>
-    <div class="desc">Cek di File Manager</div>
-</div>
-
 <script>
-// LOGIKA UTAMA APLIKASI
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
@@ -511,10 +204,8 @@ function photoH(){return'<div class="card"><label class="fl flex items-center ga
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 
-// PERBAIKAN: Menambahkan class 'fi' ke semua input alamat agar styling konsisten
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 
-// PERBAIKAN: Menambahkan class 'fi' ke semua input alamat agar styling konsisten
 function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 
 function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
@@ -570,7 +261,36 @@ function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t
 function expPH(list){return list.map(function(e){return'<div style="margin-bottom:2mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div></div>'}).join('')}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
-function skCombined(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length)hItems=['……………….','……………….','……………….','……………….'];if(!sItems.length)sItems=['……………….','……………….','……………….','……………….'];var maxLen=Math.max(hItems.length,sItems.length);while(hItems.length<maxLen)hItems.push('');while(sItems.length<maxLen)sItems.push('');var half=Math.ceil(maxLen/2);var hLeft=hItems.slice(0,half),hRight=hItems.slice(half);var sLeft=sItems.slice(0,half),sRight=sItems.slice(half);var h='<table style="width:100%">';for(var i=0;i<half;i++){if(i===0)h+='<tr><td style="width:48mm;font-weight:600;vertical-align:top" rowspan="'+half+'">Hard Skill</td><td style="text-align:right">'+esc(hLeft[i])+'</td><td style="text-align:right">'+esc(hRight[i])+'</td></tr>';else h+='<tr><td style="text-align:right">'+esc(hLeft[i])+'</td><td style="text-align:right">'+esc(hRight[i])+'</td></tr>'}h+='<tr><td colspan="3" style="height:3mm;padding:0;font-size:0;line-height:0">&nbsp;</td></tr>';for(var i=0;i<half;i++){if(i===0)h+='<tr><td style="width:48mm;font-weight:600;vertical-align:top" rowspan="'+half+'">Soft Skill</td><td style="text-align:right">'+esc(sLeft[i])+'</td><td style="text-align:right">'+esc(sRight[i])+'</td></tr>';else h+='<tr><td style="text-align:right">'+esc(sLeft[i])+'</td><td style="text-align:right">'+esc(sRight[i])+'</td></tr>'}h+='</table>';return h}
+/* PERBAIKAN: Fungsi Skill untuk CV1 & CV2 diubah menjadi Rata Kiri dengan Bullet */
+function skCombined(hardSkills,softSkills){
+  var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
+  var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
+  if(!hItems.length)hItems=['……………….','……………….','……………….','……………….'];
+  if(!sItems.length)sItems=['……………….','……………….','……………….','……………….'];
+  var maxLen=Math.max(hItems.length,sItems.length);
+  while(hItems.length<maxLen)hItems.push('');
+  while(sItems.length<maxLen)sItems.push('');
+  var half=Math.ceil(maxLen/2);
+  var hLeft=hItems.slice(0,half),hRight=hItems.slice(half);
+  var sLeft=sItems.slice(0,half),sRight=sItems.slice(half);
+  
+  var h='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';
+  h+='<table style="width:100%">';
+  for(var i=0;i<half;i++){
+    h+='<tr><td style="width:50%;padding:0.2mm 0">\u2022 '+esc(hLeft[i].trim())+'</td>';
+    h+='<td style="width:50%;padding:0.2mm 0">'+(hRight[i]&&hRight[i].trim()?'\u2022 '+esc(hRight[i].trim()):'')+'</td></tr>';
+  }
+  h+='</table>';
+  
+  h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';
+  h+='<table style="width:100%">';
+  for(var i=0;i<half;i++){
+    h+='<tr><td style="width:50%;padding:0.2mm 0">\u2022 '+esc(sLeft[i].trim())+'</td>';
+    h+='<td style="width:50%;padding:0.2mm 0">'+(sRight[i]&&sRight[i].trim()?'\u2022 '+esc(sRight[i].trim()):'')+'</td></tr>';
+  }
+  h+='</table>';
+  return h;
+}
 
 function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';for(var i=0;i<hItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(hItems[i].trim())+'</div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';for(var i=0;i<sItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(sItems[i].trim())+'</div>'}if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';return h}
 
@@ -617,7 +337,7 @@ function scalePreview(wrapId,scalerId){var w=document.getElementById(wrapId),s=d
 function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}var r=new FileReader();r.onload=function(ev){photoData=ev.target.result;var img=document.getElementById('photo-thumb');img.src=photoData;img.classList.remove('hidden');document.getElementById('photo-ph').classList.add('hidden');renderPreview()};r.readAsDataURL(f)}
 
 function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];
-var lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
+lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
 
 async function downloadPDF(){
     var btn=document.getElementById('btn-pdf');
@@ -649,7 +369,6 @@ async function downloadPDF(){
         toast('Gagal mengunduh PDF','error');
         console.error(e);
     }finally{
-        window.open('https://omg10.com/4/10918734', '_blank');
         container.innerHTML='';
         btn.disabled=false;
         btn.classList.add('pulse-red');
@@ -663,310 +382,5 @@ function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElemen
 document.addEventListener('DOMContentLoaded',init);
 </script>
 
-<script>
-(function () {
-  let adClosed = false;
-
-  function createAd() {
-    if (adClosed) return;
-    if (document.getElementById("anchorAd")) return;
-
-    const ad = document.createElement("div");
-    ad.id = "anchorAd";
-
-    ad.innerHTML = `
-      <div class="ad-box">
-        <span class="close-btn">✕</span>
-
-        <a href="https://monetag.com/?ref_id=ttxJ" target="_blank">
-          <img src="https://latestlogo.com/wp-content/uploads/2024/03/monetag.png" class="logo"/>
-        </a>
-
-        <div class="text1">Hasilkan Uang dari Internet</div>
-        <div class="text2">CUMA MODAL HP</div>
-
-        <a href="https://omg10.com/4/10633681" target="_blank" class="btn">
-          MULAI
-        </a>
-      </div>
-    `;
-
-    document.body.appendChild(ad);
-
-    ad.querySelector(".close-btn").onclick = function () {
-      ad.remove();
-      adClosed = true;
-    };
-  }
-
-  setInterval(createAd, 10000);
-
-  const style = document.createElement("style");
-  style.innerHTML = `
-    #anchorAd {
-      position: fixed;
-      bottom: 10px;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      z-index: 9999;
-      animation: slideUp 0.4s ease;
-    }
-
-    .ad-box {
-      background: #ffffff;
-      color: #000;
-      width: 90%;
-      max-width: 420px;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .logo {
-      width: 140px;
-      max-width: 70%;
-      margin-bottom: 10px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .text1 {
-      font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .text2 {
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #FFD700;
-      color: #000;
-      font-weight: bold;
-      padding: 10px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #ffcc00;
-      transform: scale(1.05);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 6px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #333;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(80px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* MOBILE */
-    @media (max-width: 480px) {
-      .logo {
-        width: 120px;
-      }
-      .text1 { font-size: 14px; }
-      .text2 { font-size: 13px; }
-    }
-
-    /* DESKTOP FIX */
-    @media (min-width: 768px) {
-      #anchorAd {
-        bottom: 20px;
-      }
-      .ad-box {
-        margin: 0 auto;
-      }
-    }
-  `;
-
-  document.head.appendChild(style);
-})();
-
-const notif = document.getElementById("notif");
-const closeBtnNotif = document.getElementById("closeNotif");
-
-let closedNotif = false;
-
-function showNotif(){
-    if(closedNotif) return;
-    notif.classList.add("show");
-    setTimeout(() => {
-        notif.classList.remove("show");
-    }, 3000);
-}
-
-setTimeout(showNotif, 5000);
-
-const interval = setInterval(() => {
-    showNotif();
-}, 5000);
-
-closeBtnNotif.addEventListener("click", () => {
-    closedNotif = true;
-    notif.style.display = 'none';
-    clearInterval(interval);
-});
-</script>
-  
-<script>
-/* =========================
-   SLIDER IKLAN 2 KOLOM
-========================= */
-
-const banners = [
-  {
-    tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
-    desc: "Bahan adem & nyaman dipakai",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/LjshXO0o0",
-    // GAMBAR DIPERBAIKI (Link user request)
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-7rasa-m2xmi8a54urn98.webp"
-  },
-  {
-    tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
-    desc: "Model slim fit elegan",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/2g7nBs4bmr",
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-8224x-mkrdgyey0s1u72.webp"
-  },
-  {
-    tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
-    desc: "Cocok untuk kantor & wisuda",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/2qRDOG0Iwn",
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-822wr-mmv658kxyps8b8.webp"
-  },
-  {
-    tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
-    desc: "Harga terjangkau kualitas premium",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/8fP0L2TxOm",
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-822wi-mn654yfm20aqe4.webp"
-  },
-  {
-    tag: "Melamar Pekerjaan / Formal",
-    title: "Kemeja Putih lengan panjang",
-    desc: "Ready banyak ukuran",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/8Km9wUuyGN",
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-822wl-mn3o8p4b9te0c5.webp"
-  },
-  {
-    tag: "Melamar Pekerjaan / Formal",
-    title: "Celana Panjang Formal",
-    desc: "Celana kerja hitam polos",
-    button: "Check Out",
-    productLink: "https://s.shopee.co.id/6L15ZS4qHZ",
-    image: "https://down-tx-id.img.susercontent.com/id-11134207-7r98y-ltukzuhq786260.webp"
-  }
-];
-
-/* =========================
-   GENERATE SLIDER
-========================= */
-
-const slides = document.getElementById('slides');
-const dotsContainer = document.getElementById('dots');
-
-if(slides && dotsContainer) {
-    banners.forEach((banner,index)=>{
-        slides.innerHTML += `
-        <div class="slide">
-            <!-- KOLOM KIRI -->
-            <div class="content">
-            <div class="tag">${banner.tag}</div>
-            <h1>${banner.title}</h1>
-            <p>${banner.desc || ''}</p>
-            <a href="${banner.productLink}" target="_blank" class="btn-slider">
-                ${banner.button}
-            </a>
-            </div>
-            <!-- KOLOM KANAN -->
-            <div class="product-image">
-            <img src="${banner.image}" alt="${banner.title}">
-            </div>
-        </div>
-        `;
-        dotsContainer.innerHTML += `
-        <span class="dot ${index === 0 ? 'active' : ''}"></span>
-        `;
-    });
-}
-
-/* =========================
-   FUNCTION SLIDER
-========================= */
-
-const allSlides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-
-let current = 0;
-
-if(allSlides.length > 0) {
-    function showSlide(index){
-        if(index >= allSlides.length){
-        current = 0;
-        }else if(index < 0){
-        current = allSlides.length - 1;
-        }else{
-        current = index;
-        }
-        
-        if(slides) slides.style.transform = `translateX(-${current * 100}%)`;
-        
-        dots.forEach(dot=>{
-            dot.classList.remove('active');
-        });
-        
-        if(dots[current]) dots[current].classList.add('active');
-    }
-
-    /* DOT CLICK */
-    dots.forEach((dot,index)=>{
-        dot.addEventListener('click',()=>{
-            showSlide(index);
-        });
-    });
-
-    /* AUTO SLIDE */
-    setInterval(()=>{
-        showSlide(current + 1);
-    },4000);
-
-    /* CLOSE ADS */
-    const closeAdsBtn = document.getElementById('closeAds');
-    if(closeAdsBtn) {
-        closeAdsBtn.addEventListener('click',()=>{
-            const slider = document.getElementById('adsSlider');
-            if(slider) slider.style.display='none';
-        });
-    }
-}
-</script>
-  
 </body>
 </html>
