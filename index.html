@@ -252,10 +252,11 @@ function renderForm(){
   fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');
 }
 
+/* === PERBAIKAN: fotoImg - ukuran 25mm x 33mm (rasio 3:4 tepat), tanpa object-fit === */
 function fotoImg(){
-  var wStyle='width:27.9mm;height:38.1mm;flex-shrink:0;overflow:hidden;margin:0 auto;';
+  var wStyle='width:25mm;height:33mm;flex-shrink:0;overflow:hidden;margin:0 auto;';
   if(photoData){
-    return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;object-fit:cover;display:block"></div>';
+    return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block"></div>';
   }
   return '<div style="'+wStyle+'border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;text-align:center;line-height:1.4">Pas Foto<br>3X4</div>';
 }
@@ -265,23 +266,18 @@ function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t
 function expPH(list){return list.map(function(e){return'<div style="margin-bottom:2mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div></div>'}).join('')}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
-/* === DIUBAH: Kolom 1 = Label, Kolom 2 & 3 = Bullet rata kiri === */
 function skCombined(hardSkills,softSkills){
   var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
   var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
   if(!hItems.length)hItems=['……………….','……………….','……………….','……………….'];
   if(!sItems.length)sItems=['……………….','……………….','……………….','……………….'];
-
   var halfH=Math.ceil(hItems.length/2);
   var halfS=Math.ceil(sItems.length/2);
   var hLeft=hItems.slice(0,halfH),hRight=hItems.slice(halfH);
   var sLeft=sItems.slice(0,halfS),sRight=sItems.slice(halfS);
-
   function bulletList(arr){
     return arr.filter(function(s){return s&&s.trim()}).map(function(s){return '\u2022 '+esc(s.trim())}).join('<br>');
   }
-
-  /* Kolom 1 = 22% (label), Kolom 2 = 39% (bullet kiri), Kolom 3 = 39% (bullet kanan) */
   var html='<table style="width:100%">';
   html+='<tr><td style="width:22%;font-weight:700;vertical-align:top;padding:0.2mm 2mm 2mm 0">Hard Skill</td>';
   html+='<td style="width:39%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;text-align:left">'+bulletList(hLeft)+'</td>';
@@ -335,7 +331,48 @@ function renderPreview(){var html='';if(curCat==='cv'){if(curTpl==='cv1')html=re
 
 function scalePreview(wrapId,scalerId){var w=document.getElementById(wrapId),s=document.getElementById(scalerId);if(!w||!s)return;var pageEl=s.firstElementChild;if(!pageEl)return;var pw=pageEl.offsetWidth,ww=w.clientWidth-24;if(!pw||!ww)return;s.style.zoom=Math.min(1,ww/pw)}
 
-function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}var r=new FileReader();r.onload=function(ev){photoData=ev.target.result;var img=document.getElementById('photo-thumb');img.src=photoData;img.classList.remove('hidden');document.getElementById('photo-ph').classList.add('hidden');renderPreview()};r.readAsDataURL(f)}
+/* === PERBAIKAN: handlePhoto - pre-crop foto ke rasio 3:4 menggunakan Canvas === */
+function handlePhoto(e){
+  var f=e.target.files[0];
+  if(!f)return;
+  if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}
+  var r=new FileReader();
+  r.onload=function(ev){
+    var img=new Image();
+    img.onload=function(){
+      /* Crop ke rasio 3:4 (lebar:tinggi) menggunakan Canvas */
+      var canvas=document.createElement('canvas');
+      var tw=300,th=400; /* pixel target, rasio 3:4 */
+      var sr=img.width/img.height; /* rasio sumber */
+      var tr=tw/th; /* rasio target = 0.75 */
+      var sx,sy,sw,sh;
+      if(sr>tr){
+        /* Foto sumber lebih lebar dari target — crop samping */
+        sh=img.height;
+        sw=sh*tr;
+        sx=(img.width-sw)/2;
+        sy=0;
+      }else{
+        /* Foto sumber lebih tinggi dari target — crop atas/bawah */
+        sw=img.width;
+        sh=sw/tr;
+        sx=0;
+        sy=(img.height-sh)/2;
+      }
+      canvas.width=tw;
+      canvas.height=th;
+      canvas.getContext('2d').drawImage(img,sx,sy,sw,sh,0,0,tw,th);
+      photoData=canvas.toDataURL('image/jpeg',0.92);
+      var thumb=document.getElementById('photo-thumb');
+      thumb.src=photoData;
+      thumb.classList.remove('hidden');
+      document.getElementById('photo-ph').classList.add('hidden');
+      renderPreview();
+    };
+    img.src=ev.target.result;
+  };
+  r.readAsDataURL(f);
+}
 
 function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];
 lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
