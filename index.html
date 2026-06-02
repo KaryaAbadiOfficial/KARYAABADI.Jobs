@@ -154,7 +154,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </footer>
 
-<div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+<!-- Offscreen container: ukuran PASTI 210mm×297mm, overflow VISIBLE agar html2canvas bisa render semua -->
+<div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;height:297mm;"></div>
 
 <script>
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
@@ -169,10 +170,10 @@ var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'c
 var ST_M=[{id:'s-op',name:'Email (Posisi)',pos:true,on:true},{id:'s-ou',name:'Email (Umum)',pos:false,on:true},{id:'s-tp',name:'Tulis Tangan (Posisi)',pos:true,on:false},{id:'s-tu',name:'Tulis Tangan (Umum)',pos:false,on:false}];
 
 /* =============================================
-   KONSTANTA UKURAN FOTO — 2.79cm × 3.81cm
+   KONSTANTA FOTO: 2.79 cm × 3.81 cm
    ============================================= */
-var FOTO_W_MM = 27.9;   /* 2.79 cm = 27.9 mm */
-var FOTO_H_MM = 38.1;   /* 3.81 cm = 38.1 mm */
+var FOTO_W_MM = 27.9;
+var FOTO_H_MM = 38.1;
 
 function v(id){var el=document.getElementById(id);return el?el.value:''}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -259,18 +260,15 @@ function renderForm(){
 }
 
 /* =============================================
-   FOTO: Ukuran TEPAT 2.79cm × 3.81cm
-   Menggunakan width + height absolut (mm)
-   plus min-width/min-height sebagai fallback
+   FOTO: 2.79cm × 3.81cm
+   Display menggunakan mm, container overflow:hidden
    ============================================= */
 function fotoImg(){
   var w = FOTO_W_MM + 'mm';
   var h = FOTO_H_MM + 'mm';
-  /* Gaya container: ukuran absolut, tidak bisa berubah */
-  var wStyle = 'width:' + w + ';height:' + h + ';min-width:' + w + ';min-height:' + h + ';max-width:' + w + ';max-height:' + h + ';flex-shrink:0;overflow:hidden;margin:0 auto;display:block;';
-
+  var wStyle = 'width:' + w + ';height:' + h + ';flex-shrink:0;overflow:hidden;margin:0 auto;display:block;';
   if(photoData){
-    return '<div style="' + wStyle + '"><img src="' + photoData + '" style="width:' + w + ';height:' + h + ';min-width:' + w + ';min-height:' + h + ';max-width:' + w + ';max-height:' + h + ';object-fit:cover;display:block" /></div>';
+    return '<div style="' + wStyle + '"><img src="' + photoData + '" style="width:' + w + ';height:' + h + ';object-fit:cover;display:block" /></div>';
   }
   return '<div style="' + wStyle + 'border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;text-align:center;line-height:1.4">Pas Foto<br>2,79×3,81<br>cm</div>';
 }
@@ -347,6 +345,15 @@ function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*10
 
 function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];}lampList=['',''];renderLampF();savedSurat={};renderPreview();toast('Formulir berhasil direset','info')}
 
+/* =============================================
+   downloadPDF — PERBAIKAN UTAMA
+   =============================================
+   Akar masalah sebelumnya:
+   1. height:auto membuat konten menyebar tidak terkendali
+   2. overflow:hidden di clone memotong elemen flex
+   3. html2canvas mengabaikan min-width/height
+   4. Container offscreen tidak punya height 297mm
+   ============================================= */
 async function downloadPDF(){
     var btn=document.getElementById('btn-pdf');
     btn.disabled=true;
@@ -358,55 +365,64 @@ async function downloadPDF(){
     var container=document.getElementById('pdf-offscreen');
     container.innerHTML='';
 
-    /* Clone halaman A4 */
     var cl=page.cloneNode(true);
-    cl.style.height='auto';
-    cl.style.minHeight='0';
-    cl.style.width='210mm';
-    cl.style.overflow='visible';
-    cl.style.position='relative';
-    cl.style.margin='0';
-    cl.style.boxShadow='none';
-    cl.style.fontFamily=selFont;
-    cl.style.fontSize=selSize+'pt';
-    cl.style.lineHeight=selLH;
+
+    /* FIX 1: JAGA height:297mm (jangan auto) agar layout tetap seperti preview */
+    cl.style.height = '297mm';
+    cl.style.minHeight = '0';
+    cl.style.maxHeight = 'none';
+    cl.style.width = '210mm';
+    cl.style.overflow = 'hidden';
+    cl.style.position = 'relative';
+    cl.style.margin = '0';
+    cl.style.boxShadow = 'none';
+    cl.style.fontFamily = selFont;
+    cl.style.fontSize = selSize + 'pt';
+    cl.style.lineHeight = String(selLH);
+
     container.appendChild(cl);
 
-    /*
-     * PASTIKAN FOTO DI CLONE MEMILIKI UKURAN TEPAT 2.79cm × 3.81cm
-     * html2canvas kadang mengabaikan min/max, jadi kita set
-     * atribut width/height PIXEL langsung pada elemen <img>
-     * berdasarkan konversi mm→px (1mm ≈ 3.7795px pada 96dpi)
-     */
-    var MM_TO_PX = 3.7795275591;
-    var fotoPxW = Math.round(FOTO_W_MM * MM_TO_PX);
-    var fotoPxH = Math.round(FOTO_H_MM * MM_TO_PX);
+    /* FIX 2: KONVERSI semua dimensi mm → px pada foto
+       html2canvas bekerja di dunia pixel.
+       1mm ≈ 3.7795275591 px pada 96dpi */
+    var MM2PX = 3.7795275591;
+    var fotoPxW = Math.round(FOTO_W_MM * MM2PX); /* 105px */
+    var fotoPxH = Math.round(FOTO_H_MM * MM2PX); /* 144px */
 
-    var fotoContainers = cl.querySelectorAll('div[style*="width:' + FOTO_W_MM + 'mm"]');
-    fotoContainers.forEach(function(fc){
-        /* Set dimensi pixel langsung sebagai fallback absolut */
-        fc.style.width = fotoPxW + 'px';
-        fc.style.height = fotoPxH + 'px';
-        fc.style.minWidth = fotoPxW + 'px';
-        fc.style.minHeight = fotoPxH + 'px';
-        fc.style.maxWidth = fotoPxW + 'px';
-        fc.style.maxHeight = fotoPxH + 'px';
+    /* Cari semua container foto berdasarkan pola style-nya */
+    var allDivs = cl.querySelectorAll('div');
+    for(var i = 0; i < allDivs.length; i++){
+        var d = allDivs[i];
+        var st = (d.getAttribute('style') || '');
+        if(st.indexOf('width:' + FOTO_W_MM + 'mm') !== -1 &&
+           st.indexOf('height:' + FOTO_H_MM + 'mm') !== -1){
+            /* Ganti semua dimensi mm → px pada container */
+            d.style.width = fotoPxW + 'px';
+            d.style.height = fotoPxH + 'px';
+            d.style.minWidth = fotoPxW + 'px';
+            d.style.minHeight = fotoPxH + 'px';
+            d.style.maxWidth = fotoPxW + 'px';
+            d.style.maxHeight = fotoPxH + 'px';
 
-        var img = fc.querySelector('img');
-        if(img){
-            img.style.width = fotoPxW + 'px';
-            img.style.height = fotoPxH + 'px';
-            img.style.minWidth = fotoPxW + 'px';
-            img.style.minHeight = fotoPxH + 'px';
-            img.style.maxWidth = fotoPxW + 'px';
-            img.style.maxHeight = fotoPxH + 'px';
-            img.removeAttribute('srcset');
+            /* Ganti dimensi img di dalamnya */
+            var img = d.querySelector('img');
+            if(img){
+                img.style.width = fotoPxW + 'px';
+                img.style.height = fotoPxH + 'px';
+                img.style.minWidth = fotoPxW + 'px';
+                img.style.minHeight = fotoPxH + 'px';
+                img.style.maxWidth = fotoPxW + 'px';
+                img.style.maxHeight = fotoPxH + 'px';
+                img.removeAttribute('srcset');
+            }
         }
-    });
+    }
 
-    await new Promise(function(resolve){setTimeout(resolve,150)});
+    /* Beri waktu browser untuk render ulang setelah perubahan style */
+    await new Promise(function(r){ setTimeout(r, 200) });
 
     try{
+        /* FIX 3: html2canvas harus menangkap area PENUH clone (297mm) */
         var opt={
             margin: 0,
             filename: (curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',
@@ -416,9 +432,11 @@ async function downloadPDF(){
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
-                width: cl.offsetWidth,
-                /* Gunakan width container yang sudah pasti 210mm */
-                windowWidth: cl.offsetWidth
+                /* Ukuran pixel tepat dari 210mm×297mm pada 96dpi */
+                width: Math.round(210 * MM2PX),
+                height: Math.round(297 * MM2PX),
+                /* Window width harus sama agar tidak ada reflow */
+                windowWidth: Math.round(210 * MM2PX)
             },
             jsPDF: {unit:'mm', format:'a4', orientation:'portrait'},
             pagebreak: {mode:['css','legacy']}
