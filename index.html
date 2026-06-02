@@ -1,463 +1,583 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="favicon.png">
-<title>KARYA ABADI.Jobs - Buat CV & Surat Lamaran</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script>
-tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
-</script>
-<style>
-:root{--avh:100vh}
-@supports(height:100dvh){:root{--avh:100dvh}}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
-.a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
-.a4-page .st:first-child{margin-top:0}
-.a4-page table{width:100%;border-collapse:collapse}
-.a4-page table td{padding:.4mm 0;vertical-align:top}
-.dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
-#toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.toast-item{padding:10px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px)}
-.toast-item.show{transform:translateX(0)}
-.toast-item.success{background:rgba(153,27,27,.92)}
-.toast-item.error{background:rgba(220,38,38,.92)}
-.toast-item.info{background:rgba(30,30,30,.92)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.fade-up{animation:fadeUp .25s ease both}
-@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}70%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
-.pulse-red{animation:pulseRed 2s infinite}
-.fi{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e5e7eb;font-size:14px;transition:all .2s;background:#fff;color:#111}
-.fi:focus{outline:none;border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.dark .fi{background:#151515;border-color:#2a2a2a;color:#e5e5e5}
-.dark .fi:focus{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.15)}
-.fl{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;display:block;letter-spacing:.01em;color:#fff}
-.dark .fl{color:#f1f5f9}
-.fl-sub{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.01em;color:#e2e8f0}
-.dark .fl-sub{color:#cbd5e1}
-textarea.fi{resize:vertical;min-height:60px}
-select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.dyn-btn{width:32px;height:32px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
-.dyn-btn:active{transform:scale(.9)}
-.dyn-add{background:transparent;color:#DC2626;border:1.5px solid #DC2626}
-.dyn-add:hover{background:#DC2626;color:#fff}
-.dark .dyn-add{border-color:#DC2626;color:#DC2626}
-.dark .dyn-add:hover{background:#DC2626;color:#fff}
-.dyn-rm{background:#DC2626;color:#fff}
-.dyn-rm:hover{background:#991B1B}
-.sk-rm{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5e7eb;color:#DC2626;background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
-.sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
-.sk-rm:active{transform:scale(.9)}
-.dark .sk-rm{background:transparent;border-color:#2a2a2a;color:#DC2626}
-.dark .sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
-input[type=range]{-webkit-appearance:none;height:5px;border-radius:3px;background:#e5e7eb;outline:none;flex:1}
-.dark input[type=range]{background:#2a2a2a}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#DC2626;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.addr-sub{position:relative;padding-left:16px}
-.addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
-.mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(17,17,17,.95);backdrop-filter:blur(12px);border-top:1px solid #2a2a2a;padding:6px env(safe-area-inset-bottom,6px)}
-.mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
-.mob-bar button.active{color:#FACC15}
-.mob-bar button i{font-size:18px}
-.form-sec{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #2a2a2a;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
-.card{background:#1A1A1A;border:1px solid #2a2a2a;border-radius:12px;padding:16px}
-.fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto}
-@media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 152px)}}
-.pv-scroll{max-height:calc(var(--avh) - 152px);overflow:hidden;display:flex;flex-direction:column}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARYA ABADI PAS FOTO - PRO</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --bg-input: #2d2d2d;
+            --text-main: #ffffff;
+            --text-muted: #b0b0b0;
+            --accent-red: #D32F2F;
+            --border-color: #444444;
+            --input-bg: #333333;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+            --toast-bg: #333;
+        }
+        [data-theme="light"] {
+            --bg-body: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-input: #f7f7f7;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --accent-red: #D32F2F;
+            --border-color: #ddd;
+            --input-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --toast-bg: #333;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: #000000; border-bottom: 2px solid var(--accent-red); padding: 0.5rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 10; flex-wrap: wrap; gap: 10px; }
+        .logo-container { display: flex; align-items: center; gap: 1rem; }
+        .site-logo-img { width: 60px; height: auto; max-height: 50px; object-fit: contain; }
+        .site-info h1 { font-size: 1.4rem; color: #ffffff; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; line-height: 1.2; }
+        .site-info h1 span { color: var(--accent-red); }
+        .site-info p { font-size: 0.8rem; color: #FFD700; letter-spacing: 1px; }
+        .theme-toggle { background: rgba(255,255,255,0.1); border: 1px solid #555; color: #ffffff; padding: 0.5rem; border-radius: 50%; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .theme-toggle:hover { background-color: rgba(255,255,255,0.2); }
+        main { flex: 1; padding: 1.5rem; max-width: 1400px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 360px 1fr; gap: 1.5rem; }
+        @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+        .card { background-color: var(--bg-card); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem; }
+        .section-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; color: var(--accent-red); }
+        .icon-svg { width: 20px; height: 20px; stroke: var(--text-main); fill: none; }
+        .upload-area { border: 2px dashed var(--border-color); border-radius: 8px; padding: 0.8rem; text-align: center; cursor: pointer; position: relative; background-color: var(--bg-input); font-size: 0.85rem; }
+        .upload-area:hover { border-color: var(--accent-red); background-color: rgba(211, 47, 47, 0.08); }
+        .upload-area input { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+        .upload-area .file-name { color: #4CAF50; font-weight: 600; font-size: 0.75rem; margin-top: 4px; word-break: break-all; }
+        label { font-weight: 500; font-size: 0.85rem; color: var(--text-muted); }
+        input[type="number"] { padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-main); width: 100%; text-align: center; }
+        .qty-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .qty-item label { font-size: 0.8rem; text-align: center; display: block; margin-bottom: 4px; }
+        .btn { background-color: var(--accent-red); color: white; border: none; cursor: pointer; font-weight: 700; display: flex; justify-content: center; align-items: center; text-transform: uppercase; padding: 0.6rem; border-radius: 6px; font-size: 0.8rem; gap: 6px; white-space: nowrap; }
+        .btn:hover { background-color: #b71c1c; transform: translateY(-1px); }
+        .btn.secondary { background-color: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn.secondary:hover { background-color: var(--bg-input); border-color: var(--text-main); transform: none; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .btn-gold { background-color: #FFD700 !important; color: #000000 !important; border: none !important; font-weight: 800; }
+        .btn-gold:hover { background-color: #ffcc00 !important; }
+        .btn-group { display: flex; flex-direction: column; gap: 8px; }
+        canvas { box-shadow: 0 0 8px rgba(0,0,0,0.15); display: block; }
+        .previews-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background: var(--bg-input); padding: 12px; border-radius: 8px; }
+        .preview-card { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .preview-card canvas { border: 1px solid var(--border-color); background: #fff; cursor: move; width: 100%; height: auto; max-width: 140px; }
+        .preview-label { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+        
+        /* Perbaikan Lurus Horizontal */
+        .preview-actions { width: 100%; display: flex; align-items: center; gap: 8px; }
+        input[type=range].mini-slider { width: 100%; height: 4px; background: var(--border-color); border-radius: 2px; appearance: none; outline: none; flex: 1; }
+        input[type=range].mini-slider::-webkit-slider-thumb { appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-red); cursor: pointer; }
+        .preview-actions .btn { width: auto; padding: 4px 8px; font-size: 0.7rem; }
+
+        footer { background-color: #000000; border-top: 1px solid #333; padding: 1rem; text-align: center; margin-top: auto; }
+        footer p { color: #e0e0e0; font-size: 0.8rem; }
+        #toast { visibility: hidden; min-width: 250px; background-color: var(--toast-bg); color: #fff; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 0.9rem; border: 1px solid var(--accent-red); }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+        @keyframes fadeout { from { bottom: 30px; opacity: 1; } to { bottom: 0; opacity: 0; } }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.92); backdrop-filter: blur(5px); }
+        .modal-content { background-color: var(--bg-card); margin: 1.5% auto; padding: 20px; border: 1px solid var(--accent-red); width: 96%; max-width: 1200px; height: 94vh; display: flex; flex-direction: column; border-radius: 12px; color: var(--text-main); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
+        .modal-header h2 { font-size: 1.2rem; }
+        .modal-header-info { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: var(--text-muted); }
+        .legend-icon { background: var(--accent-red); color: #fff; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
+        .modal-body { flex: 1; overflow: auto; background-color: #111; display: flex; flex-direction: column; padding: 2rem; gap: 50px; }
+        .modal-footer { padding-top: 1rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 1rem; flex-wrap: wrap; }
+        .a4-version-section { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
+        .version-title { color: #fff; font-size: 1.2rem; font-weight: bold; border-bottom: 2px solid var(--accent-red); padding-bottom: 8px; width: 100%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .version-title .util-badge { font-size: 0.7rem; background: #4CAF50; color: #fff; padding: 2px 8px; border-radius: 20px; }
+        .a4-page-grid { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
+        .a4-page-grid img { max-width: 100%; height: auto; border: 2px solid #555; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .page-label { color: #aaa; font-size: 0.8rem; margin-bottom: -10px; margin-top: 5px; }
+        .close { color: var(--text-muted); font-size: 28px; font-weight: bold; cursor: pointer; line-height: 1; }
+        .close:hover { color: var(--accent-red); }
+        @media (max-width: 600px) {
+            .qty-grid { grid-template-columns: 1fr; }
+            .previews-wrapper { grid-template-columns: repeat(2, 1fr); }
+            header { padding: 0.5rem 1rem; }
+            .site-info h1 { font-size: 1.1rem; }
+        }
+    </style>
 </head>
-<body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
+<body>
 
-<div id="toast-box"></div>
-
-<header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0">
-  <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-    <div class="flex items-center gap-2.5">
-      <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-9 h-9 rounded-lg flex-shrink:0" fetchpriority="high">
-      <div class="flex flex-col leading-none">
-        <div class="flex items-baseline gap-0.5">
-          <span class="text-white font-bold text-base tracking-wide">KARYA ABADI</span><span class="text-white/70 font-bold text-sm">.Jobs</span>
+<header>
+    <div class="logo-container">
+        <img src="https://z-cdn-media.chatglm.cn/files/7036c9c2-b59a-4db0-916c-f8e802d0017c.png?auth_key=1877865703-8be2c7d3241c46139790e19708a62afe-0-28c4d05614f7e4de61d8f5814228fbfc" alt="Logo" class="site-logo-img">
+        <div class="site-info">
+            <h1>KARYA ABADI <span>PAS FOTO</span></h1>
+            <p>Auto Crop &amp; Susun Pintar Hemat Ruang</p>
         </div>
-        <span class="text-[9px] text-yellow-400/80 font-medium italic tracking-wide">Ciptakan peluang karir impianmu</span>
-      </div>
     </div>
-    <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Toggle dark mode">
-      <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
-      <i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i>
-    </button>
-  </div>
+    <button class="theme-toggle" id="themeToggle">&#9728;&#65039;</button>
 </header>
 
-<nav class="bg-brand-dark border-b border-brand-border/50 flex-shrink-0">
-  <div class="max-w-7xl mx-auto px-4 flex">
-    <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
-      <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
-    </button>
-    <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-white/70 transition-colors">
-      <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
-    </button>
-  </div>
-</nav>
+<main>
+    <section class="card">
+        <div class="section-title">
+            <svg class="icon-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="12" height="18" rx="2"/><rect x="9" y="3" width="12" height="12" rx="2"/></svg>
+            Upload Foto (Portrait)
+        </div>
+        <div class="upload-area" id="drop-zone-p">
+            <input type="file" id="imageInputP" accept="image/*">
+            <p>Klik atau seret foto portrait</p>
+            <div class="file-name" id="fileNameP"></div>
+        </div>
 
-<div class="bg-brand-black/80 border-b border-brand-border/30 overflow-x-auto flex-shrink-0">
-  <div class="max-w-7xl mx-auto px-4 flex gap-2 py-2.5" id="tpl-tabs"></div>
-</div>
+        <div class="section-title">
+            <svg class="icon-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="12" rx="2"/><rect x="3" y="9" width="12" height="12" rx="2"/></svg>
+            Upload Foto (Landscape)
+        </div>
+        <div class="upload-area" id="drop-zone-l">
+            <input type="file" id="imageInputL" accept="image/*">
+            <p>Klik atau seret foto landscape</p>
+            <div class="file-name" id="fileNameL"></div>
+        </div>
 
-<main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-0 relative">
-  <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 dark:bg-brand-black bg-gray-50 min-h-0 fp-scroll mt-2 lg:mt-0">
-    <div id="form-content" class="space-y-3 fade-up"></div>
-    <div class="flex gap-3 mt-6 mb-6">
-      <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
-      <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
-    </div>
-  </div>
-  <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 dark:bg-brand-dark/50 bg-gray-100 min-h-0 pv-scroll">
-    <div class="text-[11px] font-semibold mb-2 dark:text-gray-500 text-gray-400 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
-      <i class="fa-solid fa-eye text-xs"></i>Preview A4
-    </div>
-    <div id="preview-wrap" class="flex-1 overflow-auto rounded-xl dark:bg-gray-800/50 bg-gray-200 p-3 flex justify-center min-h-0">
-      <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
-    </div>
-  </div>
+        <div class="section-title">
+            <svg class="icon-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Jumlah Cetak (A4)
+        </div>
+        <div class="qty-grid">
+            <div class="qty-item"><label>2X3</label><input type="number" id="qty2x3" value="0" min="0"></div>
+            <div class="qty-item"><label>3X4</label><input type="number" id="qty3x4" value="0" min="0"></div>
+            <div class="qty-item"><label>4X6</label><input type="number" id="qty4x6" value="0" min="0"></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn secondary" id="resetAllBtn" disabled>Reset Posisi Crop</button>
+            <button class="btn btn-gold" id="previewA4Btn" disabled>PREVIEW SUSUN A4</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="section-title">
+            <svg class="icon-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Hasil Crop (Portrait)
+        </div>
+        <div class="previews-wrapper">
+            <div class="preview-card">
+                <canvas id="canvas2x3"></canvas>
+                <div class="preview-label">2x3</div>
+                <div class="preview-actions">
+                    <input type="range" id="zoom2x3" class="mini-slider" disabled min="0.5" max="3" step="0.05">
+                    <button class="btn btn-gold" id="btnDl2x3" disabled>&#11015; DL</button>
+                </div>
+            </div>
+            <div class="preview-card">
+                <canvas id="canvas3x4"></canvas>
+                <div class="preview-label">3x4</div>
+                <div class="preview-actions">
+                    <input type="range" id="zoom3x4" class="mini-slider" disabled min="0.5" max="3" step="0.05">
+                    <button class="btn btn-gold" id="btnDl3x4" disabled>&#11015; DL</button>
+                </div>
+            </div>
+            <div class="preview-card">
+                <canvas id="canvas4x6"></canvas>
+                <div class="preview-label">4x6</div>
+                <div class="preview-actions">
+                    <input type="range" id="zoom4x6" class="mini-slider" disabled min="0.5" max="3" step="0.05">
+                    <button class="btn btn-gold" id="btnDl4x6" disabled>&#11015; DL</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title" style="margin-top: 0.5rem;">
+            <svg class="icon-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="12" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Hasil Crop (Landscape)
+        </div>
+        <div class="previews-wrapper">
+            <div class="preview-card">
+                <canvas id="canvas2x3L"></canvas>
+                <div class="preview-label">2x3</div>
+                <div class="preview-actions">
+                    <input type="range" id="zoom2x3L" class="mini-slider" disabled min="0.5" max="3" step="0.05">
+                    <button class="btn btn-gold" id="btnDl2x3L" disabled>&#11015; DL</button>
+                </div>
+            </div>
+            <div class="preview-card">
+                <canvas id="canvas3x4L"></canvas>
+                <div class="preview-label">3x4</div>
+                <div class="preview-actions">
+                    <input type="range" id="zoom3x4L" class="mini-slider" disabled min="0.5" max="3" step="0.05">
+                    <button class="btn btn-gold" id="btnDl3x4L" disabled>&#11015; DL</button>
+                </div>
+            </div>
+            <div class="preview-card">
+                <canvas id="canvas4x6L"></canvas>
+                <div class="preview-label">4x6</div>
+                <div class="preview-actions">
+                    <input type="range" id="zoom4x6L" class="mini-slider" disabled min="0.5" max="3" step="0.05">
+                    <button class="btn btn-gold" id="btnDl4x6L" disabled>&#11015; DL</button>
+                </div>
+            </div>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Geser foto di kotak preview untuk sesuaikan posisi crop</p>
+    </section>
 </main>
 
-<div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
-  <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
-    <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
-    <button onclick="closeMobilePreview()" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
-  </div>
-  <div id="preview-wrap-mob" class="flex-1 overflow-auto p-3 flex justify-center bg-gray-800/30 min-h-0">
-    <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
-  </div>
-</div>
-
-<div class="mob-bar lg:hidden">
-  <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
-  <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
-</div>
-
-<footer class="bg-brand-dark border-t border-brand-border/30 mt-auto hidden lg:block flex-shrink-0">
-  <div class="max-w-7xl mx-auto px-4 py-3 text-center">
-    <p class="text-[11px] text-gray-600">&copy; 2026 KARYA ABADI.Jobs &mdash; All Rights Reserved</p>
-  </div>
+<footer>
+    <p>&copy; 2026 Karya Abadi Pas Foto. All Rights Reserved</p>
 </footer>
 
-<div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;"></div>
+<div id="a4Modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>PREVIEW SUSUN A4 (MAXIMAL PACKING)</h2>
+            <div class="modal-header-info">
+                <div class="legend-item"><div class="legend-icon">&#8635;</div> Dirotasi otomatis</div>
+            </div>
+            <span class="close" id="closeModal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div id="portraitContainer" class="a4-version-section">
+                <div class="version-title">VERSI FOTO PORTRAIT <span class="util-badge" id="utilP">-</span></div>
+                <div class="a4-page-grid" id="portraitPagesGrid"></div>
+            </div>
+            <div id="landscapeContainer" class="a4-version-section">
+                <div class="version-title">VERSI FOTO LANDSCAPE <span class="util-badge" id="utilL">-</span></div>
+                <div class="a4-page-grid" id="landscapePagesGrid"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn secondary" id="dlPortraitBtn">Download Portrait</button>
+            <button class="btn secondary" id="dlLandscapeBtn">Download Landscape</button>
+            <button class="btn btn-gold" id="downloadA4Btn">DOWNLOAD SEMUA</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast">Pesan notifikasi</div>
 
 <script>
-var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
-var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
-var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
-var expList=[{j:'',m:'',pt:'',jl:'',kt:''}];
-var hSkills=['','','','','','','','','','','','','','','','','',''];
-var sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];
-var lampList=['',''];
-var _rpTimer=null;
-var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'}];
-var ST_M=[{id:'s-op',name:'Email (Posisi)',pos:true,on:true},{id:'s-ou',name:'Email (Umum)',pos:false,on:true},{id:'s-tp',name:'Tulis Tangan (Posisi)',pos:true,on:false},{id:'s-tu',name:'Tulis Tangan (Umum)',pos:false,on:false}];
-var FOTO_W_MM = 27.9;
-var FOTO_H_MM = 38.1;
+    const MM_TO_PX = 10;
+    const CUT_LINE_WIDTH = 1;
+    const A4_MARGIN_PX = 50; 
 
-function v(id){var el=document.getElementById(id);return el?el.value:''}
-function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function toast(msg,type){type=type||'success';var d=document.createElement('div');d.className='toast-item '+type;d.textContent=msg;document.getElementById('toast-box').appendChild(d);requestAnimationFrame(function(){d.classList.add('show')});setTimeout(function(){d.classList.remove('show');setTimeout(function(){d.remove()},300)},2500)}
-function applyPageStyle(){var p=document.getElementById('a4-page');if(p)p.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH;var pm=document.getElementById('a4-page-mob');if(pm)pm.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH}
-function schedulePreview(){if(_rpTimer)clearTimeout(_rpTimer);_rpTimer=setTimeout(renderPreview,60)}
-function updateVH(){document.documentElement.style.setProperty('--avh',window.innerHeight+'px')}
+    const PRESETS = {
+        "2x3":  { w: 216, h: 279, ratio: 216/279, border_mm: 1 },
+        "3x4":  { w: 279, h: 381, ratio: 279/381, border_mm: 1 },
+        "4x6":  { w: 381, h: 559, ratio: 381/559, border_mm: 1 },
+        "2x3L": { w: 279, h: 216, ratio: 279/216, border_mm: 1 },
+        "3x4L": { w: 381, h: 279, ratio: 381/279, border_mm: 1 },
+        "4x6L": { w: 559, h: 381, ratio: 559/381, border_mm: 1 }
+    };
 
-function saveStatic(){var d={};document.querySelectorAll('.fi-s').forEach(function(el){if(el.id)d[el.id]=el.value});if(curCat==='cv')savedCV=d;else{savedSurat=d;savedSurat._lamp=lampList.slice()}}
-function restoreStatic(){var d=curCat==='cv'?savedCV:savedSurat;if(!d||!Object.keys(d).length)return;Object.keys(d).forEach(function(id){if(id==='_lamp')return;var el=document.getElementById(id);if(el)el.value=d[id]});if(curCat==='surat'&&d._lamp){lampList=d._lamp.slice();renderLampF()}}
-function restorePhoto(){if(!photoData)return;var img=document.getElementById('photo-thumb');if(img){img.src=photoData;img.classList.remove('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.add('hidden')}
+    const A4_W = 2100, A4_H = 2970;
 
-function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-op';updCatTabs();renderTplTabs();renderForm();renderPreview()}
-function selectTpl(id){saveStatic();curTpl=id;renderTplTabs();renderForm();renderPreview()}
-function updCatTabs(){document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('border-brand-red','text-brand-red');t.classList.add('border-transparent','text-gray-500')});var el=document.getElementById('cat-'+curCat);if(el){el.classList.add('border-brand-red','text-brand-red');el.classList.remove('border-transparent','text-gray-500')}}
-function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;document.getElementById('tpl-tabs').innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab px-4 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-gray-200')+'">'+t.name+'</button>'}).join('')}
+    let portraitImage = null;
+    let landscapeImage = null;
+    let portraitPagesData = [];
+    let landscapePagesData = [];
 
-function switchMob(tab){
-  mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');
-  if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}
-  else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview()}
-}
-function openMobilePreview(){var pm=document.getElementById('preview-mobile');pm.classList.remove('hidden');setTimeout(function(){var w=document.getElementById('preview-wrap-mob'),p=document.getElementById('a4-page-mob'),s=document.getElementById('a4-scaler-mob');if(!w||!p||!s)return;var pw=p.offsetWidth,ww=w.clientWidth-24;if(!pw||!ww)return;s.style.zoom=Math.min(1,ww/pw)},60)}
-function closeMobilePreview(){document.getElementById('preview-mobile').classList.add('hidden')}
+    const previewStates = {};
+    const refs = {};
 
-function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
-function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:40px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-bold">'+unit+'</span></div></div>'}
-function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select></div>';return h}
-var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
-function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
-function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>2.79x3.81</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB<br><span class="text-[11px] dark:text-gray-600 text-gray-500">Ukuran cetak: 2,79 cm × 3,81 cm</span></span></div></div>'}
-function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
-function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
-
-function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
-function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
-
-function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
-function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
-function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
-
-function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<hr class="dark:border-brand-border/50 border-gray-200 my-3">';h+='<div class="space-y-2"><div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="T/B/TH-T/B/TH" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;schedulePreview()"></div></div><div><div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div><div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div></div>';return h}).join('')}
-function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:''});renderExpF();renderPreview()}
-function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
-
-function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center"><input class="fi flex-1" placeholder="Keahlian '+(i+1)+'" value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
-
-function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;var m=ST_M.find(function(t){return t.id===curTpl});var isEmail=m&&m.on;if(!isEmail&&lampList.length<2){while(lampList.length<2)lampList.push('')}var h='';for(var i=0;i<lampList.length;i++){if(isEmail){h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Scan </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>'}else{if(i===0){h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">1.</div><div class="flex-1 text-xs font-semibold dark:text-gray-400 text-gray-500 py-2">CV/Daftar Riwayat Hidup</div></div>'}else if(i===1){h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">2.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Pas Foto </div><input class="fi flex-1 fi-s" placeholder="ukuran 2,79x3,81 cm, 2 lembar" value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"></div>'}else{h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Fotokopi </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>'}}}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
-
-window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else sSkills[i]=val;schedulePreview()};
-window._rsk=function(t,i){var a=t==='hard'?hSkills:sSkills;if(a.length>1){a.splice(i,1);renderSkIF(a,t==='hard'?'hard-c':'soft-c',t);schedulePreview()}};
-window._ask=function(t){var a=t==='hard'?hSkills:sSkills;a.push('');renderSkIF(a,t==='hard'?'hard-c':'soft-c',t);schedulePreview()};
-window._rlamp=function(i){var m=ST_M.find(function(t){return t.id===curTpl});if(m&&!m.on){if(i<2||lampList.length<=2)return}else{if(lampList.length<=1)return}lampList.splice(i,1);renderLampF();schedulePreview()};
-function addLamp(){lampList.push('');renderLampF();schedulePreview()}
-
-function renderForm(){
-  var fc=document.getElementById('form-content');
-  if(curCat==='cv'){
-    var h=settingsH()+photoH();
-    h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="S1 Universitas Indonesia" oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="Teknik Informatika" oninput="schedulePreview()"></div></div></div>';
-    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','Status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH()}
-    if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('status','Status','.....')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}
-    if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH3()}
-    h+=secH('Pendidikan');h+='<div id="edu-c" class="card"></div>';h+=dynBtns('addEdu()','rmEdu()');
-    h+=secH('Pengalaman');h+='<div id="exp-c" class="card"></div>';h+=dynBtns('addExp()','rmExp()');
-    h+=secH('Hard Skill');h+='<div id="hard-c"></div>';
-    h+=secH('Soft Skill');h+='<div id="soft-c"></div>';
-    fc.innerHTML=h;renderEduF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');
-  }else{
-    var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
-    var h='';h+=settingsH();
-    h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';
-    h+='<div class="card space-y-2">'+fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')+fldH('sSumber','Sumber Informasi','.....')+(m.pos?fldH('sPosisi','Posisi yang Dilamar','.....'):'')+'</div>';
-    h+=secH('Kalimat Pembuka & Penutup');h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';
-    h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';
-    h+=secH('Daftar Lampiran');h+='<div id="lamp-c"></div>';
-    h+=fldH('sTtd','Nama Tanda Tangan','.....');
-    fc.innerHTML=h;renderLampF();
-  }
-  restoreStatic();restorePhoto();
-  fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');
-}
-
-/* =============================================
-   FOTO PREVIEW — Menggunakan satuan mm
-   ============================================= */
-function fotoImg(){
-  var w = FOTO_W_MM + 'mm';
-  var h = FOTO_H_MM + 'mm';
-  var s = 'width:'+w+';height:'+h+';flex-shrink:0;overflow:hidden;margin:0 auto;display:block;';
-  if(photoData){
-    return '<div style="'+s+'"><img src="'+photoData+'" style="width:'+w+';height:'+h+';object-fit:cover;display:block" /></div>';
-  }
-  return '<div style="'+s+'border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;text-align:center;line-height:1.4">Pas Foto<br>2,79×3,81<br>cm</div>';
-}
-
-function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return 'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
-function eduPH(list){var h='<table>';list.forEach(function(e){h+='<tr><td>'+(e.t||'……………….')+'</td><td style="text-align:right">'+(e.y||'……………….')+'</td></tr>'});h+='</table>';return h}
-function expPH(list){return list.map(function(e){return'<div style="margin-bottom:2mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div></div>'}).join('')}
-function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
-
-function skCombined(hardSkills,softSkills){
-  var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
-  var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
-  if(!hItems.length)hItems=['……………….','……………….','……………….','……………….'];
-  if(!sItems.length)sItems=['……………….','……………….','……………….','……………….'];
-  var halfH=Math.ceil(hItems.length/2);
-  var halfS=Math.ceil(sItems.length/2);
-  var hLeft=hItems.slice(0,halfH),hRight=hItems.slice(halfH);
-  var sLeft=sItems.slice(0,halfS),sRight=sItems.slice(halfS);
-  function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return '\u2022 '+esc(s.trim())}).join('<br>')}
-  var html='<table style="width:100%">';
-  html+='<tr><td style="width:22%;font-weight:700;vertical-align:top;padding:0.2mm 2mm 2mm 0">Hard Skill</td><td style="width:39%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;text-align:left">'+bl(hLeft)+'</td><td style="width:39%;vertical-align:top;padding:0.2mm 0;text-align:left">'+bl(hRight)+'</td></tr>';
-  html+='<tr><td style="width:22%;font-weight:700;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">Soft Skill</td><td style="width:39%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;text-align:left">'+bl(sLeft)+'</td><td style="width:39%;vertical-align:top;padding:0.2mm 0;text-align:left">'+bl(sRight)+'</td></tr>';
-  html+='</table>';return html;
-}
-
-function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';for(var i=0;i<hItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(hItems[i].trim())+'</div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';for(var i=0;i<sItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(sItems[i].trim())+'</div>'}if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';return h}
-
-function renderCV1(){var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',BN=v('bangsa')||'……………….',AG=v('agama')||'……………….',TB=v('tb')||'……………….',BB=v('bb')||'……………….',HP=v('nohp')||'……………….',ST=v('status')||'……………….',EM=v('email')||'……………….';var a1=joinAddr(v('alamat1'),v('alamat2'))||'………………….',a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';var PR=getProfil('');function dp(l,val){return'<tr><td class="dl">'+l+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills)}
-
-function renderCV2(){var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var PR=getProfil('');return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:right"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3mm">'+esc(N)+'</div><div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+'</div><div>'+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills)}
-
-function renderCV3(){var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var PR=getProfil('');function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+l+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}var ls='<div style="text-align:center;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:5mm">'+esc(N)+'</div>'+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCV3single(hSkills,sSkills);return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:12mm;border-right:1.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:12mm">'+rs+'</td></tr></table>'}
-
-function renderSuratP(){
-  var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return '';
-  var sK=v('sKota')||'……………….',sT=v('sTgl')||'……………….',sBT=v('sBlnThn')||'……………….';
-  var PT=v('sPt')||'……………….',JL=v('sJl')||'……………….',JL2=v('sJl2')||'',SUM=v('sSumber')||'……………….',POS=v('sPosisi')||'……………….';
-  var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
-  var autoLt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
-  var autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+autoLt+'.';
-  var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;
-  var autoPenutup='Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
-  var customPenutup=v('sPenutup')&&v('sPenutup').trim();var penutupText=customPenutup?customPenutup:autoPenutup;
-  var li=[];var lc=0;
-  if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
-  var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
-  var lampLabel=m.on?'Data scan':'lembar';
-  var ls='padding-right:3mm;white-space:nowrap;text-align:left;';
-  var cs='width:5mm;text-align:center;';
-  function dr(l,val){return'<tr><td style="'+ls+'">'+l+'</td><td style="'+cs+'">:</td><td style="padding-top:.5mm;text-align:left">'+val+'</td></tr>';}
-  var al2r=AL2?'<tr><td style="'+ls+'">&nbsp;</td><td style="'+cs+'">&nbsp;</td><td style="padding-top:.5mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
-  var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
-  var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' '+lampLabel+'</td></tr></table>';
-  var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
-  if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2.trim())+'</div>';
-  at+='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div><div style="margin-top:4mm;text-align:justify">'+esc(pembukaText)+'</div>';
-  var dp='<div style="margin-top:3mm;text-align:left">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;margin-top:1mm;margin-bottom:1mm">'+dr('Nama',esc(N))+dr('Tempat dan Tanggal Lahir',esc(TTL))+dr('Jenis Kelamin',esc(JK))+dr('Agama',esc(AG))+dr('Pendidikan Terakhir',esc(PA))+dr('Alamat',esc(AL))+al2r+dr('Email',esc(EM))+dr('No HP',esc(HP))+'</table>';
-  var lm='<div style="margin-top:2mm;text-align:left">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-left:5mm;margin-top:1mm">'+lamps+'</div>';
-  var pn='<div style="margin-top:3mm;text-align:justify">'+esc(penutupText)+'</div>';
-  var td='<div style="margin-top:4mm;text-align:right"><div>Hormat saya,</div><div style="margin-top:12mm;font-weight:700">'+esc(TTD)+'</div></div>';
-  return tw+hl+at+dp+lm+pn+td;
-}
-
-function renderPreview(){var html='';if(curCat==='cv'){if(curTpl==='cv1')html=renderCV1();else if(curTpl==='cv2')html=renderCV2();else html=renderCV3()}else html=renderSuratP();var page=document.getElementById('a4-page');if(page){page.innerHTML=html;applyPageStyle()}var pm=document.getElementById('a4-page-mob');if(pm){pm.innerHTML=html;pm.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH}setTimeout(function(){scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')},30)}
-function scalePreview(wrapId,scalerId){var w=document.getElementById(wrapId),s=document.getElementById(scalerId);if(!w||!s)return;var pageEl=s.firstElementChild;if(!pageEl)return;var pw=pageEl.offsetWidth,ww=w.clientWidth-24;if(!pw||!ww)return;s.style.zoom=Math.min(1,ww/pw)}
-
-function handlePhoto(e){var f=e.target.files[0];if(!f)return;if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}var r=new FileReader();r.onload=function(ev){photoData=ev.target.result;var img=document.getElementById('photo-thumb');img.src=photoData;img.classList.remove('hidden');document.getElementById('photo-ph').classList.add('hidden');renderPreview()};r.readAsDataURL(f)}
-
-function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:''}];hSkills=['','','','','','','','','','','','','','','','','',''];sSkills=['Komunikasi efektif','Kerja tim','Manajemen waktu','Problem solving dasar','Adaptabilitas','Disiplin dan tanggung jawab','','','',''];}lampList=['',''];renderLampF();savedSurat={};renderPreview();toast('Formulir berhasil direset','info')}
-
-/* =============================================
-   FOTO PDF — Menggunakan pixel langsung
-   27.9mm × 38.1mm pada 96dpi = 105px × 144px
-   ============================================= */
-function fotoImgPx(){
-  var w=105, h=144;
-  var s='width:'+w+'px;height:'+h+'px;flex-shrink:0;overflow:hidden;margin:0 auto;display:block;';
-  if(photoData){
-    return '<div style="'+s+'"><img src="'+photoData+'" style="width:'+w+'px;height:'+h+'px;object-fit:cover;display:block" /></div>';
-  }
-  return '<div style="'+s+'border:1px dashed #ccc;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#bbb;font-size:8px;text-align:center;line-height:1.4">Pas Foto<br>2,79×3,81<br>cm</div>';
-}
-
-/* =============================================
-   RENDER FUNGSI PDF — Versi khusus yang
-   memanggil fotoImgPx() bukan fotoImg()
-   ============================================= */
-function renderCV1Px(){var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',BN=v('bangsa')||'……………….',AG=v('agama')||'……………….',TB=v('tb')||'……………….',BB=v('bb')||'……………….',HP=v('nohp')||'……………….',ST=v('status')||'……………….',EM=v('email')||'……………….';var a1=joinAddr(v('alamat1'),v('alamat2'))||'………………….',a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';var PR=getProfil('');function dp(l,val){return'<tr><td class="dl">'+l+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}return'<div style="display:flex;gap:30px;align-items:center"><div style="flex-shrink:0">'+fotoImgPx()+'</div><div style="flex:1;padding-left:36px"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:38px">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills)}
-
-function renderCV2Px(){var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var PR=getProfil('');return'<div style="display:flex;gap:30px;align-items:center"><div style="flex-shrink:0">'+fotoImgPx()+'</div><div style="flex:1;text-align:right"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:11px">'+esc(N)+'</div><div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+'</div><div>'+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:38px">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills)}
-
-function renderCV3Px(){var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var PR=getProfil('');function di(l,val){return'<div style="margin-bottom:9px"><div style="color:#555;padding-bottom:1px">'+l+'</div><div style="margin-top:1px">'+val+'</div></div>'}var ls='<div style="text-align:center;margin-bottom:53px">'+fotoImgPx()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:19px">'+esc(N)+'</div>'+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:11px">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH(eduList)+'<div class="st">PENGALAMAN</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCV3single(hSkills,sSkills);return'<table style="width:100%;border:none"><tr><td style="width:197px;vertical-align:top;padding-right:45px;border-right:1.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:45px">'+rs+'</td></tr></table>'}
-
-function renderSuratPPx(){
-  var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return '';
-  var sK=v('sKota')||'……………….',sT=v('sTgl')||'……………….',sBT=v('sBlnThn')||'……………….';
-  var PT=v('sPt')||'……………….',JL=v('sJl')||'……………….',JL2=v('sJl2')||'',SUM=v('sSumber')||'……………….',POS=v('sPosisi')||'……………….';
-  var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
-  var autoLt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
-  var autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+autoLt+'.';
-  var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;
-  var autoPenutup='Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
-  var customPenutup=v('sPenutup')&&v('sPenutup').trim();var penutupText=customPenutup?customPenutup:autoPenutup;
-  var li=[];var lc=0;
-  if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
-  var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
-  var lampLabel=m.on?'Data scan':'lembar';
-  var ls='padding-right:11px;white-space:nowrap;text-align:left;';
-  var cs='width:19px;text-align:center;';
-  function dr(l,val){return'<tr><td style="'+ls+'">'+l+'</td><td style="'+cs+'">:</td><td style="padding-top:2px;text-align:left">'+val+'</td></tr>';}
-  var al2r=AL2?'<tr><td style="'+ls+'">&nbsp;</td><td style="'+cs+'">&nbsp;</td><td style="padding-top:2px;text-align:left">'+esc(AL2)+'</td></tr>':'';
-  var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
-  var hl='<table style="width:auto;margin-bottom:4px;margin-top:4px"><tr><td style="width:68px;padding-right:8px">Hal</td><td style="padding-left:8px">: Lamaran Pekerjaan</td></tr><tr><td style="width:68px;padding-right:8px">Lampiran</td><td style="padding-left:8px">: '+lc+' '+lampLabel+'</td></tr></table>';
-  var at='<div style="margin-top:8px;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
-  if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2.trim())+'</div>';
-  at+='<div style="margin-top:15px;text-align:left">Dengan hormat,</div><div style="margin-top:15px;text-align:justify">'+esc(pembukaText)+'</div>';
-  var dp='<div style="margin-top:11px;text-align:left">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;margin-top:4px;margin-bottom:4px">'+dr('Nama',esc(N))+dr('Tempat dan Tanggal Lahir',esc(TTL))+dr('Jenis Kelamin',esc(JK))+dr('Agama',esc(AG))+dr('Pendidikan Terakhir',esc(PA))+dr('Alamat',esc(AL))+al2r+dr('Email',esc(EM))+dr('No HP',esc(HP))+'</table>';
-  var lm='<div style="margin-top:8px;text-align:left">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-left:19px;margin-top:4px">'+lamps+'</div>';
-  var pn='<div style="margin-top:11px;text-align:justify">'+esc(penutupText)+'</div>';
-  var td='<div style="margin-top:15px;text-align:right"><div>Hormat saya,</div><div style="margin-top:45px;font-weight:700">'+esc(TTD)+'</div></div>';
-  return tw+hl+at+dp+lm+pn+td;
-}
-
-/* =============================================
-   downloadPDF — PENDEKATAN BARU: FRESH HTML
-   =============================================
-   TIDAK menggunakan clone. Sebagai gantinya,
-   membuat elemen FRESH di container offscreen
-   dengan overflow:visible. Ini menghindari semua
-   bug html2canvas terkait clone + overflow:hidden.
-   ============================================= */
-async function downloadPDF(){
-    var btn=document.getElementById('btn-pdf');
-    btn.disabled=true;
-    btn.classList.remove('pulse-red');
-    btn.style.opacity='.6';
-    toast('Memproses PDF...','info');
-
-    var container=document.getElementById('pdf-offscreen');
-    container.innerHTML='';
-
-    /* Buat halaman FRESH — bukan clone */
-    var el=document.createElement('div');
-    /* overflow:visible sangat penting agar html2canvas bisa merender semua */
-    el.style.cssText='width:794px;height:1123px;background:#fff;color:#000;padding:45px 60px;overflow:visible;position:relative;font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH;
-
-    /* Generate HTML menggunakan fungsi Px (pixel) */
-    var html='';
-    if(curCat==='cv'){
-        if(curTpl==='cv1')html=renderCV1Px();
-        else if(curTpl==='cv2')html=renderCV2Px();
-        else html=renderCV3Px();
-    }else{
-        html=renderSuratPPx();
-    }
-
-    el.innerHTML=html;
-    container.appendChild(el);
-
-    /* Beri waktu browser untuk me-render */
-    await new Promise(function(r){setTimeout(r,300)});
-
-    try{
-        var opt={
-            margin: 0,
-            filename: (curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',
-            image: {type:'jpeg', quality:0.95},
-            html2canvas: {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#ffffff',
-                width: 794,
-                height: 1123,
-                windowWidth: 794
-            },
-            jsPDF: {unit:'mm', format:'a4', orientation:'portrait'},
-            pagebreak: {mode:['avoid-all','css','legacy']}
+    Object.keys(PRESETS).forEach(key => {
+        previewStates[key] = { scale: 1, offsetX: 0, offsetY: 0, isDragging: false, startX: 0, startY: 0 };
+        refs[key] = {
+            canvas: document.getElementById(`canvas${key}`),
+            slider: document.getElementById(`zoom${key}`),
+            btn: document.getElementById(`btnDl${key}`)
         };
-        await html2pdf().set(opt).from(el).save();
-        toast('PDF berhasil diunduh!');
-    }catch(e){
-        toast('Gagal mengunduh PDF','error');
-        console.error(e);
-    }finally{
-        container.innerHTML='';
-        btn.disabled=false;
-        btn.classList.add('pulse-red');
-        btn.style.opacity='1';
+    });
+
+    const imageInputP = document.getElementById('imageInputP');
+    const imageInputL = document.getElementById('imageInputL');
+    const fileNameP = document.getElementById('fileNameP');
+    const fileNameL = document.getElementById('fileNameL');
+    const resetAllBtn = document.getElementById('resetAllBtn');
+    const previewA4Btn = document.getElementById('previewA4Btn');
+    const themeToggle = document.getElementById('themeToggle');
+    const toastEl = document.getElementById('toast');
+    const modal = document.getElementById('a4Modal');
+    const closeModal = document.getElementById('closeModal');
+    const portraitPagesGrid = document.getElementById('portraitPagesGrid');
+    const landscapePagesGrid = document.getElementById('landscapePagesGrid');
+    const downloadA4Btn = document.getElementById('downloadA4Btn');
+    const dlPortraitBtn = document.getElementById('dlPortraitBtn');
+    const dlLandscapeBtn = document.getElementById('dlLandscapeBtn');
+    const utilP = document.getElementById('utilP');
+    const utilL = document.getElementById('utilL');
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        themeToggle.textContent = isLight ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    });
+
+    imageInputP.addEventListener('change', (e) => handleImageUpload(e, 'portrait'));
+    imageInputL.addEventListener('change', (e) => handleImageUpload(e, 'landscape'));
+    resetAllBtn.addEventListener('click', resetAll);
+
+    Object.keys(PRESETS).forEach(key => {
+        setupInteractions(key);
+        refs[key].btn.addEventListener('click', () => downloadSingle(key));
+    });
+
+    previewA4Btn.addEventListener('click', generateA4Preview);
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    downloadA4Btn.addEventListener('click', () => downloadPages([...portraitPagesData, ...landscapePagesData]));
+    dlPortraitBtn.addEventListener('click', () => downloadPages(portraitPagesData));
+    dlLandscapeBtn.addEventListener('click', () => downloadPages(landscapePagesData));
+
+    function getOriginalImage(key) { return key.includes('L') ? landscapeImage : portraitImage; }
+
+    function handleImageUpload(e, type) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const nameEl = type === 'portrait' ? fileNameP : fileNameL;
+        nameEl.textContent = file.name;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const img = new Image();
+            img.onload = () => {
+                if (type === 'portrait') portraitImage = img; else landscapeImage = img;
+                enableControls(); initAllCanvases(); resetAll();
+                showToast(`Foto ${type} berhasil diupload`);
+            };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
     }
-}
 
-function toggleDark(){document.documentElement.classList.toggle('dark');localStorage.setItem('ka-dark',document.documentElement.classList.contains('dark')?'1':'0');setTimeout(function(){scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')},100)}
+    function enableControls() {
+        resetAllBtn.disabled = false;
+        previewA4Btn.disabled = !(portraitImage || landscapeImage);
+        Object.keys(refs).forEach(key => {
+            if (getOriginalImage(key)) { refs[key].slider.disabled = false; refs[key].btn.disabled = false; }
+        });
+    }
 
-function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');updateVH();renderTplTabs();renderForm();renderPreview();window.addEventListener('resize',function(){updateVH();scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')})}
-document.addEventListener('DOMContentLoaded',init);
+    function initAllCanvases() {
+        Object.keys(PRESETS).forEach(key => {
+            const p = PRESETS[key]; const c = refs[key].canvas;
+            const extra = (p.border_mm * MM_TO_PX * 2) + (CUT_LINE_WIDTH * 2);
+            c.width = p.w + extra; c.height = p.h + extra;
+        });
+    }
+
+    function resetAll() {
+        Object.keys(PRESETS).forEach(key => {
+            const p = PRESETS[key]; const state = previewStates[key]; const img = getOriginalImage(key);
+            if (!img) return;
+            const scaleX = p.w / img.width; const scaleY = p.h / img.height;
+            state.scale = Math.max(scaleX, scaleY) * 1.1;
+            refs[key].slider.value = state.scale;
+            const extra = (p.border_mm * MM_TO_PX * 2) + (CUT_LINE_WIDTH * 2);
+            state.offsetX = ((p.w + extra) - img.width * state.scale) / 2;
+            state.offsetY = ((p.h + extra) - img.height * state.scale) / 2;
+            drawPreview(key);
+        });
+    }
+
+    function getCanvasCoords(canvas, e) {
+        const rect = canvas.getBoundingClientRect();
+        return { x: (e.clientX - rect.left) * (canvas.width / rect.width), y: (e.clientY - rect.top) * (canvas.height / rect.height) };
+    }
+
+    function setupInteractions(key) {
+        const canvas = refs[key].canvas; const state = previewStates[key]; const slider = refs[key].slider;
+        slider.addEventListener('input', (e) => { state.scale = parseFloat(e.target.value); drawPreview(key); });
+        canvas.addEventListener('mousedown', (e) => startDrag(e, state, key));
+        canvas.addEventListener('mousemove', (e) => doDrag(e, state, key));
+        canvas.addEventListener('mouseup', () => endDrag(state));
+        canvas.addEventListener('mouseleave', () => endDrag(state));
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); const t = e.touches[0]; startDrag({ clientX: t.clientX, clientY: t.clientY }, state, key); }, { passive: false });
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0]; doDrag({ clientX: t.clientX, clientY: t.clientY }, state, key); }, { passive: false });
+        canvas.addEventListener('touchend', () => endDrag(state));
+    }
+
+    function startDrag(e, state, key) { if (!getOriginalImage(key)) return; state.isDragging = true; const c = getCanvasCoords(refs[key].canvas, e); state.startX = c.x - state.offsetX; state.startY = c.y - state.offsetY; }
+    function doDrag(e, state, key) { if (!state.isDragging) return; const c = getCanvasCoords(refs[key].canvas, e); state.offsetX = c.x - state.startX; state.offsetY = c.y - state.startY; drawPreview(key); }
+    function endDrag(state) { state.isDragging = false; }
+
+    function drawBaseImage(ctx, key, img) {
+        if (!img) return;
+        const preset = PRESETS[key]; const w = ctx.canvas.width; const h = ctx.canvas.height; const state = previewStates[key];
+        ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
+        const inset = (preset.border_mm * MM_TO_PX) + CUT_LINE_WIDTH;
+        ctx.save(); ctx.beginPath(); ctx.rect(inset, inset, preset.w, preset.h); ctx.clip();
+        ctx.drawImage(img, state.offsetX, state.offsetY, img.width * state.scale, img.height * state.scale);
+        ctx.restore();
+        ctx.strokeStyle = '#000000'; ctx.lineWidth = CUT_LINE_WIDTH;
+        ctx.strokeRect(CUT_LINE_WIDTH / 2, CUT_LINE_WIDTH / 2, w - CUT_LINE_WIDTH, h - CUT_LINE_WIDTH);
+    }
+
+    function drawPreview(key) {
+        const img = getOriginalImage(key); if (!img) return;
+        const ctx = refs[key].canvas.getContext('2d'); drawBaseImage(ctx, key, img);
+        const preset = PRESETS[key]; const inset = (preset.border_mm * MM_TO_PX) + CUT_LINE_WIDTH;
+        const centerX = Math.round(inset + (preset.w / 2)); const centerY = Math.round(inset + (preset.h / 2));
+        ctx.save(); ctx.strokeStyle = '#00FF00'; ctx.lineWidth = 2; ctx.setLineDash([4, 4]);
+        ctx.beginPath(); ctx.moveTo(centerX, inset); ctx.lineTo(centerX, inset + preset.h); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(inset, centerY); ctx.lineTo(inset + preset.w, centerY); ctx.stroke(); ctx.restore();
+    }
+
+    function getCleanCanvas(key, img) {
+        if (!img) return null; const c = document.createElement('canvas'); const p = PRESETS[key];
+        const extra = (p.border_mm * MM_TO_PX * 2) + (CUT_LINE_WIDTH * 2);
+        c.width = p.w + extra; c.height = p.h + extra;
+        drawBaseImage(c.getContext('2d'), key, img); return c;
+    }
+
+    function downloadSingle(key) {
+        const img = getOriginalImage(key); if (!img) return;
+        const link = document.createElement('a'); link.download = `KARYA-ABADI-${key}-${Date.now()}.jpg`;
+        link.href = getCleanCanvas(key, img).toDataURL('image/jpeg', 0.95);
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        showToast(`Unduh ${key} berhasil`);
+    }
+
+    /* ========== GUILLOTINE MAXIMAL RECTANGLE SMART PACKING ========== */
+    function generateA4Preview() {
+        if (!portraitImage && !landscapeImage) return showToast("Upload minimal 1 foto!");
+        const q2x3 = parseInt(document.getElementById('qty2x3').value) || 0;
+        const q3x4 = parseInt(document.getElementById('qty3x4').value) || 0;
+        const q4x6 = parseInt(document.getElementById('qty4x6').value) || 0;
+        if (q2x3 + q3x4 + q4x6 === 0) return showToast("Masukkan jumlah cetak minimal 1!");
+
+        let portraitJobs = [], landscapeJobs = [];
+
+        const addJobs = (pKey, lKey, qty) => {
+            if (qty <= 0) return;
+            if (portraitImage) { const s = getCleanCanvas(pKey, portraitImage); if(s) for(let i=0;i<qty;i++) portraitJobs.push({source:s, w:s.width, h:s.height}); }
+            if (landscapeImage) { const s = getCleanCanvas(lKey, landscapeImage); if(s) for(let i=0;i<qty;i++) landscapeJobs.push({source:s, w:s.width, h:s.height}); }
+        };
+
+        addJobs("2x3", "2x3L", q2x3); addJobs("3x4", "3x4L", q3x4); addJobs("4x6", "4x6L", q4x6);
+        
+        // Pakai logika susun pintar dengan rotasi otomatis aktif (parameter true)
+        portraitPagesData = packA4(portraitJobs, A4_W, A4_H, 'Foto-Portrait', true);
+        landscapePagesData = packA4(landscapeJobs, A4_W, A4_H, 'Foto-Landscape', true);
+
+        renderA4Modal(); modal.style.display = "block";
+        showToast(`${portraitPagesData.length + landscapePagesData.length} Halaman A4 siap`);
+    }
+
+    function packA4(jobs, a4W, a4H, type, isAutoRotate) {
+        if (jobs.length === 0) return [];
+        const margin = A4_MARGIN_PX;
+        const maxW = a4W - 2 * margin, maxH = a4H - 2 * margin;
+        let pages = [];
+        let items = jobs.map(j => ({source: j.source, w: j.w, h: j.h}));
+        
+        // Sortir item dari yang terbesar dulu agar packing lebih optimal
+        items.sort((a, b) => (b.w * b.h) - (a.w * a.h));
+
+        while (items.length > 0) {
+            let a4Canvas = document.createElement('canvas'); a4Canvas.width = a4W; a4Canvas.height = a4H;
+            let ctx = a4Canvas.getContext('2d'); ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, a4W, a4H);
+            
+            let freeRects = [{x: margin, y: margin, w: maxW, h: maxH}];
+            let remainingItems = [];
+            let maxYUsed = margin;
+
+            for (let i=0; i<items.length; i++) {
+                let item = items[i];
+                let bestScore = Infinity, bestRect = null, bestRotated = false, bestFitW = 0, bestFitH = 0;
+
+                for (let r = 0; r < freeRects.length; r++) {
+                    let fr = freeRects[r];
+                    if (item.w <= fr.w && item.h <= fr.h) {
+                        let leftover = (fr.w * fr.h) - (item.w * item.h); 
+                        let shortSide = Math.min(fr.w - item.w, fr.h - item.h);
+                        let score = leftover + shortSide; 
+                        if (score < bestScore) { bestScore = score; bestRect = fr; bestRotated = false; bestFitW = item.w; bestFitH = item.h; }
+                    }
+                    if (isAutoRotate && item.h <= fr.w && item.w <= fr.h) {
+                        let leftover = (fr.w * fr.h) - (item.h * item.w);
+                        let shortSide = Math.min(fr.w - item.h, fr.h - item.w);
+                        let score = leftover + shortSide;
+                        if (score < bestScore) { bestScore = score; bestRect = fr; bestRotated = true; bestFitW = item.h; bestFitH = item.w; }
+                    }
+                }
+
+                if (bestRect) {
+                    let px = bestRect.x, py = bestRect.y;
+                    ctx.save();
+                    if (bestRotated) {
+                        ctx.translate(px + bestFitW / 2, py + bestFitH / 2); ctx.rotate(Math.PI / 2);
+                        ctx.drawImage(item.source, -item.w / 2, -item.h / 2, item.w, item.h);
+                    } else {
+                        ctx.drawImage(item.source, px, py, item.w, item.h);
+                    }
+                    ctx.restore();
+                    ctx.strokeStyle = '#cccccc'; ctx.lineWidth = 2; ctx.strokeRect(px, py, bestFitW, bestFitH);
+                    if (bestRotated) drawRotateIcon(ctx, px + bestFitW - 18, py + 18);
+
+                    if (py + bestFitH > maxYUsed) maxYUsed = py + bestFitH;
+
+                    let placedRect = {x: px, y: py, w: bestFitW, h: bestFitH};
+                    let newFreeRects = [];
+                    for (let j=0; j<freeRects.length; j++) {
+                        let fr = freeRects[j];
+                        if (intersects(fr, placedRect)) {
+                            if (placedRect.y > fr.y) newFreeRects.push({x: fr.x, y: fr.y, w: fr.w, h: placedRect.y - fr.y});
+                            if (placedRect.y + placedRect.h < fr.y + fr.h) newFreeRects.push({x: fr.x, y: placedRect.y + placedRect.h, w: fr.w, h: (fr.y + fr.h) - (placedRect.y + placedRect.h)});
+                            if (placedRect.x > fr.x) newFreeRects.push({x: fr.x, y: fr.y, w: placedRect.x - fr.x, h: fr.h});
+                            if (placedRect.x + placedRect.w < fr.x + fr.w) newFreeRects.push({x: placedRect.x + placedRect.w, y: fr.y, w: (fr.x + fr.w) - (placedRect.x + placedRect.w), h: fr.h});
+                        } else {
+                            newFreeRects.push(fr);
+                        }
+                    }
+                    freeRects = newFreeRects.filter((fr, idx, arr) => !arr.some((other, oIdx) => idx !== oIdx && isContained(fr, other)));
+                } else {
+                    remainingItems.push(item);
+                }
+            }
+            
+            items = remainingItems;
+            let pageUtilization = Math.round(((maxYUsed - margin) / maxH) * 100);
+            pages.push({ url: a4Canvas.toDataURL('image/jpeg', 1.0), type: type, efficiency: Math.min(pageUtilization, 100) });
+        }
+        return pages;
+    }
+
+    function intersects(r1, r2) { return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y; }
+    function isContained(inner, outer) { return inner.x >= outer.x && inner.y >= outer.y && inner.x + inner.w <= outer.x + outer.w && inner.y + inner.h <= outer.y + outer.h; }
+
+    function drawRotateIcon(ctx, x, y) {
+        ctx.fillStyle = 'rgba(211, 47, 47, 0.8)'; ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('↻', x, y);
+    }
+
+    function renderA4Modal() {
+        portraitPagesGrid.innerHTML = ''; landscapePagesGrid.innerHTML = '';
+        const renderGrid = (data, grid, badge, label) => {
+            if (data.length > 0) {
+                let avgEff = Math.round(data.reduce((s, p) => s + p.efficiency, 0) / data.length);
+                badge.textContent = `Efisiensi ~${avgEff}%`;
+                data.forEach((p, i) => {
+                    const lbl = document.createElement('div'); lbl.className = 'page-label';
+                    lbl.innerText = `${label} ${i + 1} (Terpakai ~${p.efficiency}%)`; grid.appendChild(lbl);
+                    const img = document.createElement('img'); img.src = p.url; grid.appendChild(img);
+                });
+            } else { badge.textContent = ''; grid.innerHTML = `<div style="color:#888; padding:20px;">Tidak ada foto ${label.toLowerCase()}</div>`; }
+        };
+        renderGrid(portraitPagesData, portraitPagesGrid, utilP, 'Versi Portrait');
+        renderGrid(landscapePagesData, landscapePagesGrid, utilL, 'Versi Landscape');
+        downloadA4Btn.innerText = `DOWNLOAD SEMUA (${portraitPagesData.length + landscapePagesData.length} HALAMAN)`;
+    }
+
+    function downloadPages(pagesArr) {
+        if (pagesArr.length === 0) return;
+        showToast(`${pagesArr.length} file A4 sedang diunduh...`);
+        pagesArr.forEach((pageData, index) => {
+            setTimeout(() => {
+                const link = document.createElement('a'); link.download = `KARYA-ABADI-A4-${pageData.type}-Hal${index + 1}-${Date.now()}.jpg`;
+                link.href = pageData.url; document.body.appendChild(link); link.click(); document.body.removeChild(link);
+            }, 500 * index);
+        });
+    }
+
+    function showToast(msg) { toastEl.textContent = msg; toastEl.className = "show"; setTimeout(() => { toastEl.className = toastEl.className.replace("show", ""); }, 3000); }
 </script>
 
 </body>
