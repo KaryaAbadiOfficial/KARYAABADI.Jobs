@@ -81,8 +81,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
 .site-footer a{color:#9ca3af;text-decoration:none;transition:color .15s}
 .site-footer a:hover{color:#DC2626}
-.ft-inner{padding:10px 16px}
-@media(min-width:1024px){.ft-inner{padding:10px 24px}}
+.ft-inner{padding:8px 16px}
+@media(min-width:1024px){.ft-inner{padding:8px 24px}}
 @media(max-width:1023px){.ft-inner{padding-bottom:60px}}
 @media(min-width:1024px){
   .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}
@@ -160,23 +160,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </div>
 
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0">
-  <div class="ft-inner max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 lg:gap-6">
-    <div class="flex items-center gap-2 flex-shrink-0">
-      <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-5 h-5 rounded">
-      <span class="text-white font-bold text-xs">KARYA ABADI<span class="text-white/60">.Jobs</span></span>
-    </div>
-    <nav class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-gray-500">
+  <div class="ft-inner max-w-7xl mx-auto text-center">
+    <nav class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
       <a href="javascript:void(0)" onclick="openAbout()">About</a>
-      <span class="hidden lg:inline text-gray-700">·</span>
       <a href="javascript:void(0)" onclick="openContact()">Contact</a>
-      <span class="hidden lg:inline text-gray-700">·</span>
-      <a href="javascript:void(0)" onclick="openPrivacy()">Privacy</a>
-      <span class="hidden lg:inline text-gray-700">·</span>
+      <a href="javascript:void(0)" onclick="openPrivacy()">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="openTerms()">Terms of Service</a>
       <a href="javascript:void(0)" onclick="openDisclaimer()">Disclaimer</a>
-      <span class="hidden lg:inline text-gray-700">·</span>
-      <a href="javascript:void(0)" onclick="openTerms()">Terms</a>
     </nav>
-    <p class="text-[11px] text-gray-600 text-center lg:text-left flex-shrink-0">&copy; 2026 Karya Abadi Jobs</p>
+    <p class="text-[11px] text-gray-600 mt-1">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
   </div>
 </footer>
 
