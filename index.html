@@ -25,7 +25,8 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;border:3pt solid #000}
+.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
+.a4-page::after{content:'';position:absolute;top:0.5cm;left:0.5cm;right:0.5cm;bottom:0.5cm;border:3pt solid #000;pointer-events:none;box-sizing:border-box}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -268,7 +269,7 @@ function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');i
 /* PENDIDIKAN 3 kolom (semua CV) */
 function eduPH3(list){var h='<table style="width:100%">';list.forEach(function(e){h+='<tr><td>'+(e.t||'……………….')+'</td><td style="width:28mm;text-align:center">Tahun Lulus</td><td style="width:25mm;text-align:right">'+(e.y||'0000/0000')+'</td></tr>'});h+='</table>';return h}
 
-/* PENGALAMAN KERJA CV1 & CV2 - Deskripsi di kanan, tanpa garis, pakai titik dua, justify renggang */
+/* PENGALAMAN KERJA CV1 & CV2 */
 function expPH(list){
   return list.map(function(e){
     var leftContent='<div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div>';
@@ -278,7 +279,7 @@ function expPH(list){
   }).join('');
 }
 
-/* PENGALAMAN KERJA CV3 - Deskripsi di bawah Kota Kode Pos, baris terpisah dari titik dua, justify renggang */
+/* PENGALAMAN KERJA CV3 - Deskripsi di bawah, baris terpisah */
 function expPH3(list){
   return list.map(function(e){
     var descText=(e.desc&&e.desc.trim())?esc(e.desc.trim()):'………………………..…………………………..…………………………..';
@@ -288,7 +289,7 @@ function expPH3(list){
 
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
-/* KEAHLIAN CV1 & CV2 - 3 kolom per kategori */
+/* KEAHLIAN CV1 & CV2 - 3 kolom */
 function skCombined(hardSkills,softSkills){
   var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
   var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
@@ -321,7 +322,6 @@ function renderCV1(){var N=v('nama')||'……………….',TTL=v('ttl')||'…�
 
 function renderCV2(){var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var PR=getProfil('');return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:right"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3mm">'+esc(N)+'</div><div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+'</div><div>'+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH3(eduList)+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+skCombined(hSkills,sSkills)}
 
-/* CV3: Status diperbaiki, TTL placeholder 00-00-0000 */
 function renderCV3(){var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var PR=getProfil('');function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+l+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:5mm">'+esc(N)+'</div>'+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPH3(eduList)+'<div class="st">PENGALAMAN KERJA</div>'+expPH3(expList)+'<div class="st">KEAHLIAN</div>'+skCV3single(hSkills,sSkills);return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:12mm;border-right:2.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:12mm">'+rs+'</td></tr></table>'}
 
 function renderSuratP(){
