@@ -26,7 +26,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
-.a4-page::after{content:'';position:absolute;top:0.5cm;left:0.5cm;right:0.5cm;bottom:0.5cm;border:3pt solid #000;pointer-events:none;box-sizing:border-box}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -269,21 +268,21 @@ function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');i
 /* PENDIDIKAN 3 kolom (semua CV) */
 function eduPH3(list){var h='<table style="width:100%">';list.forEach(function(e){h+='<tr><td>'+(e.t||'……………….')+'</td><td style="width:28mm;text-align:center">Tahun Lulus</td><td style="width:25mm;text-align:right">'+(e.y||'0000/0000')+'</td></tr>'});h+='</table>';return h}
 
-/* PENGALAMAN KERJA CV1 & CV2 */
+/* PENGALAMAN KERJA CV1 & CV2 - Masa Kerja di bawah Jabatan */
 function expPH(list){
   return list.map(function(e){
-    var leftContent='<div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div>';
+    var leftContent='<div style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</div><div>'+(e.m||'………………………..')+'</div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div>';
     var descText=(e.desc&&e.desc.trim())?esc(e.desc.trim()):'………………………..…………………………..…………………………..';
     var rightContent='<div style="font-weight:600;margin-bottom:1mm">Deskripsi Pekerjaan:</div><div style="text-align:justify;line-height:1.6">'+descText+'</div>';
     return'<div style="margin-bottom:3mm"><table style="width:100%;border:none"><tr><td style="width:50%;vertical-align:top;padding-right:3mm">'+leftContent+'</td><td style="width:50%;vertical-align:top;padding-left:3mm">'+rightContent+'</td></tr></table></div>';
   }).join('');
 }
 
-/* PENGALAMAN KERJA CV3 - Deskripsi di bawah, baris terpisah */
+/* PENGALAMAN KERJA CV3 - Masa Kerja di bawah Jabatan */
 function expPH3(list){
   return list.map(function(e){
     var descText=(e.desc&&e.desc.trim())?esc(e.desc.trim()):'………………………..…………………………..…………………………..';
-    return'<div style="margin-bottom:3mm"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</span><span>'+(e.m||'………………………..')+'</span></div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div><div style="margin-top:2mm;font-weight:600">Deskripsi Pekerjaan:</div><div style="text-align:justify;line-height:1.6">'+descText+'</div></div>';
+    return'<div style="margin-bottom:3mm"><div style="font-weight:600">'+(e.j||'Jabatan/Posisi')+'</div><div>'+(e.m||'………………………..')+'</div><div>'+(e.pt||'PT./CV./…..')+'</div><div>'+(e.jl||'Jl. …..')+'</div><div>'+(e.kt||'Kota, Kode Pos')+'</div><div style="margin-top:2mm;font-weight:600">Deskripsi Pekerjaan:</div><div style="text-align:justify;line-height:1.6">'+descText+'</div></div>';
   }).join('');
 }
 
