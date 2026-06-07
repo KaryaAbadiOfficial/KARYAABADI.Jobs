@@ -86,6 +86,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 @media(max-width:1023px){.ft-inner{padding-bottom:60px}}
 @media(min-width:1024px){
   .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}
+  .ft-nav{flex-direction:row!important;flex-wrap:wrap!important;justify-content:center!important;gap:0 16px!important}
+  .ft-nav a{display:inline!important;padding:0!important}
+  .ft-copy{text-align:center!important;margin-top:4px!important}
 }
 </style>
 </head>
@@ -160,15 +163,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </div>
 
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0">
-  <div class="ft-inner max-w-7xl mx-auto text-center">
-    <nav class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
-      <a href="javascript:void(0)" onclick="openAbout()">About</a>
-      <a href="javascript:void(0)" onclick="openContact()">Contact</a>
-      <a href="javascript:void(0)" onclick="openPrivacy()">Privacy Policy</a>
-      <a href="javascript:void(0)" onclick="openTerms()">Terms of Service</a>
-      <a href="javascript:void(0)" onclick="openDisclaimer()">Disclaimer</a>
+  <div class="ft-inner max-w-7xl mx-auto">
+    <nav class="ft-nav flex flex-col items-center text-xs text-gray-500" style="gap:0">
+      <a href="javascript:void(0)" onclick="openAbout()" style="display:block;padding:3px 0">About</a>
+      <a href="javascript:void(0)" onclick="openContact()" style="display:block;padding:3px 0">Contact</a>
+      <a href="javascript:void(0)" onclick="openPrivacy()" style="display:block;padding:3px 0">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="openTerms()" style="display:block;padding:3px 0">Terms of Service</a>
+      <a href="javascript:void(0)" onclick="openDisclaimer()" style="display:block;padding:3px 0">Disclaimer</a>
     </nav>
-    <p class="text-[11px] text-gray-600 mt-1">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
+    <p class="ft-copy text-[11px] text-gray-600" style="text-align:center;padding:3px 0">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
   </div>
 </footer>
 
@@ -218,7 +221,7 @@ function openMobilePreview(){var pm=document.getElementById('preview-mobile');pm
 function closeMobilePreview(){document.getElementById('preview-mobile').classList.add('hidden')}
 
 function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
-function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:40px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events:none font-bold">'+unit+'</span></div></div>'}
+function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:40px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-bold">'+unit+'</span></div></div>'}
 function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select></div>';return h}
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
@@ -415,7 +418,7 @@ function toggleDark(){document.documentElement.classList.toggle('dark');localSto
 
 function _pageStyle(){return '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,system-ui,sans-serif;background:#0A0A0A;color:#e5e5e5;min-height:100vh;padding:0}a{color:#DC2626;text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:720px;margin:0 auto;padding:40px 24px}h1{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.3px}h2{font-size:14px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;margin-top:28px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #2a2a2a}p,li{font-size:14px;line-height:1.75;color:#d1d5db}ul{padding-left:20px;margin:8px 0}li{margin-bottom:6px}.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;font-size:13px;font-weight:600;color:#9ca3af;transition:color .15s}.back:hover{color:#DC2626;text-decoration:none}.logo-row{display:flex;align-items:center;gap:10px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid #1a1a1a}.logo-row img{width:32px;height:32px;border-radius:6px}.logo-row span{font-weight:800;font-size:16px;color:#fff}.logo-row .dot{color:#666;font-weight:700;font-size:14px}.copy{margin-top:40px;padding-top:16px;border-top:1px solid #1a1a1a;font-size:11px;color:#555}</style>'}
 
-function _pageHead(title){return '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>'+title+' - Karya Abadi Jobs</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></head><body><div class="wrap"><a href="javascript:window.close()" class="back">&#8592; Kembali</a><div class="logo-row"><img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo"><span>KARYA ABADI<span class="dot">.Jobs</span></span></div>'}
+function _pageHead(title){return '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>'+title+' - Karya Abadi Jobs</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></head><body><div class="wrap"><a href="javascript:window.close()" class="back">&#8592; Kembali</a><div class="logo-row"><img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo"><span>KARYA ABADI<span class="dot">.Jobs</span></span></div>'}
 
 function _pageFoot(){return '<div class="copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</div></div></body></html>'}
 
