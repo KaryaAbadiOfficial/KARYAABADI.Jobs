@@ -88,7 +88,41 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}
   .ft-nav{flex-direction:row!important;flex-wrap:wrap!important;justify-content:center!important;gap:0 16px!important}
   .ft-nav a{display:inline!important;padding:0!important}
-  .ft-copy{text-align:center!important;margin-top:4px!important}
+  .ft-nav a::after{display:none!important}
+  .ft-copy{text-align:center!important}
+}
+@media(max-width:1023px){
+  .ft-nav a{
+    display:flex!important;
+    align-items:baseline;
+    text-align:left!important;
+    padding:3.5px 0!important;
+    text-decoration:none!important;
+  }
+  .ft-nav a::after{
+    content:''!important;
+    flex:1!important;
+    border-bottom:1px dotted rgba(255,255,255,.08)!important;
+    margin-left:8px!important;
+    min-height:1em!important;
+    transition:border-color .15s!important;
+  }
+  .ft-nav a:hover::after{
+    border-bottom-color:rgba(220,38,38,.2)!important;
+  }
+  .ft-copy{
+    text-align:left!important;
+    display:flex!important;
+    align-items:baseline!important;
+    padding:3.5px 0!important;
+  }
+  .ft-copy::after{
+    content:''!important;
+    flex:1!important;
+    border-bottom:1px dotted rgba(255,255,255,.06)!important;
+    margin-left:8px!important;
+    min-height:1em!important;
+  }
 }
 </style>
 </head>
@@ -164,14 +198,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0">
   <div class="ft-inner max-w-7xl mx-auto">
-    <nav class="ft-nav flex flex-col items-center text-xs text-gray-500" style="gap:0">
-      <a href="javascript:void(0)" onclick="openAbout()" style="display:block;padding:3px 0">About</a>
-      <a href="javascript:void(0)" onclick="openContact()" style="display:block;padding:3px 0">Contact</a>
-      <a href="javascript:void(0)" onclick="openPrivacy()" style="display:block;padding:3px 0">Privacy Policy</a>
-      <a href="javascript:void(0)" onclick="openTerms()" style="display:block;padding:3px 0">Terms of Service</a>
-      <a href="javascript:void(0)" onclick="openDisclaimer()" style="display:block;padding:3px 0">Disclaimer</a>
+    <nav class="ft-nav flex flex-col text-xs text-gray-500" style="gap:0">
+      <a href="javascript:void(0)" onclick="openAbout()">About</a>
+      <a href="javascript:void(0)" onclick="openContact()">Contact</a>
+      <a href="javascript:void(0)" onclick="openPrivacy()">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="openTerms()">Terms of Service</a>
+      <a href="javascript:void(0)" onclick="openDisclaimer()">Disclaimer</a>
     </nav>
-    <p class="ft-copy text-[11px] text-gray-600" style="text-align:center;padding:3px 0">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
+    <p class="ft-copy text-[11px] text-gray-600">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
   </div>
 </footer>
 
