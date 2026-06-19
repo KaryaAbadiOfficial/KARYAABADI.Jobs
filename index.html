@@ -25,21 +25,18 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 ::-webkit-scrollbar-thumb{background:#bbb;border-radius:4px}
 .dark ::-webkit-scrollbar-thumb{background:#333}
 ::-webkit-scrollbar-thumb:hover{background:#888}
-
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
 .a4-page table td{padding:.4mm 0;vertical-align:top}
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
-
 #toast-box{position:fixed;top:80px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast-item{padding:12px 20px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .toast-item.show{transform:translateX(0)}
 .toast-item.success{background:rgba(22,101,52,.95);border:1px solid rgba(34,197,94,.3)}
 .toast-item.error{background:rgba(153,27,27,.95);border:1px solid rgba(220,38,38,.3)}
 .toast-item.info{background:rgba(30,58,95,.95);border:1px solid rgba(59,130,246,.3)}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}70%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
@@ -47,7 +44,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .fade-up{animation:fadeUp .35s ease both}
 .slide-down{animation:slideDown .3s ease both}
 .pulse-red{animation:pulseRed 2s infinite}
-
 .fi{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #d1d5db;font-size:14px;transition:all .2s;background:#fff;color:#111;font-family:'Inter',system-ui,sans-serif}
 .fi:focus{outline:none;border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
 .dark .fi{background:#151515;border-color:#2a2a2a;color:#e5e5e5}
@@ -58,7 +54,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .dark .fl-sub{color:#94a3b8}
 textarea.fi{resize:vertical;min-height:60px}
 select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-
 .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;transition:background .2s,border-color .2s}
 .dark .card{background:#1A1A1A;border-color:#2a2a2a}
 .form-sec{font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #e5e7eb;margin-bottom:12px;display:flex;align-items:center;gap:8px}
@@ -83,7 +78,6 @@ input[type=range]{-webkit-appearance:none;height:5px;border-radius:3px;backgroun
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#DC2626;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .fp-scroll{max-height:calc(100vh - 260px);min-height:300px;overflow-y:auto;padding-right:4px}
 .pv-scroll{max-height:calc(100vh - 200px);overflow:hidden;display:flex;flex-direction:column}
-
 .hero-section{position:relative;overflow:hidden;transition:background .3s}
 .dark .hero-section{background:linear-gradient(135deg,#0A0A0A 0%,#1a0a0a 30%,#0A0A0A 60%,#0a0a1a 100%);background-size:200% 200%;animation:gradientShift 8s ease infinite}
 html:not(.dark) .hero-section{background:linear-gradient(135deg,#fef2f2 0%,#fff 30%,#f0f9ff 60%,#fefce8 100%);background-size:200% 200%;animation:gradientShift 12s ease infinite}
@@ -94,7 +88,6 @@ html:not(.dark) .hero-glow{opacity:.06}
 html:not(.dark) .hero-glow-2{opacity:.04}
 .hero-wave{fill:#f9fafb}
 .dark .hero-wave{fill:#0A0A0A}
-
 .feat-card{border-radius:16px;padding:32px 24px;transition:all .3s ease;position:relative;overflow:hidden;text-align:center}
 html:not(.dark) .feat-card{background:#fff;border:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .dark .feat-card{background:linear-gradient(145deg,rgba(26,26,26,.8),rgba(17,17,17,.9));border:1px solid #2a2a2a}
@@ -105,13 +98,11 @@ html:not(.dark) .feat-card:hover{border-color:#fca5a5;box-shadow:0 12px 40px rgb
 .feat-card:hover::before{opacity:1}
 .feat-icon-wrap{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:20px;transition:transform .3s}
 .feat-card:hover .feat-icon-wrap{transform:scale(1.1)}
-
 .nav-link{position:relative;color:#6b7280;transition:color .2s;font-weight:500;font-size:14px;white-space:nowrap}
 .nav-link:hover{color:#DC2626}
 .dark .nav-link:hover{color:#fff}
 .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#DC2626;transition:width .25s ease;border-radius:1px}
 .nav-link:hover::after{width:100%}
-
 .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s}
 .dark .modal-overlay{background:rgba(0,0,0,.7)}
 .modal-overlay.active{opacity:1;pointer-events:auto}
@@ -134,6 +125,7 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
 .dark .photo-box{border-color:#2a2a2a}
 .photo-box:hover{border-color:#DC2626}
 .photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.modal-body-justify{text-align:justify}
 @media(max-width:1023px){
   .fp-scroll{max-height:none;min-height:auto}
   .pv-scroll{max-height:70vh}
@@ -145,7 +137,6 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
 
 <div id="toast-box"></div>
 
-<!-- NAVBAR -->
 <header id="main-header" class="fixed top-0 left-0 right-0 z-[100] backdrop-blur-xl border-b transition-all duration-300 dark:bg-brand-dark/85 bg-white/85 dark:border-brand-border/50 border-gray-200/80">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between">
     <a href="#" class="flex items-center gap-3 group flex-shrink-0" onclick="scrollToTop();return false">
@@ -183,7 +174,6 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
   </div>
 </header>
 
-<!-- HERO -->
 <section id="hero" class="hero-section pt-[68px]">
   <div class="hero-glow hero-glow-1"></div>
   <div class="hero-glow hero-glow-2"></div>
@@ -208,55 +198,33 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
         </a>
       </div>
       <div class="grid grid-cols-3 gap-4 mt-14 max-w-md mx-auto fade-up" style="animation-delay:.2s">
-        <div class="text-center">
-          <div class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900">3</div>
-          <div class="text-[11px] dark:text-gray-500 text-gray-400 font-medium mt-0.5">Template CV</div>
-        </div>
-        <div class="text-center dark:border-white/5 border-gray-200 border-x">
-          <div class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900">4</div>
-          <div class="text-[11px] dark:text-gray-500 text-gray-400 font-medium mt-0.5">Template Surat</div>
-        </div>
-        <div class="text-center">
-          <div class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900">PDF</div>
-          <div class="text-[11px] dark:text-gray-500 text-gray-400 font-medium mt-0.5">Download Langsung</div>
-        </div>
+        <div class="text-center"><div class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900">3</div><div class="text-[11px] dark:text-gray-500 text-gray-400 font-medium mt-0.5">Template CV</div></div>
+        <div class="text-center dark:border-white/5 border-gray-200 border-x"><div class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900">4</div><div class="text-[11px] dark:text-gray-500 text-gray-400 font-medium mt-0.5">Template Surat</div></div>
+        <div class="text-center"><div class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900">PDF</div><div class="text-[11px] dark:text-gray-500 text-gray-400 font-medium mt-0.5">Download Langsung</div></div>
       </div>
     </div>
   </div>
   <div class="relative h-12">
-    <svg class="absolute bottom-0 w-full" viewBox="0 0 1440 48" fill="none" preserveAspectRatio="none" style="height:48px">
-      <path d="M0,24 C360,48 720,0 1080,24 C1260,36 1380,32 1440,28 L1440,48 L0,48 Z" class="hero-wave"/>
-    </svg>
+    <svg class="absolute bottom-0 w-full" viewBox="0 0 1440 48" fill="none" preserveAspectRatio="none" style="height:48px"><path d="M0,24 C360,48 720,0 1080,24 C1260,36 1380,32 1440,28 L1440,48 L0,48 Z" class="hero-wave"/></svg>
   </div>
 </section>
 
-<!-- TOOL -->
 <section id="tool" class="dark:bg-brand-black bg-gray-50 py-8 lg:py-10 transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="flex justify-center mb-4">
       <div class="cat-container">
-        <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-brand-red text-white shadow-md shadow-red-900/20">
-          <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
-        </button>
-        <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab px-6 py-2.5 rounded-lg text-sm font-bold transition-all dark:text-gray-500 text-gray-400">
-          <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
-        </button>
+        <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab px-6 py-2.5 rounded-lg text-sm font-bold transition-all bg-brand-red text-white shadow-md shadow-red-900/20"><i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)</button>
+        <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab px-6 py-2.5 rounded-lg text-sm font-bold transition-all dark:text-gray-500 text-gray-400"><i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan</button>
       </div>
     </div>
-    <div class="flex justify-center mb-6">
-      <div id="tpl-tabs" class="inline-flex gap-2 flex-wrap justify-center"></div>
-    </div>
+    <div class="flex justify-center mb-6"><div id="tpl-tabs" class="inline-flex gap-2 flex-wrap justify-center"></div></div>
     <div class="flex flex-col lg:flex-row gap-5 min-h-[600px] lg:min-h-[700px]">
       <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 min-h-0">
         <div class="lg:sticky lg:top-[84px]">
           <div id="form-content" class="fp-scroll space-y-3 fade-up"></div>
           <div class="flex gap-3 mt-5 mb-6 px-1">
-            <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 border hover:border-brand-red hover:text-brand-red transition active:scale-[.97]">
-              <i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset
-            </button>
-            <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20">
-              <i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF
-            </button>
+            <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 border hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
+            <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
           </div>
         </div>
       </div>
@@ -273,7 +241,6 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
   </div>
 </section>
 
-<!-- FEATURES -->
 <section id="features" class="dark:bg-brand-dark/50 bg-white py-16 sm:py-20 transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="text-center mb-14">
@@ -282,41 +249,16 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
       <p class="dark:text-gray-500 text-gray-400 max-w-xl mx-auto text-sm">Didesain khusus untuk job seeker Indonesia, dengan fitur yang benar benar dibutuhkan.</p>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="feat-card">
-        <div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-bolt"></i></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Instan & Cepat</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Isi data, langsung preview. Tidak perlu menunggu atau proses yang rumit.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-palette"></i></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Template Profesional</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">3 template CV dan 4 template surat lamaran yang rapi dan siap pakai.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-lock"></i></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Privasi Terjaga</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Semua data diproses di browser Anda. Tidak ada data yang dikirim ke server.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-file-pdf"></i></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Download PDF Langsung</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Hasil dokumen bisa langsung didownload dalam format PDF berkualitas tinggi.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-sliders"></i></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Kustomisasi Tampilan</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Atur font, ukuran teks, dan jarak baris sesuai kebutuhan dokumen Anda.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-mobile-screen"></i></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Responsif Semua Device</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Bisa digunakan di HP, tablet, maupun laptop dengan tampilan yang nyaman.</p>
-      </div>
+      <div class="feat-card"><div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-bolt"></i></div><h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Instan & Cepat</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Isi data, langsung preview. Tidak perlu menunggu atau proses yang rumit.</p></div>
+      <div class="feat-card"><div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-palette"></i></div><h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Template Profesional</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">3 template CV dan 4 template surat lamaran yang rapi dan siap pakai.</p></div>
+      <div class="feat-card"><div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-lock"></i></div><h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Privasi Terjaga</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Semua data diproses di browser Anda. Tidak ada data yang dikirim ke server.</p></div>
+      <div class="feat-card"><div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-file-pdf"></i></div><h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Download PDF Langsung</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Hasil dokumen bisa langsung didownload dalam format PDF berkualitas tinggi.</p></div>
+      <div class="feat-card"><div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-sliders"></i></div><h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Kustomisasi Tampilan</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Atur font, ukuran teks, dan jarak baris sesuai kebutuhan dokumen Anda.</p></div>
+      <div class="feat-card"><div class="feat-icon-wrap dark:bg-brand-red/10 bg-red-50 text-brand-red"><i class="fa-solid fa-mobile-screen"></i></div><h3 class="font-bold dark:text-white text-gray-900 mb-2 text-base">Responsif Semua Device</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Bisa digunakan di HP, tablet, maupun laptop dengan tampilan yang nyaman.</p></div>
     </div>
   </div>
 </section>
 
-<!-- HOW TO -->
 <section id="howto" class="dark:bg-brand-black bg-gray-50 py-16 sm:py-20 transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="text-center mb-12">
@@ -325,48 +267,30 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
       <p class="dark:text-gray-500 text-gray-400 max-w-xl mx-auto text-sm">Hanya 3 langkah sederhana untuk mendapatkan dokumen profesional.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-      <div class="text-center">
-        <div class="flex justify-center mb-4"><div class="step-num">1</div></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2">Pilih Template</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Pilih kategori CV atau Surat Lamaran, lalu pilih template yang sesuai kebutuhan.</p>
-      </div>
-      <div class="text-center">
-        <div class="flex justify-center mb-4"><div class="step-num">2</div></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2">Isi Data Diri</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Lengkapi formulir dengan data pribadi, pendidikan, pengalaman, dan keahlian Anda.</p>
-      </div>
-      <div class="text-center">
-        <div class="flex justify-center mb-4"><div class="step-num">3</div></div>
-        <h3 class="font-bold dark:text-white text-gray-900 mb-2">Download PDF</h3>
-        <p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Cek preview, pastikan sudah sesuai, lalu klik tombol Download PDF.</p>
-      </div>
+      <div class="text-center"><div class="flex justify-center mb-4"><div class="step-num">1</div></div><h3 class="font-bold dark:text-white text-gray-900 mb-2">Pilih Template</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Pilih kategori CV atau Surat Lamaran, lalu pilih template yang sesuai kebutuhan.</p></div>
+      <div class="text-center"><div class="flex justify-center mb-4"><div class="step-num">2</div></div><h3 class="font-bold dark:text-white text-gray-900 mb-2">Isi Data Diri</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Lengkapi formulir dengan data pribadi, pendidikan, pengalaman, dan keahlian Anda.</p></div>
+      <div class="text-center"><div class="flex justify-center mb-4"><div class="step-num">3</div></div><h3 class="font-bold dark:text-white text-gray-900 mb-2">Download PDF</h3><p class="text-sm dark:text-gray-500 text-gray-400 leading-relaxed">Cek preview, pastikan sudah sesuai, lalu klik tombol Download PDF.</p></div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
 <section class="dark:bg-brand-dark/50 bg-white py-14 transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
     <div class="max-w-2xl mx-auto">
       <h2 class="text-2xl sm:text-3xl font-black dark:text-white text-gray-900 mb-3">Siap Membuat Dokumen Lamaran?</h2>
       <p class="dark:text-gray-500 text-gray-400 text-sm mb-6">Jangan buang waktu dengan format manual. Gunakan KARYA ABADI.Jobs dan dapatkan dokumen profesional dalam hitungan menit.</p>
-      <a href="#tool" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-brand-red text-white font-bold text-sm hover:bg-brand-darkred transition-all hover:shadow-lg hover:shadow-red-900/30 active:scale-[.97]">
-        <i class="fa-solid fa-arrow-up text-xs"></i> Buat Dokumen Sekarang
-      </a>
+      <a href="#tool" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-brand-red text-white font-bold text-sm hover:bg-brand-darkred transition-all hover:shadow-lg hover:shadow-red-900/30 active:scale-[.97]"><i class="fa-solid fa-arrow-up text-xs"></i> Buat Dokumen Sekarang</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="site-footer border-t transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
       <div class="sm:col-span-2 lg:col-span-1">
         <div class="flex items-center gap-2.5 mb-4">
           <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-10 h-10 rounded-lg">
-          <div>
-            <span class="dark:text-white text-gray-200 font-bold text-sm">KARYA ABADI</span><span class="dark:text-white/50 text-gray-400 font-bold text-xs">.Jobs</span>
-          </div>
+          <div><span class="dark:text-white text-gray-200 font-bold text-sm">KARYA ABADI</span><span class="dark:text-white/50 text-gray-400 font-bold text-xs">.Jobs</span></div>
         </div>
         <p class="text-xs dark:text-gray-500 text-gray-400 leading-relaxed max-w-xs">Platform pembuat CV dan surat lamaran kerja gratis untuk job seeker Indonesia.</p>
       </div>
@@ -404,16 +328,13 @@ html:not(.dark) .site-footer{background:#1f2937;border-color:rgba(255,255,255,.0
   </div>
 </footer>
 
-<!-- MODALS -->
 <div id="modal-overlay" class="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <div class="flex items-center justify-between mb-5">
       <h3 id="modal-title" class="text-lg font-bold dark:text-white text-gray-900"></h3>
-      <button onclick="closeModal()" class="w-8 h-8 rounded-full dark:bg-white/5 bg-gray-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-gray-200 transition">
-        <i class="fa-solid fa-xmark text-sm dark:text-white/60 text-gray-500"></i>
-      </button>
+      <button onclick="closeModal()" class="w-8 h-8 rounded-full dark:bg-white/5 bg-gray-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-gray-200 transition"><i class="fa-solid fa-xmark text-sm dark:text-white/60 text-gray-500"></i></button>
     </div>
-    <div id="modal-body" class="text-sm dark:text-gray-400 text-gray-500 leading-relaxed space-y-3"></div>
+    <div id="modal-body" class="text-sm dark:text-gray-400 text-gray-500 leading-relaxed space-y-3 modal-body-justify"></div>
   </div>
 </div>
 
@@ -443,16 +364,15 @@ function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/<
 function toast(msg,type){type=type||'success';var d=document.createElement('div');d.className='toast-item '+type;d.textContent=msg;document.getElementById('toast-box').appendChild(d);requestAnimationFrame(function(){d.classList.add('show')});setTimeout(function(){d.classList.remove('show');setTimeout(function(){d.remove()},300)},2500)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
 function closeMobileMenu(){document.getElementById('mobile-menu').classList.add('hidden')}
-
-function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');localStorage.setItem('ka-dark',isDark?'1':'0');renderPreview()}
-function initDark(){var s=localStorage.getItem('ka-dark');if(s==='0')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')}
+function toggleDark(){document.documentElement.classList.toggle('dark');localStorage.setItem('ka-dark',document.documentElement.classList.contains('dark')?'1':'0');renderPreview()}
+function initDark(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')}
 
 var modalContent={
-  about:'<p>KARYA ABADI.Jobs adalah platform gratis untuk membuat CV dan Surat Lamaran Pekerjaan secara online. Dibuat untuk membantu para pencari kerja di Indonesia membuat dokumen lamaran yang profesional dengan cepat dan mudah.</p><p>Semua proses pembuatan dokumen dilakukan sepenuhnya di browser Anda, tidak ada data yang dikirim ke server manapun.</p>',
-  contact:'<p>Jika Anda memiliki pertanyaan, saran, atau ingin melaporkan masalah, silakan hubungi kami:</p><div style="padding:16px;border-radius:10px;margin-top:8px" class="dark:bg-white/5 bg-gray-100"><p><strong class="dark:text-white text-gray-900">Email:</strong> support@karyaabadi.jobs</p><p style="margin-top:6px"><strong class="dark:text-white text-gray-900">Website:</strong> karyaabadi.jobs</p></div>',
-  privacy:'<p><strong class="dark:text-white text-gray-900">Kebijakan Privasi</strong></p><p style="margin-top:8px"><strong class="dark:text-gray-300 text-gray-600">1. Data</strong><br>Kami TIDAK mengumpulkan, menyimpan, atau memproses data pribadi Anda. Semua data diproses di browser.</p><p><strong class="dark:text-gray-300 text-gray-600">2. Cookie</strong><br>Hanya menggunakan localStorage untuk preferensi tampilan.</p><p><strong class="dark:text-gray-300 text-gray-600">3. Iklan</strong><br>Google AdSense mungkin menggunakan cookie untuk iklan.</p>',
-  terms:'<p><strong class="dark:text-white text-gray-900">Ketentuan Layanan</strong></p><p style="margin-top:8px"><strong class="dark:text-gray-300 text-gray-600">1.</strong> Layanan gratis untuk keperluan pribadi.</p><p><strong class="dark:text-gray-300 text-gray-600">2.</strong> Dokumen yang dihasilkan menjadi tanggung jawab pengguna.</p><p><strong class="dark:text-gray-300 text-gray-600">3.</strong> Kami tidak bertanggung jawab atas kerugian dari penggunaan dokumen.</p>',
-  disclaimer:'<p><strong class="dark:text-white text-gray-900">Disclaimer</strong></p><p style="margin-top:8px">Informasi dan layanan ditujukan untuk tujuan umum. Kami tidak memberikan jaminan atas kelengkapan, keakuratan, atau ketersediaan layanan. Pengguna bertanggung jawab penuh atas isi dokumen.</p>'
+  about:'<p>KARYA ABADI.Jobs adalah platform gratis untuk membuat CV dan Surat Lamaran Pekerjaan secara online. Didesain untuk membantu para pencari kerja di Indonesia membuat dokumen lamaran yang profesional dengan cepat dan mudah tanpa biaya apapun.</p><p>Semua proses pembuatan dokumen dilakukan sepenuhnya di browser Anda, tidak ada data yang dikirim ke server manapun sehingga privasi Anda terjamin sepenuhnya. Platform ini dapat diakses kapan saja dan di mana saja tanpa perlu mendaftar akun terlebih dahulu.</p>',
+  contact:'<p>Jika Anda memiliki pertanyaan, saran, atau ingin melaporkan masalah terkait layanan kami, silakan hubungi melalui:</p><div style="padding:16px;border-radius:10px;margin-top:8px" class="dark:bg-white/5 bg-gray-100"><p><strong class="dark:text-white text-gray-900">Email:</strong> support@karyaabadi.jobs</p><p style="margin-top:6px"><strong class="dark:text-white text-gray-900">Website:</strong> karyaabadi.jobs</p></div><p style="margin-top:12px">Kami akan berusaha merespons setiap pesan dalam waktu 1 sampai 2 hari kerja.</p>',
+  privacy:'<p><strong class="dark:text-white text-gray-900">Privacy Policy</strong></p><p style="margin-top:8px"><strong class="dark:text-gray-300 text-gray-600">1. Data yang Dikumpulkan</strong><br>Kami TIDAK mengumpulkan, menyimpan, atau memproses data pribadi Anda. Seluruh data yang Anda masukkan dalam formulir hanya diproses di browser Anda dan tidak dikirim ke server manapun termasuk server kami.</p><p><strong class="dark:text-gray-300 text-gray-600">2. Penyimpanan Lokal</strong><br>Kami hanya menggunakan localStorage pada browser Anda untuk menyimpan preferensi tampilan seperti mode gelap atau terang. Tidak ada data pribadi yang disimpan dalam bentuk apapun.</p><p><strong class="dark:text-gray-300 text-gray-600">3. Layanan Pihak Ketiga</strong><br>Website ini menggunakan Google AdSense untuk menampilkan iklan. Google mungkin menggunakan cookie untuk menayangkan iklan yang relevan sesuai minat Anda. Anda dapat mengatur preferensi iklan melalui pengaturan Google Ads.</p><p><strong class="dark:text-gray-300 text-gray-600">4. Perubahan</strong><br>Kami berhak memperbarui kebijakan ini sewaktu waktu. Perubahan akan berlaku langsung setelah dipublikasikan di halaman ini.</p>',
+  terms:'<p><strong class="dark:text-white text-gray-900">Terms of Service</strong></p><p style="margin-top:8px"><strong class="dark:text-gray-300 text-gray-600">1. Penggunaan Layanan</strong><br>Layanan KARYA ABADI.Jobs disediakan secara gratis untuk keperluan pribadi. Anda dilarang menggunakan layanan ini untuk tujuan ilegal, merugikan pihak lain, atau melanggar hukum yang berlaku.</p><p><strong class="dark:text-gray-300 text-gray-600">2. Hasil Dokumen</strong><br>Dokumen yang dihasilkan sepenuhnya menjadi tanggung jawab pengguna. Pastikan semua informasi yang Anda masukkan adalah benar, akurat, dan dapat dipertanggungjawabkan.</p><p><strong class="dark:text-gray-300 text-gray-600">3. Batasan Tanggung Jawab</strong><br>Kami tidak bertanggung jawab atas kerugian langsung maupun tidak langsung yang timbul dari penggunaan dokumen atau layanan yang disediakan.</p><p><strong class="dark:text-gray-300 text-gray-600">4. Perubahan Layanan</strong><br>Kami berhak mengubah, memodifikasi, atau menghentikan layanan ini kapan saja tanpa pemberitahuan sebelumnya.</p>',
+  disclaimer:'<p><strong class="dark:text-white text-gray-900">Disclaimer</strong></p><p style="margin-top:8px">Informasi dan layanan yang disediakan di website ini ditujukan untuk tujuan umum. Meskipun kami berusaha memastikan keakuratan setiap template dan fungsionalitas yang ada, kami tidak memberikan jaminan apapun atas kelengkapan, keakuratan, keandalan, atau ketersediaan layanan.</p><p>Pengguna bertanggung jawab penuh atas isi dokumen yang dibuat dan diserahkan ke pihak lain. Kami sangat menyarankan untuk selalu meninjau kembali dokumen sebelum digunakan untuk melamar pekerjaan.</p>'
 };
 function openModal(key){var o=document.getElementById('modal-overlay'),t=document.getElementById('modal-title'),b=document.getElementById('modal-body');var titles={about:'About',contact:'Contact',privacy:'Privacy Policy',terms:'Terms of Service',disclaimer:'Disclaimer'};t.textContent=titles[key]||'';b.innerHTML=modalContent[key]||'';o.classList.add('active');document.body.style.overflow='hidden'}
 function closeModal(){document.getElementById('modal-overlay').classList.remove('active');document.body.style.overflow=''}
@@ -478,7 +398,25 @@ function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="photo-box"><img id="photo-thumb" src="" class="hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center gap-1"><i class="fa-solid fa-upload text-xs"></i>3x4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB<br>Rasio 3:4 (pas foto)</span></div></div>'}
+
+function photoH(){
+  return '<div class="card">'
+    +'<label class="fl flex items-center gap-1.5">'
+    +'<i class="fa-solid fa-image text-brand-red text-xs"></i> Upload Pas Foto'
+    +'</label>'
+    +'<div class="flex items-center gap-4 mt-2">'
+    +'<label class="photo-box">'
+    +'<img id="photo-thumb" src="" class="hidden">'
+    +'<span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center gap-0.5 leading-tight">'
+    +'<i class="fa-solid fa-upload text-xs"></i>'
+    +'<span>3x4</span>'
+    +'</span>'
+    +'<input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden">'
+    +'</label>'
+    +'<span class="fl-sub">JPG/PNG, Maks 2MB<br>Rasio 3:4 (pas foto)</span>'
+    +'</div></div>';
+}
+
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
@@ -539,10 +477,15 @@ function fotoImg(){var boxStyle='width:25mm;height:33.33mm;flex-shrink:0;overflo
 
 function downloadPDF(){
   var btn=document.getElementById('btn-pdf');btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Memproses...';
-  renderPreview();
+  /* Paksa render dulu supaya data terbaru masuk ke DOM */
+  var html='';
+  if(curCat==='cv'){if(curTpl==='cv1')html=renderCV1();else if(curTpl==='cv2')html=renderCV2();else html=renderCV3()}else html=renderSuratP();
+  var page=document.getElementById('a4-page');
+  page.innerHTML=html;applyPageStyle();
+
   setTimeout(function(){
     var offscreen=document.getElementById('pdf-offscreen');
-    var clone=document.getElementById('a4-page').cloneNode(true);
+    var clone=page.cloneNode(true);
     clone.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:visible;position:relative;margin:0;box-sizing:border-box;';
     clone.querySelectorAll('img').forEach(function(img){if(img.style.width==='100%'&&img.style.height==='100%')img.style.objectFit='cover'});
     offscreen.innerHTML='';offscreen.style.width='210mm';offscreen.appendChild(clone);
@@ -550,7 +493,7 @@ function downloadPDF(){
     filename=filename.replace(/[^a-zA-Z0-9_\-]/g,'_').replace(/_+/g,'_');
     var opt={margin:0,filename:filename+'.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,allowTaint:true,logging:false,width:clone.offsetWidth,height:clone.offsetHeight,windowWidth:clone.offsetWidth,windowHeight:clone.offsetHeight},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}};
     if(typeof html2pdf!=='undefined'){html2pdf().set(opt).from(clone).save().then(function(){offscreen.innerHTML='';btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';toast('PDF berhasil didownload!','success')}).catch(function(){offscreen.innerHTML='';btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';toast('Gagal membuat PDF. Coba lagi.','error')})}else{offscreen.innerHTML='';btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';toast('Library PDF belum dimuat. Coba refresh halaman.','error')}
-  },200);
+  },300);
 }
 
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return 'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
