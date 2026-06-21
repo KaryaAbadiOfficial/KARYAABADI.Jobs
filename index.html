@@ -83,11 +83,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
 .site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700}
 .site-footer a:hover{color:#DC2626}
-.ft-5col{display:flex;align-items:center;padding:10px 16px;gap:8px}
-.ft-5col a{flex:1;text-align:center;font-size:9px;line-height:1.3;white-space:nowrap}
-@media(min-width:400px){.ft-5col a{font-size:10px;gap:10px}}
-@media(min-width:640px){.ft-5col a{font-size:11px;gap:12px}}
-@media(min-width:1024px){.ft-5col{padding:10px 24px;gap:16px}.ft-5col a{font-size:12px}}
+.ft-5col{display:flex;align-items:center;justify-content:center;padding:10px 8px;gap:4px}
+.ft-5col a{font-size:clamp(8px,2.4vw,12px);line-height:1.3;white-space:nowrap;padding:0 clamp(2px,1vw,6px)}
+@media(min-width:1024px){.ft-5col{padding:10px 24px;gap:6px}}
 .ft-copy{text-align:center;padding:0 0 8px;font-size:9px;color:#6b7280;letter-spacing:.01em}
 @media(max-width:1023px){.ft-inner{padding-bottom:56px}}
 @media(min-width:1024px){
