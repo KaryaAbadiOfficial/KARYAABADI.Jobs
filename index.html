@@ -25,14 +25,16 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
-.a4-page *{color:inherit !important;}
-.a4-page{background:#fff !important;color:#000 !important;}
+
+/* PASTIKAN A4 PAGE SELALU PUTIH & HITAM MESKUN DARK MODE AKTIF */
+.a4-page{width:210mm;min-height:297mm;background:#fff !important;color:#000 !important;padding:12mm 16mm;overflow:hidden;position:relative}
+.a4-page *{color:inherit !important;background:transparent !important;border-color:#000 !important}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
 .a4-page table td{padding:.4mm 0;vertical-align:top}
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
+
 #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast-item{padding:10px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px)}
 .toast-item.show{transform:translateX(0)}
@@ -314,8 +316,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </footer>
 
-<!-- ELEMEN BANTU UNTUK RENDER PDF -->
-<div id="pdf-offscreen" style="position:absolute;left:-99999px;top:0;pointer-events:none;overflow:visible;width:210mm;background:#fff;"></div>
+<!-- ELEMEN BANTU UNTUK RENDER PDF (PASTIKAN POSISI DI LUAR LAYAR NAMUN TETAP TER-RENDER) -->
+<div id="pdf-offscreen" style="position:fixed;left:-10000px;top:0;width:210mm;background:#fff;z-index:-1;pointer-events:none;"></div>
 
 <script>
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
@@ -651,34 +653,35 @@ async function downloadPDF() {
   btn.style.opacity = '.6';
   toast('Memproses PDF...', 'info');
 
-  // Pastikan preview ter-update dulu
+  // Pastikan preview terisi data terbaru
   renderPreview();
-  await new Promise(function(resolve) { setTimeout(resolve, 100) });
+  await new Promise(r => setTimeout(r, 100));
 
-  var page = document.getElementById('a4-page');
+  // Deteksi elemen preview yang aktif (Desktop atau Mobile)
+  var sourceEl = document.getElementById('a4-page');
+  if (sourceEl.offsetParent === null) {
+      sourceEl = document.getElementById('a4-page-mob');
+  }
+
   var container = document.getElementById('pdf-offscreen');
   container.innerHTML = '';
-
+  
   // Wrapper bersih untuk memastikan layout terhitung browser
   var wrapper = document.createElement('div');
-  wrapper.style.cssText =
-    'position:relative;left:0;top:0;width:210mm;background:#ffffff;color:#000000;pointer-events:none;';
+  wrapper.style.cssText = 'position:relative;left:0;top:0;width:210mm;background:#ffffff;color:#000000;';
 
   // Clone node dari preview yang sudah terisi
-  var cl = page.cloneNode(true);
+  var cl = sourceEl.cloneNode(true);
 
   // Paksa style eksplisit (override dark mode) dan HAPUS class dark:*
   cl.className = 'a4-page';
-  cl.style.cssText =
-    'width:210mm;min-height:297mm;height:auto;background:#ffffff;color:#000000;' +
-    'padding:12mm 16mm;overflow:visible;position:relative;margin:0;box-shadow:none;' +
-    'font-family:' + selFont + ';font-size:' + selSize + 'pt;line-height:' + selLH + ';';
+  cl.style.cssText = 'width:210mm;min-height:297mm;height:auto;background:#ffffff;color:#000000;padding:12mm 16mm;overflow:visible;position:relative;margin:0;box-shadow:none;font-family:' + selFont + ';font-size:' + selSize + 'pt;line-height:' + selLH + ';';
 
   wrapper.appendChild(cl);
   container.appendChild(wrapper);
 
   // Beri waktu browser menghitung layout
-  await new Promise(function(resolve) { setTimeout(resolve, 250) });
+  await new Promise(r => setTimeout(r, 300));
 
   // Tunggu font benar-benar siap (kunci utama agar tidak blank)
   try {
@@ -704,8 +707,7 @@ async function downloadPDF() {
   try {
     var opt = {
       margin: 0,
-      filename: (curCat === 'cv' ? 'CV' : 'Surat_Lamaran') + '_' +
-                (v('nama') ? v('nama').replace(/\s+/g, '_') : 'Dokumen') + '.pdf',
+      filename: (curCat === 'cv' ? 'CV' : 'Surat_Lamaran') + '_' + (v('nama') ? v('nama').replace(/\s+/g, '_') : 'Dokumen') + '.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
         scale: 2,
@@ -717,7 +719,7 @@ async function downloadPDF() {
         windowWidth: widthPx,
         scrollX: 0,
         scrollY: 0,
-        // Penting: paksa light mode pada dokumen hasil clone
+        // Paksa light mode pada dokumen hasil clone
         onclone: function(clonedDoc) {
           var root = clonedDoc.documentElement;
           root.classList.remove('dark');
@@ -727,7 +729,6 @@ async function downloadPDF() {
           body.classList.remove('dark');
           body.style.background = '#ffffff';
           body.style.color = '#000000';
-          // Pastikan elemen target juga bersih
           var target = clonedDoc.getElementById('pdf-offscreen');
           if (target) {
             target.style.left = '0';
@@ -745,7 +746,7 @@ async function downloadPDF() {
     toast('PDF berhasil diunduh!');
   } catch(e) {
     console.error('PDF Error:', e);
-    toast('Gagal mengunduh PDF: ' + (e.message || 'kesalahan tidak diketahui'), 'error');
+    toast('Gagal mengunduh PDF', 'error');
   } finally {
     container.innerHTML = '';
     btn.disabled = false;
