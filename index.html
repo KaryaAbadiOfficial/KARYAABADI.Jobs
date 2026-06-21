@@ -83,13 +83,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
 .site-footer a{color:#9ca3af;text-decoration:none;transition:color .15s}
 .site-footer a:hover{color:#DC2626}
-.ft-inner{padding:6px 8px}
+.ft-inner{padding:8px 16px}
 @media(min-width:1024px){.ft-inner{padding:8px 24px}}
 @media(max-width:1023px){.ft-inner{padding-bottom:60px}}
-.ft-copy{text-align:center;padding:3px 0;font-size:10px;color:#6b7280}
-@media(min-width:1024px){
-  .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}
-}
 .faq-content{max-height:0;overflow:hidden;transition:max-height .3s ease, padding .3s ease}
 .faq-content.open{max-height:200px;padding-top:12px}
 </style>
@@ -301,14 +297,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <!-- FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0">
   <div class="ft-inner max-w-7xl mx-auto">
-    <nav class="flex justify-center items-center flex-nowrap gap-x-2 sm:gap-x-4 text-[10px] sm:text-xs text-gray-400">
-      <a href="javascript:void(0)" onclick="openAbout()" class="whitespace-nowrap">About</a>
-      <a href="javascript:void(0)" onclick="openContact()" class="whitespace-nowrap">Contact</a>
-      <a href="javascript:void(0)" onclick="openPrivacy()" class="whitespace-nowrap">Privacy Policy</a>
-      <a href="javascript:void(0)" onclick="openTerms()" class="whitespace-nowrap">Terms of Service</a>
-      <a href="javascript:void(0)" onclick="openDisclaimer()" class="whitespace-nowrap">Disclaimer</a>
+    <nav class="flex justify-center items-center flex-nowrap gap-x-2 md:gap-x-4 text-[10px] sm:text-xs text-gray-500 whitespace-nowrap">
+      <a href="javascript:void(0)" onclick="openAbout()" class="hover:text-brand-red transition">About</a>
+      <span class="text-gray-700">•</span>
+      <a href="javascript:void(0)" onclick="openContact()" class="hover:text-brand-red transition">Contact</a>
+      <span class="text-gray-700">•</span>
+      <a href="javascript:void(0)" onclick="openPrivacy()" class="hover:text-brand-red transition">Privacy Policy</a>
+      <span class="text-gray-700">•</span>
+      <a href="javascript:void(0)" onclick="openTerms()" class="hover:text-brand-red transition">Terms of Service</a>
+      <span class="text-gray-700">•</span>
+      <a href="javascript:void(0)" onclick="openDisclaimer()" class="hover:text-brand-red transition">Disclaimer</a>
     </nav>
-    <p class="ft-copy mt-1">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
+    <p class="text-center mt-1.5 text-[10px] sm:text-[11px] text-gray-600 whitespace-nowrap">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
   </div>
 </footer>
 
@@ -606,7 +606,7 @@ function renderSuratP(){
   var autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+autoLt+'.';
   var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;
   var autoPenutup='Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
-  var customPenutup=v('sPenutup')&&v('sPenutup).trim();var penutupText=customPenutup?customPenutup:autoPenutup;
+  var customPenutup=v('sPenutup')&&v('sPenutup').trim();var penutupText=customPenutup?customPenutup:autoPenutup;
   var li=[];var lc=0;
   if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
