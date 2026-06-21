@@ -26,6 +26,8 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
+.a4-page *{color:inherit !important;}
+.a4-page{background:#fff !important;color:#000 !important;}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -312,8 +314,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </footer>
 
-<!-- ELEMEN BANTU UNTUK RENDER PDF (WAJIB DI left:0 top:0 z-index:-9999 agar tidak blank) -->
-<div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+<!-- ELEMEN BANTU UNTUK RENDER PDF -->
+<div id="pdf-offscreen" style="position:absolute;left:-99999px;top:0;pointer-events:none;overflow:visible;width:210mm;background:#fff;"></div>
 
 <script>
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
@@ -648,47 +650,102 @@ async function downloadPDF() {
   btn.classList.remove('pulse-red');
   btn.style.opacity = '.6';
   toast('Memproses PDF...', 'info');
-  
+
+  // Pastikan preview ter-update dulu
+  renderPreview();
+  await new Promise(function(resolve) { setTimeout(resolve, 100) });
+
   var page = document.getElementById('a4-page');
   var container = document.getElementById('pdf-offscreen');
   container.innerHTML = '';
-  
+
+  // Wrapper bersih untuk memastikan layout terhitung browser
+  var wrapper = document.createElement('div');
+  wrapper.style.cssText =
+    'position:relative;left:0;top:0;width:210mm;background:#ffffff;color:#000000;pointer-events:none;';
+
+  // Clone node dari preview yang sudah terisi
   var cl = page.cloneNode(true);
-  cl.style.height = 'auto';
-  cl.style.minHeight = '0';
-  cl.style.width = '210mm';
-  cl.style.overflow = 'visible';
-  cl.style.position = 'relative';
-  cl.style.margin = '0';
-  cl.style.boxShadow = 'none';
-  cl.style.fontFamily = selFont;
-  cl.style.fontSize = selSize + 'pt';
-  cl.style.lineHeight = selLH;
-  container.appendChild(cl);
-  
-  await new Promise(function(resolve) { setTimeout(resolve, 200) });
-  
+
+  // Paksa style eksplisit (override dark mode) dan HAPUS class dark:*
+  cl.className = 'a4-page';
+  cl.style.cssText =
+    'width:210mm;min-height:297mm;height:auto;background:#ffffff;color:#000000;' +
+    'padding:12mm 16mm;overflow:visible;position:relative;margin:0;box-shadow:none;' +
+    'font-family:' + selFont + ';font-size:' + selSize + 'pt;line-height:' + selLH + ';';
+
+  wrapper.appendChild(cl);
+  container.appendChild(wrapper);
+
+  // Beri waktu browser menghitung layout
+  await new Promise(function(resolve) { setTimeout(resolve, 250) });
+
+  // Tunggu font benar-benar siap (kunci utama agar tidak blank)
+  try {
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
+  } catch(e) {}
+
+  // Pastikan gambar (foto) sudah load
+  var imgs = cl.querySelectorAll('img');
+  await Promise.all(Array.prototype.map.call(imgs, function(img) {
+    if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+    return new Promise(function(res) {
+      img.onload = res;
+      img.onerror = res;
+      setTimeout(res, 1500);
+    });
+  }));
+
+  // Hitung dimensi render berbasis mm -> px (1mm ≈ 3.7795px @96dpi)
+  var widthPx = Math.round(cl.offsetWidth) || 794;
+
   try {
     var opt = {
       margin: 0,
-      filename: (curCat === 'cv' ? 'CV' : 'Surat_Lamaran') + '_' + (v('nama') || 'Dokumen') + '.pdf',
-      image: { type: 'jpeg', quality: 0.95 },
-      html2canvas: { 
-        scale: 2, 
-        useCORS: true, 
-        logging: false, 
+      filename: (curCat === 'cv' ? 'CV' : 'Surat_Lamaran') + '_' +
+                (v('nama') ? v('nama').replace(/\s+/g, '_') : 'Dokumen') + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
         backgroundColor: '#ffffff',
-        width: cl.offsetWidth,
-        windowWidth: cl.offsetWidth
+        width: widthPx,
+        windowWidth: widthPx,
+        scrollX: 0,
+        scrollY: 0,
+        // Penting: paksa light mode pada dokumen hasil clone
+        onclone: function(clonedDoc) {
+          var root = clonedDoc.documentElement;
+          root.classList.remove('dark');
+          root.style.background = '#ffffff';
+          root.style.color = '#000000';
+          var body = clonedDoc.body;
+          body.classList.remove('dark');
+          body.style.background = '#ffffff';
+          body.style.color = '#000000';
+          // Pastikan elemen target juga bersih
+          var target = clonedDoc.getElementById('pdf-offscreen');
+          if (target) {
+            target.style.left = '0';
+            target.style.top = '0';
+            target.style.position = 'relative';
+            target.style.background = '#ffffff';
+          }
+        }
       },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
       pagebreak: { mode: ['css', 'legacy'] }
     };
+
     await html2pdf().set(opt).from(cl).save();
     toast('PDF berhasil diunduh!');
   } catch(e) {
-    toast('Gagal mengunduh PDF', 'error');
-    console.error(e);
+    console.error('PDF Error:', e);
+    toast('Gagal mengunduh PDF: ' + (e.message || 'kesalahan tidak diketahui'), 'error');
   } finally {
     container.innerHTML = '';
     btn.disabled = false;
