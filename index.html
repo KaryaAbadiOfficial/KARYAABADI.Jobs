@@ -81,13 +81,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto}
 @media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 150px)}}
 .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
-.site-footer a{color:#9ca3af;text-decoration:none;transition:color .15s}
+.site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700}
 .site-footer a:hover{color:#DC2626}
-.ft-inner{padding:8px 16px}
-@media(min-width:1024px){.ft-inner{padding:8px 24px}}
-@media(max-width:1023px){.ft-inner{padding-bottom:60px}}
-.ft-row{display:flex;justify-content:center;gap:8px 16px;flex-wrap:wrap;padding:3px 0}
-.ft-copy{text-align:center;padding:3px 0;font-size:11px;color:#6b7280}
+.ft-5col{display:flex;align-items:center;justify-content:space-between;gap:0;padding:8px 12px}
+.ft-5col a{flex:1;text-align:center;font-size:9px;line-height:1.2;white-space:nowrap;padding:0 2px}
+@media(min-width:400px){.ft-5col a{font-size:10px}}
+@media(min-width:640px){.ft-5col a{font-size:11px}}
+@media(min-width:1024px){.ft-5col a{font-size:12px;padding:0 4px}}
+.ft-copy{text-align:center;padding:2px 0 6px;font-size:9px;color:#6b7280}
+@media(max-width:1023px){.ft-inner{padding-bottom:56px}}
 @media(min-width:1024px){
   .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}
 }
@@ -165,17 +167,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0">
   <div class="ft-inner max-w-7xl mx-auto">
-    <nav class="ft-nav text-xs text-gray-500">
-      <div class="ft-row">
-        <a href="javascript:void(0)" onclick="openAbout()">About</a>
-        <a href="javascript:void(0)" onclick="openContact()">Contact</a>
-        <a href="javascript:void(0)" onclick="openPrivacy()">Privacy Policy</a>
-      </div>
-      <div class="ft-row">
-        <a href="javascript:void(0)" onclick="openTerms()">Terms of Service</a>
-        <a href="javascript:void(0)" onclick="openDisclaimer()">Disclaimer</a>
-      </div>
-    </nav>
+    <div class="ft-5col">
+      <a href="javascript:void(0)" onclick="openAbout()">About</a>
+      <a href="javascript:void(0)" onclick="openContact()">Contact</a>
+      <a href="javascript:void(0)" onclick="openPrivacy()">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="openTerms()">Terms of Service</a>
+      <a href="javascript:void(0)" onclick="openDisclaimer()">Disclaimer</a>
+    </div>
     <p class="ft-copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
   </div>
 </footer>
