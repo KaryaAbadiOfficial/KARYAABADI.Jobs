@@ -16,42 +16,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
-/* ===== TEMA GELAP (default) ===== */
-:root{
-  --bg:#0A0A0A;--bg2:#0F0F0F;--card:#151515;--border:rgba(255,255,255,.06);
-  --text:#e5e5e5;--text2:#f1f5f9;--text3:#cbd5e1;--text4:#888;--text5:#555;--text6:#444;
-  --red:#DC2626;--red2:#991B1B;--redGlow:rgba(220,38,38,.3);
-  --yellow:#FACC15;--yellowA:rgba(250,204,21,.7);
-  --fi-bg:#0F0F0F;--fi-border:rgba(255,255,255,.08);--fi-focus:#DC2626;--fi-shadow:rgba(220,38,38,.12);
-  --fi-ph:#444;--sec-border:rgba(220,38,38,.12);--subsec-border:rgba(220,38,38,.1);
-  --overlay-bg:rgba(0,0,0,.6);--sheet-bg:#161616;--sheet-border:rgba(255,255,255,.06);
-  --toast-s:rgba(153,27,27,.95);--toast-e:rgba(220,38,38,.95);--toast-i:rgba(30,30,30,.95);
-  --addr-line:#DC2626;--dyn-add-border:rgba(220,38,38,.4);--sk-rm-border:rgba(255,255,255,.08);
-  --range-bg:#222;--bar-bg:rgba(17,17,17,.97);--bar-border:rgba(255,255,255,.06);
-  --pv-bg:rgba(255,255,255,.03);--zm-border:rgba(255,255,255,.1);--zm-bg:rgba(255,255,255,.04);--zm-text:#aaa;
-  --sb-thumb:#333;--install-bg:linear-gradient(135deg,#1a1a1a,#111);--install-border:rgba(220,38,38,.2);
-  --guide-bg:#111;--guide-card:#1a1a1a;--guide-border:rgba(255,255,255,.08);
-  --guide-text:#b0b0b0;--guide-h:#fff;--guide-num-bg:#DC2626;--guide-num:#fff;
-  --guide-accent:#DC2626;--guide-tip-bg:rgba(220,38,38,.08);--guide-tip-border:rgba(220,38,38,.2);
-}
-/* ===== TEMA TERANG ===== */
-.light{
-  --bg:#F5F3F0;--bg2:#EDEAE6;--card:#FFFFFF;--border:rgba(0,0,0,.08);
-  --text:#1a1a1a;--text2:#111;--text3:#333;--text4:#666;--text5:#888;--text6:#aaa;
-  --red:#DC2626;--red2:#991B1B;--redGlow:rgba(220,38,38,.15);
-  --yellow:#B45309;--yellowA:rgba(180,83,9,.8);
-  --fi-bg:#FFFFFF;--fi-border:rgba(0,0,0,.12);--fi-focus:#DC2626;--fi-shadow:rgba(220,38,38,.1);
-  --fi-ph:#999;--sec-border:rgba(220,38,38,.15);--subsec-border:rgba(220,38,38,.1);
-  --overlay-bg:rgba(0,0,0,.35);--sheet-bg:#FFFFFF;--sheet-border:rgba(0,0,0,.06);
-  --toast-s:rgba(153,27,27,.95);--toast-e:rgba(220,38,38,.95);--toast-i:rgba(255,255,255,.95);
-  --addr-line:#DC2626;--dyn-add-border:rgba(220,38,38,.35);--sk-rm-border:rgba(0,0,0,.1);
-  --range-bg:#ddd;--bar-bg:rgba(255,255,255,.97);--bar-border:rgba(0,0,0,.06);
-  --pv-bg:rgba(0,0,0,.03);--zm-border:rgba(0,0,0,.1);--zm-bg:rgba(0,0,0,.03);--zm-text:#666;
-  --sb-thumb:#bbb;--install-bg:linear-gradient(135deg,#fff,#f5f5f5);--install-border:rgba(220,38,38,.2);
-  --guide-bg:#F0EDE8;--guide-card:#FFFFFF;--guide-border:rgba(0,0,0,.08);
-  --guide-text:#444;--guide-h:#111;--guide-num-bg:#DC2626;--guide-num:#fff;
-  --guide-accent:#DC2626;--guide-tip-bg:rgba(220,38,38,.06);--guide-tip-border:rgba(220,38,38,.15);
-}
+:root{--bg:#0A0A0A;--bg2:#0F0F0F;--card:#151515;--border:rgba(255,255,255,.06);--text:#e5e5e5;--text2:#f1f5f9;--text3:#cbd5e1;--text4:#888;--text5:#555;--text6:#444;--red:#DC2626;--red2:#991B1B;--redGlow:rgba(220,38,38,.3);--yellow:#FACC15;--yellowA:rgba(250,204,21,.7);--fi-bg:#0F0F0F;--fi-border:rgba(255,255,255,.08);--fi-focus:#DC2626;--fi-shadow:rgba(220,38,38,.12);--fi-ph:#444;--sec-border:rgba(220,38,38,.12);--subsec-border:rgba(220,38,38,.1);--overlay-bg:rgba(0,0,0,.6);--sheet-bg:#161616;--sheet-border:rgba(255,255,255,.06);--toast-s:rgba(153,27,27,.95);--toast-e:rgba(220,38,38,.95);--toast-i:rgba(30,30,30,.95);--addr-line:#DC2626;--dyn-add-border:rgba(220,38,38,.4);--sk-rm-border:rgba(255,255,255,.08);--range-bg:#222;--bar-bg:rgba(17,17,17,.97);--bar-border:rgba(255,255,255,.06);--pv-bg:rgba(255,255,255,.03);--zm-border:rgba(255,255,255,.1);--zm-bg:rgba(255,255,255,.04);--zm-text:#aaa;--sb-thumb:#333;--install-bg:linear-gradient(135deg,#1a1a1a,#111);--install-border:rgba(220,38,38,.2);--guide-bg:#111;--guide-card:#1a1a1a;--guide-border:rgba(255,255,255,.08);--guide-text:#b0b0b0;--guide-h:#fff;--guide-num-bg:#DC2626;--guide-num:#fff;--guide-accent:#DC2626;--guide-tip-bg:rgba(220,38,38,.08);--guide-tip-border:rgba(220,38,38,.2);--bb-inactive:#fff;--bb-inactive-w:800}
+.light{--bg:#F5F3F0;--bg2:#EDEAE6;--card:#FFFFFF;--border:rgba(0,0,0,.08);--text:#1a1a1a;--text2:#111;--text3:#333;--text4:#666;--text5:#888;--text6:#aaa;--red:#DC2626;--red2:#991B1B;--redGlow:rgba(220,38,38,.15);--yellow:#B45309;--yellowA:rgba(180,83,9,.8);--fi-bg:#FFFFFF;--fi-border:rgba(0,0,0,.12);--fi-focus:#DC2626;--fi-shadow:rgba(220,38,38,.1);--fi-ph:#999;--sec-border:rgba(220,38,38,.15);--subsec-border:rgba(220,38,38,.1);--overlay-bg:rgba(0,0,0,.35);--sheet-bg:#FFFFFF;--sheet-border:rgba(0,0,0,.06);--toast-s:rgba(153,27,27,.95);--toast-e:rgba(220,38,38,.95);--toast-i:rgba(255,255,255,.95);--addr-line:#DC2626;--dyn-add-border:rgba(220,38,38,.35);--sk-rm-border:rgba(0,0,0,.1);--range-bg:#ddd;--bar-bg:rgba(255,255,255,.97);--bar-border:rgba(0,0,0,.06);--pv-bg:rgba(0,0,0,.03);--zm-border:rgba(0,0,0,.1);--zm-bg:rgba(0,0,0,.03);--zm-text:#666;--sb-thumb:#bbb;--install-bg:linear-gradient(135deg,#fff,#f5f5f5);--install-border:rgba(220,38,38,.2);--guide-bg:#F0EDE8;--guide-card:#FFFFFF;--guide-border:rgba(0,0,0,.08);--guide-text:#444;--guide-h:#111;--guide-num-bg:#DC2626;--guide-num:#fff;--guide-accent:#DC2626;--guide-tip-bg:rgba(220,38,38,.06);--guide-tip-border:rgba(220,38,38,.15);--bb-inactive:#888;--bb-inactive-w:600}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{overscroll-behavior:none;touch-action:manipulation;-webkit-touch-callout:none}
 body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);height:100dvh;overflow:hidden;position:fixed;width:100%;transition:background .35s,color .35s}
@@ -75,9 +41,10 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .app-bar .ab-info{flex:1;display:flex;flex-direction:column}
 .app-bar .ab-name{font-size:15px;font-weight:800;color:var(--text2);line-height:1.2;letter-spacing:.3px;transition:color .35s}
 .app-bar .ab-tag{font-size:8.5px;color:var(--yellowA);font-style:italic;font-weight:500;letter-spacing:.3px;transition:color .35s}
-.theme-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0}
-.theme-btn:active{transform:scale(.88)}
-.theme-btn i{font-size:14px;color:var(--text4);transition:color .35s}
+.ab-actions{display:flex;align-items:center;gap:6px}
+.ab-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0}
+.ab-btn:active{transform:scale(.88)}
+.ab-btn i{font-size:14px;color:var(--text4);transition:color .35s}
 .cat-bar{flex-shrink:0;display:flex;background:var(--bg);border-bottom:1px solid var(--border);transition:all .35s}
 .cat-btn{flex:1;padding:10px 0;text-align:center;font-size:12.5px;font-weight:700;color:var(--text5);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .2s;letter-spacing:.02em}
 .cat-btn.active{color:var(--red);border-bottom-color:var(--red)}
@@ -118,11 +85,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .pv-container{display:flex;flex-direction:column;height:100%;padding:0!important}
 .pv-header{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 0}
 .pv-label{font-size:10px;font-weight:700;color:var(--text5);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:6px;transition:color .35s}
-.pv-zoom-controls{display:flex;align-items:center;gap:4px;margin-left:auto}
-.zm-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--zm-border);background:var(--zm-bg);color:var(--zm-text);font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.pv-zoom-controls{display:flex;align-items:center;gap:5px;margin-left:auto;flex:1;max-width:180px}
+.zoom-slider{-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:var(--range-bg);outline:none;flex:1;cursor:pointer}
+.zoom-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--red);cursor:pointer;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.zoom-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--red);cursor:pointer;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.zm-label{font-size:10px;font-weight:700;color:var(--text4);min-width:38px;text-align:center;font-variant-numeric:tabular-nums;transition:color .35s;flex-shrink:0}
+.zm-btn{width:34px;height:28px;border-radius:8px;border:1px solid var(--zm-border);background:var(--zm-bg);color:var(--zm-text);font-size:8px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;letter-spacing:.03em}
 .zm-btn:active{background:rgba(220,38,38,.2);border-color:var(--red);color:var(--red);transform:scale(.9)}
-.zm-btn.fit-btn{font-size:8px;letter-spacing:.03em;padding:0 6px;width:auto;font-weight:800}
-.zm-label{font-size:10px;font-weight:700;color:var(--text4);min-width:36px;text-align:center;font-variant-numeric:tabular-nums;transition:color .35s}
 .pv-wrap{flex:1;overflow:auto;border-radius:12px;background:var(--pv-bg);padding:12px;display:flex;justify-content:center;-webkit-overflow-scrolling:touch;transition:background .35s}
 .pv-wrap::-webkit-scrollbar{width:3px;height:3px}
 .pv-wrap::-webkit-scrollbar-thumb{background:var(--sb-thumb);border-radius:3px}
@@ -133,15 +102,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .a4-page table td{padding:.4mm 0;vertical-align:top}
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
 .bottom-bar{flex-shrink:0;display:flex;background:var(--bar-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bar-border);padding:4px 0 calc(4px + env(safe-area-inset-bottom,0px));transition:all .35s}
-.bb-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0 4px;font-size:9.5px;font-weight:600;color:var(--text5);background:none;border:none;cursor:pointer;transition:color .2s;position:relative}
-.bb-btn.active{color:#FACC15}
+.bb-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0 4px;font-size:9.5px;font-weight:var(--bb-inactive-w);color:var(--bb-inactive);background:none;border:none;cursor:pointer;transition:color .2s,font-weight .2s;position:relative}
+.bb-btn.active{color:#FACC15;font-weight:800}
 .bb-btn.active::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:20px;height:2.5px;background:#FACC15;border-radius:0 0 3px 3px}
-.light .bb-btn.active{color:var(--red)}
+.light .bb-btn.active{color:var(--red);font-weight:800}
 .light .bb-btn.active::before{background:var(--red)}
+.light .bb-btn{color:var(--text5);font-weight:600}
 .bb-btn i{font-size:18px;transition:transform .15s}
 .bb-btn:active i{transform:scale(.85)}
-.bb-btn.pdf-btn.active{color:var(--red)}
-.bb-btn.pdf-btn.active::before{background:var(--red)}
 .sheet-overlay{position:fixed;inset:0;background:var(--overlay-bg);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .sheet-overlay.open{opacity:1;pointer-events:auto}
 .sheet-panel{position:fixed;bottom:0;left:0;right:0;background:var(--sheet-bg);border-radius:20px 20px 0 0;z-index:301;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1),background .35s;max-height:88vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,16px);-webkit-overflow-scrolling:touch}
@@ -157,8 +125,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .sheet-version{text-align:center;padding:16px;font-size:10px;color:var(--text6);font-weight:600;transition:color .35s}
 .install-banner{position:fixed;top:0;left:0;right:0;z-index:250;background:var(--install-bg);border-bottom:1px solid var(--install-border);padding:10px 16px;display:flex;align-items:center;gap:10px;transform:translateY(-100%);transition:transform .4s cubic-bezier(.32,.72,0,1);padding-top:calc(10px + env(safe-area-inset-top,0px))}
 .install-banner.show{transform:translateY(0)}
-.install-banner .ib-icon{width:36px;height:36px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.install-banner .ib-icon img{width:24px;height:24px;border-radius:4px}
+.install-banner .ib-icon{width:36px;height:36px;border-radius:8px;overflow:hidden;flex-shrink:0}
+.install-banner .ib-icon img{width:100%;height:100%;object-fit:cover}
 .install-banner .ib-text{flex:1}
 .install-banner .ib-title{font-size:12px;font-weight:700;color:var(--text2);transition:color .35s}
 .install-banner .ib-sub{font-size:10px;color:var(--text4);margin-top:1px;transition:color .35s}
@@ -176,8 +144,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 #pdf-offscreen{position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm}
 .subject-preview{background:var(--guide-tip-bg);border:1px solid var(--guide-tip-border);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--text);word-break:break-word;line-height:1.5;transition:all .35s}
 .subject-preview b{color:var(--yellow);font-weight:700}
-
-/* ===== PANDUAN SHEET ===== */
 .guide-content{padding:0 20px 24px;overflow-y:auto;max-height:calc(85vh - 80px);-webkit-overflow-scrolling:touch}
 .guide-section{margin-bottom:18px}
 .guide-section-title{display:flex;align-items:center;gap:8px;margin-bottom:10px}
@@ -196,12 +162,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .guide-tab.active{background:var(--red);color:#fff;border-color:var(--red)}
 .guide-page{display:none}
 .guide-page.active{display:block}
+.help-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--guide-border)}
+.help-item:last-child{border-bottom:none}
+.help-icon{width:36px;height:36px;border-radius:10px;background:var(--guide-tip-bg);border:1px solid var(--guide-tip-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--guide-accent);font-size:15px}
+.help-text h4{font-size:13px;font-weight:700;color:var(--guide-h);margin-bottom:2px;transition:color .35s}
+.help-text p{font-size:12px;line-height:1.5;color:var(--guide-text);transition:color .35s}
 </style>
 </head>
 <body>
 
 <div id="splash">
-  <div class="sp-logo"><img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo"></div>
+  <div class="sp-logo"><img src="https://z-cdn-media.chatglm.cn/files/6e105012-00dc-4b0d-bccf-9838f5956ace.png?auth_key=1882101763-dbc52408a3d94c47967b5a6c05225088-0-c60f379e8df58376b991286fa8b6753e" alt="Logo"></div>
   <div class="sp-title">KARYA ABADI<span>.Jobs</span></div>
   <div class="sp-sub">Ciptakan peluang karir impianmu</div>
   <div class="sp-bar"><div class="sp-bar-inner"></div></div>
@@ -210,12 +181,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 <div id="app">
   <div class="sb-spacer"></div>
   <header class="app-bar">
-    <div class="ab-logo"><img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo"></div>
+    <div class="ab-logo"><img src="https://z-cdn-media.chatglm.cn/files/6e105012-00dc-4b0d-bccf-9838f5956ace.png?auth_key=1882101763-dbc52408a3d94c47967b5a6c05225088-0-c60f379e8df58376b991286fa8b6753e" alt="Logo"></div>
     <div class="ab-info">
       <div class="ab-name">KARYA ABADI<span style="color:var(--text4);font-size:12px;font-weight:700">.Jobs</span></div>
       <div class="ab-tag">Ciptakan peluang karir impianmu</div>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()" title="Ganti Tema"><i class="fa-solid fa-sun"></i></button>
+    <div class="ab-actions">
+      <button class="ab-btn" onclick="openSheet('help')" title="Penjelasan Fungsi"><i class="fa-solid fa-circle-question"></i></button>
+      <button class="ab-btn" onclick="toggleTheme()" title="Ganti Tema"><i class="fa-solid fa-sun"></i></button>
+    </div>
   </header>
   <div class="cat-bar">
     <button class="cat-btn active" id="cat-cv" onclick="selectCat('cv')"><i class="fa-solid fa-file-lines"></i>CV</button>
@@ -231,10 +205,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
       <div class="pv-header">
         <div class="pv-label"><i class="fa-solid fa-eye" style="font-size:10px"></i>Preview A4</div>
         <div class="pv-zoom-controls">
-          <button class="zm-btn" onclick="zoomOut()"><i class="fa-solid fa-minus" style="font-size:10px"></i></button>
           <span class="zm-label" id="zoom-label">100%</span>
-          <button class="zm-btn" onclick="zoomIn()"><i class="fa-solid fa-plus" style="font-size:10px"></i></button>
-          <button class="zm-btn fit-btn" onclick="zoomFit()">FIT</button>
+          <input type="range" class="zoom-slider" id="zoom-slider" min="50" max="300" step="5" value="100" oninput="onZoomSlider(this.value)">
+          <button class="zm-btn" onclick="zoomFit()">FIT</button>
         </div>
       </div>
       <div class="pv-wrap" id="pv-wrap">
@@ -245,16 +218,34 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   <nav class="bottom-bar">
     <button class="bb-btn active" id="bb-form" onclick="switchTab('form')"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
     <button class="bb-btn" id="bb-preview" onclick="switchTab('preview')"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
-    <button class="bb-btn pdf-btn" id="bb-pdf" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i><span>Unduh PDF</span></button>
+    <button class="bb-btn" id="bb-pdf" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i><span>Unduh PDF</span></button>
     <button class="bb-btn" id="bb-more" onclick="openSheet('more')"><i class="fa-solid fa-ellipsis"></i><span>Lainnya</span></button>
   </nav>
 </div>
 
 <div class="install-banner" id="install-banner">
-  <div class="ib-icon"><img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="I"></div>
+  <div class="ib-icon"><img src="https://z-cdn-media.chatglm.cn/files/6e105012-00dc-4b0d-bccf-9838f5956ace.png?auth_key=1882101763-dbc52408a3d94c47967b5a6c05225088-0-c60f379e8df58376b991286fa8b6753e" alt="I"></div>
   <div class="ib-text"><div class="ib-title">Pasang Karya Abadi</div><div class="ib-sub">Akses cepat langsung dari home screen</div></div>
   <button class="ib-btn" onclick="installApp()">Pasang</button>
   <button class="ib-close" onclick="dismissInstall()"><i class="fa-solid fa-xmark"></i></button>
+</div>
+
+<!-- Sheet: Penjelasan Fungsi -->
+<div class="sheet-overlay" id="overlay-help" onclick="closeSheet('help')"></div>
+<div class="sheet-panel" id="panel-help">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Penjelasan Fungsi Aplikasi</div>
+  <div style="padding:4px 24px 24px">
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-pen-to-square"></i></div><div class="help-text"><h4>Formulir</h4><p>Isi data diri, pendidikan, pengalaman kerja, dan keahlian Anda. Semua data diproses lokal di perangkat dan tidak dikirim ke server manapun.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-eye"></i></div><div class="help-text"><h4>Preview A4</h4><p>Lihat tampilan dokumen sesuai ukuran kertas A4 sebelum diunduh. Gunakan slider zoom untuk memperbesar atau memperkecil tampilan agar lebih jelas.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-file-pdf"></i></div><div class="help-text"><h4>Unduh PDF</h4><p>Simpan dokumen sebagai file PDF yang siap dicetak atau dikirim. File dibuat langsung di perangkat tanpa upload ke server.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-ellipsis"></i></div><div class="help-text"><h4>Lainnya</h4><p>Akses panduan membuat CV & surat lamaran, info aplikasi, kontak, kebijakan privasi, serta reset formulir.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><div class="help-text"><h4>Tombol ? (Penjelasan)</h4><p>Menampilkan halaman ini yang menjelaskan setiap fungsi di aplikasi.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-sun"></i></div><div class="help-text"><h4>Ganti Tema</h4><p>Beralih antara tema gelap (Hitam-Merah-Putih) dan tema terang. Tema terang dirancang agar lebih nyaman untuk mengisi formulir dalam waktu lama.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-sliders"></i></div><div class="help-text"><h4>Pengaturan Tampilan</h4><p>Atur jenis font (Arial, Times New Roman, Calibri), ukuran font, dan jarak baris pada dokumen yang dihasilkan.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-camera"></i></div><div class="help-text"><h4>Upload Pas Foto</h4><p>Tambahkan foto 3x4 ke dalam CV. Foto diproses lokal dan tidak diunggah ke server. Maksimal ukuran 2MB.</p></div></div>
+    <div class="help-item"><div class="help-icon"><i class="fa-solid fa-book-open"></i></div><div class="help-text"><h4>Panduan CV & Surat</h4><p>Panduan lengkap cara membuat CV dan surat lamaran pekerjaan yang baik dan benar sesuai kaidah Indonesia.</p></div></div>
+  </div>
 </div>
 
 <!-- Sheet: Menu Lainnya -->
@@ -279,245 +270,76 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   <div class="sheet-handle"></div>
   <div class="sheet-title">Panduan Membuat CV & Surat</div>
   <div class="guide-tab-bar">
-    <button class="guide-tab active" onclick="switchGuideTab('cv')">Panduan CV</button>
-    <button class="guide-tab" onclick="switchGuideTab('surat')">Panduan Surat</button>
+    <button class="guide-tab active" onclick="switchGuideTab('cv',this)">Panduan CV</button>
+    <button class="guide-tab" onclick="switchGuideTab('surat',this)">Panduan Surat</button>
   </div>
   <div class="guide-content">
-    <!-- PANDUAN CV -->
     <div class="guide-page active" id="guide-cv">
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">1</div><h3>Struktur CV yang Baik</h3></div>
-        <p class="guide-p">CV yang efektif harus terstruktur rapi dan mudah dibaca. Pastikan setiap bagian memiliki urutan yang logis.</p>
-        <ul class="guide-ul">
-          <li><b>Data Pribadi</b> — Nama lengkap, kontak, alamat</li>
-          <li><b>Profil Ringkas</b> — 2–3 kalimat tentang diri Anda</li>
-          <li><b>Pendidikan</b> — Formal & non-formal, urut terbaru</li>
-          <li><b>Pengalaman Kerja</b> — Jika ada, urut terbaru</li>
-          <li><b>Keahlian</b> — Hard skill & soft skill relevan</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">2</div><h3>Tips Penulisan Profil</h3></div>
-        <p class="guide-p">Profil adalah bagian pertama yang dibaca recruiter. Buatlah singkat namun menarik.</p>
-        <ul class="guide-ul">
-          <li>Tulis <b>2–3 kalimat</b> saja, jangan lebih</li>
-          <li>Sebutkan <b>pendidikan terakhir</b> dan <b>jurusan</b></li>
-          <li>Tonjolkan <b>keahlian utama</b> yang relevan dengan posisi</li>
-          <li>Hindari bahasa yang terlalu berlebihan</li>
-          <li>Jangan gunakan kata "saya" berulang-ulang</li>
-        </ul>
-        <div class="guide-tip"><i class="fa-solid fa-lightbulb"></i>Contoh: "Lulusan S1 Manajemen dari Universitas Indonesia dengan pengalaman magang 6 bulan di bidang HRD. Mengenal baik proses rekrutmen dan mampu mengoperasikan sistem HRIS."</div>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">3</div><h3>Pendidikan</h3></div>
-        <ul class="guide-ul">
-          <li>Urutkan dari <b>tertinggi ke terendah</b></li>
-          <li>Tulis <b>nama institusi</b> secara lengkap</li>
-          <li>Sebutkan <b>jurusan/prodi</b> dengan jelas</li>
-          <li>Tulis tahun lulus dalam format <b>2019/2023</b></li>
-          <li>Pendidikan non-formal (kursus, sertifikasi) juga penting</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">4</div><h3>Pengalaman Kerja</h3></div>
-        <ul class="guide-ul">
-          <li>Urutkan dari <b>terbaru ke terlama</b></li>
-          <li>Tulis <b>jabatan, perusahaan, dan masa kerja</b></li>
-          <li>Deskripsikan tugas secara <b>ringkas dan jelas</b></li>
-          <li>Gunakan <b>kata kerja aktif</b>: mengelola, merancang, menganalisis</li>
-          <li>Jika belum punya pengalaman, isi "Belum ada" saja</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">5</div><h3>Keahlian</h3></div>
-        <ul class="guide-ul">
-          <li><b>Hard skill</b>: kemampuan teknis (Microsoft Office, bahasa pemrograman, desain)</li>
-          <li><b>Soft skill</b>: kemampuan interpersonal (komunikasi, kerja tim, manajemen waktu)</li>
-          <li>Sesuaikan keahlian dengan <b>posisi yang dilamar</b></li>
-          <li>Jangan menulis keahlian yang <b>tidak Anda kuasai</b></li>
-          <li>Prioritaskan <b>5–8 keahlian</b> yang paling relevan</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">6</div><h3>Pas Foto</h3></div>
-        <ul class="guide-ul">
-          <li>Gunakan foto <b>terbaru</b>, maksimal 1 tahun</li>
-          <li>Ukuran <b>3×4 cm</b>, latar belakang <b>putih</b> atau <b>merah</b></li>
-          <li>Berpenampilan <b>formal</b> (kemeja, jas, atau blazer)</li>
-          <li>Ekspresi <b>wajar dan percaya diri</b></li>
-          <li>Jangan gunakan foto selfie, filter, atau foto yang tidak jelas</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">7</div><h3>Tips Umum</h3></div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Gunakan font yang mudah dibaca (Arial, Times New Roman, Calibri)</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Jangan menggunakan lebih dari 2 jenis font</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Pastikan tidak ada salah ketik (typo)</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>CV ideal 1–2 halaman, tidak lebih</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Simpan dalam format PDF agar tidak berubah tampilan</div>
-        <div class="guide-tip"><i class="fa-solid fa-triangle-exclamation"></i>Jangan pernah memalsukan data dalam CV</div>
-      </div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">1</div><h3>Struktur CV yang Baik</h3></div><ul class="guide-ul"><li><b>Data Pribadi</b> — Nama, kontak, alamat</li><li><b>Profil Ringkas</b> — 2–3 kalimat tentang diri</li><li><b>Pendidikan</b> — Formal & non-formal</li><li><b>Pengalaman Kerja</b> — Jika ada</li><li><b>Keahlian</b> — Hard skill & soft skill</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">2</div><h3>Tips Penulisan Profil</h3></div><ul class="guide-ul"><li>Tulis <b>2–3 kalimat</b> saja</li><li>Sebutkan <b>pendidikan</b> dan <b>jurusan</b></li><li>Tonjolkan <b>keahlian utama</b> yang relevan</li><li>Hindari bahasa berlebihan</li></ul><div class="guide-tip"><i class="fa-solid fa-lightbulb"></i>Contoh: "Lulusan S1 Manajemen dengan pengalaman magang 6 bulan di bidang HRD. Mengenal baik proses rekrutmen dan mampu mengoperasikan sistem HRIS."</div></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">3</div><h3>Pendidikan</h3></div><ul class="guide-ul"><li>Urutkan <b>tertinggi ke terendah</b></li><li>Tulis <b>nama institusi</b> lengkap</li><li>Tahun lulus format <b>2019/2023</b></li><li>Pendidikan non-formal juga penting</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">4</div><h3>Pengalaman Kerja</h3></div><ul class="guide-ul"><li>Urutkan <b>terbaru ke terlama</b></li><li>Gunakan <b>kata kerja aktif</b>: mengelola, merancang</li><li>Deskripsikan tugas <b>ringkas dan jelas</b></li><li>Belum ada pengalaman? Isi "Belum ada"</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">5</div><h3>Keahlian</h3></div><ul class="guide-ul"><li><b>Hard skill</b>: kemampuan teknis</li><li><b>Soft skill</b>: kemampuan interpersonal</li><li>Sesuaikan dengan <b>posisi yang dilamar</b></li><li>Prioritaskan <b>5–8 keahlian</b> paling relevan</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">6</div><h3>Pas Foto</h3></div><ul class="guide-ul"><li>Foto <b>terbaru</b>, maks 1 tahun</li><li>Ukuran <b>3×4 cm</b>, latar putih/merah</li><li>Berpenampilan <b>formal</b></li><li>Jangan gunakan foto selfie atau filter</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">7</div><h3>Tips Umum</h3></div><div class="guide-tip"><i class="fa-solid fa-check"></i>Gunakan font mudah dibaca (Arial, Times New Roman)</div><div class="guide-tip"><i class="fa-solid fa-check"></i>CV ideal 1–2 halaman</div><div class="guide-tip"><i class="fa-solid fa-check"></i>Simpan dalam format PDF</div><div class="guide-tip"><i class="fa-solid fa-triangle-exclamation"></i>Jangan memalsukan data</div></div>
     </div>
-    <!-- PANDUAN SURAT -->
     <div class="guide-page" id="guide-surat">
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">1</div><h3>Perbedaan Format Tulis Tangan vs Email</h3></div>
-        <p class="guide-p">Kedua format memiliki struktur yang berbeda. Pahami kapan menggunakan masing-masing.</p>
-        <ul class="guide-ul">
-          <li><b>Tulis tangan</b> — Untuk lamaran langsung (datang ke kantor), lengkap dengan kop, lampiran, perihal</li>
-          <li><b>Email</b> — Untuk lamaran via email, gunakan subject line yang jelas, tanpa kop/lampiran header</li>
-        </ul>
-        <div class="guide-tip"><i class="fa-solid fa-lightbulb"></i>Baca carefully info lowongan. Jika disuruh kirim via email, gunakan format email. Jika disuruh datang langsung, gunakan format tulis tangan.</div>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">2</div><h3>Format Tulis Tangan</h3></div>
-        <ul class="guide-ul">
-          <li><b>Tempat, Tanggal</b> — Rata kanan. Contoh: "Subang, 1 Januari 2025"</li>
-          <li><b>Lampiran</b> — Rata kiri. Contoh: "Lampiran : 5 lembar"</li>
-          <li><b>Perihal</b> — Rata kiri. Contoh: "Perihal : Lamaran Pekerjaan Posisi Admin"</li>
-          <li><b>Kepada Yth.</b> — Tulis jabatan lalu nama perusahaan dan alamat</li>
-          <li><b>Isi</b> — "Dengan hormat, yang bertanda tangan di bawah ini:" lalu data diri</li>
-          <li><b>Penutup</b> — "Hormat saya," diikuti tanda tangan</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">3</div><h3>Format Email</h3></div>
-        <ul class="guide-ul">
-          <li><b>Subject line</b> — Format: "Lamaran Pekerjaan [Posisi] – [Nama]"</li>
-          <li><b>Salam pembuka</b> — "Yth. Bapak/Ibu [Jabatan] [Perusahaan],"</li>
-          <li><b>"Dengan hormat,"</b> — Baris terpisah setelah salam pembuka</li>
-          <li><b>Data diri</b> — Sama seperti format tulis tangan</li>
-          <li><b>Info kontak</b> — Tulis No. HP dan Email di bawah tanda tangan</li>
-          <li><b>Lampiran</b> — Sebutkan di dalam body, lalu attach file sesungguhnya</li>
-        </ul>
-        <div class="guide-tip"><i class="fa-solid fa-lightbulb"></i>Subject yang baik contohnya: "Lamaran Pekerjaan Staff Akunting – Budi Santoso". Jangan tulis hanya "Lamaran Kerja" tanpa keterangan posisi dan nama.</div>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">4</div><h3>Isi Surat yang Efektif</h3></div>
-        <ul class="guide-ul">
-          <li><b>Paragraf 1</b> — Sumber info lowongan dan maksud melamar</li>
-          <li><b>Paragraf 2 (opsional)</b> — Kualifikasi singkat yang relevan</li>
-          <li><b>Paragraf 3</b> — Sebutkan lampiran yang dilampirkan</li>
-          <li><b>Paragraf 4</b> — Penutup formal dan ucapan terima kasih</li>
-        </ul>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Gunakan bahasa formal dan sopan. Hindari bahasa gaul atau singkatan yang tidak umum.</div>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">5</div><h3>Lampiran yang Umum Dibutuhkan</h3></div>
-        <ul class="guide-ul">
-          <li><b>Daftar Riwayat Hidup (CV)</b> — Wajib</li>
-          <li><b>Pas Foto 3×4</b> — Biasanya 2 lembar</li>
-          <li><b>Fotokopi KTP</b> — Sering diminta</li>
-          <li><b>Fotokopi Ijazah</b> — Pendidikan terakhir</li>
-          <li><b>Fotokopi Sertifikat</b> — Jika ada relevan</li>
-          <li><b>Fotokopi SKCK</b> — Beberapa perusahaan meminta</li>
-          <li><b>Surat Keterangan Sehat</b> — Terutama untuk pekerjaan lapangan</li>
-        </ul>
-        <div class="guide-tip"><i class="fa-solid fa-triangle-exclamation"></i>Sesuaikan lampiran dengan yang diminta dalam info lowongan. Jangan lampirkan semua dokumen jika tidak diminta.</div>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">6</div><h3>Kesalahan yang Harus Dihindari</h3></div>
-        <ul class="guide-ul">
-          <li>Salah menulis <b>nama perusahaan</b> atau <b>jabatan</b></li>
-          <li>Tidak menyebutkan <b>posisi yang dilamar</b></li>
-          <li>Menggunakan <b>bahasa tidak sopan</b> atau terlalu santai</li>
-          <li>Surat terlalu <b>panjang</b> (idealnya 1 halaman)</li>
-          <li><b>Copy-paste</b> surat tanpa menyesuaikan isi</li>
-          <li>Lupa <b>menandatangani</b> (format tulis tangan)</li>
-          <li><b>Subject email</b> tidak jelas atau kosong</li>
-        </ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title"><div class="guide-num">7</div><h3>Tips Tambahan</h3></div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Tulis surat di kertas A4, gunakan pulpen hitam atau biru</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Untuk email, kirim di jam kerja (08.00–16.00)</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Gunakan nama email profesional (nama.lengkap@gmail.com)</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Periksa ulang sebelum mengirim: nama perusahaan, alamat, posisi</div>
-        <div class="guide-tip"><i class="fa-solid fa-check"></i>Selalu cantumkan nomor HP yang aktif</div>
-        <div class="guide-tip"><i class="fa-solid fa-triangle-exclamation"></i>Jangan mengirim ke banyak perusahaan dengan isi surat yang sama persis</div>
-      </div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">1</div><h3>Tulis Tangan vs Email</h3></div><ul class="guide-ul"><li><b>Tulis tangan</b> — Untuk lamaran langsung ke kantor</li><li><b>Email</b> — Untuk lamaran via email, gunakan subject jelas</li></ul><div class="guide-tip"><i class="fa-solid fa-lightbulb"></i>Baca carefully info lowongan untuk menentukan format yang tepat.</div></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">2</div><h3>Format Tulis Tangan</h3></div><ul class="guide-ul"><li><b>Tempat, Tanggal</b> — Rata kanan</li><li><b>Lampiran</b> — "Lampiran : 5 lembar"</li><li><b>Perihal</b> — "Perihal : Lamaran Pekerjaan Posisi Admin"</li><li><b>Kepada Yth.</b> — Jabatan, perusahaan, alamat</li><li><b>"Dengan hormat, yang bertanda tangan di bawah ini:"</b></li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">3</div><h3>Format Email</h3></div><ul class="guide-ul"><li><b>Subject</b>: "Lamaran Pekerjaan [Posisi] – [Nama]"</li><li><b>Salam</b>: "Yth. Bapak/Ibu [Jabatan] [Perusahaan],"</li><li><b>"Dengan hormat,"</b> — Baris terpisah</li><li>Tulis No. HP & Email di <b>bawah tanda tangan</b></li></ul><div class="guide-tip"><i class="fa-solid fa-lightbulb"></i>Subject yang baik: "Lamaran Pekerjaan Staff Akunting – Budi Santoso". Jangan tulis hanya "Lamaran Kerja".</div></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">4</div><h3>Isi Surat Efektif</h3></div><ul class="guide-ul"><li><b>Paragraf 1</b> — Sumber info + maksud melamar</li><li><b>Paragraf 2</b> — Kualifikasi singkat (opsional)</li><li><b>Paragraf 3</b> — Sebutkan lampiran</li><li><b>Paragraf 4</b> — Penutup formal + terima kasih</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">5</div><h3>Lampiran Umum</h3></div><ul class="guide-ul"><li>Daftar Riwayat Hidup (CV) — <b>Wajib</b></li><li>Pas Foto 3×4 — Biasanya 2 lembar</li><li>Fotokopi KTP, Ijazah, Sertifikat</li><li>SKCK, Surat Keterangan Sehat (jika diminta)</li></ul><div class="guide-tip"><i class="fa-solid fa-triangle-exclamation"></i>Sesuaikan lampiran dengan yang diminta. Jangan lampirkan semua jika tidak diminta.</div></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">6</div><h3>Kesalahan yang Dihindari</h3></div><ul class="guide-ul"><li>Salah tulis nama perusahaan/jabatan</li><li>Tidak sebutkan posisi yang dilamar</li><li>Bahasa tidak sopan atau terlalu santai</li><li>Surat terlalu panjang (ideal 1 halaman)</li><li>Copy-paste tanpa menyesuaikan</li><li>Lupa menandatangani</li><li>Subject email tidak jelas</li></ul></div>
+      <div class="guide-section"><div class="guide-section-title"><div class="guide-num">7</div><h3>Tips Tambahan</h3></div><div class="guide-tip"><i class="fa-solid fa-check"></i>Tulis di kertas A4, pulpen hitam/biru</div><div class="guide-tip"><i class="fa-solid fa-check"></i>Kirim email di jam kerja (08.00–16.00)</div><div class="guide-tip"><i class="fa-solid fa-check"></i>Gunakan email profesional (nama.lengkap@gmail.com)</div><div class="guide-tip"><i class="fa-solid fa-check"></i>Periksa ulang sebelum mengirim</div><div class="guide-tip"><i class="fa-solid fa-triangle-exclamation"></i>Jangan kirim ke banyak perusahaan dengan isi sama persis</div></div>
     </div>
   </div>
 </div>
 
 <!-- Sheet: About -->
 <div class="sheet-overlay" id="overlay-about" onclick="closeSheet('about')"></div>
-<div class="sheet-panel" id="panel-about">
-  <div class="sheet-handle"></div>
-  <div class="sheet-title">Tentang Aplikasi</div>
-  <div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:4px 0 6px">KARYA ABADI.Jobs</h3><p style="margin-bottom:8px">Aplikasi pembuat CV dan Surat Lamaran Pekerjaan profesional sesuai kaidah penulisan resmi Indonesia (EYD).</p><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:16px 0 6px">Fitur Utama</h3><p style="margin-bottom:8px">&#8226; 3 template CV profesional<br>&#8226; 4 template surat lamaran resmi<br>&#8226; 2 tema (Gelap & Terang)<br>&#8226; Zoom preview<br>&#8226; Panduan lengkap<br>&#8226; Unduh PDF</p><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:16px 0 6px">Versi</h3><p>1.0.0 (Build 2026.01)</p></div>
-</div>
+<div class="sheet-panel" id="panel-about"><div class="sheet-handle"></div><div class="sheet-title">Tentang Aplikasi</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:4px 0 6px">KARYA ABADI.Jobs</h3><p style="margin-bottom:8px">Aplikasi pembuat CV dan Surat Lamaran Pekerjaan profesional sesuai kaidah penulisan resmi Indonesia.</p><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:16px 0 6px">Fitur</h3><p style="margin-bottom:8px">&#8226; 3 template CV & 4 template surat<br>&#8226; 2 tema (Gelap & Terang)<br>&#8226; Zoom preview dengan slider<br>&#8226; Panduan lengkap<br>&#8226; Unduh PDF</p><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:16px 0 6px">Versi</h3><p>1.0.0 (Build 2026.01)</p></div></div>
 
 <!-- Sheet: Contact -->
 <div class="sheet-overlay" id="overlay-contact" onclick="closeSheet('contact')"></div>
-<div class="sheet-panel" id="panel-contact">
-  <div class="sheet-handle"></div>
-  <div class="sheet-title">Kontak</div>
-  <div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:4px 0 6px">Email</h3><p>karyaabadi24434@gmail.com</p></div>
-</div>
+<div class="sheet-panel" id="panel-contact"><div class="sheet-handle"></div><div class="sheet-title">Kontak</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><h3 style="color:var(--guide-h);font-size:14px;font-weight:700;margin:4px 0 6px">Email</h3><p>karyaabadi24434@gmail.com</p></div></div>
 
 <!-- Sheet: Privacy, Terms, Disclaimer -->
 <div class="sheet-overlay" id="overlay-privacy" onclick="closeSheet('privacy')"></div>
-<div class="sheet-panel" id="panel-privacy"><div class="sheet-handle"></div><div class="sheet-title">Kebijakan Privasi</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><p>Aplikasi ini tidak mengumpulkan, menyimpan, atau mengirim data pribadi Anda ke server manapun. Semua data diproses di perangkat secara lokal. Pas foto diproses sepenuhnya di perangkat. File PDF dibuat langsung di perangkat.</p></div></div>
-
+<div class="sheet-panel" id="panel-privacy"><div class="sheet-handle"></div><div class="sheet-title">Kebijakan Privasi</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><p>Aplikasi ini tidak mengumpulkan, menyimpan, atau mengirim data pribadi Anda ke server manapun. Semua data diproses di perangkat secara lokal.</p></div></div>
 <div class="sheet-overlay" id="overlay-terms" onclick="closeSheet('terms')"></div>
-<div class="sheet-panel" id="panel-terms"><div class="sheet-handle"></div><div class="sheet-title">Syarat & Ketentuan</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><p>Aplikasi disediakan "sebagaimana adanya". Pengguna bertanggung jawab penuh atas isi dokumen. Dilarang menggunakan untuk tujuan ilegal atau menyesatkan. Seluruh konten dilindungi hukum hak cipta.</p></div></div>
-
+<div class="sheet-panel" id="panel-terms"><div class="sheet-handle"></div><div class="sheet-title">Syarat & Ketentuan</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><p>Aplikasi disediakan "sebagaimana adanya". Pengguna bertanggung jawab penuh atas isi dokumen. Dilarang menggunakan untuk tujuan ilegal. Seluruh konten dilindungi hukum hak cipta.</p></div></div>
 <div class="sheet-overlay" id="overlay-disclaimer" onclick="closeSheet('disclaimer')"></div>
-<div class="sheet-panel" id="panel-disclaimer"><div class="sheet-handle"></div><div class="sheet-title">Disclaimer</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><p>Aplikasi ini dibuat sebagai alat bantu. Kami tidak menjamin penggunaan akan menghasilkan pekerjaan. Pengguna disarankan menyesuaikan konten dengan kebutuhan spesifik lowongan.</p></div></div>
+<div class="sheet-panel" id="panel-disclaimer"><div class="sheet-handle"></div><div class="sheet-title">Disclaimer</div><div style="padding:4px 24px 24px;font-size:13.5px;line-height:1.7;color:var(--guide-text)"><p>Aplikasi ini dibuat sebagai alat bantu. Kami tidak menjamin penggunaan akan menghasilkan pekerjaan.</p></div></div>
 
 <div id="toast-box"></div>
 <div id="pdf-offscreen"></div>
 
 <script>
-var LOGO_URL='https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591';
+var LOGO_URL='https://z-cdn-media.chatglm.cn/files/6e105012-00dc-4b0d-bccf-9838f5956ace.png?auth_key=1882101763-dbc52408a3d94c47967b5a6c05225088-0-c60f379e8df58376b991286fa8b6753e';
 
 /* ===== TEMA ===== */
 var isDark=true;
-function toggleTheme(){
-  isDark=!isDark;
-  document.body.classList.toggle('light',!isDark);
-  var icon=document.querySelector('.theme-btn i');
-  icon.className=isDark?'fa-solid fa-sun':'fa-solid fa-moon';
-  var metaTheme=document.querySelector('meta[name="theme-color"]');
-  if(metaTheme)metaTheme.content=isDark?'#0A0A0A':'#F5F3F0';
-  toast(isDark?'Tema Gelap aktif':'Tema Terang aktif','info');
-}
+function toggleTheme(){isDark=!isDark;document.body.classList.toggle('light',!isDark);var icon=document.querySelector('.ab-btn[title="Ganti Tema"] i');icon.className=isDark?'fa-solid fa-sun':'fa-solid fa-moon';var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=isDark?'#0A0A0A':'#F5F3F0';toast(isDark?'Tema Gelap aktif':'Tema Terang aktif','info')}
 
 /* ===== PWA ICON ===== */
-function makeAppIcon(size,cb){
-  var c=document.createElement('canvas');c.width=size;c.height=size;var ctx=c.getContext('2d');var r=size*0.2;
-  function rr(){ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.quadraticCurveTo(size,0,size,r);ctx.lineTo(size,size-r);ctx.quadraticCurveTo(size,size,size-r,size);ctx.lineTo(r,size);ctx.quadraticCurveTo(0,size,0,size-r);ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);ctx.closePath()}
-  var img=new Image();img.crossOrigin='anonymous';
-  img.onload=function(){rr();ctx.fillStyle='#DC2626';ctx.fill();ctx.save();rr();ctx.clip();var pad=size*0.12,s=size-pad*2;ctx.drawImage(img,pad,pad,s,s);ctx.restore();cb(c.toDataURL('image/png'))};
-  img.onerror=function(){rr();ctx.fillStyle='#DC2626';ctx.fill();ctx.fillStyle='#fff';ctx.font='bold '+(size*0.32)+'px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('KA',size/2,size/2);cb(c.toDataURL('image/png'))};
-  img.src=LOGO_URL;
-}
-makeAppIcon(192,function(i192){makeAppIcon(512,function(i512){
-  var manifest={name:'Karya Abadi',short_name:'Karya Abadi',description:'Aplikasi pembuat CV & Surat Lamaran Pekerjaan',start_url:'.',display:'standalone',background_color:'#0A0A0A',theme_color:'#0A0A0A',orientation:'portrait',icons:[{src:i192,sizes:'192x192',type:'image/png'},{src:i512,sizes:'512x512',type:'image/png'},{src:i512,sizes:'512x512',type:'image/png',purpose:'maskable'}]};
-  var blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-  var old=document.querySelector('link[rel="manifest"]');if(old)old.remove();
-  var link=document.createElement('link');link.rel='manifest';link.href=URL.createObjectURL(blob);document.head.appendChild(link);
-  var oldA=document.querySelector('link[rel="apple-touch-icon"]');if(oldA)oldA.remove();
-  var ati=document.createElement('link');ati.rel='apple-touch-icon';ati.href=i192;document.head.appendChild(ati);
-})});
+function makeAppIcon(size,cb){var c=document.createElement('canvas');c.width=size;c.height=size;var ctx=c.getContext('2d');var r=size*0.2;function rr(){ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.quadraticCurveTo(size,0,size,r);ctx.lineTo(size,size-r);ctx.quadraticCurveTo(size,size,size-r,size);ctx.lineTo(r,size);ctx.quadraticCurveTo(0,size,0,size-r);ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);ctx.closePath()}var img=new Image();img.crossOrigin='anonymous';img.onload=function(){rr();ctx.fillStyle='#DC2626';ctx.fill();ctx.save();rr();ctx.clip();var pad=size*0.08,s=size-pad*2;ctx.drawImage(img,pad,pad,s,s);ctx.restore();cb(c.toDataURL('image/png'))};img.onerror=function(){rr();ctx.fillStyle='#DC2626';ctx.fill();ctx.fillStyle='#fff';ctx.font='bold '+(size*0.3)+'px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('KA',size/2,size/2);cb(c.toDataURL('image/png'))};img.src=LOGO_URL}
+makeAppIcon(192,function(i192){makeAppIcon(512,function(i512){var manifest={name:'Karya Abadi',short_name:'Karya Abadi',description:'Aplikasi pembuat CV & Surat Lamaran Pekerjaan',start_url:'.',display:'standalone',background_color:'#0A0A0A',theme_color:'#0A0A0A',orientation:'portrait',icons:[{src:i192,sizes:'192x192',type:'image/png'},{src:i512,sizes:'512x512',type:'image/png'},{src:i512,sizes:'512x512',type:'image/png',purpose:'maskable'}]};var blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});var old=document.querySelector('link[rel="manifest"]');if(old)old.remove();var link=document.createElement('link');link.rel='manifest';link.href=URL.createObjectURL(blob);document.head.appendChild(link);var oldA=document.querySelector('link[rel="apple-touch-icon"]');if(oldA)oldA.remove();var ati=document.createElement('link');ati.rel='apple-touch-icon';ati.href=i192;document.head.appendChild(ati)})});
 var deferredPrompt=null;var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;if(!window.matchMedia('(display-mode: standalone)').matches){setTimeout(function(){document.getElementById('install-banner').classList.add('show')},2500)}});
 function installApp(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(c){if(c.outcome==='accepted')toast('Aplikasi berhasil dipasang!','success');deferredPrompt=null;dismissInstall()})}}
 function dismissInstall(){document.getElementById('install-banner').classList.remove('show')}
-if(isIOS&&!window.navigator.standalone){setTimeout(function(){var b=document.getElementById('install-banner');b.querySelector('.ib-title').textContent='Tambahkan ke Home Screen';b.querySelector('.ib-sub').textContent='Ketuk ikon Bagikan, lalu "Tambah ke Layar Utama"';b.querySelector('.ib-btn').style.display='none';b.classList.add('show');setTimeout(dismissInstall,6000)},3000)}
+if(isIOS&&!window.navigator.standalone){setTimeout(function(){var b=document.getElementById('install-banner');b.querySelector('.ib-title').textContent='Tambahkan ke Home Screen';b.querySelector('.ib-sub').textContent='Ketuk Bagikan, lalu "Tambah ke Layar Utama"';b.querySelector('.ib-btn').style.display='none';b.classList.add('show');setTimeout(dismissInstall,6000)},3000)}
 
 /* ===== ZOOM ===== */
-var zoomFactor=1.0;
-function zoomIn(){zoomFactor=Math.min(3.0,zoomFactor+0.25);applyZoom()}
-function zoomOut(){zoomFactor=Math.max(0.5,zoomFactor-0.25);applyZoom()}
-function zoomFit(){zoomFactor=1.0;applyZoom()}
-function applyZoom(){var w=document.getElementById('pv-wrap'),p=document.getElementById('a4-page'),s=document.getElementById('a4-scaler');if(!w||!p||!s)return;var pw=p.offsetWidth,ww=w.clientWidth-24;if(!pw||!ww)return;var base=Math.min(1,ww/pw);var final_=base*zoomFactor;s.style.zoom=final_;s.style.transformOrigin='top center';var lb=document.getElementById('zoom-label');if(lb)lb.textContent=Math.round(final_*100)+'%'}
+var zoomPercent=100;
+function onZoomSlider(val){zoomPercent=parseInt(val);applyZoom()}
+function zoomFit(){zoomPercent=100;var sl=document.getElementById('zoom-slider');if(sl)sl.value=100;applyZoom()}
+function applyZoom(){var w=document.getElementById('pv-wrap'),p=document.getElementById('a4-page'),s=document.getElementById('a4-scaler');if(!w||!p||!s)return;var pw=p.offsetWidth,ww=w.clientWidth-24;if(!pw||!ww)return;var base=Math.min(1,ww/pw);var final_=base*(zoomPercent/100);s.style.zoom=final_;s.style.transformOrigin='top center';var lb=document.getElementById('zoom-label');if(lb)lb.textContent=zoomPercent+'%'}
 
 /* ===== STATE ===== */
 var curCat='cv',curTpl='cv1',photoData=null,activeTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
-var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
+var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
 var eduNonList=[{t:'',y:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];
 var hSkills=['','','','','',''],sSkills=['','','','','',''],kSkills=['','','','','',''];
@@ -539,10 +361,8 @@ function restorePhoto(){if(!photoData)return;var img=document.getElementById('ph
 function updateSubjectPreview(){var el=document.getElementById('subject-pv');if(!el)return;var m=ST_M.find(function(t){return t.id===curTpl});if(!m||!m.on)return;var pos=v('sPosisi')||'[Posisi]',nm=v('nama')||'[Nama Anda]';el.innerHTML='<b>Subject:</b> '+(m.pos?'Lamaran Pekerjaan '+pos+' \u2013 '+nm:'Lamaran Pekerjaan \u2013 '+nm)}
 function openSheet(n){document.getElementById('overlay-'+n).classList.add('open');document.getElementById('panel-'+n).classList.add('open')}
 function closeSheet(n){document.getElementById('overlay-'+n).classList.remove('open');document.getElementById('panel-'+n).classList.remove('open')}
-function switchGuideTab(t){document.querySelectorAll('.guide-tab').forEach(function(b){b.classList.remove('active')});document.querySelectorAll('.guide-page').forEach(function(p){p.classList.remove('active')});event.target.classList.add('active');document.getElementById('guide-'+t).classList.add('active')}
-
-/* ===== TABS ===== */
-function switchTab(tab){activeTab=tab;var vf=document.getElementById('view-form'),vp=document.getElementById('view-preview');var bf=document.getElementById('bb-form'),bp=document.getElementById('bb-preview'),bpdf=document.getElementById('bb-pdf');[bf,bp,bpdf].forEach(function(b){b.classList.remove('active')});if(tab==='form'){vf.classList.remove('hidden');vf.classList.add('active');vp.classList.add('hidden');vp.classList.remove('active');bf.classList.add('active')}else if(tab==='preview'){vp.classList.remove('hidden');vp.classList.add('active');vf.classList.add('hidden');vf.classList.remove('active');bp.classList.add('active');zoomFactor=1.0;setTimeout(applyZoom,60)}else if(tab==='pdf'){downloadPDF();return}}
+function switchGuideTab(t,btn){document.querySelectorAll('.guide-tab').forEach(function(b){b.classList.remove('active')});document.querySelectorAll('.guide-page').forEach(function(p){p.classList.remove('active')});btn.classList.add('active');document.getElementById('guide-'+t).classList.add('active')}
+function switchTab(tab){activeTab=tab;var vf=document.getElementById('view-form'),vp=document.getElementById('view-preview');var bf=document.getElementById('bb-form'),bp=document.getElementById('bb-preview'),bpdf=document.getElementById('bb-pdf');[bf,bp,bpdf].forEach(function(b){b.classList.remove('active')});if(tab==='form'){vf.classList.remove('hidden');vf.classList.add('active');vp.classList.add('hidden');vp.classList.remove('active');bf.classList.add('active')}else if(tab==='preview'){vp.classList.remove('hidden');vp.classList.add('active');vf.classList.add('hidden');vf.classList.remove('active');bp.classList.add('active');zoomPercent=100;var sl=document.getElementById('zoom-slider');if(sl)sl.value=100;setTimeout(applyZoom,60)}else if(tab==='pdf'){downloadPDF();return}}
 function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-op';updCatTabs();renderTplChips();renderForm();renderPreview()}
 function selectTpl(id){saveStatic();curTpl=id;renderTplChips();renderForm();renderPreview()}
 function updCatTabs(){document.querySelectorAll('.cat-btn').forEach(function(t){t.classList.remove('active')});document.getElementById('cat-'+curCat).classList.add('active')}
@@ -570,7 +390,7 @@ function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
 function addEduNon(){eduNonList.push({t:'',y:''});renderEduNonF();renderPreview()}
 function rmEduNon(){if(eduNonList.length>1){eduNonList.pop();renderEduNonF();renderPreview()}}
-function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<div style="height:1px;background:var(--border);margin:12px 0"></div>';h+='<div style="display:flex;flex-direction:column;gap:8px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="T/B/TH-T/B/TH" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;schedulePreview()"></div></div><div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div><div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div></div><div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="3" placeholder="Deskripsikan tugas..." oninput="expList['+i+'].desc=this.value;schedulePreview()">'+esc(e.desc||'')+'</textarea></div></div>';return h}).join('')}
+function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<div style="height:1px;background:var(--border);margin:12px 0"></div>';h+='<div style="display:flex;flex-direction:column;gap:8px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label class="fl">Jabatan</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="T/B/TH-T/B/TH" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;schedulePreview()"></div></div><div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div><div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div></div><div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="3" placeholder="Deskripsikan tugas..." oninput="expList['+i+'].desc=this.value;schedulePreview()">'+esc(e.desc||'')+'</textarea></div></div>';return h}).join('')}
 function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:'',desc:''});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>0){expList.pop();renderExpF();renderPreview()}}
 function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input class="fi" style="flex:1" placeholder="Keahlian '+(i+1)+'" value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm"><i class="fa-solid fa-minus" style="font-size:10px"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" style="margin-top:4px"><i class="fa-solid fa-plus" style="font-size:11px"></i></button>';c.innerHTML=h}
@@ -601,8 +421,7 @@ function renderForm(){
     var h='';h+=settingsH();
     if(!m.on)h+='<div class="card"><label class="fl" style="display:flex;align-items:center;gap:6px"><i class="fa-solid fa-calendar-days" style="color:var(--red);font-size:11px"></i> Tempat dan Tanggal Surat</label><span class="fl-hint">Contoh: Subang, 1 Januari 2025</span><div style="display:grid;grid-template-columns:1fr 0.6fr 1.4fr;gap:8px;margin-top:8px"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';
     if(m.on)h+='<div class="card"><label class="fl" style="display:flex;align-items:center;gap:6px"><i class="fa-solid fa-at" style="color:var(--red);font-size:11px"></i> Subject Email</label><span class="fl-hint">Otomatis dibuat dari posisi dan nama Anda.</span><div id="subject-pv" class="subject-preview" style="margin-top:8px"><b>Subject:</b> Lamaran Pekerjaan [Posisi] &ndash; [Nama Anda]</div></div>';
-    h+=secH(m.on?'Tujuan Email':'Tujuan Surat');
-    h+='<div class="card" style="display:flex;flex-direction:column;gap:8px">'+fldH('sYth','Ditujukan Kepada','Pimpinan HRD / Bapak/Ibu ...')+fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')+'</div>';
+    h+=secH(m.on?'Tujuan Email':'Tujuan Surat');h+='<div class="card" style="display:flex;flex-direction:column;gap:8px">'+fldH('sYth','Ditujukan Kepada','Pimpinan HRD / Bapak/Ibu ...')+fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')+'</div>';
     if(!m.on&&m.pos)h+='<div class="card">'+fldH('sPosisi','Posisi yang Dilamar','.....')+'</div>';
     h+='<div class="card">'+fldH('sSumber','Sumber Informasi Lowongan','Contoh: Website resmi / LinkedIn')+'</div>';
     if(m.on&&m.pos)h+='<div class="card">'+fldH('sPosisi','Posisi yang Dilamar','.....')+'</div>';
@@ -647,14 +466,14 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function downloadPDF(){if(typeof html2pdf==='undefined'){toast('Library PDF belum dimuat, coba lagi','error');return}var src=document.getElementById('a4-page');if(!src)return;var btn=document.getElementById('bb-pdf');btn.style.transform='scale(0.9)';setTimeout(function(){btn.style.transform=''},150);toast('Sedang membuat PDF...','info');var clone=src.cloneNode(true);clone.style.cssText=src.style.cssText;clone.style.width='210mm';var offscreen=document.getElementById('pdf-offscreen');offscreen.innerHTML='';offscreen.appendChild(clone);var pfx=curCat==='cv'?'CV_':'Surat_Lamaran_';var fileName=pfx+(v('nama')||'Dokumen');fileName=fileName.replace(/[^a-zA-Z0-9_\-]/g,'_');html2pdf().set({margin:0,filename:fileName+'.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,letterRendering:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(clone).save().then(function(){offscreen.innerHTML='';toast('PDF berhasil diunduh!','success')}).catch(function(){offscreen.innerHTML='';toast('Gagal membuat PDF','error')})}
 
 /* ===== RESET ===== */
-function resetForm(){if(!confirm('Reset semua data formulir?'))return;photoData=null;eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';lampList=['',''];savedCV={};savedSurat={};selFont='Arial';selSize=10;selLH=1.4;renderForm();renderPreview();toast('Formulir berhasil direset','info')}
+function resetForm(){if(!confirm('Reset semua data formulir?'))return;photoData=null;eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','','','',''];sSkills=['','','','','','','',''];kSkills=['','','','','','','',''];skillMode='hs';lampList=['',''];savedCV={};savedSurat={};selFont='Arial';selSize=10;selLH=1.4;renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
 /* ===== INIT ===== */
 window.addEventListener('DOMContentLoaded',function(){renderTplChips();renderForm();renderPreview();setTimeout(function(){document.getElementById('splash').classList.add('hide');document.getElementById('app').classList.add('show')},1600)});
-window.addEventListener('popstate',function(){var sheets=['more','guide','about','contact','privacy','terms','disclaimer'];for(var i=0;i<sheets.length;i++){var o=document.getElementById('overlay-'+sheets[i]);if(o&&o.classList.contains('open')){closeSheet(sheets[i]);history.pushState(null,'',location.href);return}}if(activeTab==='preview'){switchTab('form');history.pushState(null,'',location.href);return}});
+window.addEventListener('popstate',function(){var sheets=['more','help','guide','about','contact','privacy','terms','disclaimer'];for(var i=0;i<sheets.length;i++){var o=document.getElementById('overlay-'+sheets[i]);if(o&&o.classList.contains('open')){closeSheet(sheets[i]);history.pushState(null,'',location.href);return}}if(activeTab==='preview'){switchTab('form');history.pushState(null,'',location.href);return}});
 history.pushState(null,'',location.href);
 var lastTouchEnd=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-lastTouchEnd<=300)e.preventDefault();lastTouchEnd=now},{passive:false});
-document.addEventListener('click',function(e){var btn=e.target.closest('.bb-btn,.cat-btn,.tpl-chip,.dyn-btn,.sk-rm,.sheet-item,.ib-btn,.zm-btn,.theme-btn,.guide-tab');if(btn&&navigator.vibrate)navigator.vibrate(10)},true);
+document.addEventListener('click',function(e){var btn=e.target.closest('.bb-btn,.cat-btn,.tpl-chip,.dyn-btn,.sk-rm,.sheet-item,.ib-btn,.ab-btn,.zm-btn,.guide-tab');if(btn&&navigator.vibrate)navigator.vibrate(10)},true);
 </script>
 </body>
 </html>
