@@ -91,6 +91,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 @media(min-width:1024px){
   .site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}
 }
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-box{background:#1A1A1A;border:1px solid #2a2a2a;border-radius:16px;padding:24px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;transform:translateY(20px);transition:transform .25s}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-box h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:12px}
+.modal-box p{font-size:14px;color:#cbd5e1;line-height:1.7;margin-bottom:8px}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;background:white/5;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
@@ -100,7 +107,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0">
   <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
     <div class="flex items-center gap-2.5">
-      <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-9 h-9 rounded-lg flex-shrink:0" fetchpriority="high">
+      <img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo" class="w-9 h-9 rounded-lg flex-shrink-0" fetchpriority="high">
       <div class="flex flex-col leading-none">
         <div class="flex items-baseline gap-0.5">
           <span class="text-white font-bold text-base tracking-wide">KARYA ABADI</span>
@@ -178,16 +185,23 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <div id="pdf-offscreen" style="position:absolute;left:0;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 
+<div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box relative" onclick="event.stopPropagation()">
+    <button onclick="closeModalDirect()" style="position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.05);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-xmark text-sm"></i></button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
 <script>
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
 var eduNonList=[{t:'',y:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];
-var hSkills=['','','','','','']; 
-var sSkills=['','','','','','']; 
-var kSkills=['','','','','','']; 
-var skillMode='hs'; 
+var hSkills=['','','','','',''];
+var sSkills=['','','','','',''];
+var kSkills=['','','','','',''];
+var skillMode='hs';
 var lampList=['',''];
 var _rpTimer=null;
 var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'}];
@@ -239,7 +253,7 @@ function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink:0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
+function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 
@@ -261,7 +275,7 @@ function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.inne
 function addExp(){expList.push({j:'',m:'',pt:'',jl:'',kt:'',desc:''});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>0){expList.pop();renderExpF();renderPreview()}}
 
-function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center"><input class="fi flex-1" placeholder="Keahlian '+(i+1)+'" value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
+function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="Keahlian '+(i+1)+'" value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
 
 function renderLampF(){
   var c=document.getElementById('lamp-c');if(!c)return;
@@ -271,14 +285,14 @@ function renderLampF(){
   var h='';
   for(var i=0;i<lampList.length;i++){
     if(isEmail){
-      h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Scan </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
+      h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Scan </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
     }else{
       if(i===0){
         h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">1.</div><div class="flex-1 text-xs font-semibold dark:text-gray-400 text-gray-500 py-2">CV/Daftar Riwayat Hidup</div></div>';
       }else if(i===1){
-        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">2.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Pas Foto </div><input class="fi flex-1 fi-s" placeholder="ukuran 3x4, 2 lembar" value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"></div>';
+        h+='<div class="flex gap-2 items-center mt-2"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">2.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Pas Foto </div><input class="fi flex-1 fi-s" placeholder="ukuran 3x4, 2 lembar" value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"></div>';
       }else{
-        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Fotokopi </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
+        h+='<div class="flex gap-2 items-center mt-2"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Fotokopi </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
       }
     }
   }
@@ -457,7 +471,7 @@ function renderSuratP(){
   var li=[];var lc=0;
   if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
-  var lampLabel=m.on?'Data scan':'lembar';
+  var lampLabel=m.on?'data scan':'lembar';
   var labelStyle='padding-right:3mm;white-space:nowrap;text-align:left;';
   var colonStyle='width:5mm;text-align:center;';
   function dr(l,val){return'<tr><td style="'+labelStyle+'">'+l+'</td><td style="'+colonStyle+'">:</td><td style="padding-top:.5mm;text-align:left">'+val+'</td></tr>';}
@@ -465,57 +479,173 @@ function renderSuratP(){
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
   var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' '+lampLabel+'</td></tr></table>';
   var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
-  if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2.trim())+'</div>';
-  at+='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div><div style="margin-top:4mm;text-align:justify">'+esc(pembukaText)+'</div>';
-  var dp='<div style="margin-top:3mm;text-align:left">Saya yang bertanda tangan di bawah ini:</div><table style="width:auto;margin-top:1mm;margin-bottom:1mm">'+dr('Nama',esc(N))+dr('Tempat dan Tanggal Lahir',esc(TTL))+dr('Jenis Kelamin',esc(JK))+dr('Agama',esc(AG))+dr('Pendidikan Terakhir',esc(PA))+dr('Alamat',esc(AL))+al2r+dr('Email',esc(EM))+dr('No HP',esc(HP))+'</table>';
-  var lm='<div style="margin-top:2mm;text-align:left">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div><div style="margin-left:5mm;margin-top:1mm">'+lamps+'</div>';
-  var pn='<div style="margin-top:3mm;text-align:justify">'+esc(penutupText)+'</div>';
-  var td='<div style="margin-top:4mm;text-align:right"><div>Hormat saya,</div><div style="margin-top:12mm;font-weight:700">'+esc(TTD)+'</div></div>';
-  return tw+hl+at+dp+lm+pn+td;
+  if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2)+'</div>';
+  var salam='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div>';
+  var body='<div style="margin-top:2mm;text-align:justify;text-indent:8mm">'+esc(pembukaText)+'</div>';
+  body+='<div style="margin-top:3mm;text-align:left">Adapun data diri saya adalah sebagai berikut:</div>';
+  body+='<table style="width:100%;margin-top:2mm">';
+  body+=dr('Nama',esc(N));
+  body+=dr('Tempat, Tanggal Lahir',esc(TTL));
+  body+=dr('Jenis Kelamin',esc(JK));
+  body+=dr('Bangsa',esc(BN));
+  body+=dr('Agama',esc(AG));
+  body+=dr('Pendidikan Terakhir',esc(PA));
+  body+=dr('Alamat',esc(AL));
+  body+=al2r;
+  body+=dr('No. HP',esc(HP));
+  body+=dr('Email',esc(EM));
+  body+='</table>';
+  body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini saya lampirkan:</div>';
+  body+='<div style="margin-left:8mm;margin-top:2mm">'+lamps+'</div>';
+  body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">'+esc(penutupText)+'</div>';
+  var ttdN=esc(TTD)||'………………………..';
+  var ttd='<div style="margin-top:8mm;text-align:right">Hormat saya,</div><div style="margin-top:14mm;text-align:right;font-weight:600;text-decoration:underline">'+ttdN+'</div>';
+  return tw+hl+at+salam+body+ttd;
 }
 
-function renderPreview(){var html='';if(curCat==='cv'){if(curTpl==='cv1')html=renderCV1();else if(curTpl==='cv2')html=renderCV2();else html=renderCV3()}else html=renderSuratP();var page=document.getElementById('a4-page');if(page){page.innerHTML=html;applyPageStyle()}var pm=document.getElementById('a4-page-mob');if(pm){pm.innerHTML=html;pm.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH}setTimeout(function(){scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')},30)}
+function renderPreview(){
+  var html='';
+  if(curCat==='cv'){
+    if(curTpl==='cv1')html=renderCV1();
+    else if(curTpl==='cv2')html=renderCV2();
+    else if(curTpl==='cv3')html=renderCV3();
+  }else{
+    html=renderSuratP();
+  }
+  var p1=document.getElementById('a4-page');
+  var p2=document.getElementById('a4-page-mob');
+  if(p1){p1.innerHTML=html;applyPageStyle()}
+  if(p2){p2.innerHTML=html;applyPageStyle()}
+  scalePreviewDesktop();
+  if(mobTab==='preview')scalePreviewMobile();
+}
 
-function scalePreview(wrapId,scalerId){var w=document.getElementById(wrapId),s=document.getElementById(scalerId);if(!w||!s)return;var pageEl=s.firstElementChild;if(!pageEl)return;var pw=pageEl.offsetWidth,ww=w.clientWidth-24;if(!pw||!ww)return;s.style.zoom=Math.min(1,ww/pw)}
+function scalePreviewDesktop(){
+  var w=document.getElementById('preview-wrap'),p=document.getElementById('a4-page'),s=document.getElementById('a4-scaler');
+  if(!w||!p||!s)return;
+  var pw=p.offsetWidth,ww=w.clientWidth-24;
+  if(!pw||!ww)return;
+  s.style.transform='scale('+Math.min(1,ww/pw)+')';
+  s.style.transformOrigin='top center';
+  s.style.width=pw+'px';
+}
+
+function scalePreviewMobile(){
+  var w=document.getElementById('preview-wrap-mob'),p=document.getElementById('a4-page-mob'),s=document.getElementById('a4-scaler-mob');
+  if(!w||!p||!s)return;
+  var pw=p.offsetWidth,ww=w.clientWidth-24;
+  if(!pw||!ww)return;
+  s.style.zoom=Math.min(1,ww/pw);
+}
 
 function handlePhoto(e){
-  var f=e.target.files[0];if(!f)return;
-  if(f.size>2*1024*1024){toast('Ukuran foto maks 2MB','error');return}
-  var r=new FileReader();
-  r.onload=function(ev){var img=new Image();img.onload=function(){var canvas=document.createElement('canvas');var tw=300,th=400;var sr=img.width/img.height;var tr=tw/th;var sx,sy,sw,sh;if(sr>tr){sh=img.height;sw=sh*tr;sx=(img.width-sw)/2;sy=0}else{sw=img.width;sh=sw/tr;sx=0;sy=(img.height-sh)/2}canvas.width=tw;canvas.height=th;canvas.getContext('2d').drawImage(img,sx,sy,sw,sh,0,0,tw,th);photoData=canvas.toDataURL('image/jpeg',0.92);var thumb=document.getElementById('photo-thumb');thumb.src=photoData;thumb.classList.remove('hidden');document.getElementById('photo-ph').classList.add('hidden');renderPreview()};img.src=ev.target.result};
-  r.readAsDataURL(f);
+  var file=e.target.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){toast('Ukuran file maks 2MB','error');return}
+  if(!file.type.startsWith('image/')){toast('File harus berupa gambar','error');return}
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    photoData=ev.target.result;
+    var img=document.getElementById('photo-thumb');
+    if(img){img.src=photoData;img.classList.remove('hidden')}
+    var ph=document.getElementById('photo-ph');
+    if(ph)ph.classList.add('hidden');
+    renderPreview();
+    toast('Foto berhasil diupload','success');
+  };
+  reader.readAsDataURL(file);
 }
 
-function resetForm(){document.querySelectorAll('.fi-s').forEach(function(el){el.value=''});photoData=null;var img=document.getElementById('photo-thumb');if(img){img.src='';img.classList.add('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.remove('hidden');if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',y:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';var sm=document.getElementById('skill-mode');if(sm)sm.value='hs';toggleSkillMode('hs');lampList=['',''];renderLampF();savedSurat={}}renderPreview();toast('Formulir berhasil direset','info')}
-
-async function downloadPDF(){
-  var btn=document.getElementById('btn-pdf');btn.disabled=true;btn.classList.remove('pulse-red');btn.style.opacity='.6';toast('Memproses PDF...','info');
-  var page=document.getElementById('a4-page');var container=document.getElementById('pdf-offscreen');container.innerHTML='';
-  var cl=page.cloneNode(true);cl.style.height='auto';cl.style.minHeight='0';cl.style.width='210mm';cl.style.overflow='visible';cl.style.position='relative';cl.style.margin='0';cl.style.boxShadow='none';cl.style.fontFamily=selFont;cl.style.fontSize=selSize+'pt';cl.style.lineHeight=selLH;container.appendChild(cl);
-  await new Promise(function(resolve){setTimeout(resolve,100)});
-  try{var opt={margin:0,filename:(curCat==='cv'?'CV':'Surat_Lamaran')+'_'+(v('nama')||'Dokumen')+'.pdf',image:{type:'jpeg',quality:.95},html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff',width:cl.offsetWidth},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};await html2pdf().set(opt).from(cl).save();toast('PDF berhasil diunduh!')}
-  catch(e){toast('Gagal mengunduh PDF','error');console.error(e)}
-  finally{container.innerHTML='';btn.disabled=false;btn.classList.add('pulse-red');btn.style.opacity='1'}
+function toggleDark(){
+  document.documentElement.classList.toggle('dark');
+  var isDark=document.documentElement.classList.contains('dark');
+  toast(isDark?'Mode gelap aktif':'Mode terang aktif','info');
 }
 
-function toggleDark(){document.documentElement.classList.toggle('dark');localStorage.setItem('ka-dark',document.documentElement.classList.contains('dark')?'1':'0');setTimeout(function(){scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')},100)}
+function resetForm(){
+  if(curCat==='cv'){
+    eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
+    eduNonList=[{t:'',y:''}];
+    expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];
+    hSkills=['','','','','',''];
+    sSkills=['','','','','',''];
+    kSkills=['','','','','',''];
+    skillMode='hs';
+    photoData=null;
+    savedCV={};
+    selFont='Arial';selSize=10;selLH=1.4;
+  }else{
+    lampList=['',''];
+    photoData=null;
+    savedSurat={};
+    selFont='Arial';selSize=10;selLH=1.4;
+  }
+  renderForm();renderPreview();
+  toast('Formulir berhasil direset','info');
+}
 
-function _pageStyle(){return '<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,system-ui,sans-serif;background:#0A0A0A;color:#e5e5e5;min-height:100vh;padding:0}a{color:#DC2626;text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:720px;margin:0 auto;padding:40px 24px}h1{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.3px}h2{font-size:14px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;margin-top:28px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #2a2a2a}p,li{font-size:14px;line-height:1.75;color:#d1d5db;text-align:justify}ul{padding-left:20px;margin:8px 0}li{margin-bottom:6px}.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;font-size:13px;font-weight:600;color:#9ca3af;transition:color .15s}.back:hover{color:#DC2626;text-decoration:none}.logo-row{display:flex;align-items:center;gap:10px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid #1a1a1a}.logo-row img{width:32px;height:32px;border-radius:6px}.logo-row span{font-weight:800;font-size:16px;color:#fff}.logo-row .dot{color:#666;font-weight:700;font-size:14px}.copy{margin-top:40px;padding-top:16px;border-top:1px solid #1a1a1a;font-size:11px;color:#555}</style>'}
+function downloadPDF(){
+  saveStatic();
+  var offscreen=document.getElementById('pdf-offscreen');
+  var clone=document.getElementById('a4-page').cloneNode(true);
+  clone.id='a4-pdf-clone';
+  clone.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:visible;position:static;';
+  offscreen.innerHTML='';
+  offscreen.appendChild(clone);
+  var filename=curCat==='cv'?'CV_'+(v('nama')||'dokumen'):'Surat_Lamaran_'+(v('nama')||'dokumen');
+  filename=filename.replace(/\s+/g,'_');
+  var btn=document.getElementById('btn-pdf');
+  btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
+  html2pdf().set({
+    margin:0,
+    filename:filename+'.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,letterRendering:true},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+  }).from(clone).save().then(function(){
+    btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+    offscreen.innerHTML='';
+    toast('PDF berhasil diunduh!','success');
+  }).catch(function(err){
+    btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+    offscreen.innerHTML='';
+    toast('Gagal mengunduh PDF','error');
+    console.error(err);
+  });
+}
 
-function _pageHead(title){return '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>'+title+' - Karya Abadi Jobs</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></head><body><div class="wrap"><a href="javascript:window.close()" class="back">&#8592; Kembali</a><div class="logo-row"><img src="https://z-cdn-media.chatglm.cn/files/81224130-9d7a-4e95-ae9b-1a3891ee49b9.png?auth_key=1876087479-0641fe021de247efbddf0209a5c50929-0-3b9c498bc5e88fbea08125e8d0941591" alt="Logo"><span class="text-white font-bold text-base tracking-wide">KARYA ABADI</span>
-<span class="text-red-500 font-bold text-base">JOBS</span></div>'}
+function openModal(title,content){
+  document.getElementById('modal-body').innerHTML='<h3>'+title+'</h3>'+content;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal(e){if(e.target===e.currentTarget)closeModalDirect()}
+function closeModalDirect(){document.getElementById('modal-overlay').classList.remove('open')}
 
-function _pageFoot(){return '<div class="copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</div></div></body></html>'}
+function openAbout(){
+  openModal('About', '<p><strong>KARYA ABADI JOBS</strong> adalah platform gratis untuk membuat CV (Curriculum Vitae) dan Surat Lamaran Pekerjaan secara online dengan mudah dan cepat.</p><p>Platform ini dirancang untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran yang profesional tanpa perlu keahlian desain.</p><p>Dengan berbagai template yang tersedia, Anda dapat menyesuaikan tampilan dokumen sesuai kebutuhan dan langsung mengunduhnya dalam format PDF.</p>');
+}
+function openContact(){
+  openModal('Contact', '<p>Jika Anda memiliki pertanyaan, saran, atau masukan, silakan hubungi kami:</p><p><strong>Email:</strong> support@karyaabadijobs.com</p><p><strong>Website:</strong> karyaabadijobs.com</p><p>Kami akan merespons sesegera mungkin.</p>');
+}
+function openPrivacy(){
+  openModal('Privacy Policy', '<p><strong>Kebijakan Privasi KARYA ABADI JOBS</strong></p><p>Semua data yang Anda masukkan (nama, alamat, pendidikan, dll.) hanya digunakan untuk menghasilkan dokumen CV/Surat Lamaran dan <strong>tidak pernah dikirim</strong> ke server manapun.</p><p>Seluruh pemrosesan dilakukan secara lokal di browser Anda. Kami tidak menyimpan, mengumpulkan, atau membagikan data pribadi Anda.</p><p>Foto yang diupload diproses sepenuhnya di sisi klien (client-side) dan tidak diunggah ke server kami.</p>');
+}
+function openTerms(){
+  openModal('Terms of Service', '<p><strong>Ketentuan Layanan</strong></p><p>Dengan menggunakan KARYA ABADI JOBS, Anda menyetujui bahwa:</p><p>1. Platform ini disediakan secara gratis dan "sebagaimana adanya" (as-is).</p><p>2. Kami tidak bertanggung jawab atas keakuratan atau kelengkapan dokumen yang dihasilkan. Pengguna bertanggung jawab untuk memverifikasi semua informasi.</p><p>3. Platform ini boleh digunakan untuk keperluan pribadi dan non-komersial.</p><p>4. Kami berhak mengubah atau menghentikan layanan kapan saja tanpa pemberitahuan sebelumnya.</p>');
+}
+function openDisclaimer(){
+  openModal('Disclaimer', '<p><strong>Disclaimer</strong></p><p>KARYA ABADI JOBS adalah alat bantu pembuatan dokumen. Hasil yang dihasilkan merupakan template standar dan mungkin perlu disesuaikan dengan persyaratan spesifik dari perusahaan yang dituju.</p><p>Pengguna disarankan untuk selalu memeriksa kembali isi dokumen sebelum mengirimkannya ke perusahaan. Kami tidak menjamin bahwa penggunaan template ini akan menghasilkan penerimaan lamaran kerja.</p>');
+}
 
-function openAbout(){var w=window.open('','_blank');w.document.write(_pageHead('About')+_pageStyle()+'<h1>About</h1><p>Karya Abadi Jobs adalah platform yang membantu pencari kerja membuat dokumen lamaran pekerjaan, khususnya Curriculum Vitae (CV) dan surat lamaran kerja, dengan mudah, cepat, dan profesional untuk meningkatkan peluang mendapatkan pekerjaan yang diinginkan.</p>'+_pageFoot());w.document.close()}
-function openContact(){var w=window.open('','_blank');w.document.write(_pageHead('Contact')+_pageStyle()+'<h1>Contact</h1><p>Jika Anda memiliki pertanyaan, saran, atau masukan terkait layanan kami, silakan hubungi:</p><h2>Email</h2><p><a href="mailto:karyaabadi24434@gmail.com">karyaabadi24434@gmail.com</a></p><h2>Website</h2><p><a href="https://karyaabadijobs.my.id" target="_blank">https://karyaabadijobs.my.id</a></p>'+_pageFoot());w.document.close()}
-function openPrivacy(){var w=window.open('','_blank');w.document.write(_pageHead('Privacy Policy')+_pageStyle()+'<h1>Privacy Policy</h1><p>Karya Abadi Jobs menghargai privasi setiap pengguna. Informasi yang diberikan pengguna saat menggunakan layanan kami hanya digunakan untuk keperluan pembuatan dokumen CV dan surat lamaran kerja serta peningkatan kualitas layanan. Kami tidak menjual, menyewakan, atau membagikan data pribadi pengguna kepada pihak ketiga tanpa persetujuan pengguna, kecuali jika diwajibkan oleh hukum yang berlaku.</p>'+_pageFoot());w.document.close()}
-function openDisclaimer(){var w=window.open('','_blank');w.document.write(_pageHead('Disclaimer')+_pageStyle()+'<h1>Disclaimer</h1><p>Karya Abadi Jobs menyediakan layanan pembuatan CV dan surat lamaran kerja untuk membantu pengguna mempersiapkan dokumen lamaran pekerjaan. Kami tidak menjamin bahwa pengguna akan diterima bekerja di perusahaan tertentu. Keputusan penerimaan kerja sepenuhnya berada pada pihak perusahaan atau pemberi kerja. Pengguna bertanggung jawab atas kebenaran data dan informasi yang dimasukkan ke dalam dokumen yang dibuat melalui platform ini.</p>'+_pageFoot());w.document.close()}
-function openTerms(){var w=window.open('','_blank');w.document.write(_pageHead('Terms of Service')+_pageStyle()+'<h1>Terms of Service</h1><p>Dengan mengakses dan menggunakan Karya Abadi Jobs, Anda menyetujui syarat dan ketentuan berikut:</p><ul><li>Layanan ini digunakan untuk tujuan yang sah dan sesuai dengan hukum yang berlaku.</li><li>Pengguna bertanggung jawab atas seluruh data dan informasi yang diberikan saat membuat CV atau surat lamaran kerja.</li><li>Pengguna dilarang menggunakan layanan untuk membuat dokumen yang mengandung informasi palsu, menyesatkan, atau melanggar hukum.</li><li>Seluruh konten, desain, dan layanan yang tersedia di website ini dilindungi oleh hak kekayaan intelektual yang berlaku.</li><li>Karya Abadi Jobs berhak mengubah, memperbarui, atau menghentikan sebagian maupun seluruh layanan tanpa pemberitahuan sebelumnya.</li><li>Dengan menggunakan layanan ini, pengguna dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan yang berlaku.</li></ul>'+_pageFoot());w.document.close()}
+window.addEventListener('resize',function(){updateVH();scalePreviewDesktop();if(mobTab==='preview')scalePreviewMobile()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModalDirect()});
 
-function init(){if(localStorage.getItem('ka-dark')==='0')document.documentElement.classList.remove('dark');updateVH();renderTplTabs();renderForm();renderPreview();window.addEventListener('resize',function(){updateVH();scalePreview('preview-wrap','a4-scaler');scalePreview('preview-wrap-mob','a4-scaler-mob')})}
-document.addEventListener('DOMContentLoaded',init);
+(function init(){
+  updateVH();
+  renderTplTabs();
+  renderForm();
+  renderPreview();
+})();
 </script>
-
 </body>
 </html>
