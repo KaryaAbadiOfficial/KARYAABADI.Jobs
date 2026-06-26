@@ -50,13 +50,13 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .dark .fl-sub{color:#cbd5e1}
 textarea.fi{resize:vertical;min-height:60px}
 select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.dyn-btn{width:36px;height:36px;border-radius:8px;font-weight:700;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dyn-btn{width:36px;height:36px;border-radius:8px;font-weight:700;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
 .dyn-btn:active{transform:scale(.9)}
-.dyn-add{background:transparent;color:#DC2626;border:2px solid #DC2626}
+.dyn-add{background:transparent;color:#DC2626;border:1.5px solid #DC2626}
 .dyn-add:hover{background:#DC2626;color:#fff}
 .dark .dyn-add{border-color:#DC2626;color:#DC2626}
 .dark .dyn-add:hover{background:#DC2626;color:#fff}
-.dyn-rm{background:#DC2626;color:#fff;border:2px solid #DC2626}
+.dyn-rm{background:#DC2626;color:#fff;border:1.5px solid #DC2626}
 .dyn-rm:hover{background:#991B1B;border-color:#991B1B}
 .sk-rm{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5e7eb;color:#DC2626;background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
 .sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
@@ -88,12 +88,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .ft-copy{text-align:center;padding:0 0 8px;font-size:9px;color:#6b7280;letter-spacing:.01em}
 @media(max-width:1023px){.ft-inner{padding-bottom:56px}}
 @media(min-width:1024px){.site-footer{position:fixed;bottom:0;left:0;right:0;z-index:50}}
+
+/* === INFO PAGE — tombol kembali diperbaiki === */
 #info-page{position:fixed;inset:0;z-index:300;background:#0A0A0A;display:none;flex-direction:column;overflow:hidden}
 #info-page.open{display:flex}
-#info-page .ip-header{flex-shrink:0;height:56px;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;padding:0 16px;gap:12px;background:rgba(17,17,17,.95);backdrop-filter:blur(12px)}
-#info-page .ip-header button{width:36px;height:36px;border-radius:10px;border:1px solid #2a2a2a;background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-#info-page .ip-header button:hover{background:rgba(255,255,255,.05);border-color:#DC2626;color:#DC2626}
-#info-page .ip-header h2{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#info-page .ip-header{flex-shrink:0;height:60px;border-bottom:1px solid #333;display:flex;align-items:center;padding:0 16px;gap:14px;background:#111}
+.ip-back-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:10px;border:2px solid #DC2626;background:#DC2626;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;flex-shrink:0;font-family:'Inter',system-ui,sans-serif;white-space:nowrap}
+.ip-back-btn:hover{background:#991B1B;border-color:#991B1B}
+.ip-back-btn:active{transform:scale(.95)}
+.ip-back-btn i{font-size:13px}
+#info-page .ip-header h2{font-size:16px;font-weight:800;color:#fff;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #info-page .ip-body{flex:1;overflow-y:auto;padding:24px 20px 40px}
 #info-page .ip-body h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:16px;letter-spacing:.01em}
 #info-page .ip-body p{font-size:14px;color:#cbd5e1;line-height:1.85;text-align:justify;margin-bottom:14px}
@@ -103,7 +107,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 #info-page .ip-body .ip-card{background:#1A1A1A;border:1px solid #2a2a2a;border-radius:12px;padding:16px;margin-bottom:14px}
 #info-page .ip-body .ip-card .ip-label{font-size:11px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 #info-page .ip-body .ip-card .ip-val{font-size:14px;color:#e2e8f0;line-height:1.6;word-break:break-all}
-#info-page .ip-footer{flex-shrink:0;border-top:1px solid #2a2a2a;padding:12px 20px;text-align:center;font-size:9px;color:#6b7280;background:rgba(17,17,17,.95)}
+#info-page .ip-footer{flex-shrink:0;border-top:1px solid #2a2a2a;padding:12px 20px;text-align:center;font-size:9px;color:#6b7280;background:#111}
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
@@ -193,7 +197,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <div id="info-page">
   <div class="ip-header">
-    <button onclick="closeInfoPage()" aria-label="Kembali"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+    <!-- TOMBOL KEMBALI: class ip-back-btn, background merah solid, teks "Kembali" -->
+    <button class="ip-back-btn" onclick="closeInfoPage()" aria-label="Kembali">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Kembali</span>
+    </button>
     <h2 id="ip-title"></h2>
   </div>
   <div class="ip-body" id="ip-body"></div>
@@ -256,7 +264,7 @@ function openMobilePreview(){var pm=document.getElementById('preview-mobile');pm
 function closeMobilePreview(){document.getElementById('preview-mobile').classList.add('hidden')}
 
 function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
-function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:40px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events:none font-bold">'+unit+'</span></div></div>'}
+function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:40px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-bold">'+unit+'</span></div></div>'}
 function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select></div>';return h}
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
 var stOpts=[{v:'',l:'-- Pilih --'},{v:'Belum menikah',l:'Belum menikah'},{v:'Menikah',l:'Menikah'},{v:'Cerai',l:'Cerai'}];
@@ -265,7 +273,6 @@ function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
 function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 
-/* Tombol + dan - di-inline langsung, tidak pakai fungsi terpisah */
 function addRmBtns(addFn,rmFn){
   return '<div style="display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #2a2a2a">' +
     '<button type="button" onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah" style="width:40px;height:40px;font-size:18px">+</button>' +
@@ -343,35 +350,15 @@ function renderForm(){
       h+=secH('Data Pribadi');
       h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','Kota, 00-00-0000')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',stOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>'+addressFormH3();
     }
-
-    /* === PENDIDIKAN FORMAL — tombol + - di dalam card === */
     h+=secH('Pendidikan');
-    h+='<div class="card">';
-    h+='<div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div>';
-    h+='<div id="edu-c"></div>';
-    h+=addRmBtns('addEdu()','rmEdu()');
-    h+='</div>';
-
-    /* === PENDIDIKAN NON FORMAL — tombol + - di dalam card === */
-    h+='<div class="card">';
-    h+='<div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div>';
-    h+='<div id="edu-non-c"></div>';
-    h+=addRmBtns('addEduNon()','rmEduNon()');
-    h+='</div>';
-
-    /* === PENGALAMAN KERJA — tombol + - di dalam card === */
+    h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+addRmBtns('addEdu()','rmEdu()')+'</div>';
+    h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+addRmBtns('addEduNon()','rmEduNon()')+'</div>';
     h+=secH('Pengalaman Kerja');
-    h+='<div class="card">';
-    h+='<div id="exp-c"></div>';
-    h+=addRmBtns('addExp()','rmExp()');
-    h+='</div>';
-
-    /* === KEAHLIAN === */
+    h+='<div class="card"><div id="exp-c"></div>'+addRmBtns('addExp()','rmExp()')+'</div>';
     h+=secH('Keahlian');
     h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';
     h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';
     h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';
-
     fc.innerHTML=h;
     renderEduF();renderEduNonF();renderExpF();
     renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k');
@@ -501,7 +488,6 @@ function renderCV2(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';
   var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var SUB=v('subtitle')||'';var PR=getProfil('');
   var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
-  /* PERBAIKAN: dihapus </div> kelebihan yang tadinya menutup a4-page */
   return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:center"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:3mm"></div>')+'<div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+' | '+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">'+_eduTitle(eduList)+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
 }
 
@@ -632,11 +618,11 @@ function resetForm(){
 function toggleDark(){document.documentElement.classList.toggle('dark')}
 
 var infoPages={
-  about:{title:'About',body:'<h3>Tentang Karya Abadi Jobs</h3><p><strong>Karya Abadi Jobs</strong> adalah platform gratis untuk membuat CV (Curriculum Vitae) dan Surat Lamaran Pekerjaan secara profesional.</p><div class="ip-divider"></div><p>Platform ini dirancang untuk membantu pencari kerja di Indonesia dalam membuat dokumen lamaran kerja yang rapi dan profesional.</p>'},
-  contact:{title:'Contact',body:'<h3>Hubungi Kami</h3><div class="ip-card"><div class="ip-label">Email</div><div class="ip-val">karyaabajobs@gmail.com</div></div>'},
-  privacy:{title:'Privacy Policy',body:'<h3>Kebijakan Privasi</h3><p>Semua data yang Anda masukkan hanya diproses di perangkat Anda (client-side) dan tidak dikirim ke server manapun.</p>'},
-  terms:{title:'Terms of Service',body:'<h3>Syarat dan Ketentuan</h3><p>Platform ini tersedia secara gratis untuk penggunaan pribadi. Anda bertanggung jawab penuh atas kebenaran data yang dimasukkan.</p>'},
-  disclaimer:{title:'Disclaimer',body:'<h3>Disclaimer</h3><p>Template bersifat umum dan mungkin perlu disesuaikan dengan kebutuhan spesifik perusahaan yang dituju.</p>'}
+  about:{title:'About',body:'<h3>Tentang Karya Abadi Jobs</h3><p><strong>Karya Abadi Jobs</strong> adalah platform gratis untuk membuat CV (Curriculum Vitae) dan Surat Lamaran Pekerjaan secara profesional. Kami menyediakan berbagai template yang mudah digunakan dan dapat diunduh dalam format PDF.</p><div class="ip-divider"></div><p>Platform ini dirancang untuk membantu pencari kerja di Indonesia dalam membuat dokumen lamaran kerja yang rapi, profesional, dan siap digunakan.</p>'},
+  contact:{title:'Contact',body:'<h3>Hubungi Kami</h3><div class="ip-card"><div class="ip-label">Email</div><div class="ip-val">karyaabajobs@gmail.com</div></div><div class="ip-card"><div class="ip-label">Website</div><div class="ip-val">karyaabajobs.com</div></div>'},
+  privacy:{title:'Privacy Policy',body:'<h3>Kebijakan Privasi</h3><p><strong>Karya Abadi Jobs</strong> menghormati privasi Anda. Semua data yang Anda masukkan dalam formulir CV dan Surat Lamaran hanya diproses di perangkat Anda (client-side) dan tidak dikirim ke server manapun.</p><div class="ip-divider"></div><p>Kami tidak menyimpan, mengumpulkan, atau membagikan data pribadi Anda. Setelah Anda menutup halaman ini, semua data yang telah dimasukkan akan hilang.</p><div class="ip-divider"></div><p>Kami menggunakan Google AdSense untuk menampilkan iklan. Google dapat menggunakan cookie untuk menampilkan iklan yang relevan. Anda dapat mengatur preferensi cookie di pengaturan browser Anda.</p>'},
+  terms:{title:'Terms of Service',body:'<h3>Syarat dan Ketentuan</h3><p>Dengan menggunakan platform <strong>Karya Abadi Jobs</strong>, Anda menyetujui syarat dan ketentuan berikut:</p><div class="ip-divider"></div><p><strong>1. Penggunaan Gratis</strong><br>Platform ini tersedia secara gratis untuk penggunaan pribadi.</p><p><strong>2. Tanggung Jawab Konten</strong><br>Anda bertanggung jawab penuh atas kebenaran dan keakuratan data yang Anda masukkan.</p><p><strong>3. Batasan</strong><br>Platform ini disediakan "sebagaimana adanya" tanpa jaminan apapun.</p>'},
+  disclaimer:{title:'Disclaimer',body:'<h3>Disclaimer</h3><p><strong>Karya Abadi Jobs</strong> tidak bertanggung jawab atas kerugian yang timbul dari penggunaan dokumen yang dihasilkan oleh platform ini.</p><div class="ip-divider"></div><p>Template yang disediakan bersifat umum dan mungkin perlu disesuaikan dengan kebutuhan spesifik setiap perusahaan atau instansi yang dituju.</p>'}
 };
 
 function openInfoPage(key){
