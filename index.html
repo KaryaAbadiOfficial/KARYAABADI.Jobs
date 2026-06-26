@@ -381,6 +381,12 @@ function eduPHDual(formalList,nonFormalList,mode){
   return h;
 }
 
+/* ===== Judul pendidikan dinamis ===== */
+function _eduTitle(list){
+  var cnt=(list||[]).filter(function(e){return e.t&&e.t.trim()}).length;
+  return cnt>1?'RIWAYAT PENDIDIKAN':'PENDIDIKAN TERAKHIR';
+}
+
 function expPH(list){
   if(list.length===0) return '<div style="font-style:italic;color:#666">Belum ada pengalaman kerja.</div>';
   return list.map(function(e){
@@ -404,8 +410,6 @@ function expPH3(list){
 
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
 
-/* ===== Semua daftar keahlian: 1 kolom, bullet terpisah, teks justify ===== */
-
 function kSkillPH(list){
   var items=(list||[]).filter(function(s){return s&&s.trim()});
   if(!items.length) items=['……………….','……………….','……………….','……………….','……………….','……………….'];
@@ -416,16 +420,23 @@ function kSkillPH(list){
   return h;
 }
 
+function _bl2col(arr){
+  var items=arr.filter(function(s){return s&&s.trim()});
+  var half=Math.ceil(items.length/2);
+  var col1=items.slice(0,half),col2=items.slice(half);
+  function bl(a){return a.map(function(s){return '<table style="width:100%;border-collapse:collapse;margin-bottom:0.3mm"><tr><td style="width:3mm;vertical-align:top;padding:0">\u2022</td><td style="vertical-align:top;padding:0;text-align:justify">'+esc(s.trim())+'</td></tr></table>'}).join('')}
+  return '<table style="width:100%"><tr><td style="width:50%;vertical-align:top;padding:0.3mm 2mm 0.3mm 0">'+bl(col1)+'</td><td style="width:50%;vertical-align:top;padding:0.3mm 0">'+bl(col2)+'</td></tr></table>';
+}
+
 function skCombined(hardSkills,softSkills){
   var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
   var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
   if(!hItems.length)hItems=['……………….','……………….','……………….','……………….','……………….','……………….'];
   if(!sItems.length)sItems=['……………….','……………….','……………….','……………….','……………….','……………….'];
-  function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return '<table style="width:100%;border-collapse:collapse;margin-bottom:0.3mm"><tr><td style="width:3mm;vertical-align:top;padding:0">\u2022</td><td style="vertical-align:top;padding:0;text-align:justify">'+esc(s.trim())+'</td></tr></table>'}).join('')}
   var html='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';
-  html+=bl(hItems);
+  html+=_bl2col(hItems);
   html+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';
-  html+=bl(sItems);
+  html+=_bl2col(sItems);
   return html;
 }
 
@@ -435,15 +446,11 @@ function skCV3single(hardSkills,softSkills){
   var h='';
   if(hItems.length){
     h+='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';
-    for(var i=0;i<hItems.length;i++){
-      h+='<table style="width:100%;border-collapse:collapse;margin-bottom:0.3mm"><tr><td style="width:3mm;vertical-align:top;padding:0">\u2022</td><td style="vertical-align:top;padding:0;text-align:justify">'+esc(hItems[i].trim())+'</td></tr></table>';
-    }
+    h+=_bl2col(hItems);
   }
   if(sItems.length){
     h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';
-    for(var i=0;i<sItems.length;i++){
-      h+='<table style="width:100%;border-collapse:collapse;margin-bottom:0.3mm"><tr><td style="width:3mm;vertical-align:top;padding:0">\u2022</td><td style="vertical-align:top;padding:0;text-align:justify">'+esc(sItems[i].trim())+'</td></tr></table>';
-    }
+    h+=_bl2col(sItems);
   }
   if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';
   return h;
@@ -454,24 +461,24 @@ function renderCV1(){
   var a1=joinAddr(v('alamat1'),v('alamat2'))||'………………….',a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';var PR=getProfil('');
   var SK = skillMode==='k' ? kSkillPH(kSkills) : skCombined(hSkills,sSkills);
   function dp(l,val){return'<tr><td class="dl">'+l+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}
-  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
+  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">'+_eduTitle(eduList)+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
 }
 
 function renderCV2(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';
   var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var SUB=v('subtitle')||'';var PR=getProfil('');
   var SK = skillMode==='k' ? kSkillPH(kSkills) : skCombined(hSkills,sSkills);
-  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:center"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:3mm"></div>')+'<div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+' | '+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
+  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:center"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:3mm"></div>')+'<div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+' | '+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">'+_eduTitle(eduList)+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
 }
 
 function renderCV3(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';
   var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var SUB=v('subtitle')||'';var PR=getProfil('');
   var SK = skillMode==='k' ? kSkillPH(kSkills) : skCV3single(hSkills,sSkills);
-  function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+l+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}
-  var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:5mm"></div>')+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);
-  var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPHDual(eduList,eduNonList,'right')+'<div class="st">PENGALAMAN KERJA</div>'+expPH3(expList)+'<div class="st">KEAHLIAN</div>'+SK;
-  return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:12mm;border-right:2.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:12mm">'+rs+'</td></tr></table>';
+  function di(l,val){return'<div style="margin-bottom:2mm"><div style="color:#555;padding-bottom:0.3mm;font-size:0.9em">'+l+'</div><div style="margin-top:0.2mm">'+val+'</div></div>'}
+  var ls='<div style="text-align:left;margin-bottom:10mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:4mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:4mm"></div>')+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);
+  var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">'+_eduTitle(eduList)+'</div>'+eduPHDual(eduList,eduNonList,'right')+'<div class="st">PENGALAMAN KERJA</div>'+expPH3(expList)+'<div class="st">KEAHLIAN</div>'+SK;
+  return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:5mm;border-right:2.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:6mm">'+rs+'</td></tr></table>';
 }
 
 function renderSuratP(){
