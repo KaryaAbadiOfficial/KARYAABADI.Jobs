@@ -106,8 +106,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 #info-page .ip-body strong{color:#f1f5f9;font-weight:700}
 #info-page .ip-body .ip-divider{height:1px;background:#2a2a2a;margin:20px 0}
 #info-page .ip-body .ip-card{background:#1A1A1A;border:1px solid #2a2a2a;border-radius:12px;padding:16px;margin-bottom:14px}
-#info-page .ip-body .ip-card .ip-label{font-size:11px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-#info-page .ip-body .ip-card .ip-val{font-size:14px;color:#e2e8f0;line-height:1.6;word-break:break-all}
+#info-page .ip-body .ip-card .ip-label{font-size:11px;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center}
+#info-page .ip-body .ip-card .ip-val{font-size:14px;color:#e2e8f0;line-height:1.6;word-break:break-word}
 #info-page .ip-footer{flex-shrink:0;border-top:1px solid #2a2a2a;padding:12px 20px;text-align:center;font-size:9px;color:#6b7280;background:rgba(17,17,17,.95)}
 </style>
 </head>
@@ -126,10 +126,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         </div>
       </div>
     </div>
-    <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Toggle dark mode">
-      <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
-      <i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i>
-    </button>
+    <div class="flex items-center gap-2">
+      <button onclick="openInfoPage('guide')" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Petunjuk Penggunaan" title="Petunjuk Penggunaan">
+        <i class="fa-solid fa-circle-question text-sm text-white/70"></i>
+      </button>
+      <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Toggle dark mode">
+        <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
+        <i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -144,12 +149,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </nav>
 
-<div class="bg-brand-black/80 border-b border-brand-border/30 overflow-x-auto flex-shrink-0">
-  <div class="max-w-7xl mx-auto px-4 flex gap-2 py-2.5" id="tpl-tabs"></div>
-</div>
-
 <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-12 relative">
   <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 dark:bg-brand-black bg-gray-50 min-h-0 fp-scroll mt-2 lg:mt-0">
+    <div class="text-[11px] font-semibold mb-2 dark:text-gray-500 text-gray-400 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template
+    </div>
+    <div id="tpl-tabs" class="mb-4 pb-4 border-b dark:border-brand-border border-gray-200"></div>
     <div id="form-content" class="space-y-3 fade-up"></div>
     <div class="flex gap-3 mt-6 mb-6">
       <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border dark:border-brand-border border-gray-200 dark:text-gray-400 text-gray-500 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
@@ -210,7 +215,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
-var eduNonList=[{t:'',y:''}];
+var eduNonList=[{t:'',k:'',y:'',d:''}];
 var expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];
 var hSkills=['','','','','',''];
 var sSkills=['','','','','',''];
@@ -219,7 +224,14 @@ var skillMode='hs';
 var lampList=['',''];
 var _rpTimer=null;
 var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'}];
-var ST_M=[{id:'s-op',name:'Email (Posisi)',pos:true,on:true},{id:'s-ou',name:'Email (Umum)',pos:false,on:true},{id:'s-tp',name:'Tulis Tangan (Posisi)',pos:true,on:false},{id:'s-tu',name:'Tulis Tangan (Umum)',pos:false,on:false}];
+var ST_M=[
+  {id:'s-ou',name:'Email (Umum)',pos:false,on:true,semua:false},
+  {id:'s-tu',name:'Tulis Tangan (Umum)',pos:false,on:false,semua:false},
+  {id:'s-op',name:'Email (Posisi)',pos:true,on:true,semua:false},
+  {id:'s-tp',name:'Tulis Tangan (Posisi)',pos:true,on:false,semua:false},
+  {id:'s-os',name:'Email (Semua PT)',pos:false,on:true,semua:true},
+  {id:'s-ts',name:'Tulis Tangan (Semua PT)',pos:false,on:false,semua:true}
+];
 
 var _tw='width:100%;table-layout:fixed;border-collapse:collapse;';
 var _c1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
@@ -248,10 +260,18 @@ function toggleSkillMode(mode){
   renderPreview();
 }
 
-function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-op';updCatTabs();renderTplTabs();renderForm();renderPreview()}
+function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-ou';updCatTabs();renderTplTabs();renderForm();renderPreview()}
 function selectTpl(id){saveStatic();curTpl=id;renderTplTabs();renderForm();renderPreview()}
 function updCatTabs(){document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('border-brand-red','text-brand-red');t.classList.add('border-transparent','text-gray-500')});var el=document.getElementById('cat-'+curCat);if(el){el.classList.add('border-brand-red','text-brand-red');el.classList.remove('border-transparent','text-gray-500')}}
-function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;document.getElementById('tpl-tabs').innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab px-4 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-gray-200')+'">'+t.name+'</button>'}).join('')}
+function renderTplTabs(){
+  var list=curCat==='cv'?CV_M:ST_M;
+  var gridClass = curCat==='cv' ? 'grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200' : 'grid grid-cols-2 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200';
+  var tabsContainer = document.getElementById('tpl-tabs');
+  tabsContainer.className = gridClass;
+  tabsContainer.innerHTML=list.map(function(t){
+    return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-center '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-gray-200 border dark:border-brand-border border-gray-200')+'">'+t.name+'</button>'
+  }).join('');
+}
 
 function switchMob(tab){
   mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');
@@ -265,24 +285,39 @@ function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'
 function fldUnit(id,lb,ph,unit){return'<div><label class="fl">'+lb+'</label><div class="relative"><input id="'+id+'" class="fi fi-s" style="padding-right:40px" placeholder="'+(ph||'')+'" oninput="schedulePreview()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-gray-500 text-gray-400 pointer-events-none font-bold">'+unit+'</span></div></div>'}
 function selH(id,lb,opts){var h='<div><label class="fl">'+lb+'</label><select id="'+id+'" class="fi fi-s" onchange="renderPreview()">';opts.forEach(function(o){h+='<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'});h+='</select></div>';return h}
 var jkOpts=[{v:'',l:'-- Pilih --'},{v:'Laki-laki',l:'Laki-laki'},{v:'Perempuan',l:'Perempuan'}];
+var statusOpts=[{v:'',l:'-- Pilih --'},{v:'Belum menikah',l:'Belum menikah'},{v:'Menikah',l:'Menikah'},{v:'Cerai',l:'Cerai'}];
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
-function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
+function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed dark:border-brand-border border-gray-200 flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink:0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] dark:text-gray-500 text-gray-400 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 function settingsH(){return'<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div><div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 
-function _renderEduF(list,cid,lname){
-  var c=document.getElementById(cid);if(!c)return;
-  c.innerHTML=list.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="'+lname+'['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="'+lname+'['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')
+function renderEduF(){
+  var c=document.getElementById('edu-c');if(!c)return;
+  c.innerHTML=eduList.map(function(e,i){
+    return '<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'">'+
+      '<div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div>'+
+      '<div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div>'+
+    '</div>';
+  }).join('');
 }
-function renderEduF(){_renderEduF(eduList,'edu-c','eduList')}
-function renderEduNonF(){_renderEduF(eduNonList,'edu-non-c','eduNonList')}
+function renderEduNonF(){
+  var c=document.getElementById('edu-non-c');if(!c)return;
+  c.innerHTML=eduNonList.map(function(e,i){
+    return '<div class="grid grid-cols-2 gap-2 '+(i>0?'mt-2':'')+'">'+
+      '<div><label class="fl">Nama Lembaga</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduNonList['+i+'].t=this.value;schedulePreview()"></div>'+
+      '<div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000" value="'+esc(e.y)+'" oninput="eduNonList['+i+'].y=this.value;schedulePreview()"></div>'+
+      '<div><label class="fl">Keterangan (bawah Nama)</label><input class="fi" placeholder="Kursus Komputer" value="'+esc(e.k)+'" oninput="eduNonList['+i+'].k=this.value;schedulePreview()"></div>'+
+      '<div><label class="fl">Keterangan (bawah Tahun)</label><input class="fi" placeholder="6 Bulan" value="'+esc(e.d)+'" oninput="eduNonList['+i+'].d=this.value;schedulePreview()"></div>'+
+    '</div>';
+  }).join('');
+}
 function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
-function addEduNon(){eduNonList.push({t:'',y:''});renderEduNonF();renderPreview()}
+function addEduNon(){eduNonList.push({t:'',k:'',y:'',d:''});renderEduNonF();renderPreview()}
 function rmEduNon(){if(eduNonList.length>1){eduNonList.pop();renderEduNonF();renderPreview()}}
 
 function renderExpF(){var c=document.getElementById('exp-c');if(!c)return;c.innerHTML=expList.map(function(e,i){var h='';if(i>0)h+='<hr class="dark:border-brand-border/50 border-gray-200 my-3">';h+='<div class="space-y-2">';h+='<div class="grid grid-cols-2 gap-2">';h+='<div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(e.j)+'" oninput="expList['+i+'].j=this.value;schedulePreview()"></div>';h+='<div><label class="fl">Masa Kerja</label><input class="fi" placeholder="T/B/TH-T/B/TH" value="'+esc(e.m)+'" oninput="expList['+i+'].m=this.value;schedulePreview()"></div>';h+='</div>';h+='<div><label class="fl">Perusahaan</label><input class="fi" placeholder="PT./CV./....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div>';h+='<div class="grid grid-cols-2 gap-2">';h+='<div><label class="fl">Jalan</label><input class="fi" placeholder="Jl. ....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div>';h+='<div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div>';h+='</div>';h+='<div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="3" placeholder="Deskripsikan tugas dan tanggung jawab..." oninput="expList['+i+'].desc=this.value;schedulePreview()">'+esc(e.desc||'')+'</textarea></div>';h+='</div>';return h}).join('')}
@@ -302,7 +337,7 @@ function renderLampF(){
       h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">'+(i+1)+'.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Scan </div><input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"><button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button></div>';
     }else{
       if(i===0){
-        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">1.</div><div class="flex-1 text-xs font-semibold dark:text-gray-400 text-gray-500 py-2">CV/Daftar Riwayat Hidup</div></div>';
+        h+='<div class="flex gap-2 items-center"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">1.</div><div class="flex-1 text-xs font-semibold dark:text-gray-400 text-gray-500 py-2">CV / Daftar Riwayat Hidup</div></div>';
       }else if(i===1){
         h+='<div class="flex gap-2 items-center mt-2"><div class="flex items-center justify-center flex-shrink-0 w-6 text-xs dark:text-gray-500 text-gray-400 font-bold">2.</div><div class="flex-shrink-0 text-xs font-semibold dark:text-gray-400 text-gray-500 self-center">Pas Foto </div><input class="fi flex-1 fi-s" placeholder="ukuran 3x4, 2 lembar" value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()"></div>';
       }else{
@@ -325,9 +360,9 @@ function renderForm(){
   if(curCat==='cv'){
     var h=settingsH()+photoH();
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="S1 Universitas Indonesia" oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="Teknik Informatika" oninput="schedulePreview()"></div></div></div>';
-    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','Status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH()}
-    if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('status','Status','.....')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}
-    if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','Kota, 00-00-0000')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+fldH('status','Status','.....')+fldH('email','Email','.....')+'</div>'+addressFormH3()}
+    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}
+    if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}
+    if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','Kota, T/B/TH')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}
     h+=secH('Pendidikan');
     h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';
     h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';
@@ -341,7 +376,19 @@ function renderForm(){
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
     var h='';h+=settingsH();
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';
-    h+='<div class="card space-y-2">'+fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')+fldH('sSumber','Sumber Informasi','.....')+(m.pos?fldH('sPosisi','Posisi yang Dilamar','.....'):'')+'</div>';
+    
+    var ptInfo='';
+    if(!m.semua){
+      ptInfo+=fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)');
+    }
+    if(!m.semua){
+      ptInfo+=fldH('sSumber','Sumber Informasi','.....');
+    }
+    if(m.pos){
+      ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....');
+    }
+    h+='<div class="card space-y-2">'+ptInfo+'</div>';
+
     h+=secH('Kalimat Pembuka & Penutup');h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';
     h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';
     h+=secH('Daftar Lampiran');h+='<div id="lamp-c"></div>';
@@ -374,12 +421,29 @@ function _eduTbl(list,mode){
   return h;
 }
 
+function _eduTblNon(list,mode){
+  var h='<table style="'+_tw+'">';
+  list.forEach(function(e){
+    var name=e.t||'……………….';
+    var ket1=e.k?'<br>'+esc(e.k):'';
+    var year=e.y||'0000';
+    var ket2=e.d?'<br>'+esc(e.d):'';
+    if(mode==='aligned'){
+      h+='<tr><td style="'+_c1+'">'+name+ket1+'</td><td style="'+_c2+'">Tahun Lulus</td><td style="'+_c3+'">'+year+ket2+'</td></tr>';
+    }else{
+      h+='<tr><td style="width:50%">'+name+ket1+'</td><td style="width:28%;text-align:center">Tahun Lulus</td><td style="width:22%;text-align:right">'+year+ket2+'</td></tr>';
+    }
+  });
+  h+='</table>';
+  return h;
+}
+
 function eduPHDual(formalList,nonFormalList,mode){
   var hasNon=nonFormalList.some(function(e){return e.t&&e.t.trim()});
   var h='';
   if(hasNon){h+='<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'}
   h+=_eduTbl(formalList,mode);
-  if(hasNon){h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Non Formal</div>';h+=_eduTbl(nonFormalList,mode)}
+  if(hasNon){h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';h+=_eduTblNon(nonFormalList,mode)}
   return h;
 }
 
@@ -416,11 +480,22 @@ function kSkillPH(list){
     for(var j=0;j<cols;j++){
       var idx=i+j;
       var val=items[idx]?items[idx].trim():'';
-      h+='<td style="width:50%;vertical-align:top;padding:0.2mm 3mm 0.2mm 0;text-align:left">\u2022 '+esc(val)+'</td>';
+      h+='<td style="width:50%;vertical-align:top;padding:0.2mm 3mm 0.2mm 0;text-align:left;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(val)+'</td></tr></table></td>';
     }
     h+='</tr>';
   }
   h+='</table>';
+  return h;
+}
+
+function kSkillPHSingle(list){
+  var items=(list||[]).filter(function(s){return s&&s.trim()});
+  if(!items.length) items=['……………….','……………….','……………….','……………….','……………….','……………….'];
+  var h='';
+  for(var i=0;i<items.length;i++){
+    var val=items[i].trim();
+    h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(val)+'</td></tr></table></div>';
+  }
   return h;
 }
 
@@ -432,7 +507,7 @@ function skCombined(hardSkills,softSkills){
   var thirdH=Math.ceil(hItems.length/3);var thirdS=Math.ceil(sItems.length/3);
   var hC1=hItems.slice(0,thirdH),hC2=hItems.slice(thirdH,thirdH*2),hC3=hItems.slice(thirdH*2);
   var sC1=sItems.slice(0,thirdS),sC2=sItems.slice(thirdS,thirdS*2),sC3=sItems.slice(thirdS*2);
-  function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return '\u2022 '+esc(s.trim())}).join('<br>')}
+  function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return '<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}
   var html='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';
   html+='<table style="width:100%;margin-bottom:3mm"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl(hC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl(hC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl(hC3)+'</td></tr></table>';
   html+='<div style="font-weight:700;margin-bottom:1mm">Soft Skill</div>';
@@ -440,76 +515,126 @@ function skCombined(hardSkills,softSkills){
   return html;
 }
 
-function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';for(var i=0;i<hItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(hItems[i].trim())+'</div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';for(var i=0;i<sItems.length;i++)h+='<div style="padding:0.2mm 0">\u2022 '+esc(sItems[i].trim())+'</div>'}if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';return h}
+function skCV3single(hardSkills,softSkills){
+  var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});
+  var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});
+  var h='';
+  if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">Hard Skill</div>';for(var i=0;i<hItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(hItems[i].trim())+'</td></tr></table></div>'}
+  if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">Soft Skill</div>';for(var i=0;i<sItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(sItems[i].trim())+'</td></tr></table></div>'}
+  if(!h)h='<div style="color:#999">Belum ada keahlian ditambahkan</div>';
+  return h;
+}
 
 function renderCV1(){
   var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',BN=v('bangsa')||'……………….',AG=v('agama')||'……………….',TB=v('tb')||'……………….',BB=v('bb')||'……………….',HP=v('nohp')||'……………….',ST=v('status')||'……………….',EM=v('email')||'……………….';
   var a1=joinAddr(v('alamat1'),v('alamat2'))||'………………….',a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';var PR=getProfil('');
   var SK = skillMode==='k' ? kSkillPH(kSkills) : skCombined(hSkills,sSkills);
+  var eduCount = eduList.filter(function(e){return e.t&&e.t.trim()}).length;
+  var eduTitle = eduCount > 1 ? 'RIWAYAT PENDIDIKAN' : 'PENDIDIKAN TERAKHIR';
   function dp(l,val){return'<tr><td class="dl">'+l+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}
-  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">PENDIDIKAN</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
+  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">PROFIL</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">DATA PRIBADI</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
 }
 
 function renderCV2(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';
   var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var SUB=v('subtitle')||'';var PR=getProfil('');
   var SK = skillMode==='k' ? kSkillPH(kSkills) : skCombined(hSkills,sSkills);
-  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:center"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:3mm"></div>')+'<div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+' | '+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
+  var eduCount = eduList.filter(function(e){return e.t&&e.t.trim()}).length;
+  var eduTitle = eduCount > 1 ? 'RIWAYAT PENDIDIKAN' : 'PENDIDIKAN TERAKHIR';
+  return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:center"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:3mm"></div>')+'<div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+' | '+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">PROFIL</div><div style="text-align:justify">'+PR+'</div><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">PENGALAMAN KERJA</div>'+expPH(expList)+'<div class="st">KEAHLIAN</div>'+SK;
 }
 
 function renderCV3(){
   var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';
   var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var SUB=v('subtitle')||'';var PR=getProfil('');
-  var SK = skillMode==='k' ? kSkillPH(kSkills) : skCV3single(hSkills,sSkills);
+  var SK = skillMode==='k' ? kSkillPHSingle(kSkills) : skCV3single(hSkills,sSkills);
+  var eduCount = eduList.filter(function(e){return e.t&&e.t.trim()}).length;
+  var eduTitle = eduCount > 1 ? 'RIWAYAT PENDIDIKAN' : 'PENDIDIKAN TERAKHIR';
+
   function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+l+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}
-  var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:5mm"></div>')+di('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);
-  var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">PENDIDIKAN</div>'+eduPHDual(eduList,eduNonList,'right')+'<div class="st">PENGALAMAN KERJA</div>'+expPH3(expList)+'<div class="st">KEAHLIAN</div>'+SK;
-  return'<table style="width:100%;border:none"><tr><td style="width:52mm;vertical-align:top;padding-right:12mm;border-right:2.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:12mm">'+rs+'</td></tr></table>';
+  function diNoWrap(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+l+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}
+  
+  var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:5mm"></div>')+diNoWrap('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);
+  var rs='<div class="st">PROFIL</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'right')+'<div class="st">PENGALAMAN KERJA</div>'+expPH3(expList)+'<div class="st">KEAHLIAN</div>'+SK;
+  return'<table style="width:100%;border:none;table-layout:fixed;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:2.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:8mm">'+rs+'</td></tr></table>';
 }
 
 function renderSuratP(){
   var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return '';
   var sK=v('sKota')||'……………….',sT=v('sTgl')||'……………….',sBT=v('sBlnThn')||'……………….';
   var PT=v('sPt')||'……………….',JL=v('sJl')||'……………….',JL2=v('sJl2')||'',SUM=v('sSumber')||'……………….',POS=v('sPosisi')||'……………….';
-  var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
-  var autoLt=m.pos?'saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS):'saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin';
-  var autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', '+autoLt+'.';
+  var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'………………………..',AG=v('agama')||'………………………..',PA=v('pendAkhir')||'……………….',AL=v('alamat1')||'……………….',AL2=v('alamat2')||'',EM=v('email')||'……………….',HP=v('nohp')||'……………….',TTD=v('sTtd')||'……………….';
+  
+  var autoPembuka='';
+  if(m.semua){
+    autoPembuka='Saya yang bertanda tangan di bawah ini bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu Pimpin, berikut saya sampaikan data diri saya:';
+  }else if(m.pos){
+    autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', saya bermaksud untuk melamar pekerjaan sebagai '+esc(POS)+'.';
+  }else{
+    autoPembuka='Sesuai dengan informasi adanya lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin.';
+  }
   var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;
-  var autoPenutup='Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan besar harapan saya untuk bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kebijaksanaan Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
+  
+  var autoPenutup='Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan saya berharap untuk bisa bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
   var customPenutup=v('sPenutup')&&v('sPenutup').trim();var penutupText=customPenutup?customPenutup:autoPenutup;
+  
   var li=[];var lc=0;
-  if(m.on){for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}}else{li.push('CV/Daftar Riwayat Hidup');lc++;var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}}
+  if(m.on){
+    for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Scan '+val);lc++}
+  }else{
+    li.push('CV / Daftar Riwayat Hidup');lc++;
+    var pfVal=lampList[1]&&lampList[1].trim();li.push(pfVal?'Pas Foto '+pfVal:'Pas Foto');lc++;
+    for(var i=2;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push('Fotokopi '+val);lc++}
+  }
   var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>………………………..</div>';
   var lampLabel=m.on?'data scan':'lembar';
-  var labelStyle='padding-right:3mm;white-space:nowrap;text-align:left;';
-  var colonStyle='width:5mm;text-align:center;';
-  function dr(l,val){return'<tr><td style="'+labelStyle+'">'+l+'</td><td style="'+colonStyle+'">:</td><td style="padding-top:.5mm;text-align:left">'+val+'</td></tr>';}
-  var al2r=AL2?'<tr><td style="'+labelStyle+'">&nbsp;</td><td style="'+colonStyle+'">&nbsp;</td><td style="padding-top:.5mm;text-align:left">'+esc(AL2)+'</td></tr>':'';
+  
+  var labelStyle='width:45mm;padding-right:2mm;white-space:nowrap;text-align:left;vertical-align:top;';
+  var colonStyle='width:3mm;text-align:center;vertical-align:top;';
+  function dr(l,val){return'<tr><td style="'+labelStyle+'">'+l+'</td><td style="'+colonStyle+'">:</td><td style="text-align:left;vertical-align:top">'+val+'</td></tr>';}
+  
+  var al2r=AL2?'<tr><td style="'+labelStyle+'">&nbsp;</td><td style="'+colonStyle+'">&nbsp;</td><td style="text-align:left;vertical-align:top">'+esc(AL2)+'</td></tr>':'';
   var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';
   var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">Hal</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">Lampiran</td><td style="padding-left:2mm">: '+lc+' '+lampLabel+'</td></tr></table>';
-  var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div><div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
-  if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2)+'</div>';
-  var salam='<div style="margin-top:4mm;text-align:left">Dengan hormat,</div>';
-  var body='<div style="margin-top:2mm;text-align:justify;text-indent:8mm">'+esc(pembukaText)+'</div>';
-  body+='<div style="margin-top:3mm;text-align:left">Adapun data diri saya adalah sebagai berikut:</div>';
+  
+  var at='<div style="margin-top:2mm;text-align:left">Kepada Yth,</div><div style="text-align:left">Bapak/Ibu HRD</div>';
+  if(m.semua){
+     at+='<div style="text-align:left">Di Tempat</div>';
+  }else{
+     at+='<div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';
+     if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2)+'</div>';
+  }
+
+  var body='';
+  if(!m.on){
+    body+='<div style="margin-top:4mm;text-align:left">Dengan Hormat,</div>';
+  }
+  
+  body+='<div style="margin-top:2mm;text-align:justify;text-indent:8mm">'+esc(pembukaText)+'</div>';
+  
+  if(!m.semua){
+    body+='<div style="margin-top:3mm;text-align:left">Saya yang bertanda tangan di bawah ini:</div>';
+  }
+  
   body+='<table style="width:100%;margin-top:2mm">';
   body+=dr('Nama',esc(N));
-  body+=dr('Tempat, Tanggal Lahir',esc(TTL));
+  body+=dr('Tempat dan Tanggal Lahir',esc(TTL));
   body+=dr('Jenis Kelamin',esc(JK));
-  body+=dr('Bangsa',esc(BN));
   body+=dr('Agama',esc(AG));
   body+=dr('Pendidikan Terakhir',esc(PA));
   body+=dr('Alamat',esc(AL));
   body+=al2r;
-  body+=dr('No. HP',esc(HP));
   body+=dr('Email',esc(EM));
+  body+=dr('No HP',esc(HP));
   body+='</table>';
-  body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini saya lampirkan:</div>';
+  body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div>';
   body+='<div style="margin-left:8mm;margin-top:2mm">'+lamps+'</div>';
   body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">'+esc(penutupText)+'</div>';
+  
   var ttdN=esc(TTD)||'………………………..';
   var ttd='<div style="margin-top:8mm;text-align:right">Hormat saya,</div><div style="margin-top:14mm;text-align:right;font-weight:600;text-decoration:underline">'+ttdN+'</div>';
-  return tw+hl+at+salam+body+ttd;
+  
+  return tw+hl+at+body+ttd;
 }
 
 function renderPreview(){
@@ -574,7 +699,7 @@ function toggleDark(){
 function resetForm(){
   if(curCat==='cv'){
     eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];
-    eduNonList=[{t:'',y:''}];
+    eduNonList=[{t:'',k:'',y:'',d:''}];
     expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];
     hSkills=['','','','','',''];
     sSkills=['','','','','',''];
@@ -625,6 +750,18 @@ function downloadPDF(){
 
 /* ===== HALAMAN INFO FULL-SCREEN ===== */
 var infoPages={
+  guide: {
+    title: 'Petunjuk Penggunaan',
+    body: '<h3>Petunjuk Penggunaan Karya Abadi Jobs</h3>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-list-check" style="margin-right:8px"></i>1. Pilih Kategori</div><div class="ip-val">Pilih tab "CV" atau "Surat Melamar Pekerjaan" di bagian atas halaman sesuai kebutuhan Anda.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-pen-ruler" style="margin-right:8px"></i>2. Pilih Template</div><div class="ip-val">Tentukan template dokumen yang ingin digunakan pada bagian atas formulir.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-keyboard" style="margin-right:8px"></i>3. Isi Formulir</div><div class="ip-val">Lengkapi data pada kolom formulir yang tersedia. Gunakan tombol tambah (+) atau kurang (-) untuk menyesuaikan jumlah baris data.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-camera-retro" style="margin-right:8px"></i>4. Upload Pas Foto</div><div class="ip-val">Klik area upload untuk memasukkan pas foto. Pastikan format file JPG/PNG dan ukuran maksimal 2MB.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-sliders" style="margin-right:8px"></i>5. Atur Tampilan</div><div class="ip-val">Sesuaikan jenis font, ukuran font, dan jarak baris sesuai dengan standar lamaran pekerjaan yang diinginkan.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-eye" style="margin-right:8px"></i>6. Pratinjau Dokumen</div><div class="ip-val">Pantau hasil dokumen Anda secara real-time di panel sebelah kanan. Jika menggunakan HP, klik tombol "Preview" di bawah layar.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-file-pdf" style="margin-right:8px"></i>7. Unduh PDF</div><div class="ip-val">Jika hasil sudah sesuai, klik tombol "Download PDF" untuk mengunduh dan menyimpan dokumen Anda.</div></div>'
+      + '<div class="ip-card"><div class="ip-label"><i class="fa-solid fa-rotate-left" style="margin-right:8px"></i>8. Reset Data</div><div class="ip-val">Gunakan tombol "Reset" jika Anda ingin mengosongkan seluruh isian formulir dan memulai dari awal.</div></div>'
+  },
   about:{
     title:'About',
     body:'<h3>Tentang Karya Abadi Jobs</h3>'
@@ -661,7 +798,7 @@ var infoPages={
   terms:{
     title:'Terms of Service',
     body:'<h3>Ketentuan Layanan</h3>'
-      +'<p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda menyatakan bahwa Anda telah membaca, memahami, dan menyetujui untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>'
+      +'<p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>'
       +'<div class="ip-divider"></div>'
       +'<p><strong>1. Sifat Layanan</strong></p>'
       +'<p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia, bebas dari kesalahan, atau sesuai dengan kebutuhan spesifik pengguna.</p>'
