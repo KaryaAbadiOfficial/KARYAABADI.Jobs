@@ -546,11 +546,17 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.height = '297mm';
+  
+  // FIX HALAMAN KOSONG: 
+  // Ubah height menjadi auto dan minHeight 297mm agar tinggi mengikuti konten asli
+  clone.style.height = 'auto';
+  clone.style.minHeight = '297mm';
+  // Ubah overflow menjadi visible agar tidak ada konten yang terpotong/menyebabkan paging palsu
+  clone.style.overflow = 'visible'; 
+  
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
   clone.style.padding = '12mm 16mm';
-  clone.style.overflow = 'hidden';
   clone.style.fontFamily = selFont;
   clone.style.fontSize = selSize + 'pt';
   clone.style.lineHeight = selLH;
@@ -574,9 +580,12 @@ function downloadPDF() {
       useCORS: true, 
       backgroundColor: '#ffffff',
       scrollX: 0,
-      scrollY: 0
+      scrollY: 0,
+      windowWidth: document.documentElement.offsetWidth // Bantu render akurat
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    // Tambahan untuk mencegah pemotongan baris yang aneh dan halaman kosong
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } 
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
