@@ -156,7 +156,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); return false;" class="hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); return false;" class="hover:text-white">Buat CV</a>
+      <a href="#" onclick="showPage('panduan'); return false;" class="hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); return false;" class="hover:text-white">Tips & Contoh</a>
+      <a href="#" onclick="showPage('loker'); return false;" class="hover:text-white">Info Lowongan</a>
       <a href="#" onclick="showPage('faq'); return false;" class="hover:text-white">FAQ</a>
       <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
@@ -293,7 +295,45 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 </div>
 
-<!-- VIEW: TIPS & ARTIKEL -->
+<!-- VIEW: PANDUAN PENGGUNAAN -->
+<div id="view-panduan" class="view">
+  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+    <h1>Panduan Penggunaan Tool Generator</h1>
+    <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai:</p>
+    
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <h2>Langkah 1: Pilih Jenis Dokumen</h2>
+      <p>Di bagian atas halaman <a href="#" onclick="showPage('generator'); return false;">Generator</a>, Anda akan melihat dua tab utama: <strong>CV (Curriculum Vitae)</strong> dan <strong>Surat Melamar Pekerjaan</strong>. Klik tab sesuai dengan dokumen yang ingin Anda buat.</p>
+    </div>
+
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <h2>Langkah 2: Pilih Template</h2>
+      <p>Setelah memilih jenis dokumen, pilihlah template yang tersedia. Untuk CV, kami menyediakan 3 pilihan template (Klasik, Modern Tengah, dan Sidebar). Untuk Surat Lamaran, tersedia 6 pilihan format (Email/Umum/Posisi/Spesifik). Klik pada tombol template untuk mengaktifkannya.</p>
+    </div>
+
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <h2>Langkah 3: Isi Formulir Data</h2>
+      <p>Pada panel kiri, isi semua kolom formulir sesuai dengan data diri Anda. Mulai dari Informasi Pribadi, Pendidikan, Pengalaman Kerja, hingga Keahlian.</p>
+      <ul class="list-disc pl-6 space-y-2 mt-4">
+        <li><strong>Tambah/Kurang Item:</strong> Pada bagian Pendidikan dan Pengalaman, gunakan tombol plus (+) untuk menambah baris baru, dan tombol minus (-) untuk menghapus.</li>
+        <li><strong>Upload Foto:</strong> Anda dapat mengunggah pas foto berformat JPG/PNG (maksimal 2MB) dengan klik area putus-putus. Foto akan otomatis menyesuaikan ukuran.</li>
+        <li><strong>Pengaturan Tampilan:</strong> Sesuaikan jenis font, ukuran font, dan jarak baris agar dokumen terlihat ideal dan muat dalam satu halaman.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <h2>Langkah 4: Pratinjau (Preview)</h2>
+      <p>Di panel kanan (atau dengan menekan tombol "Preview" di HP), Anda dapat melihat hasil dokumen secara <strong>real-time</strong>. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Pastikan tidak ada teks yang terpotong di bagian bawah halaman.</p>
+    </div>
+
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <h2>Langkah 5: Download PDF</h2>
+      <p>Jika hasilnya sudah sesuai, klik tombol <strong>"Download PDF"</strong>. Sistem akan memproses dokumen Anda dan otomatis mengunduh file PDF berkualitas tinggi dengan ukuran kertas A4. File siap dikirim via email ke HRD atau dicetak langsung.</p>
+    </div>
+  </main>
+</div>
+
+<!-- VIEW: TIPS & ARTIKEL (DENGAN CONTOH GAMBAR) -->
 <div id="view-tips" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1>Tips Karier & Contoh Dokumen Lamaran</h1>
@@ -302,7 +342,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>1. Contoh Surat Lamaran Kerja yang Baik dan Benar</h2>
       <p>Surat lamaran kerja adalah dokumen formal yang sangat penting. Pastikan Anda menggunakan bahasa yang sopan, struktur yang baku, dan tidak ada kesalahan ketik. Berikut adalah struktur standar surat lamaran di Indonesia:</p>
-      <ul class="list-disc pl-6 space-y-2">
+      <ul class="list-disc pl-6 space-y-2 mt-4">
         <li><strong>Tempat dan Tanggal:</strong> Ditulis di kanan atas (misal: Jakarta, 24 Mei 2024).</li>
         <li><strong>Hal:</strong> Ditulis di bawah tanggal (misal: Hal: Lamaran Pekerjaan).</li>
         <li><strong>Tujuan:</strong> Kepada Yth. HRD Manager [Nama Perusahaan] di Tempat.</li>
@@ -310,14 +350,79 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li><strong>Isi:</strong> Data diri singkat (Nama, TTL, Pendidikan).</li>
         <li><strong>Penutup:</strong> Harapan untuk mengikuti tes wawancara dan ucapan terima kasih.</li>
       </ul>
-      <p>Anda dapat menggunakan <a href="#" onclick="showPage('generator'); return false;">generator surat lamaran</a> kami untuk membuatnya secara otomatis tanpa khawatir salah format.</p>
+      <p class="mt-4">Anda dapat menggunakan <a href="#" onclick="showPage('generator'); return false;">generator surat lamaran</a> kami untuk membuatnya secara otomatis tanpa khawatir salah format.</p>
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
-      <h2>2. Apa itu CV ATS Friendly?</h2>
+      <h2>2. Contoh Template CV Sesuai dengan Website Kami</h2>
+      <p>Berikut adalah ilustrasi contoh tampilan dari template CV yang tersedia di generator Karya Abadi Jobs:</p>
+      
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
+        <!-- Template 1 -->
+        <div class="text-center">
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
+            <!-- Ilustrasi Template 1 -->
+            <div class="bg-white w-full h-full shadow-md p-2 text-left flex flex-col gap-1">
+              <div class="flex gap-1 mb-1">
+                <div class="w-6 h-8 bg-gray-300"></div>
+                <div class="flex-1 pt-1"><div class="h-1 bg-red-500 w-8 mb-0.5"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div></div>
+              </div>
+              <div class="h-1 bg-gray-800 w-12 mb-0.5"></div>
+              <div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-3/4"></div>
+              <div class="h-1 bg-gray-800 w-12 mt-1 mb-0.5"></div>
+              <div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-5/6"></div>
+            </div>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white">Template 1 (Klasik)</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto di kiri, deskripsi profil di samping. Cocok untuk melamar di perusahaan formal/konvensional.</p>
+        </div>
+
+        <!-- Template 2 -->
+        <div class="text-center">
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
+            <!-- Ilustrasi Template 2 -->
+            <div class="bg-white w-full h-full shadow-md p-2 text-center flex flex-col items-center gap-1">
+              <div class="w-8 h-10 bg-gray-300 rounded-full mb-1"></div>
+              <div class="h-1.5 bg-gray-800 w-16"></div>
+              <div class="h-1 bg-red-500 w-10"></div>
+              <div class="h-0.5 bg-gray-200 w-3/4 mt-1"></div><div class="h-0.5 bg-gray-200 w-3/4"></div>
+              <div class="h-1 bg-gray-800 w-12 mt-1"></div>
+              <div class="h-0.5 bg-gray-200 w-3/4"></div><div class="h-0.5 bg-gray-200 w-3/4"></div>
+            </div>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white">Template 2 (Modern Center)</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto dan identitas di tengah atas. Cocok untuk fresh graduate dan desain modern minimalis.</p>
+        </div>
+
+        <!-- Template 3 -->
+        <div class="text-center">
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
+            <!-- Ilustrasi Template 3 -->
+            <div class="bg-white w-full h-full shadow-md p-0 text-left flex">
+              <div class="w-1/3 bg-gray-100 p-1 border-r-2 border-gray-800 flex flex-col gap-1">
+                <div class="w-6 h-8 bg-gray-300 mb-1"></div>
+                <div class="h-0.5 bg-gray-300 w-full"></div><div class="h-0.5 bg-gray-300 w-full"></div>
+                <div class="h-0.5 bg-gray-300 w-full"></div>
+              </div>
+              <div class="w-2/3 p-1 flex flex-col gap-1">
+                <div class="h-1.5 bg-gray-800 w-16"></div>
+                <div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-2/3"></div>
+                <div class="h-1 bg-gray-800 w-10 mt-1"></div>
+                <div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white">Template 3 (Sidebar)</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Layout dua kolom kiri-kanan. Sangat profesional, cocok untuk yang punya banyak pengalaman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <h2>3. Apa itu CV ATS Friendly?</h2>
       <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyortir ratusan hingga ribuan CV. CV yang "ATS Friendly" berarti CV tersebut dapat dibaca dengan easy oleh robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS.</p>
       <h3>Tips Agar Lolos ATS:</h3>
-      <ul class="list-disc pl-6 space-y-2">
+      <ul class="list-disc pl-6 space-y-2 mt-2">
         <li>Hindari menggunakan kolom atau desain yang terlalu rumit dengan banyak grafis.</li>
         <li>Gunakan font standar seperti Arial, Calibri, atau Times New Roman (semuanya tersedia di generator kami).</li>
         <li>Jangan menyertakan foto kecuali diminta khusus oleh perusahaan.</li>
@@ -326,9 +431,67 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
-      <h2>3. Perbedaan CV dan Surat Lamaran Kerja</h2>
+      <h2>4. Perbedaan CV dan Surat Lamaran Kerja</h2>
       <p>Banyak pelamar kerja pemula yang masih bingung membedakan CV dan surat lamaran. <strong>Surat Lamaran Kerja</strong> adalah surat pengantar yang berisi niat Anda untuk melamar posisi tertentu, sedangkan <strong>CV (Curriculum Vitae)</strong> adalah lampiran yang memuat rincian data diri, riwayat pendidikan, pengalaman kerja, dan keahlian.</p>
       <p>Keduanya harus dikirim bersamaan saat melamar pekerjaan. Gunakan tool kami untuk membuat keduanya secara gratis!</p>
+    </div>
+  </main>
+</div>
+
+<!-- VIEW: INFO LOKER -->
+<div id="view-loker" class="view">
+  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+    <h1>Info Lowongan Kerja Terpercaya di Indonesia</h1>
+    <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi:</p>
+    
+    <div class="grid md:grid-cols-2 gap-6 mt-8">
+      <a href="https://www.jobstreet.co.id/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-solid fa-briefcase"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">JobStreet Indonesia</h3>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Situs lowongan kerja terbesar di Asia Tenggara. Menyediakan ribuan lowongan dari berbagai industri dengan fitur filtering yang lengkap.</p>
+      </a>
+
+      <a href="https://id.linkedin.com/jobs" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-brands fa-linkedin"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">LinkedIn Jobs</h3>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutama untuk posisi manajerial dan multinasional.</p>
+      </a>
+
+      <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400 text-xl"><i class="fa-solid fa-laptop-code"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Kalibrr</h3>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Sangat populer untuk startup dan perusahaan teknologi. Memiliki sistem matching otomatis antara kandidat dan perusahaan.</p>
+      </a>
+
+      <a href="https://www.glints.com/id" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Glints Indonesia</h3>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, dan karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
+      </a>
+
+      <a href="https://www.karir.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center text-red-600 dark:text-red-400 text-xl"><i class="fa-solid fa-users"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Karir.com</h3>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Situs lamaran kerja lokal yang sudah berdiri sejak lama. Banyak digunakan oleh perusahaan skala menengah ke atas di Indonesia.</p>
+      </a>
+
+      <a href="https://www.disnakerinfo.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-xl"><i class="fa-solid fa-building-shield"></i></div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Disnaker (Pemerintah)</h3>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Portal resmi informasi lowongan kerja dari Kementerian Ketenagakerjaan. Terjamin keaslian perusahaan pemberi lowongannya.</p>
+      </a>
     </div>
   </main>
 </div>
@@ -445,11 +608,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
             <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
             <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
             <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
+            <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
           </ul>
         </div>
         <div>
           <h4 class="font-bold text-white mb-6">Informasi</h4>
           <ul class="space-y-5 text-gray-400">
+            <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
             <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
             <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
             <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
