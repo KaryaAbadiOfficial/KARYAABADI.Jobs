@@ -39,8 +39,8 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view { display: none; }
 .view.active { display: block; }
 
-/* Generator Styles - Ukuran A4 dan Margin 1cm (10mm) */
-.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:10mm;overflow:hidden;position:relative}
+/* Generator Styles */
+.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -426,7 +426,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Alat Bantu</h2>
     <p>Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Pekerjaan secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang dituju.</p>
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
-    <p>Penggunaan template dari platform ini <strong>tidak menjamin</strong> bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persingan dengan pelamar lainnya.</p>
+    <p>Penggunaan template dari platform ini <strong>tidak menjamin</strong> bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
     <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ejaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
@@ -536,7 +536,7 @@ function downloadPDF() {
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  // Reset styles for offscreen rendering to ensure 1:1 scale
+  // Reset styles for offscreen rendering to ensure 1:1 scale without messing up
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -546,11 +546,11 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.height = '297mm'; // Kunci tinggi A4
+  clone.style.height = '297mm';
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
-  clone.style.padding = '10mm'; // Margin 1cm (Kiri, Kanan, Atas, Bawah)
-  clone.style.overflow = 'hidden'; // Pastikan 1 halaman persis seperti preview
+  clone.style.padding = '12mm 16mm';
+  clone.style.overflow = 'hidden';
   clone.style.fontFamily = selFont;
   clone.style.fontSize = selSize + 'pt';
   clone.style.lineHeight = selLH;
@@ -574,12 +574,9 @@ function downloadPDF() {
       useCORS: true, 
       backgroundColor: '#ffffff',
       scrollX: 0,
-      scrollY: 0,
-      windowWidth: 794, // Fix dimensi agar html2canvas tidak melebar
-      windowHeight: 1123 
+      scrollY: 0
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Cegah halaman ke-2 kosong
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
