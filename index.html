@@ -808,7 +808,6 @@ function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id=
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
 function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed border-gray-200 dark:border-brand-border flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] text-gray-400 dark:text-gray-500 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
 
-// FIX: Saya menambahkan 'return h;' yang hilang di fungsi ini
 function settingsH(){
   var h='<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div>';
   h+='<div><label class="fl-sub">Bahasa Dokumen (Auto-Text)</label><select id="doc-lang-sel" class="fi" onchange="docLang=this.value;changeLang(this.value)">';
@@ -862,13 +861,14 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= FIX DOWNLOAD PDF =================
+// ================= FIX DOWNLOAD PDF (HAPUS HALAMAN KOSONG) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
+  // Reset style dasar
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -878,8 +878,10 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
+  
+  // FIX: Hilangkan minHeight agar tinggi DIV hanya mengikuti isi konten yang ada
+  clone.style.minHeight = '0'; 
   clone.style.height = 'auto';
-  clone.style.minHeight = '297mm';
   clone.style.overflow = 'visible'; 
   
   clone.style.background = '#ffffff';
@@ -891,6 +893,11 @@ function downloadPDF() {
   
   offscreen.innerHTML = '';
   offscreen.appendChild(clone);
+  
+  // FIX: Hitung tinggi eksak konten untuk mencegah halaman kosong tambahan di akhir
+  void clone.offsetHeight; // Trigger reflow
+  var exactHeight = clone.scrollHeight;
+  clone.style.height = exactHeight + 'px';
   
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
@@ -909,7 +916,8 @@ function downloadPDF() {
       backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
-      windowWidth: document.documentElement.offsetWidth 
+      windowWidth: clone.offsetWidth,
+      windowHeight: exactHeight // Gunakan tinggi eksak agar canvas tidak menyisakan ruang kosong di bawah
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
