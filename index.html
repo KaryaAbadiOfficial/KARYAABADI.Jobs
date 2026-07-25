@@ -40,7 +40,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view.active { display: block; }
 
 /* Generator Styles */
-.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
+.a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -71,7 +71,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 textarea.fi{resize:vertical;min-height:60px}
 select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.dyn-btn{width:32px;height:32px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.dyn-btn{width:36px;height:36px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
 .dyn-btn:active{transform:scale(.9)}
 .dyn-add{background:transparent;color:#DC2626;border:1.5px solid #DC2626}
 .dyn-add:hover{background:#DC2626;color:#fff}
@@ -79,7 +79,7 @@ select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:3
 .dark .dyn-add:hover{background:#DC2626;color:#fff}
 .dyn-rm{background:#DC2626;color:#fff}
 .dyn-rm:hover{background:#991B1B}
-.sk-rm{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5e7eb;color:#DC2626;background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
+.sk-rm{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5e7eb;color:#DC2626;background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
 .sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
 .sk-rm:active{transform:scale(.9)}
 .dark .sk-rm{background:transparent;border-color:#2a2a2a;color:#DC2626}
@@ -108,7 +108,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
 .dark .card{background:#1A1A1A;border-color:#2a2a2a}
 
-.fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto}
+.fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 @media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 150px)}}
 .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
 
@@ -118,20 +118,21 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .ft-5col a{font-size:clamp(8px,2.4vw,12px);line-height:1.3;white-space:nowrap;padding:0 clamp(2px,1vw,6px)}
 @media(min-width:1024px){.ft-5col{padding:10px 24px;gap:6px}}
 .ft-copy{text-align:center;padding:0 0 8px;font-size:12px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
-@media(max-width:1023px){.ft-inner{padding-bottom:56px}}
+@media(max-width:1023px){.ft-inner{padding-bottom:70px}}
 
 /* Article Adaptive */
-.article-content h1 { font-size: 2rem; font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
+.article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
 .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
-.article-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; text-align: left; }
+.article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; text-align: left; }
 .dark .article-content h2 { color: #fff; }
 .article-content h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1f2937; text-align: left; }
 .dark .article-content h3 { color: #f1f5f9; }
 .article-content p { margin-bottom: 1rem; line-height: 1.8; color: #4b5563; text-align: justify; }
 .dark .article-content p { color: #cbd5e1; }
 .article-content ul { list-style: none; margin-left: 0; margin-bottom: 1rem; }
-.article-content li { margin-bottom: 0.5rem; color: #4b5563; text-align: left; }
+.article-content li { margin-bottom: 0.5rem; color: #4b5563; text-align: left; position: relative; padding-left: 1.5rem; }
 .dark .article-content li { color: #cbd5e1; }
+.article-content li::before { content: '•'; position: absolute; left: 0.5rem; color: #DC2626; font-weight: bold; }
 .article-content a { color: #DC2626; text-decoration: underline; }
 .article-content strong { color: #111827; }
 .dark .article-content strong { color: #fff; }
@@ -141,7 +142,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .goog-te-banner-frame.skiptranslate {display: none !important;}
 body { top: 0px !important; }
 
-/* Custom Lang Button (Ikon Bendera Custom) */
+/* Custom Lang Button */
 .lang-btn { padding: 4px; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; }
 .lang-btn img { width: 24px; height: 16px; object-fit: cover; border-radius: 3px; display: block; }
 .lang-btn.active { background-color: rgba(220, 38, 38, 0.2); transform: scale(1.1); }
@@ -154,14 +155,14 @@ body { top: 0px !important; }
 <div id="google_translate_element"></div>
 
 <!-- GLOBAL HEADER -->
-<header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0">
+<header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
     <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2.5 cursor-pointer">
       <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-10 h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
       <div class="flex flex-col leading-none">
         <div class="flex items-baseline gap-0.5">
-          <span class="text-white font-bold text-base tracking-wide">KARYA ABADI</span>
-          <span class="text-red-500 font-bold text-base">JOBS</span>
+          <span class="text-white font-bold text-sm sm:text-base tracking-wide">KARYA ABADI</span>
+          <span class="text-red-500 font-bold text-sm sm:text-base">JOBS</span>
         </div>
       </div>
     </a>
@@ -187,7 +188,22 @@ body { top: 0px !important; }
         <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
         <i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i>
       </button>
+      <button onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Menu">
+        <i class="fa-solid fa-bars text-sm text-white/70"></i>
+      </button>
     </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+    <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
+      <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
+      <a href="#" onclick="showPage('generator'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
+      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
+      <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
+      <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
+      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
+      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
+    </nav>
   </div>
 </header>
 
@@ -199,8 +215,8 @@ body { top: 0px !important; }
     <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-bold tracking-wider mb-6">100% GRATIS & RAMAH ATS</span>
       <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Generator CV & Surat Lamaran Kerja <span class="text-brand-red">Profesional</span></h1>
-      <p class="max-w-2xl mx-auto text-gray-400 mb-8"><strong>Karya Abadi Jobs</strong> adalah tool online gratis untuk membuat CV dan Surat Lamaran secara otomatis. Desain rapi, format PDF siap cetak, tanpa registrasi, dan ramah ATS.</p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <p class="max-w-2xl mx-auto text-gray-400 mb-8 px-4"><strong>Karya Abadi Jobs</strong> adalah tool online gratis untuk membuat CV dan Surat Lamaran secara otomatis. Desain rapi, format PDF siap cetak, tanpa registrasi, dan ramah ATS.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
         <button onclick="showPage('generator')" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red">Mulai Buat CV <i class="fa-solid fa-arrow-right ml-2"></i></button>
         <button onclick="showPage('tips')" class="px-8 py-3 border border-brand-border text-white font-bold rounded-xl hover:bg-brand-card transition">Lihat Contoh CV</button>
       </div>
@@ -336,7 +352,7 @@ body { top: 0px !important; }
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>Langkah 3: Isi Formulir Data</h2>
       <p>Pada panel kiri, isi semua kolom formulir sesuai dengan data diri Anda. Mulai dari Informasi Pribadi, Pendidikan, Pengalaman Kerja, hingga Keahlian.</p>
-      <ul class="list-disc pl-6 space-y-2 mt-4">
+      <ul class="space-y-2 mt-4">
         <li><strong>Tambah/Kurang Item:</strong> Pada bagian Pendidikan dan Pengalaman, gunakan tombol plus (+) untuk menambah baris baru, dan tombol minus (-) untuk menghapus.</li>
         <li><strong>Upload Foto:</strong> Anda dapat mengunggah pas foto berformat JPG/PNG (maksimal 2MB) dengan klik area putus-putus. Foto akan otomatis menyesuaikan ukuran.</li>
         <li><strong>Pengaturan Tampilan & Bahasa:</strong> Sesuaikan jenis font, ukuran font, dan jarak baris agar dokumen terlihat ideal. Anda juga bisa mengubah bahasa dokumen (Indonesia/Inggris) untuk kebutuhan melamar di perusahaan multinasional.</li>
@@ -355,7 +371,7 @@ body { top: 0px !important; }
   </main>
 </div>
 
-<!-- VIEW: TIPS & ARTIKEL (DENGAN CONTOH GAMBAR DIPERBAIKI) -->
+<!-- VIEW: TIPS & ARTIKEL -->
 <div id="view-tips" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1>Tips Karier & Contoh Dokumen Lamaran</h1>
@@ -364,7 +380,7 @@ body { top: 0px !important; }
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>1. Contoh Surat Lamaran Kerja yang Baik dan Benar</h2>
       <p>Surat lamaran kerja adalah dokumen formal yang sangat penting. Pastikan Anda menggunakan bahasa yang sopan, struktur yang baku, dan tidak ada kesalahan ketik. Berikut adalah struktur standar surat lamaran di Indonesia:</p>
-      <ul class="list-disc pl-6 space-y-2 mt-4">
+      <ul class="space-y-2 mt-4">
         <li><strong>Tempat dan Tanggal:</strong> Ditulis di kanan atas (misal: Jakarta, 24 Mei 2024).</li>
         <li><strong>Hal:</strong> Ditulis di bawah tanggal (misal: Hal: Lamaran Pekerjaan).</li>
         <li><strong>Tujuan:</strong> Kepada Yth. HRD Manager [Nama Perusahaan] di Tempat.</li>
@@ -379,7 +395,7 @@ body { top: 0px !important; }
       <h2>2. Contoh Template CV Sesuai dengan Website Kami</h2>
       <p>Berikut adalah ilustrasi contoh tampilan dari template CV yang tersedia di generator Karya Abadi Jobs:</p>
       
-      <div class="grid md:grid-cols-3 gap-6 mt-8">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
         
         <!-- Template 1 -->
         <div class="text-center">
@@ -451,7 +467,7 @@ body { top: 0px !important; }
       <h2>3. Apa itu CV ATS Friendly?</h2>
       <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyortir ratusan hingga ribuan CV. CV yang "ATS Friendly" berarti CV tersebut dapat dibaca dengan easy oleh robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS.</p>
       <h3>Tips Agar Lolos ATS:</h3>
-      <ul class="list-disc pl-6 space-y-2 mt-2">
+      <ul class="space-y-2 mt-2">
         <li>Hindari menggunakan kolom atau desain yang terlalu rumit dengan banyak grafis.</li>
         <li>Gunakan font standar seperti Arial, Calibri, atau Times New Roman (semuanya tersedia di generator kami).</li>
         <li>Jangan menyertakan foto kecuali diminta khusus oleh perusahaan.</li>
@@ -473,7 +489,7 @@ body { top: 0px !important; }
     <h1>Info Lowongan Kerja Terpercaya di Indonesia</h1>
     <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi:</p>
     
-    <div class="grid md:grid-cols-2 gap-6 mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
       <a href="https://www.jobstreet.co.id/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
         <div class="flex items-center gap-4 mb-3">
           <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-solid fa-briefcase"></i></div>
@@ -514,7 +530,6 @@ body { top: 0px !important; }
         <p class="text-sm text-gray-600 dark:text-gray-400">Situs lamaran kerja lokal yang sudah berdiri sejak lama. Banyak digunakan oleh perusahaan skala menengah ke atas di Indonesia.</p>
       </a>
 
-      <!-- Disnaker diganti menjadi Kemnaker dengan link yang sesuai -->
       <a href="https://kemnaker.go.id" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
         <div class="flex items-center gap-4 mb-3">
           <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-xl"><i class="fa-solid fa-building-shield"></i></div>
@@ -599,7 +614,7 @@ body { top: 0px !important; }
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -629,12 +644,12 @@ body { top: 0px !important; }
 
 <!-- GLOBAL FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
-  <div class="ft-inner max-w-7xl mx-auto pt-20 pb-12 px-4">
-    <div class="flex justify-center mb-24">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-32 text-sm text-left">
+  <div class="ft-inner max-w-7xl mx-auto pt-12 pb-8 px-4">
+    <div class="flex justify-center mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 text-sm text-left">
         <div>
-          <h4 class="font-bold text-white mb-6">Layanan</h4>
-          <ul class="space-y-5 text-gray-400">
+          <h4 class="font-bold text-white mb-4">Layanan</h4>
+          <ul class="space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
             <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
             <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
@@ -642,17 +657,17 @@ body { top: 0px !important; }
           </ul>
         </div>
         <div>
-          <h4 class="font-bold text-white mb-6">Informasi</h4>
-          <ul class="space-y-5 text-gray-400">
+          <h4 class="font-bold text-white mb-4">Informasi</h4>
+          <ul class="space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
             <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
             <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
             <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
           </ul>
         </div>
-        <div>
-          <h4 class="font-bold text-white mb-6">Legal</h4>
-          <ul class="space-y-5 text-gray-400">
+        <div class="hidden md:block">
+          <h4 class="font-bold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
             <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
             <li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li>
@@ -667,6 +682,11 @@ body { top: 0px !important; }
 </footer>
 
 <script>
+// ================= MOBILE MENU =================
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+}
+
 // ================= GOOGLE TRANSLATE WIDGET =================
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
@@ -843,7 +863,7 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= FIX DOWNLOAD PDF (1 Lembar jika data pas) =================
+// ================= FIX DOWNLOAD PDF =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -860,7 +880,7 @@ function downloadPDF() {
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
   clone.style.height = 'auto';
-  clone.style.minHeight = '0'; 
+  clone.style.minHeight = '297mm';
   clone.style.overflow = 'visible'; 
   
   clone.style.background = '#ffffff';
