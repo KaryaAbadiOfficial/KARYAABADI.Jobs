@@ -135,8 +135,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .goog-te-banner-frame.skiptranslate {display: none !important;}
 body { top: 0px !important; }
 
-/* CSS Tombol Bahasa Emoji Bendera (Kecil & Universal) */
-.lang-btn { padding: 2px 4px; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 1; }
+/* CSS Tombol Bahasa Gambar Bendera (Kecil & Universal) */
+.lang-btn { padding: 2px; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; }
+.lang-btn img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; display: block; }
 .lang-btn.active { background-color: rgba(220, 38, 38, 0.2); }
 .lang-btn:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
 </style>
@@ -169,8 +170,12 @@ body { top: 0px !important; }
     </nav>
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
       <div class="flex items-center gap-1 bg-white/5 rounded-lg p-0.5">
-        <button onclick="changeLang('id')" id="lang-id-btn" class="lang-btn active" title="Bahasa Indonesia">🇮🇩</button>
-        <button onclick="changeLang('en')" id="lang-en-btn" class="lang-btn" title="English">🇬🇧</button>
+        <button onclick="changeLang('id')" id="lang-id-btn" class="lang-btn active" title="Bahasa Indonesia">
+          <img src="https://z-cdn-media.chatglm.cn/files/9c257d2e-972c-4646-9524-a9cb9061a52d.png?auth_key=1884911245-74fe2a54003c49b2827f784bc87c4b20-0-0a90a87b6fabf95b979dae1d0f9ecf82" alt="Indonesia">
+        </button>
+        <button onclick="changeLang('en')" id="lang-en-btn" class="lang-btn" title="English">
+          <img src="https://z-cdn-media.chatglm.cn/files/5d9d8e4e-baf0-4f98-8b3b-093feffb0bef.png?auth_key=1884911245-837ef35dd8634f91bb0d2b3e4af96b35-0-c4773f66e8611ad0e4afe2eb72797ed0" alt="English">
+        </button>
       </div>
       <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
         <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
@@ -860,14 +865,14 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (SESUAI PREVIEW STANDAR A4) =================
+// ================= DOWNLOAD PDF (SESUAI PREVIEW TANPA HALAMAN KOSONG) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  // Reset style agar bersih dan persis standar A4
+  // Reset style dasar
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -877,7 +882,12 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.minHeight = '297mm'; // Standar A4
+  
+  // Tinggi mengikuti isi konten
+  clone.style.minHeight = '0'; 
+  clone.style.height = 'auto';
+  clone.style.overflow = 'visible'; 
+  
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
   clone.style.padding = '12mm 16mm';
@@ -887,6 +897,17 @@ function downloadPDF() {
   
   offscreen.innerHTML = '';
   offscreen.appendChild(clone);
+  
+  // Hitung tinggi eksak konten dalam pixel
+  void clone.offsetHeight; 
+  var exactHeightPx = clone.scrollHeight;
+  
+  // Konversi pixel ke mm (Standar CSS: 1px = 1/96 inch, 1 inch = 25.4mm)
+  var pxToMm = 25.4 / 96;
+  var exactHeightMm = (exactHeightPx * pxToMm) + 5; // Tambah 5mm margin bawah agar tidak mepet
+  
+  // Jika kurang dari 297mm (A4), paksa jadi 297mm supaya ukuran kertas standar A4
+  if(exactHeightMm < 297) exactHeightMm = 297;
   
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
@@ -905,11 +926,11 @@ function downloadPDF() {
       backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
-      windowWidth: clone.offsetWidth
+      windowWidth: clone.offsetWidth,
+      windowHeight: exactHeightPx
     },
-    // Menggunakan format A4 standar agar hasil 100% sama dengan preview
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    // Ukuran kertas diubah secara dinamis menjadi [lebar, tinggi] agar muat pas tanpa terpotong
+    jsPDF: { unit: 'mm', format: [210, exactHeightMm], orientation: 'portrait' }
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
