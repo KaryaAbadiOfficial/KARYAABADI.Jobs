@@ -38,8 +38,8 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view { display: none; }
 .view.active { display: block; }
 
-/* FIX: Overflow visible agar preview memanjang sesuai isi dan PDF sesuai preview */
-.a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:visible;position:relative}
+/* FIX: Standar A4 dengan overflow hidden agar PDF rapi persis seperti preview */
+.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -135,7 +135,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .goog-te-banner-frame.skiptranslate {display: none !important;}
 body { top: 0px !important; }
 
-/* CSS Tombol Bahasa Gambar Bendera (Kecil & Universal) */
+/* CSS Tombol Bahasa Gambar Bendera */
 .lang-btn { padding: 2px; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; }
 .lang-btn img { width: 18px; height: 12px; object-fit: cover; border-radius: 2px; display: block; }
 .lang-btn.active { background-color: rgba(220, 38, 38, 0.2); }
@@ -299,7 +299,8 @@ body { top: 0px !important; }
         <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF</button>
       </div>
     </div>
-    <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-100 dark:bg-brand-dark/50 min-h-0 pv-scroll">
+    <!-- notranslate class added to prevent Google Translate messing up the document layout -->
+    <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-100 dark:bg-brand-dark/50 min-h-0 pv-scroll notranslate">
       <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
         <i class="fa-solid fa-eye text-xs"></i>Preview A4
       </div>
@@ -309,7 +310,7 @@ body { top: 0px !important; }
     </div>
   </main>
 
-  <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
+  <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col notranslate">
     <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
       <button onclick="closeMobilePreview()" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
@@ -323,7 +324,7 @@ body { top: 0px !important; }
     <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
     <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
   </div>
-  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;" class="notranslate"></div>
 </div>
 
 <!-- VIEW: PANDUAN PENGGUNAAN -->
@@ -638,7 +639,6 @@ body { top: 0px !important; }
 <!-- GLOBAL FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
   <div class="ft-inner max-w-7xl mx-auto pt-8 pb-6 px-4">
-    <!-- FIX: Grid 3 kolom di HP, font diperkecil agar muat -->
     <div class="flex justify-center mb-6">
       <div class="grid grid-cols-3 gap-4 md:gap-16 text-[10px] md:text-sm text-left">
         <div>
@@ -865,14 +865,14 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (SESUAI PREVIEW TANPA HALAMAN KOSONG) =================
+// ================= DOWNLOAD PDF (STRICT A4 - 100% SESUAI PREVIEW) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  // Reset style dasar
+  // Reset style dasar agar persis standar A4 dan rapi kaku
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -882,11 +882,9 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  
-  // Tinggi mengikuti isi konten
-  clone.style.minHeight = '0'; 
-  clone.style.height = 'auto';
-  clone.style.overflow = 'visible'; 
+  clone.style.height = '297mm'; // Fixed height A4
+  clone.style.minHeight = '297mm';
+  clone.style.overflow = 'hidden'; // Hidden agar tidak membuat halaman kedua kosong
   
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
@@ -897,17 +895,6 @@ function downloadPDF() {
   
   offscreen.innerHTML = '';
   offscreen.appendChild(clone);
-  
-  // Hitung tinggi eksak konten dalam pixel
-  void clone.offsetHeight; 
-  var exactHeightPx = clone.scrollHeight;
-  
-  // Konversi pixel ke mm (Standar CSS: 1px = 1/96 inch, 1 inch = 25.4mm)
-  var pxToMm = 25.4 / 96;
-  var exactHeightMm = (exactHeightPx * pxToMm) + 5; // Tambah 5mm margin bawah agar tidak mepet
-  
-  // Jika kurang dari 297mm (A4), paksa jadi 297mm supaya ukuran kertas standar A4
-  if(exactHeightMm < 297) exactHeightMm = 297;
   
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
@@ -926,11 +913,10 @@ function downloadPDF() {
       backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
-      windowWidth: clone.offsetWidth,
-      windowHeight: exactHeightPx
+      windowWidth: clone.offsetWidth
     },
-    // Ukuran kertas diubah secara dinamis menjadi [lebar, tinggi] agar muat pas tanpa terpotong
-    jsPDF: { unit: 'mm', format: [210, exactHeightMm], orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Mencegah pemotongan sembarangan
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
