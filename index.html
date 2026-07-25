@@ -40,7 +40,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
-/* FIX: Kurangi padding dan margin agar muat 1 halaman */
+/* FIX: Padding dikecilin agar muat 1 halaman, tinggi dikunci 297mm, overflow hidden */
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:8mm 12mm;overflow:hidden;position:relative;line-height:1.35}
 .a4-page .st{font-weight:700;border-bottom:2pt solid #000;padding-bottom:0.5mm;margin-bottom:2mm;margin-top:3mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
@@ -835,6 +835,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
+// ================= DOWNLOAD PDF (FIX RAPI & 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -853,7 +854,7 @@ function downloadPDF() {
   printDoc.style.boxSizing = 'border-box';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden';
+  printDoc.style.overflow = 'hidden'; // Memastikan teks berlebih terpotong rapi di batas A4
   
   offscreen.appendChild(printDoc);
   
@@ -872,13 +873,11 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      width: 794, // FIX: Kunci lebar A4 dalam pixel
-      height: 1123, // FIX: Kunci tinggi A4 dalam pixel agar tidak bisa terbagi 2 halaman
-      windowWidth: 794,
-      windowHeight: 1123
+      scrollX: 0,
+      scrollY: 0
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all'] }
+    pagebreak: { mode: ['css', 'legacy'] } // Menghormati overflow hidden, jadi tidak membuat halaman 2
   };
   
   setTimeout(function() {
