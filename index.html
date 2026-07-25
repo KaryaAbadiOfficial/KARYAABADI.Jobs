@@ -238,7 +238,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-layer-group"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2"><span>Struktur yang Jelas</span></h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed"><span>Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpisah dengan jelas.</span></p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed"><span>Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpasang dengan jelas.</span></p>
         </div>
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
@@ -834,25 +834,29 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
+// ================= DOWNLOAD PDF (MUTLAK 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   offscreen.innerHTML = ''; 
   
   var printDoc = document.createElement('div');
-  printDoc.id = 'a4-pdf-clone';
-  printDoc.className = 'a4-page';
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
+  // Kunci mutlak ukuran 1 halaman A4 berdasarkan Pixel (96 DPI)
   printDoc.style.width = '794px'; 
-  printDoc.style.height = '1123px';
+  printDoc.style.height = '1123px'; 
+  printDoc.style.padding = '38px 48px'; // ~ 10mm margin sama rata
+  printDoc.style.boxSizing = 'border-box';
   printDoc.style.background = '#ffffff';
   printDoc.style.color = '#000000';
-  printDoc.style.padding = '38px 48px';
-  printDoc.style.boxSizing = 'border-box';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden';
+  printDoc.style.overflow = 'hidden'; // Paksa teks berlebih terpotong rapi
+  printDoc.style.position = 'absolute';
+  printDoc.style.left = '0';
+  printDoc.style.top = '0';
+  printDoc.style.lineHeight = '1.35';
   
   offscreen.appendChild(printDoc);
   
@@ -871,11 +875,13 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      width: 794,
-      height: 1123
+      width: 794, 
+      height: 1123,
+      windowWidth: 794,
+      windowHeight: 1123
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    jsPDF: { unit: 'pt', format: [794, 1123], orientation: 'portrait' }, // Ukuran PDF disamakan dengan canvas, memaksa 1 halaman fix
+    pagebreak: { mode: ['avoid-all'] }
   };
   
   setTimeout(function() {
@@ -895,7 +901,7 @@ function downloadPDF() {
 }
 
 window.addEventListener('resize', function() { fitPreviewView(); });
-(function init() { renderTplTabs(); renderForm(); renderPreview(); })();
+(function init() { renderTplTabs(); renderForm(); renderPreview(); fitPreviewView(); })();
 </script>
 </body>
 </html>
