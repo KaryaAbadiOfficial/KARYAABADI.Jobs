@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
@@ -40,7 +40,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
-/* Preview di layar tetap pakai mm agar realistis */
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:10mm;overflow:hidden;position:relative;line-height:1.35}
 .a4-page .st{font-weight:700;border-bottom:2pt solid #000;padding-bottom:0.5mm;margin-bottom:2mm;margin-top:3mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
@@ -835,7 +834,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (PERBAIKAN TOTAL 1 HALAMAN RAPI) =================
+// ================= DOWNLOAD PDF (DIAM-DIAM MENGGUNAKAN JSPDF & CANVAS MURNI) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -844,21 +843,20 @@ function downloadPDF() {
   var printDoc = document.createElement('div');
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
-  // Kunci mutlak ukuran 1 halaman A4 berdasarkan Pixel (96 DPI)
-  // 210mm = 793.7px (dibulatkan jadi 794px agar tidak ada sisa konten)
-  // 297mm = 1122.5px (dibulatkan jadi 1123px)
+  // Paksa mutlak ukuran pixel A4 (96 DPI) agar tidak ada spasi halaman 2
   printDoc.style.width = '794px'; 
   printDoc.style.height = '1123px'; 
-  printDoc.style.padding = '38px'; // ~ 10mm margin sama rata
+  printDoc.style.padding = '38px'; // ~ 10mm
   printDoc.style.boxSizing = 'border-box';
   printDoc.style.background = '#ffffff';
   printDoc.style.color = '#000000';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden'; // Paksa konten panjang terpotong rapi
+  printDoc.style.overflow = 'hidden'; 
   printDoc.style.position = 'absolute';
   printDoc.style.left = '0';
   printDoc.style.top = '0';
+  printDoc.style.lineHeight = '1.35';
   
   offscreen.appendChild(printDoc);
   
@@ -869,25 +867,27 @@ function downloadPDF() {
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
   
-  var opt = {
-    margin: 0,
-    filename: filename + '.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2, 
-      useCORS: true, 
+  // Karena html2pdf.bundle sudah include jsPDF & html2canvas, kita panggil langsung secara manual
+  setTimeout(function() {
+    window.html2canvas(printDoc, {
+      scale: 2,
+      useCORS: true,
       backgroundColor: '#ffffff',
-      width: 794, 
+      width: 794,
       height: 1123,
       windowWidth: 794,
-      windowHeight: 1123
-    },
-    jsPDF: { unit: 'pt', format: [794, 1123], orientation: 'portrait' }, // Format jsPDF disamakan dengan pixel
-    pagebreak: { mode: ['avoid-all'] } // Tidak ada pecah halaman
-  };
-  
-  setTimeout(function() {
-    html2pdf().set(opt).from(printDoc).save().then(function() {
+      windowHeight: 1123,
+      scrollX: 0,
+      scrollY: 0
+    }).then(function(canvas) {
+      var imgData = canvas.toDataURL('image/jpeg', 0.98);
+      
+      // Inisialisasi jsPDF ukuran A4 (210x297mm)
+      var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+      // Tempel gambar ke 1 halaman penuh A4 (0,0,210,297). Karena rasio canvas fix 794x1123 = 210x297mm, gambar TIDAK AKAN PECAH KE HALAMAN 2.
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+      pdf.save(filename + '.pdf');
+      
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
       offscreen.innerHTML = '';
