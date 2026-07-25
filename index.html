@@ -40,8 +40,8 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
-/* FIX: Padding dikecilin agar muat 1 halaman, tinggi dikunci 297mm, overflow hidden */
-.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:8mm 12mm;overflow:hidden;position:relative;line-height:1.35}
+/* FIX: Margin sama rata (10mm semua sisi), tinggi dikunci agar tidak ada halaman 2 */
+.a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:10mm;overflow:hidden;position:relative;line-height:1.35}
 .a4-page .st{font-weight:700;border-bottom:2pt solid #000;padding-bottom:0.5mm;margin-bottom:2mm;margin-top:3mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -835,26 +835,28 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (FIX RAPI & 1 HALAMAN) =================
+// ================= DOWNLOAD PDF (FIX MUTLAK 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   offscreen.innerHTML = ''; 
   
   var printDoc = document.createElement('div');
-  printDoc.id = 'a4-pdf-clone';
-  printDoc.className = 'a4-page';
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
-  printDoc.style.width = '210mm';
-  printDoc.style.height = '297mm';
+  // FIX: Kunci ukuran deteksi pixel agar genap 1 halaman tanpa ada sliver ke halaman 2
+  printDoc.style.width = '794px'; // 210mm dalam pixel
+  printDoc.style.height = '1123px'; // 297mm dalam pixel
+  printDoc.style.padding = '38px'; // Margin sama rata (kira-kira 10mm)
+  printDoc.style.boxSizing = 'border-box';
   printDoc.style.background = '#ffffff';
   printDoc.style.color = '#000000';
-  printDoc.style.padding = '8mm 12mm';
-  printDoc.style.boxSizing = 'border-box';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden'; // Memastikan teks berlebih terpotong rapi di batas A4
+  printDoc.style.overflow = 'hidden'; // Memaksa apapun isinya terpotong rapi di batas A4
+  printDoc.style.position = 'absolute';
+  printDoc.style.left = '0';
+  printDoc.style.top = '0';
   
   offscreen.appendChild(printDoc);
   
@@ -873,11 +875,11 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      scrollX: 0,
-      scrollY: 0
+      width: 794, // Memaksa canvas mendeteksi ukuran ini
+      height: 1123 // Memaksa canvas mendeteksi ukuran ini
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['css', 'legacy'] } // Menghormati overflow hidden, jadi tidak membuat halaman 2
+    pagebreak: { mode: ['avoid-all'] } // Tidak akan membuat page break / halaman 2
   };
   
   setTimeout(function() {
