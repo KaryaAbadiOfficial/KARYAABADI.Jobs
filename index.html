@@ -38,6 +38,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view { display: none; }
 .view.active { display: block; }
 
+/* FIX: Overflow visible agar preview memanjang sesuai isi dan PDF sesuai preview */
 .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:visible;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
@@ -134,8 +135,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .goog-te-banner-frame.skiptranslate {display: none !important;}
 body { top: 0px !important; }
 
-/* CSS Tombol Bahasa Emoji Bendera */
-.lang-btn { padding: 4px 6px; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 1; }
+/* CSS Tombol Bahasa Emoji Bendera (Kecil & Universal) */
+.lang-btn { padding: 2px 4px; border-radius: 6px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 1; }
 .lang-btn.active { background-color: rgba(220, 38, 38, 0.2); }
 .lang-btn:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
 </style>
@@ -167,7 +168,7 @@ body { top: 0px !important; }
       <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-1">
+      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-0.5">
         <button onclick="changeLang('id')" id="lang-id-btn" class="lang-btn active" title="Bahasa Indonesia">🇮🇩</button>
         <button onclick="changeLang('en')" id="lang-en-btn" class="lang-btn" title="English">🇬🇧</button>
       </div>
@@ -632,11 +633,11 @@ body { top: 0px !important; }
 <!-- GLOBAL FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
   <div class="ft-inner max-w-7xl mx-auto pt-8 pb-6 px-4">
-    <!-- FIX: Grid 2 kolom di HP, 3 kolom di Tablet/PC, font diperkecil di HP -->
+    <!-- FIX: Grid 3 kolom di HP, font diperkecil agar muat -->
     <div class="flex justify-center mb-6">
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-16 text-[11px] md:text-sm text-left">
+      <div class="grid grid-cols-3 gap-4 md:gap-16 text-[10px] md:text-sm text-left">
         <div>
-          <h4 class="font-bold text-white mb-3 md:mb-4 text-[12px] md:text-sm">Layanan</h4>
+          <h4 class="font-bold text-white mb-3 md:mb-4 text-[11px] md:text-sm">Layanan</h4>
           <ul class="space-y-2 md:space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
             <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
@@ -645,7 +646,7 @@ body { top: 0px !important; }
           </ul>
         </div>
         <div>
-          <h4 class="font-bold text-white mb-3 md:mb-4 text-[12px] md:text-sm">Informasi</h4>
+          <h4 class="font-bold text-white mb-3 md:mb-4 text-[11px] md:text-sm">Informasi</h4>
           <ul class="space-y-2 md:space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
             <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
@@ -653,9 +654,9 @@ body { top: 0px !important; }
             <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
           </ul>
         </div>
-        <div class="hidden md:block">
-          <h4 class="font-bold text-white mb-4">Legal</h4>
-          <ul class="space-y-3 text-gray-400">
+        <div>
+          <h4 class="font-bold text-white mb-3 md:mb-4 text-[11px] md:text-sm">Legal</h4>
+          <ul class="space-y-2 md:space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
             <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
             <li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li>
@@ -685,14 +686,9 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
-// Fungsi untuk ganti bahasa
+// Fungsi ganti bahasa (UI Website & Dokumen)
 function changeLang(lang) {
-  docLang = lang;
-  renderPreview();
-  
-  document.getElementById('lang-id-btn').classList.toggle('active', lang === 'id');
-  document.getElementById('lang-en-btn').classList.toggle('active', lang === 'en');
-  
+  // 1. Ubah bahasa di Google Translate (untuk UI Website)
   var select = document.querySelector('.goog-te-combo');
   if (select) {
     select.value = lang;
@@ -704,8 +700,15 @@ function changeLang(lang) {
         s.value = lang;
         s.dispatchEvent(new Event('change'));
       }
-    }, 1000);
+    }, 500);
   }
+
+  // 2. Ubah bahasa di dokumen CV/Surat
+  docLang = lang;
+  renderPreview();
+  
+  document.getElementById('lang-id-btn').classList.toggle('active', lang === 'id');
+  document.getElementById('lang-en-btn').classList.toggle('active', lang === 'en');
 }
 
 // ================= VIEW ROUTER =================
@@ -857,13 +860,14 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (DYNAMIC HEIGHT) =================
+// ================= DOWNLOAD PDF (SESUAI PREVIEW STANDAR A4) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
+  // Reset style agar bersih dan persis standar A4
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -873,10 +877,7 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.minHeight = '0'; 
-  clone.style.height = 'auto';
-  clone.style.overflow = 'visible'; 
-  
+  clone.style.minHeight = '297mm'; // Standar A4
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
   clone.style.padding = '12mm 16mm';
@@ -886,12 +887,6 @@ function downloadPDF() {
   
   offscreen.innerHTML = '';
   offscreen.appendChild(clone);
-  
-  void clone.offsetHeight; 
-  var exactHeightPx = clone.scrollHeight;
-  
-  var pxToMm = 25.4 / 96;
-  var exactHeightMm = (exactHeightPx * pxToMm) + 5; 
   
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
@@ -910,10 +905,11 @@ function downloadPDF() {
       backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
-      windowWidth: clone.offsetWidth,
-      windowHeight: exactHeightPx
+      windowWidth: clone.offsetWidth
     },
-    jsPDF: { unit: 'mm', format: [210, exactHeightMm], orientation: 'portrait' }
+    // Menggunakan format A4 standar agar hasil 100% sama dengan preview
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
