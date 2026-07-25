@@ -38,7 +38,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view { display: none; }
 .view.active { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
 
-/* FIX: Kunci tinggi halaman generator agar form dan preview sejajar dan tidak scroll panjang */
+/* Kunci tinggi halaman generator agar form dan preview sejajar */
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
@@ -121,11 +121,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .article-content strong { color: #111827; }
 .dark .article-content strong { color: #fff; }
 
-/* CSS Khusus Mobile & Desktop Layout */
+/* CSS Layout Form & Preview */
 #preview-panel { display: none; }
 #form-panel { padding-bottom: 80px; }
 
 @media (min-width: 1024px) {
+    /* Form di kiri, Preview di kanan berdampingan */
     #preview-panel { display: flex; flex: 1 1 auto; height: 100%; overflow: hidden; }
     #form-panel { height: 100%; overflow-y: auto; padding-bottom: 16px; }
     #mobile-bottom-bar { display: none !important; }
@@ -270,8 +271,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
   <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 relative overflow-hidden">
     
-    <!-- FORM PANEL (Kiri di Desktop, Utama di HP) -->
-    <div id="form-panel" class="w-full flex-1 lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black overflow-y-auto order-1 lg:order-1 min-h-0">
+    <!-- FORM PANEL (UTAMA / KIRI) -->
+    <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black overflow-y-auto min-h-0">
       <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
         <i class="fa-solid fa-pen-ruler text-xs"></i><span>Pilih Template</span>
       </div>
@@ -283,8 +284,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </div>
 
-    <!-- PREVIEW PANEL (Kanan di Desktop, Fullscreen di HP jika ditekan tombol) -->
-    <div id="preview-panel" class="w-full lg:flex-1 flex flex-col bg-gray-100 dark:bg-brand-dark/50 overflow-hidden notranslate order-2 lg:order-2 border-b lg:border-b-0 lg:border-l border-gray-200 dark:border-brand-border">
+    <!-- PREVIEW PANEL (KANAN / FULLSCREEN DI HP) -->
+    <div id="preview-panel" class="w-full lg:flex-1 flex flex-col bg-gray-100 dark:bg-brand-dark/50 overflow-hidden notranslate border-b lg:border-b-0 lg:border-l border-gray-200 dark:border-brand-border">
       <div class="text-[11px] font-semibold p-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center justify-between gap-2 flex-shrink-0 border-b border-gray-200 dark:border-brand-border">
         <div class="flex items-center gap-2"><i class="fa-solid fa-eye text-xs"></i><span>Preview A4</span></div>
         <button onclick="closeMobilePreview()" class="lg:hidden bg-brand-red text-white px-3 py-1 rounded-md text-[10px] font-bold"><i class="fa-solid fa-arrow-left mr-1"></i> Form</button>
@@ -611,11 +612,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <script>
 function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
 
-// FIX: Toggle Preview Mobile
 function openMobilePreview() {
   var p = document.getElementById('preview-panel');
   p.classList.add('mobile-active');
-  setTimeout(function() { scalePreviewDesktop(); }, 50); // Recalculate scale on open
+  setTimeout(function() { scalePreviewDesktop(); }, 50);
 }
 function closeMobilePreview() {
   var p = document.getElementById('preview-panel');
@@ -628,7 +628,7 @@ function showPage(pageId) {
   if (view) {
     view.classList.add('active');
     window.scrollTo(0, 0);
-    closeMobilePreview(); // Tutup preview mobile jika pindah halaman
+    closeMobilePreview();
     if (pageId === 'generator') { setTimeout(() => { renderPreview(); scalePreviewDesktop(); }, 50); }
   }
 }
@@ -730,7 +730,7 @@ function scalePreviewDesktop(){
   s.style.height=ph+'px';
 }
 
-// FIX: Auto crop foto ke rasio 3:4
+// Auto crop foto ke rasio 3:4
 function handlePhoto(e) {
   var file = e.target.files[0];
   if (!file) return;
@@ -786,7 +786,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (FIX BLANK ISSUE) =================
+// DOWNLOAD PDF 
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
