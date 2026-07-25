@@ -40,7 +40,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
-/* Line-height diatur statis agar margin PDF pas dengan preview */
+/* FIX: Kunci tinggi dan lebar A4, serta overflow hidden agar isi tidak keluar batas 1 halaman */
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;line-height:1.4}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
@@ -452,7 +452,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Glints Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, dan karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
       </a>
       <a href="https://www.karir.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
         <div class="flex items-center gap-4 mb-3">
@@ -479,7 +479,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="space-y-4 mt-8">
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">1. Apakah layanan Karya Abadi Jobs berbayar?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maupun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maipun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">2. Apakah data pribadi saya aman saat menggunakan tool ini?</h3>
@@ -843,7 +843,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF =================
+// ================= DOWNLOAD PDF (FIX 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -851,7 +851,7 @@ function downloadPDF() {
   
   var printDoc = document.createElement('div');
   printDoc.id = 'a4-pdf-clone';
-  printDoc.className = 'a4-page';
+  printDoc.className = 'a4-page'; // Memastikan class a4-page digunakan agar tinggi & lebar sesuai A4
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
   printDoc.style.width = '210mm';
@@ -862,7 +862,7 @@ function downloadPDF() {
   printDoc.style.boxSizing = 'border-box';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden';
+  printDoc.style.overflow = 'hidden'; // Memaksa konten yang berlebihan terpotong di 1 halaman
   
   offscreen.appendChild(printDoc);
   
@@ -885,7 +885,7 @@ function downloadPDF() {
       scrollY: 0
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    pagebreak: { mode: ['avoid-all'] } // Mencegah pecah ke halaman 2
   };
   
   setTimeout(function() {
