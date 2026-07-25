@@ -38,7 +38,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view { display: none; }
 .view.active { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
 
-/* Kunci tinggi halaman generator agar form dan preview sejajar */
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
@@ -121,12 +120,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .article-content strong { color: #111827; }
 .dark .article-content strong { color: #fff; }
 
-/* CSS Layout Form & Preview */
 #preview-panel { display: none; }
 #form-panel { padding-bottom: 80px; }
 
 @media (min-width: 1024px) {
-    /* Form di kiri, Preview di kanan berdampingan */
     #preview-panel { display: flex; flex: 1 1 auto; height: 100%; overflow: hidden; }
     #form-panel { height: 100%; overflow-y: auto; padding-bottom: 16px; }
     #mobile-bottom-bar { display: none !important; }
@@ -150,7 +147,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <div id="toast-box"></div>
 
-<!-- GLOBAL HEADER -->
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
     <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
@@ -194,9 +190,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </header>
 
-<!-- ================= VIEWS ================= -->
-
-<!-- VIEW: HOME -->
 <div id="view-home" class="view active">
   <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 text-center">
@@ -256,7 +249,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: GENERATOR (APP) -->
 <div id="view-generator" class="view">
   <nav class="bg-white dark:bg-brand-dark border-b border-gray-200 dark:border-brand-border/50 flex-shrink-0">
     <div class="max-w-7xl mx-auto px-4 flex">
@@ -271,7 +263,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
   <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 relative overflow-hidden">
     
-    <!-- FORM PANEL (UTAMA / KIRI) -->
+    <!-- FORM PANEL (KIRI) -->
     <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black overflow-y-auto min-h-0">
       <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
         <i class="fa-solid fa-pen-ruler text-xs"></i><span>Pilih Template</span>
@@ -284,7 +276,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </div>
 
-    <!-- PREVIEW PANEL (KANAN / FULLSCREEN DI HP) -->
+    <!-- PREVIEW PANEL (KANAN) -->
     <div id="preview-panel" class="w-full lg:flex-1 flex flex-col bg-gray-100 dark:bg-brand-dark/50 overflow-hidden notranslate border-b lg:border-b-0 lg:border-l border-gray-200 dark:border-brand-border">
       <div class="text-[11px] font-semibold p-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center justify-between gap-2 flex-shrink-0 border-b border-gray-200 dark:border-brand-border">
         <div class="flex items-center gap-2"><i class="fa-solid fa-eye text-xs"></i><span>Preview A4</span></div>
@@ -296,15 +288,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </main>
 
-  <!-- BOTTOM NAVIGATION (HP Only) -->
   <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-brand-border p-3 flex gap-3">
     <button onclick="openMobilePreview()" class="flex-1 py-2.5 bg-brand-red text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Lihat Preview A4</button>
   </div>
 
-  <div id="pdf-offscreen" style="position:fixed;left:0;top:0;z-index:-9999;opacity:0;pointer-events:none;overflow:visible;width:210mm;" class="notranslate"></div>
+  <!-- FIX: Penempatan element untuk render PDF, tidak boleh pakai opacity:0 -->
+  <div id="pdf-offscreen" style="position:fixed;left:-10000px;top:0;width:210mm;pointer-events:none;" class="notranslate"></div>
 </div>
 
-<!-- VIEW: PANDUAN PENGGUNAAN -->
 <div id="view-panduan" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content w-full">
     <h1>Panduan Penggunaan Tool Generator</h1>
@@ -337,7 +328,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: TIPS & ARTIKEL -->
 <div id="view-tips" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content w-full">
     <h1>Tips Karier & Contoh Dokumen Lamaran</h1>
@@ -418,7 +408,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: INFO LOKER -->
 <div id="view-loker" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content w-full">
     <h1>Info Lowongan Kerja Terpercaya di Indonesia</h1>
@@ -470,7 +459,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: FAQ -->
 <div id="view-faq" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Pertanyaan yang Sering Diajukan (FAQ)</h1>
@@ -500,7 +488,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: ABOUT -->
 <div id="view-about" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Tentang Karya Abadi Jobs</h1>
@@ -511,7 +498,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: CONTACT -->
 <div id="view-contact" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Hubungi Kami</h1>
@@ -522,7 +508,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: PRIVACY POLICY -->
 <div id="view-privacy" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Kebijakan Privasi</h1>
@@ -538,7 +523,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: TERMS -->
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Ketentuan Layanan</h1>
@@ -554,7 +538,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- VIEW: DISCLAIMER -->
 <div id="view-disclaimer" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Disclaimer</h1>
@@ -570,7 +553,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 </div>
 
-<!-- GLOBAL FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
   <div class="max-w-7xl mx-auto pt-8 pb-6 px-4">
     <div class="flex justify-center mb-6">
@@ -730,7 +712,6 @@ function scalePreviewDesktop(){
   s.style.height=ph+'px';
 }
 
-// Auto crop foto ke rasio 3:4
 function handlePhoto(e) {
   var file = e.target.files[0];
   if (!file) return;
@@ -743,7 +724,7 @@ function handlePhoto(e) {
     img.onload = function() {
       var canvas = document.createElement('canvas');
       var targetW = 300; 
-      var targetH = 400; // 3:4 aspect ratio
+      var targetH = 400; 
       
       canvas.width = targetW;
       canvas.height = targetH;
@@ -786,7 +767,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// DOWNLOAD PDF 
+// ================= DOWNLOAD PDF (FIX BLANK ISSUE) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -794,14 +775,10 @@ function downloadPDF() {
   
   var printDoc = document.createElement('div');
   printDoc.id = 'a4-pdf-clone';
-  printDoc.className = 'a4-page'; // FIX: WAJIB TAMBAH CLASS INI AGAR CSS TERBACA!
+  printDoc.className = 'a4-page';
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
-  printDoc.style.position = 'fixed';
-  printDoc.style.left = '0';
-  printDoc.style.top = '0';
-  printDoc.style.zIndex = '-9999';
-  printDoc.style.opacity = '0';
+  // FIX: Tidak menggunakan opacity:0 atau position:fixed agar html2canvas bisa membaca konten
   printDoc.style.width = '210mm';
   printDoc.style.height = '297mm';
   printDoc.style.background = '#ffffff';
@@ -830,13 +807,14 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      windowWidth: printDoc.offsetWidth,
-      windowHeight: printDoc.offsetHeight
+      scrollX: 0,
+      scrollY: 0
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
   };
   
+  // Beri waktu 300ms agar DOM sempat dirender browser sebelum di-capture
   setTimeout(function() {
     html2pdf().set(opt).from(printDoc).save().then(function() {
       btn.disabled = false;
@@ -850,7 +828,7 @@ function downloadPDF() {
       toast('Gagal mengunduh PDF', 'error');
       console.error(err);
     });
-  }, 100);
+  }, 300);
 }
 
 window.addEventListener('resize', function() { scalePreviewDesktop(); });
