@@ -40,7 +40,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 #view-generator.active { height: calc(100vh - 3.5rem); overflow: hidden; }
 
-/* FIX: Margin sama rata 10mm semua sisi, tinggi dikunci agar pasti 1 halaman */
+/* Preview di layar tetap pakai mm agar realistis */
 .a4-page{width:210mm;height:297mm;background:#fff;color:#000;padding:10mm;overflow:hidden;position:relative;line-height:1.35}
 .a4-page .st{font-weight:700;border-bottom:2pt solid #000;padding-bottom:0.5mm;margin-bottom:2mm;margin-top:3mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
@@ -301,7 +301,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <button onclick="openMobilePreview()" class="flex-1 py-2.5 bg-brand-red text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Lihat Preview A4</button>
   </div>
 
-  <div id="pdf-offscreen" style="position:fixed;left:-10000px;top:0;width:210mm;pointer-events:none;" class="notranslate"></div>
+  <div id="pdf-offscreen" style="position:fixed;left:-10000px;top:0;pointer-events:none;" class="notranslate"></div>
 </div>
 
 <div id="view-panduan" class="view">
@@ -360,7 +360,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <div class="bg-white w-full h-full shadow-md p-2 text-left flex gap-2 items-start">
-              <div class="w-8 h-10 bg-gray-300 flex-shrink:0"></div>
+              <div class="w-8 h-10 bg-gray-300 flex-shrink-0"></div>
               <div class="flex-1 flex flex-col gap-1">
                 <div class="h-1 bg-red-500 w-8 mb-1"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-3/4"></div><div class="h-1 bg-gray-800 w-10 mt-1"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-full"></div><div class="h-0.5 bg-gray-200 w-5/6"></div>
               </div>
@@ -667,7 +667,7 @@ function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000/0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
-function renderEduNonF(){var c=document.getElementById('edu-non-c');if(!c)return;c.innerHTML=eduNonList.map(function(e,i){return'<div class="grid grid-cols-2 gap-2 '+(i>0?'mt-2':'')+'><div><label class="fl">Nama Lembaga</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduNonList['+i+'].t=this.value;schedulePreview()"></div><div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000" value="'+esc(e.y)+'" oninput="eduNonList['+i+'].y=this.value;schedulePreview()"></div><div><label class="fl">Keterangan (bawah Nama)</label><input class="fi" placeholder="Kursus Komputer" value="'+esc(e.k)+'" oninput="eduNonList['+i+'].k=this.value;schedulePreview()"></div><div><label class="fl">Keterangan (bawah Tahun)</label><input class="fi" placeholder="6 Bulan" value="'+esc(e.d)+'" oninput="eduNonList['+i+'].d=this.value;schedulePreview()"></div></div>'}).join('')}
+function renderEduNonF(){var c=document.getElementById('edu-non-c');if(!c)return;c.innerHTML=eduNonList.map(function(e,i){return'<div class="grid grid-cols-2 gap-2 '+(i>0?'mt-2':'')+'"><div><label class="fl">Nama Lembaga</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduNonList['+i+'].t=this.value;schedulePreview()"></div><div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000" value="'+esc(e.y)+'" oninput="eduNonList['+i+'].y=this.value;schedulePreview()"></div><div><label class="fl">Keterangan (bawah Nama)</label><input class="fi" placeholder="Kursus Komputer" value="'+esc(e.k)+'" oninput="eduNonList['+i+'].k=this.value;schedulePreview()"></div><div><label class="fl">Keterangan (bawah Tahun)</label><input class="fi" placeholder="6 Bulan" value="'+esc(e.d)+'" oninput="eduNonList['+i+'].d=this.value;schedulePreview()"></div></div>'}).join('')}
 function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
 function addEduNon(){eduNonList.push({t:'',k:'',y:'',d:''});renderEduNonF();renderPreview()}
@@ -835,7 +835,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (1 HALAMAN MUTLAK) =================
+// ================= DOWNLOAD PDF (PERBAIKAN TOTAL 1 HALAMAN RAPI) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -844,16 +844,18 @@ function downloadPDF() {
   var printDoc = document.createElement('div');
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
-  // Kunci size mutlak 1 lembar A4 berdasarkan pixel (96dpi)
+  // Kunci mutlak ukuran 1 halaman A4 berdasarkan Pixel (96 DPI)
+  // 210mm = 793.7px (dibulatkan jadi 794px agar tidak ada sisa konten)
+  // 297mm = 1122.5px (dibulatkan jadi 1123px)
   printDoc.style.width = '794px'; 
   printDoc.style.height = '1123px'; 
-  printDoc.style.padding = '38px'; // ~ 10mm margin sama rata semua sisi
+  printDoc.style.padding = '38px'; // ~ 10mm margin sama rata
   printDoc.style.boxSizing = 'border-box';
   printDoc.style.background = '#ffffff';
   printDoc.style.color = '#000000';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden'; // Apapun isinya dipaksa terpotong di 1 halaman
+  printDoc.style.overflow = 'hidden'; // Paksa konten panjang terpotong rapi
   printDoc.style.position = 'absolute';
   printDoc.style.left = '0';
   printDoc.style.top = '0';
@@ -875,13 +877,13 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      width: 794,
+      width: 794, 
       height: 1123,
       windowWidth: 794,
       windowHeight: 1123
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all'] }
+    jsPDF: { unit: 'pt', format: [794, 1123], orientation: 'portrait' }, // Format jsPDF disamakan dengan pixel
+    pagebreak: { mode: ['avoid-all'] } // Tidak ada pecah halaman
   };
   
   setTimeout(function() {
