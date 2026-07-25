@@ -35,11 +35,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 ::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}
 .dark ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
 
-/* View Router */
 .view { display: none; }
 .view.active { display: block; }
 
-/* Generator Styles */
 .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
@@ -57,7 +55,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 @keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}70%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
 .pulse-red{animation:pulseRed 2s infinite}
 
-/* Form Elements Adaptive Colors */
 .fi{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e5e7eb;font-size:14px;transition:all .2s;background:#fff;color:#111}
 .fi:focus{outline:none;border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
 .dark .fi{background:#151515;border-color:#2a2a2a;color:#e5e5e5}
@@ -65,7 +62,6 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 .fl{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;display:block;letter-spacing:.01em;color:#111}
 .dark .fl{color:#f1f5f9}
-
 .fl-sub{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.01em;color:#374151}
 .dark .fl-sub{color:#cbd5e1}
 
@@ -90,7 +86,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .addr-sub{position:relative;padding-left:16px}
 .addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
 
-/* Mobile Bar Adaptive */
 .mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:6px env(safe-area-inset-bottom,6px)}
 .dark .mob-bar{background:rgba(17,17,17,.95);border-top-color:#2a2a2a}
 .mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
@@ -98,7 +93,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .dark .mob-bar button.active{color:#FACC15}
 .mob-bar button i{font-size:18px}
 
-/* App Navigation & Sections Adaptive */
 .form-sec{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #e5e7eb;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .dark .form-sec{border-bottom-color:#2a2a2a}
 .form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
@@ -120,7 +114,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .ft-copy{text-align:center;padding:0 0 8px;font-size:12px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
 @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
 
-/* Article Adaptive */
 .article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
 .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
 .article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; text-align: left; }
@@ -137,15 +130,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .article-content strong { color: #111827; }
 .dark .article-content strong { color: #fff; }
 
-/* Google Translate Customization */
 #google_translate_element { display: none; }
 .goog-te-banner-frame.skiptranslate {display: none !important;}
 body { top: 0px !important; }
 
-/* Custom Lang Button */
-.lang-btn { padding: 4px; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; }
+.lang-btn { padding: 4px; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; height: 28px; }
 .lang-btn img { width: 24px; height: 16px; object-fit: cover; border-radius: 3px; display: block; }
-.lang-btn.active { background-color: rgba(220, 38, 38, 0.2); transform: scale(1.1); }
+.lang-btn.active { background-color: rgba(220, 38, 38, 0.2); }
 .lang-btn:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
 </style>
 </head>
@@ -156,13 +147,13 @@ body { top: 0px !important; }
 
 <!-- GLOBAL HEADER -->
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
-  <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-    <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2.5 cursor-pointer">
-      <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-10 h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
-      <div class="flex flex-col leading-none">
-        <div class="flex items-baseline gap-0.5">
-          <span class="text-white font-bold text-sm sm:text-base tracking-wide">KARYA ABADI</span>
-          <span class="text-red-500 font-bold text-sm sm:text-base">JOBS</span>
+  <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
+    <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
+      <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
+      <div class="flex flex-col leading-none whitespace-nowrap">
+        <div class="flex items-baseline gap-1">
+          <span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span>
+          <span class="text-red-500 font-bold text-[13px] sm:text-base">JOBS</span>
         </div>
       </div>
     </a>
@@ -175,13 +166,15 @@ body { top: 0px !important; }
       <a href="#" onclick="showPage('faq'); return false;" class="hover:text-white">FAQ</a>
       <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
-    <div class="flex items-center gap-2">
-      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-1">
+    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-0.5 sm:p-1">
         <button onclick="changeLang('id')" id="lang-id-btn" class="lang-btn active" title="Bahasa Indonesia">
-          <img src="https://z-cdn-media.chatglm.cn/files/9c257d2e-972c-4646-9524-a9cb9061a52d.png?auth_key=1884911245-74fe2a54003c49b2827f784bc87c4b20-0-0a90a87b6fabf95b979dae1d0f9ecf82" alt="Indonesia">
+          <span class="sm:hidden text-[10px] font-bold text-white px-1">ID</span>
+          <img src="https://z-cdn-media.chatglm.cn/files/9c257d2e-972c-4646-9524-a9cb9061a52d.png?auth_key=1884911245-74fe2a54003c49b2827f784bc87c4b20-0-0a90a87b6fabf95b979dae1d0f9ecf82" alt="Indonesia" class="hidden sm:block">
         </button>
         <button onclick="changeLang('en')" id="lang-en-btn" class="lang-btn" title="English">
-          <img src="https://z-cdn-media.chatglm.cn/files/5d9d8e4e-baf0-4f98-8b3b-093feffb0bef.png?auth_key=1884911245-837ef35dd8634f91bb0d2b3e4af96b35-0-c4773f66e8611ad0e4afe2eb72797ed0" alt="English">
+          <span class="sm:hidden text-[10px] font-bold text-white px-1">EN</span>
+          <img src="https://z-cdn-media.chatglm.cn/files/5d9d8e4e-baf0-4f98-8b3b-093feffb0bef.png?auth_key=1884911245-837ef35dd8634f91bb0d2b3e4af96b35-0-c4773f66e8611ad0e4afe2eb72797ed0" alt="English" class="hidden sm:block">
         </button>
       </div>
       <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
@@ -614,7 +607,7 @@ body { top: 0px !important; }
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -814,12 +807,18 @@ var statusOpts=[{v:'',l:'-- Pilih --'},{v:'Belum menikah',l:'Belum menikah'},{v:
 function taH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><textarea id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></textarea></div>'}
 function secH(lb){return'<div class="form-sec">'+lb+'</div>'}
 function photoH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-camera text-brand-red text-xs"></i> Upload Pas Foto</label><div class="flex items-center gap-4 mt-2"><label class="cursor-pointer w-20 h-28 rounded-lg border-2 border-dashed border-gray-200 dark:border-brand-border flex flex-col items-center justify-center hover:border-brand-red transition overflow-hidden flex-shrink-0"><img id="photo-thumb" src="" class="w-full h-full object-cover hidden"><span id="photo-ph" class="text-[10px] text-gray-400 dark:text-gray-500 flex flex-col items-center justify-center h-full w-full gap-1"><i class="fa-solid fa-upload"></i>3X4</span><input type="file" accept="image/*" onchange="handlePhoto(event)" class="hidden"></label><span class="fl-sub">JPG/PNG, Maks 2MB</span></div></div>'}
-function settingsH(){var h='<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div>';
-h+='<div><label class="fl-sub">Bahasa Dokumen (Auto-Text)</label><select id="doc-lang-sel" class="fi" onchange="docLang=this.value;changeLang(this.value)">';
-h+='<option value="id" '+(docLang==='id'?'selected':'')+'>Bahasa Indonesia</option>';
-h+='<option value="en" '+(docLang==='en'?'selected':'')+'>English (International)</option></select>';
-h+='<p class="text-[10px] text-gray-500 mt-1">Ubah bahasa kalimat otomatis (Label & Profil).</p></div>';
-h+='<div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>'}
+
+// FIX: Saya menambahkan 'return h;' yang hilang di fungsi ini
+function settingsH(){
+  var h='<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div>';
+  h+='<div><label class="fl-sub">Bahasa Dokumen (Auto-Text)</label><select id="doc-lang-sel" class="fi" onchange="docLang=this.value;changeLang(this.value)">';
+  h+='<option value="id" '+(docLang==='id'?'selected':'')+'>Bahasa Indonesia</option>';
+  h+='<option value="en" '+(docLang==='en'?'selected':'')+'>English (International)</option></select>';
+  h+='<p class="text-[10px] text-gray-500 mt-1">Ubah bahasa kalimat otomatis (Label & Profil).</p></div>';
+  h+='<div><label class="fl-sub">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>';
+  return h; 
+}
+
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun, RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No./Dusun" oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
