@@ -38,7 +38,7 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .view { display: none; }
 .view.active { display: block; }
 
-.a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative}
+.a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:visible;position:relative}
 .a4-page .st{font-weight:700;border-bottom:2.5pt solid #000;padding-bottom:1mm;margin-bottom:3mm;margin-top:4mm;letter-spacing:.3px}
 .a4-page .st:first-child{margin-top:0}
 .a4-page table{width:100%;border-collapse:collapse}
@@ -134,8 +134,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .goog-te-banner-frame.skiptranslate {display: none !important;}
 body { top: 0px !important; }
 
-.lang-btn { padding: 4px; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; height: 28px; }
-.lang-btn img { width: 24px; height: 16px; object-fit: cover; border-radius: 3px; display: block; }
+/* CSS Tombol Bahasa Emoji Bendera */
+.lang-btn { padding: 4px 6px; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: transparent; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 1; }
 .lang-btn.active { background-color: rgba(220, 38, 38, 0.2); }
 .lang-btn:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
 </style>
@@ -167,15 +167,9 @@ body { top: 0px !important; }
       <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-0.5 sm:p-1">
-        <button onclick="changeLang('id')" id="lang-id-btn" class="lang-btn active" title="Bahasa Indonesia">
-          <span class="sm:hidden text-[10px] font-bold text-white px-1">ID</span>
-          <img src="https://z-cdn-media.chatglm.cn/files/9c257d2e-972c-4646-9524-a9cb9061a52d.png?auth_key=1884911245-74fe2a54003c49b2827f784bc87c4b20-0-0a90a87b6fabf95b979dae1d0f9ecf82" alt="Indonesia" class="hidden sm:block">
-        </button>
-        <button onclick="changeLang('en')" id="lang-en-btn" class="lang-btn" title="English">
-          <span class="sm:hidden text-[10px] font-bold text-white px-1">EN</span>
-          <img src="https://z-cdn-media.chatglm.cn/files/5d9d8e4e-baf0-4f98-8b3b-093feffb0bef.png?auth_key=1884911245-837ef35dd8634f91bb0d2b3e4af96b35-0-c4773f66e8611ad0e4afe2eb72797ed0" alt="English" class="hidden sm:block">
-        </button>
+      <div class="flex items-center gap-1 bg-white/5 rounded-lg p-1">
+        <button onclick="changeLang('id')" id="lang-id-btn" class="lang-btn active" title="Bahasa Indonesia">🇮🇩</button>
+        <button onclick="changeLang('en')" id="lang-en-btn" class="lang-btn" title="English">🇬🇧</button>
       </div>
       <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
         <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
@@ -637,12 +631,13 @@ body { top: 0px !important; }
 
 <!-- GLOBAL FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
-  <div class="ft-inner max-w-7xl mx-auto pt-12 pb-8 px-4">
-    <div class="flex justify-center mb-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 text-sm text-left">
+  <div class="ft-inner max-w-7xl mx-auto pt-8 pb-6 px-4">
+    <!-- FIX: Grid 2 kolom di HP, 3 kolom di Tablet/PC, font diperkecil di HP -->
+    <div class="flex justify-center mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-16 text-[11px] md:text-sm text-left">
         <div>
-          <h4 class="font-bold text-white mb-4">Layanan</h4>
-          <ul class="space-y-3 text-gray-400">
+          <h4 class="font-bold text-white mb-3 md:mb-4 text-[12px] md:text-sm">Layanan</h4>
+          <ul class="space-y-2 md:space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
             <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
             <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
@@ -650,8 +645,8 @@ body { top: 0px !important; }
           </ul>
         </div>
         <div>
-          <h4 class="font-bold text-white mb-4">Informasi</h4>
-          <ul class="space-y-3 text-gray-400">
+          <h4 class="font-bold text-white mb-3 md:mb-4 text-[12px] md:text-sm">Informasi</h4>
+          <ul class="space-y-2 md:space-y-3 text-gray-400">
             <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
             <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
             <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
@@ -668,7 +663,7 @@ body { top: 0px !important; }
         </div>
       </div>
     </div>
-    <div class="ft-5col border-t border-brand-border pt-8">
+    <div class="ft-5col border-t border-brand-border pt-6">
       <p class="ft-copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
     </div>
   </div>
@@ -690,6 +685,7 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
+// Fungsi untuk ganti bahasa
 function changeLang(lang) {
   docLang = lang;
   renderPreview();
@@ -861,14 +857,13 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4;docLang='id'}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= FIX DOWNLOAD PDF (HAPUS HALAMAN KOSONG) =================
+// ================= DOWNLOAD PDF (DYNAMIC HEIGHT) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  // Reset style dasar
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -878,8 +873,6 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  
-  // FIX: Hilangkan minHeight agar tinggi DIV hanya mengikuti isi konten yang ada
   clone.style.minHeight = '0'; 
   clone.style.height = 'auto';
   clone.style.overflow = 'visible'; 
@@ -894,10 +887,11 @@ function downloadPDF() {
   offscreen.innerHTML = '';
   offscreen.appendChild(clone);
   
-  // FIX: Hitung tinggi eksak konten untuk mencegah halaman kosong tambahan di akhir
-  void clone.offsetHeight; // Trigger reflow
-  var exactHeight = clone.scrollHeight;
-  clone.style.height = exactHeight + 'px';
+  void clone.offsetHeight; 
+  var exactHeightPx = clone.scrollHeight;
+  
+  var pxToMm = 25.4 / 96;
+  var exactHeightMm = (exactHeightPx * pxToMm) + 5; 
   
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
@@ -917,9 +911,9 @@ function downloadPDF() {
       scrollX: 0,
       scrollY: 0,
       windowWidth: clone.offsetWidth,
-      windowHeight: exactHeight // Gunakan tinggi eksak agar canvas tidak menyisakan ruang kosong di bawah
+      windowHeight: exactHeightPx
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: [210, exactHeightMm], orientation: 'portrait' }
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
