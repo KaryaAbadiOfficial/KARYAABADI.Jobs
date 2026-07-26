@@ -45,10 +45,9 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .a4-page table td{padding:.4mm 0;vertical-align:top}
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
 
-/* Mencegah drag acak dan zoom gesture manual */
 #preview-wrap, #preview-wrap-mob {
   overscroll-behavior: contain;
-  touch-action: pan-y; /* Hanya izinkan scroll vertikal */
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -195,7 +194,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </button>
     </div>
   </div>
-  <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
@@ -862,19 +860,24 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (STRICT 1 PAGE) =================
+// ================= DOWNLOAD PDF (STRICT 1 PAGE NO SPLIT) =================
 function downloadPDF() {
     saveStatic();
     var offscreen = document.getElementById('pdf-offscreen');
     var clone = document.getElementById('a4-page').cloneNode(true);
     clone.id = 'a4-pdf-clone';
     
+    // PAKSA UKURAN PERSIS A4 DAN HILANGKAN MIN-HEIGHT
     clone.style.position = 'relative';
     clone.style.left = '0';
     clone.style.top = '0';
     clone.style.margin = '0';
     clone.style.transform = 'none';
     clone.style.boxShadow = 'none';
+    clone.style.width = '210mm';
+    clone.style.height = '297mm'; // Ubah dari min-height menjadi height tetap
+    clone.style.minHeight = '0mm';
+    clone.style.overflow = 'hidden'; // Potong apa pun yang lebih dari 1 halaman
     
     offscreen.innerHTML = '';
     offscreen.appendChild(clone);
@@ -887,7 +890,6 @@ function downloadPDF() {
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
     
     try {
-        // Ambil dari global scope yang di-set oleh html2pdf.bundle.min.js
         var h2c = window.html2canvas;
         var JsPDF = window.jspdf.jsPDF;
         
@@ -899,11 +901,12 @@ function downloadPDF() {
         }).then(function(canvas) {
             var imgData = canvas.toDataURL('image/jpeg', 0.98);
             var pdf = new JsPDF('p', 'mm', 'a4');
-            var pdfWidth = pdf.internal.pageSize.getWidth(); // 210
-            var pdfHeight = pdf.internal.pageSize.getHeight(); // 297
             
-            // Paksa gambar masuk ke 1 halaman PDF A4 secara presisi
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            var pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
+            var pdfHeight = pdf.internal.pageSize.getHeight(); // 297mm
+            
+            // Masukkan gambar ke PDF dengan ukuran EXACT A4 (tidak ada distorsi, tidak ada halaman 2)
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, '', 'FAST');
             pdf.save(filename + '.pdf');
             
             btn.disabled = false;
@@ -918,21 +921,11 @@ function downloadPDF() {
             toast('Gagal mengunduh PDF', 'error');
         });
     } catch(e) {
-        console.error("Lib not found, fallback", e);
-        var opt = {
-            margin: 0,
-            filename: filename + '.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 3, useCORS: true, backgroundColor: '#ffffff', windowWidth: 1000 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: 'avoid-all' }
-        };
-        html2pdf().set(opt).from(clone).save().then(function() {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
-            offscreen.innerHTML = '';
-            toast('PDF berhasil diunduh!', 'success');
-        });
+        console.error("Lib not found", e);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+        offscreen.innerHTML = '';
+        toast('Gagal mengunduh PDF', 'error');
     }
 }
 
