@@ -296,7 +296,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </main>
 
-  <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-brand-border p-3 flex gap-3">
+  <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right:0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-brand-border p-3 flex gap-3" style="left:0;right:0;">
     <button onclick="openMobilePreview()" class="flex-1 py-2.5 bg-brand-red text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Lihat Preview A4</button>
   </div>
 
@@ -835,7 +835,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (MUTLAK WYSIWYG 1 HALAMAN) =================
+// ================= DOWNLOAD PDF (MUTLAK WYSIWYG 1 HALAMAN A4) =================
 function downloadPDF() {
   saveStatic();
   var btn = document.getElementById('btn-pdf');
@@ -844,70 +844,92 @@ function downloadPDF() {
 
   var sourceNode = document.getElementById('a4-page');
   var offscreen = document.getElementById('pdf-offscreen');
-  offscreen.innerHTML = ''; 
+  offscreen.innerHTML = '';
 
+  // A4 di 96 DPI: 210mm ≈ 794px, 297mm ≈ 1123px (rasio A4 exact)
+  var A4_W = 794;
+  var A4_H = 1123;
+
+  // Clone node asli, lalu PAKSA ukuran pixel exact A4
   var clone = sourceNode.cloneNode(true);
-  
-  // Ambil ukuran exact pixel dari elemen asli yang ada di layar
-  var renderWidth = sourceNode.offsetWidth;
-  var renderHeight = sourceNode.offsetHeight;
+  clone.style.cssText =
+    'width:' + A4_W + 'px;' +
+    'height:' + A4_H + 'px;' +
+    'margin:0;' +
+    'padding:10mm;' +
+    'background:#fff;' +
+    'color:#000;' +
+    'overflow:hidden;' +
+    'position:relative;' +
+    'line-height:1.35;' +
+    'box-sizing:border-box;' +
+    'transform:none;' +
+    'font-family:' + selFont + ';' +
+    'font-size:' + selSize + 'pt;';
 
-  // Kunci ukuran clone agar html2canvas tidak bingung
-  clone.style.width = renderWidth + 'px';
-  clone.style.height = renderHeight + 'px';
-  clone.style.position = 'absolute';
-  clone.style.left = '0px';
-  clone.style.top = '0px';
-  clone.style.margin = '0';
-  clone.style.transform = 'none';
-  
   offscreen.appendChild(clone);
 
-  var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
-  filename = filename.replace(/\s+/g, '_');
+  var filename = (curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_') + (v('nama') || 'dokumen');
+  filename = filename.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
 
-  // Gunakan html2canvas langsung untuk memotret clone
-  setTimeout(function() {
+  function captureAndSave() {
     window.html2canvas(clone, {
       scale: 2,
       useCORS: true,
       backgroundColor: '#ffffff',
-      width: renderWidth,
-      height: renderHeight,
-      windowWidth: renderWidth,
-      windowHeight: renderHeight,
+      width: A4_W,
+      height: A4_H,
+      windowWidth: A4_W,
+      windowHeight: A4_H,
       scrollX: 0,
       scrollY: 0,
+      x: 0,
+      y: 0,
       logging: false
     }).then(function(canvas) {
-      // Bersihkan clone dari layar
       offscreen.innerHTML = '';
-      
-      var imgData = canvas.toDataURL('image/jpeg', 1.0);
-      
-      // Generate PDF menggunakan jsPDF langsung dengan format A4 mutlak (210x297mm)
+
+      // PAKSA canvas ke ukuran A4 exact (scale 2 = 1588 x 2246)
+      var finalCanvas = document.createElement('canvas');
+      finalCanvas.width  = A4_W * 2;
+      finalCanvas.height = A4_H * 2;
+      var ctx = finalCanvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+      ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
+
+      var imgData = finalCanvas.toDataURL('image/jpeg', 1.0);
+
       var pdf = new window.jspdf.jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4'
       });
-      
-      // Tempel gambar full ke 1 halaman A4. 
-      // Ini menjamin 1 halaman exact, tidak terpotong, tidak ada halaman 2.
+
+      // Tempel gambar FULL ke 1 halaman A4. Tidak mungkin terpotong / 2 halaman.
       pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
       pdf.save(filename + '.pdf');
-      
+
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
       toast('PDF berhasil diunduh!', 'success');
     }).catch(function(err) {
-      console.error(err);
+      console.error('PDF Error:', err);
       offscreen.innerHTML = '';
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
       toast('Gagal mengunduh PDF', 'error');
     });
-  }, 200);
+  }
+
+  // Tunggu font benar-benar ready sebelum capture (hindari teks bergeser)
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() {
+      setTimeout(captureAndSave, 120);
+    });
+  } else {
+    setTimeout(captureAndSave, 350);
+  }
 }
 
 window.addEventListener('resize', function() { fitPreviewView(); });
