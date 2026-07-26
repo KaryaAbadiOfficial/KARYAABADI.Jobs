@@ -413,7 +413,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <div class="bg-white w-full h-full shadow-md p-2 text-left flex gap-2 items-start">
-              <div class="w-8 h-10 bg-gray-300 flex-shrink-0"></div>
+              <div class="w-8 h-10 bg-gray-300 flex-shrink:0"></div>
               <div class="flex-1 flex flex-col gap-1">
                 <div class="h-1 bg-red-500 w-8 mb-1"></div>
                 <div class="h-0.5 bg-gray-200 w-full"></div>
@@ -433,7 +433,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <div class="bg-white w-full h-full shadow-md p-2 flex gap-2 items-start">
-              <div class="w-8 h-10 bg-gray-300 flex-shrink-0"></div>
+              <div class="w-8 h-10 bg-gray-300 flex-shrink:0"></div>
               <div class="flex-1 text-center flex flex-col items-center pt-2 gap-1">
                 <div class="h-1.5 bg-gray-800 w-16"></div>
                 <div class="h-1 bg-red-500 w-10"></div>
@@ -623,7 +623,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -860,27 +860,65 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (STRICT 1 PAGE NO SPLIT) =================
+// ================= DOWNLOAD PDF (AUTO-FIT 1 PAGE) =================
 function downloadPDF() {
     saveStatic();
     var offscreen = document.getElementById('pdf-offscreen');
     var clone = document.getElementById('a4-page').cloneNode(true);
     clone.id = 'a4-pdf-clone';
     
-    // PAKSA UKURAN PERSIS A4 DAN HILANGKAN MIN-HEIGHT
     clone.style.position = 'relative';
     clone.style.left = '0';
     clone.style.top = '0';
     clone.style.margin = '0';
-    clone.style.transform = 'none';
     clone.style.boxShadow = 'none';
     clone.style.width = '210mm';
-    clone.style.height = '297mm'; // Ubah dari min-height menjadi height tetap
-    clone.style.minHeight = '0mm';
-    clone.style.overflow = 'hidden'; // Potong apa pun yang lebih dari 1 halaman
     
     offscreen.innerHTML = '';
     offscreen.appendChild(clone);
+    
+    const mmToPx = 96 / 25.4; 
+    const a4HeightPx = 297 * mmToPx;
+    
+    // Variabel untuk penyesuaian otomatis
+    let currentFontSize = parseFloat(selSize);
+    let currentLineHeight = parseFloat(selLH);
+    let currentPadTB = 12; // padding atas bawah dalam mm
+    
+    // Sementara ubah ke auto untuk mengukur tinggi asli konten
+    clone.style.height = 'auto';
+    clone.style.minHeight = '0';
+    clone.style.overflow = 'visible';
+    
+    // Looping mengecilkan font & margin jika melebihi 1 halaman A4
+    let attempts = 0;
+    while (clone.offsetHeight > a4HeightPx && attempts < 40) {
+        attempts++;
+        let changed = false;
+        
+        if (currentFontSize > 7) {
+            currentFontSize -= 0.5;
+            changed = true;
+        }
+        if (currentLineHeight > 1.1) {
+            currentLineHeight -= 0.05;
+            changed = true;
+        }
+        if (currentPadTB > 3) {
+            currentPadTB -= 1;
+            changed = true;
+        }
+        
+        if (!changed) break; // Berhenti jika sudah di batas minimum
+        
+        clone.style.fontSize = currentFontSize + 'pt';
+        clone.style.lineHeight = currentLineHeight;
+        clone.style.padding = currentPadTB + 'mm 16mm';
+    }
+    
+    // Kunci kembali ukuran menjadi A4 pasti untuk di-screenshot
+    clone.style.height = '297mm';
+    clone.style.overflow = 'hidden';
     
     var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
     filename = filename.replace(/\s+/g, '_');
@@ -902,17 +940,16 @@ function downloadPDF() {
             var imgData = canvas.toDataURL('image/jpeg', 0.98);
             var pdf = new JsPDF('p', 'mm', 'a4');
             
-            var pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
-            var pdfHeight = pdf.internal.pageSize.getHeight(); // 297mm
+            var pdfWidth = pdf.internal.pageSize.getWidth(); 
+            var pdfHeight = pdf.internal.pageSize.getHeight(); 
             
-            // Masukkan gambar ke PDF dengan ukuran EXACT A4 (tidak ada distorsi, tidak ada halaman 2)
             pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, '', 'FAST');
             pdf.save(filename + '.pdf');
             
             btn.disabled = false;
             btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
             offscreen.innerHTML = '';
-            toast('PDF berhasil diunduh!', 'success');
+            toast('PDF berhasil diunduh (1 halaman)!', 'success');
         }).catch(function(err) {
             console.error(err);
             btn.disabled = false;
