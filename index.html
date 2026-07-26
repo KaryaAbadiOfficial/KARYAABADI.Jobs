@@ -374,7 +374,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <div class="bg-white w-full h-full shadow-md p-2 text-left flex gap-2 items-start">
-              <div class="w-8 h-10 bg-gray-300 flex-shrink-0"></div>
+              <div class="w-8 h-10 bg-gray-300 flex-shrink:0"></div>
               <div class="flex-1 flex flex-col gap-1">
                 <div class="h-1 bg-red-500 w-8 mb-1"></div>
                 <div class="h-0.5 bg-gray-200 w-full"></div>
@@ -395,7 +395,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <div class="bg-white w-full h-full shadow-md p-2 flex gap-2 items-start">
-              <div class="w-8 h-10 bg-gray-300 flex-shrink-0"></div>
+              <div class="w-8 h-10 bg-gray-300 flex-shrink:0"></div>
               <div class="flex-1 text-center flex flex-col items-center pt-2 gap-1">
                 <div class="h-1.5 bg-gray-800 w-16"></div>
                 <div class="h-1 bg-red-500 w-10"></div>
@@ -607,7 +607,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Alat Bantu</h2>
     <p>Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Pekerjaan secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang dituju.</p>
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
-    <p>Penggunaan template dari platform ini <strong>tidak menjamin</strong> bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
+    <p>Penggunaan template dari platform ini <strong>tidak menjamin</strong> bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami,包括 kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
     <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ejaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
@@ -786,14 +786,14 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF FIX =================
+// ================= DOWNLOAD PDF FIX (ANTI TERPOTONG & 2 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  // Reset style agar sesuai dengan CSS .a4-page asli (bukan hasil scaling di preview)
+  // Reset style & paksa ukuran eksak 1 halaman A4
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -803,9 +803,8 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.height = 'auto';
-  clone.style.minHeight = '297mm';
-  clone.style.overflow = 'visible'; 
+  clone.style.height = '297mm'; // Paksa tinggi eksak 297mm agar tidak ada page 2
+  clone.style.overflow = 'hidden'; // Sembunyikan yang overflow (identik dengan preview)
   
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
@@ -832,9 +831,12 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      windowWidth: 800 // Fix lebar render agar sama dengan lebar A4 (mencegah breakpoint Tailwind ikut berubah)
+      width: 794, // Lebar pixel A4 (210mm @ 96 DPI)
+      height: 1123, // Tinggi pixel A4 (297mm @ 96 DPI)
+      windowWidth: 800
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Cegah pemotongan eksplisit
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
