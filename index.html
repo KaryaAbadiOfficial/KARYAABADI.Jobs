@@ -832,64 +832,77 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (METODE WYSIWYG MUTLAK 1 HALAMAN) =================
+// ================= DOWNLOAD PDF (TRUE WYSIWYG PIXEL-PERFECT) =================
 function downloadPDF() {
   saveStatic();
   var btn = document.getElementById('btn-pdf');
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Memproses...';
 
-  // Ambil elemen asli yang ada di preview (Bukan clone, agar WYSIWYG 100% akurat)
   var a4Page = document.getElementById('a4-page');
+  var scaler = document.getElementById('a4-scaler');
+  var wrap = document.getElementById('preview-wrap');
   
-  // Simpan CSS asli, lalu paksa font inline agar html2canvas membacanya dengan benar
-  var originalCssText = a4Page.style.cssText;
+  // Simpan state transformasi zoom & pan asli
+  var originalTransform = scaler.style.transform;
+  var originalWrapOverflow = wrap.style.overflow;
+  
+  // Reset zoom ke 100% (scale 1) agar pas A4 dan tidak terdistorsi saat screenshot
+  scaler.style.transform = 'none';
+  wrap.style.overflow = 'hidden'; 
+  
+  // Pastikan style font terbaca inline
   a4Page.style.fontFamily = selFont;
   a4Page.style.fontSize = selSize + 'pt';
 
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
 
-  // Konfigurasi html2canvas untuk memotret elemen asli
-  var opt = {
-    scale: 2, // Resolusi HD
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    width: 794, // Kunci lebar fix A4 (96 DPI)
-    height: 1123, // Kunci tinggi fix A4 (96 DPI)
-    windowWidth: 794,
-    windowHeight: 1123,
-    scrollX: 0,
-    scrollY: 0
-  };
-
-  // Gunakan html2canvas langsung untuk memotret elemen asli
-  window.html2canvas(a4Page, opt).then(function(canvas) {
-    // Inisialisasi jsPDF dengan ukuran pixel yang sama persis, memaksa hanya 1 halaman
-    var pdf = new window.jspdf.jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: [794, 1123]
+  // Beri delay sedikit agar DOM selesai render reset scale-nya
+  setTimeout(function() {
+    // Gunakan html2canvas langsung untuk memotret elemen asli yang terlihat di layar
+    window.html2canvas(a4Page, {
+      scale: 2, // High DPI
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      width: a4Page.offsetWidth,
+      height: a4Page.offsetHeight,
+      windowWidth: a4Page.offsetWidth,
+      windowHeight: a4Page.offsetHeight,
+      scrollX: 0,
+      scrollY: 0,
+      logging: false
+    }).then(function(canvas) {
+      // Kembalikan tampilan zoom & pan ke semula
+      scaler.style.transform = originalTransform;
+      wrap.style.overflow = originalWrapOverflow;
+      
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+      
+      // Generate PDF menggunakan jsPDF murni dengan ukuran A4 mutlak (210x297mm)
+      var pdf = new window.jspdf.jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      // Tempel gambar persis 1 halaman penuh A4
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+      pdf.save(filename + '.pdf');
+      
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+      toast('PDF berhasil diunduh!', 'success');
+    }).catch(function(err) {
+      console.error("PDF Generation Error:", err);
+      // Pastikan dikembalikan meski error
+      scaler.style.transform = originalTransform;
+      wrap.style.overflow = originalWrapOverflow;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+      toast('Gagal mengunduh PDF', 'error');
     });
-    
-    // Tempelkan screenshot ke PDF
-    var imgData = canvas.toDataURL('image/jpeg', 1.0);
-    pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
-    pdf.save(filename + '.pdf');
-    
-    // Kembalikan CSS ke semula
-    a4Page.style.cssText = originalCssText;
-    
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
-    toast('PDF berhasil diunduh!', 'success');
-  }).catch(function(err) {
-    console.error("PDF Generation Error:", err);
-    a4Page.style.cssText = originalCssText; // Kembalikan CSS jika error
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
-    toast('Gagal mengunduh PDF', 'error');
-  });
+  }, 100);
 }
 
 window.addEventListener('resize', function() { fitPreviewView(); });
