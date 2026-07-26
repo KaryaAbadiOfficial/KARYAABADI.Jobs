@@ -832,12 +832,12 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (TRUE WYSIWYG PIXEL-PERFECT) =================
+// ================= DOWNLOAD PDF (WYSIWYG MUTLAK 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var btn = document.getElementById('btn-pdf');
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Memproses...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
 
   var a4Page = document.getElementById('a4-page');
   var scaler = document.getElementById('a4-scaler');
@@ -858,12 +858,13 @@ function downloadPDF() {
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
 
-  // Beri delay sedikit agar DOM selesai render reset scale-nya
-  setTimeout(function() {
-    // Gunakan html2canvas langsung untuk memotret elemen asli yang terlihat di layar
-    window.html2canvas(a4Page, {
-      scale: 2, // High DPI
-      useCORS: true,
+  var opt = {
+    margin: 0,
+    filename: filename + '.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { 
+      scale: 2, 
+      useCORS: true, 
       backgroundColor: '#ffffff',
       width: a4Page.offsetWidth,
       height: a4Page.offsetHeight,
@@ -872,23 +873,17 @@ function downloadPDF() {
       scrollX: 0,
       scrollY: 0,
       logging: false
-    }).then(function(canvas) {
+    },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all'] }
+  };
+
+  // Beri delay sedikit agar DOM selesai render reset scale-nya
+  setTimeout(function() {
+    html2pdf().set(opt).from(a4Page).save().then(function() {
       // Kembalikan tampilan zoom & pan ke semula
       scaler.style.transform = originalTransform;
       wrap.style.overflow = originalWrapOverflow;
-      
-      var imgData = canvas.toDataURL('image/jpeg', 1.0);
-      
-      // Generate PDF menggunakan jsPDF murni dengan ukuran A4 mutlak (210x297mm)
-      var pdf = new window.jspdf.jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-      });
-      
-      // Tempel gambar persis 1 halaman penuh A4
-      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
-      pdf.save(filename + '.pdf');
       
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
