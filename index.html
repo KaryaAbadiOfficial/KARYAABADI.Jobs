@@ -811,9 +811,9 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.height = 'auto';
+  clone.style.height = '297mm'; // Paksa tinggi tepat 1 halaman A4
   clone.style.minHeight = '297mm';
-  clone.style.overflow = 'visible'; 
+  clone.style.overflow = 'hidden'; // Sembunyikan teks yang terpotong agar sama dengan preview
   
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
@@ -844,7 +844,8 @@ function downloadPDF() {
       scrollY: 0,
       windowWidth: document.documentElement.offsetWidth 
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all'] } // Cegah terpotong ke halaman kedua
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
