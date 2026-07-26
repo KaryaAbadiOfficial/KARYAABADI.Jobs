@@ -296,7 +296,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </main>
 
-  <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right:0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-brand-border p-3 flex gap-3" style="left:0;right:0;">
+  <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left:0 right:0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-brand-border p-3 flex gap-3" style="left:0;right:0;">
     <button onclick="openMobilePreview()" class="flex-1 py-2.5 bg-brand-red text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Lihat Preview A4</button>
   </div>
 
@@ -835,7 +835,7 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (MUTLAK WYSIWYG 1 HALAMAN A4) =================
+// ================= DOWNLOAD PDF (AUTO-FIT 1 HALAMAN A4) =================
 function downloadPDF() {
   saveStatic();
   var btn = document.getElementById('btn-pdf');
@@ -846,90 +846,103 @@ function downloadPDF() {
   var offscreen = document.getElementById('pdf-offscreen');
   offscreen.innerHTML = '';
 
-  // A4 di 96 DPI: 210mm ≈ 794px, 297mm ≈ 1123px (rasio A4 exact)
-  var A4_W = 794;
-  var A4_H = 1123;
+  // Ambil ukuran exact pixel dari elemen asli yang ada di layar
+  var renderWidth = sourceNode.offsetWidth || 794; // fallback 210mm @96dpi
+  var renderHeight = sourceNode.offsetHeight || 1123; // fallback 297mm @96dpi
 
-  // Clone node asli, lalu PAKSA ukuran pixel exact A4
+  // Clone node asli
   var clone = sourceNode.cloneNode(true);
-  clone.style.cssText =
-    'width:' + A4_W + 'px;' +
-    'height:' + A4_H + 'px;' +
-    'margin:0;' +
-    'padding:10mm;' +
-    'background:#fff;' +
-    'color:#000;' +
-    'overflow:hidden;' +
-    'position:relative;' +
-    'line-height:1.35;' +
-    'box-sizing:border-box;' +
-    'transform:none;' +
-    'font-family:' + selFont + ';' +
-    'font-size:' + selSize + 'pt;';
+  
+  // Kunci ukuran clone agar tidak berubah
+  clone.style.width = renderWidth + 'px';
+  clone.style.height = renderHeight + 'px';
+  clone.style.position = 'absolute';
+  clone.style.left = '0px';
+  clone.style.top = '0px';
+  clone.style.margin = '0';
+  clone.style.padding = '10mm';
+  clone.style.transform = 'none';
+  clone.style.overflow = 'hidden';
+  clone.style.boxSizing = 'border-box';
+  clone.style.backgroundColor = '#ffffff';
+  
+  // Bungkus konten untuk scaling dinamis
+  var innerWrapper = document.createElement('div');
+  innerWrapper.style.transformOrigin = 'top left';
+  innerWrapper.style.width = '100%';
+  
+  // Pindahkan anak-anak clone ke wrapper
+  while (clone.firstChild) {
+    innerWrapper.appendChild(clone.firstChild);
+  }
+  clone.appendChild(innerWrapper);
 
   offscreen.appendChild(clone);
 
-  var filename = (curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_') + (v('nama') || 'dokumen');
-  filename = filename.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
+  // Beri delay agar DOM selesai dihitung
+  setTimeout(function() {
+    // Hitung tinggi asli konten
+    var contentHeight = innerWrapper.offsetHeight;
+    var scale = 1;
 
-  function captureAndSave() {
+    // Jika konten melebihi tinggi halaman (297mm), kecilkan agar PAS 1 halaman tanpa terpotong
+    if (contentHeight > renderHeight) {
+      scale = (renderHeight / contentHeight) * 0.99; // 0.99 untuk margin aman
+      innerWrapper.style.transform = 'scale(' + scale + ')';
+    }
+
+    // Proses render ke canvas
     window.html2canvas(clone, {
       scale: 2,
       useCORS: true,
       backgroundColor: '#ffffff',
-      width: A4_W,
-      height: A4_H,
-      windowWidth: A4_W,
-      windowHeight: A4_H,
+      width: renderWidth,
+      height: renderHeight,
+      windowWidth: renderWidth,
+      windowHeight: renderHeight,
       scrollX: 0,
       scrollY: 0,
-      x: 0,
-      y: 0,
       logging: false
     }).then(function(canvas) {
-      offscreen.innerHTML = '';
+      offscreen.innerHTML = ''; // Bersihkan elemen clone
 
-      // PAKSA canvas ke ukuran A4 exact (scale 2 = 1588 x 2246)
-      var finalCanvas = document.createElement('canvas');
-      finalCanvas.width  = A4_W * 2;
-      finalCanvas.height = A4_H * 2;
-      var ctx = finalCanvas.getContext('2d');
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
-      ctx.drawImage(canvas, 0, 0, finalCanvas.width, finalCanvas.height);
+      var imgData = canvas.toDataURL('image/jpeg', 0.98);
+      var filename = (curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_') + (v('nama') || 'dokumen');
+      filename = filename.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
 
-      var imgData = finalCanvas.toDataURL('image/jpeg', 1.0);
-
-      var pdf = new window.jspdf.jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
+      // Buat PDF menggunakan string gambar agar bypass error library jsPDF
+      var opt = {
+        margin: 0,
+        filename: filename + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all'] }
+      };
+      
+      // Buat string HTML berisi gambar dengan ukuran A4 mutlak
+      var htmlString = '<div style="margin:0; padding:0; border:0; width:210mm; height:297mm; overflow:hidden;"><img src="' + imgData + '" style="width:210mm; height:297mm; display:block; margin:0; padding:0; border:0;"></div>';
+      
+      // Generate dan save PDF
+      html2pdf().set(opt).from(htmlString, 'string').save().then(function() {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+        toast('PDF berhasil diunduh!', 'success');
+      }).catch(function(err) {
+        console.error('PDF Save Error:', err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
+        toast('Gagal mengunduh PDF', 'error');
       });
 
-      // Tempel gambar FULL ke 1 halaman A4. Tidak mungkin terpotong / 2 halaman.
-      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
-      pdf.save(filename + '.pdf');
-
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
-      toast('PDF berhasil diunduh!', 'success');
     }).catch(function(err) {
-      console.error('PDF Error:', err);
+      console.error('Canvas Error:', err);
       offscreen.innerHTML = '';
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
       toast('Gagal mengunduh PDF', 'error');
     });
-  }
-
-  // Tunggu font benar-benar ready sebelum capture (hindari teks bergeser)
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function() {
-      setTimeout(captureAndSave, 120);
-    });
-  } else {
-    setTimeout(captureAndSave, 350);
-  }
+  }, 200);
 }
 
 window.addEventListener('resize', function() { fitPreviewView(); });
