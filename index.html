@@ -600,7 +600,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -802,6 +802,7 @@ function downloadPDF() {
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
+  // Reset semua style dan paksa ukuran dalam piksel (px) agar tidak ada selisih pembulatan dari mm ke px
   clone.style.cssText = '';
   clone.style.position = 'relative';
   clone.style.left = '0';
@@ -810,10 +811,12 @@ function downloadPDF() {
   clone.style.transform = 'none';
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
-  clone.style.width = '210mm';
-  clone.style.height = '297mm'; // Paksa tinggi tepat 1 halaman A4
-  clone.style.minHeight = '297mm';
-  clone.style.overflow = 'hidden'; // Sembunyikan teks yang terpotong agar sama dengan preview
+  
+  // Ukuran A4 di 96 DPI adalah 794px x 1123px. Ini menghilangkan bug halaman 2 kosong.
+  clone.style.width = '794px';
+  clone.style.height = '1123px';
+  clone.style.minHeight = '1123px';
+  clone.style.overflow = 'hidden';
   
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
@@ -842,10 +845,10 @@ function downloadPDF() {
       backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
-      windowWidth: document.documentElement.offsetWidth 
+      windowWidth: 794 
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all'] } // Cegah terpotong ke halaman kedua
+    jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all'] }
   };
   
   html2pdf().set(opt).from(clone).save().then(function() {
