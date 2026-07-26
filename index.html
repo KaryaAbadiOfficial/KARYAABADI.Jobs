@@ -795,32 +795,22 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF =================
+// ================= DOWNLOAD PDF (METODE MANUAL 100% 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  // Reset semua style dan paksa ukuran dalam piksel (px) agar tidak ada selisih pembulatan dari mm ke px
   clone.style.cssText = '';
-  clone.style.position = 'relative';
-  clone.style.left = '0';
-  clone.style.top = '0';
-  clone.style.margin = '0';
-  clone.style.transform = 'none';
-  clone.style.boxShadow = 'none';
-  clone.style.boxSizing = 'border-box';
-  
-  // Ukuran A4 di 96 DPI adalah 794px x 1123px. Ini menghilangkan bug halaman 2 kosong.
   clone.style.width = '794px';
   clone.style.height = '1123px';
   clone.style.minHeight = '1123px';
   clone.style.overflow = 'hidden';
-  
+  clone.style.position = 'relative';
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
-  clone.style.padding = '12mm 16mm';
+  clone.style.padding = '46px 60px'; // Setara dengan 12mm 16mm
   clone.style.fontFamily = selFont;
   clone.style.fontSize = selSize + 'pt';
   clone.style.lineHeight = selLH;
@@ -835,23 +825,28 @@ function downloadPDF() {
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
   
-  var opt = {
-    margin: 0,
-    filename: filename + '.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2, 
-      useCORS: true, 
-      backgroundColor: '#ffffff',
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: 794 
-    },
-    jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all'] }
-  };
-  
-  html2pdf().set(opt).from(clone).save().then(function() {
+  // Karena html2pdf.bundle.min.js memuat html2canvas & jsPDF secara global, kita panggil manual
+  html2canvas(clone, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    width: 794,
+    height: 1123,
+    windowWidth: 794,
+    windowHeight: 1123
+  }).then(function(canvas) {
+    var pdf = new jsPDF({
+      unit: 'px',
+      format: [794, 1123],
+      orientation: 'portrait'
+    });
+    
+    // Masukkan gambar canvas ke PDF dengan ukuran yang SAMA PERSIS
+    pdf.addImage(canvas.toDataURL('image/jpeg', 0.98), 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
+    
+    // Simpan PDF (Hanya 1 halaman, tidak akan ada halaman ke-2)
+    pdf.save(filename + '.pdf');
+    
     btn.disabled = false;
     btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
     offscreen.innerHTML = '';
