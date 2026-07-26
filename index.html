@@ -108,10 +108,23 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 .site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700}
 .site-footer a:hover{color:#DC2626}
-.ft-5col{display:flex;align-items:center;justify-content:center;padding:10px 8px;gap:4px;flex-wrap:wrap}
-.ft-5col a{font-size:clamp(8px,2.4vw,12px);line-height:1.3;white-space:nowrap;padding:0 clamp(2px,1vw,6px)}
-@media(min-width:1024px){.ft-5col{padding:10px 24px;gap:6px}}
-.ft-copy{text-align:center;padding:0 0 8px;font-size:12px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
+.ft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ft-col h4{font-family:'Inter',system-ui,sans-serif;font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:.02em}
+.ft-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.ft-col ul li a{color:#9ca3af;font-weight:600;line-height:1.4;display:inline-block}
+.ft-col ul li a:hover{color:#DC2626}
+@media(min-width:640px){
+  .ft-grid{gap:24px}
+  .ft-col h4{margin-bottom:14px}
+  .ft-col ul{gap:10px}
+}
+@media(min-width:1024px){
+  .ft-grid{gap:48px}
+  .ft-col h4{margin-bottom:16px}
+  .ft-col ul{gap:12px}
+}
+.ft-copy{text-align:center;padding:14px 0 4px;font-size:11px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
+@media(min-width:640px){.ft-copy{font-size:12px}}
 @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
 
 .article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
@@ -290,7 +303,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </main>
 
   <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
-    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink:0">
+    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
       <button onclick="closeMobilePreview()" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
     </div>
@@ -587,7 +600,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -617,38 +630,36 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <!-- GLOBAL FOOTER -->
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
-  <div class="ft-inner max-w-7xl mx-auto pt-12 pb-8 px-4">
-    <div class="flex justify-center mb-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 text-sm text-left">
-        <div>
-          <h4 class="font-bold text-white mb-4">Layanan</h4>
-          <ul class="space-y-3 text-gray-400">
-            <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
-            <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
-            <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
-            <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold text-white mb-4">Informasi</h4>
-          <ul class="space-y-3 text-gray-400">
-            <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
-            <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
-            <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
-            <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="hidden md:block">
-          <h4 class="font-bold text-white mb-4">Legal</h4>
-          <ul class="space-y-3 text-gray-400">
-            <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
-            <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
-            <li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li>
-          </ul>
-        </div>
+  <div class="ft-inner max-w-7xl mx-auto pt-10 pb-6 px-4 sm:px-6">
+    <div class="ft-grid">
+      <div class="ft-col">
+        <h4 class="text-[11px] sm:text-sm">Layanan</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
+          <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
+          <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
+          <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4 class="text-[11px] sm:text-sm">Informasi</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
+          <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
+          <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
+          <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4 class="text-[11px] sm:text-sm">Legal</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
+          <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
+          <li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li>
+        </ul>
       </div>
     </div>
-    <div class="ft-5col border-t border-brand-border pt-8">
+    <div class="border-t border-brand-border mt-8 pt-6">
       <p class="ft-copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
     </div>
   </div>
@@ -713,9 +724,7 @@ function applyPageStyle(){var p=document.getElementById('a4-page');if(p)p.style.
 function schedulePreview(){if(_rpTimer)clearTimeout(_rpTimer);_rpTimer=setTimeout(renderPreview,60)}
 function updateVH(){document.documentElement.style.setProperty('--avh',window.innerHeight+'px')}
 
-function L(key){
-  return key;
-}
+function L(key){return key}
 
 function saveStatic(){var d={};document.querySelectorAll('.fi-s').forEach(function(el){if(el.id)d[el.id]=el.value});if(curCat==='cv')savedCV=d;else{savedSurat=d;savedSurat._lamp=lampList.slice()}}
 function restoreStatic(){var d=curCat==='cv'?savedCV:savedSurat;if(!d||!Object.keys(d).length)return;Object.keys(d).forEach(function(id){if(id==='_lamp')return;var el=document.getElementById(id);if(el)el.value=d[id]});var sm=document.getElementById('skill-mode');if(sm){skillMode=sm.value;toggleSkillMode(skillMode)}if(curCat==='surat'&&d._lamp){lampList=d._lamp.slice();renderLampF()}}
@@ -786,7 +795,7 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF FIX (ANTI TERPOTONG & 2 HALAMAN DI SEMUA PERANGKAT) =================
+// ================= DOWNLOAD PDF =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
@@ -802,8 +811,9 @@ function downloadPDF() {
   clone.style.boxShadow = 'none';
   clone.style.boxSizing = 'border-box';
   clone.style.width = '210mm';
-  clone.style.height = '297mm';
-  clone.style.overflow = 'hidden'; 
+  clone.style.height = 'auto';
+  clone.style.minHeight = '297mm';
+  clone.style.overflow = 'visible'; 
   
   clone.style.background = '#ffffff';
   clone.style.color = '#000000';
@@ -822,47 +832,22 @@ function downloadPDF() {
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
   
-  var renderOpt = {
-    scale: 2, 
-    useCORS: true, 
-    backgroundColor: '#ffffff',
-    windowWidth: 800
+  var opt = {
+    margin: 0,
+    filename: filename + '.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { 
+      scale: 2, 
+      useCORS: true, 
+      backgroundColor: '#ffffff',
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: document.documentElement.offsetWidth 
+    },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
-
-  // Render manual html2canvas lalu crop sisa piksel
-  html2canvas(clone, renderOpt).then(function(canvas) {
-    // Nilai piksel standar A4 pada 96 DPI
-    var pdfWidthInPx = 794;
-    var pdfHeightInPx = 1123;
-    
-    var targetWidth = Math.round(pdfWidthInPx * renderOpt.scale);
-    var targetHeight = Math.round(pdfHeightInPx * renderOpt.scale);
-    
-    // Buat canvas baru dengan ukuran eksak
-    var croppedCanvas = document.createElement('canvas');
-    croppedCanvas.width = targetWidth;
-    croppedCanvas.height = targetHeight;
-    var ctx = croppedCanvas.getContext('2d');
-    
-    // Warnai background putih agar transparan tidak terbaca hitam di PDF
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, targetWidth, targetHeight);
-    
-    // Gambar canvas asli ke canvas baru (memotong bagian bawah yang sisa 1-2 piksel)
-    ctx.drawImage(
-        canvas, 
-        0, 0, canvas.width, canvas.height, 
-        0, 0, targetWidth, targetHeight
-    );
-    
-    // Konversi ke JPEG
-    var imgData = croppedCanvas.toDataURL('image/jpeg', 0.98);
-    
-    // Generate PDF dengan jsPDF
-    var pdf = new jsPDF('p', 'mm', 'a4');
-    pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
-    pdf.save(filename + '.pdf');
-    
+  
+  html2pdf().set(opt).from(clone).save().then(function() {
     btn.disabled = false;
     btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
     offscreen.innerHTML = '';
