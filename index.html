@@ -109,21 +109,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700}
 .site-footer a:hover{color:#DC2626}
 .ft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.ft-col h4{font-family:'Inter',system-ui,sans-serif;font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:.02em}
+.ft-col h4{font-family:'Inter',system-ui,sans-serif;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.02em;font-size:11px}
 .ft-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
-.ft-col ul li a{color:#9ca3af;font-weight:600;line-height:1.4;display:inline-block}
+.ft-col ul li a{color:#9ca3af;font-weight:600;line-height:1.4;display:inline-block;font-size:12px}
 .ft-col ul li a:hover{color:#DC2626}
 @media(min-width:640px){
   .ft-grid{gap:24px}
-  .ft-col h4{margin-bottom:14px}
+  .ft-col h4{margin-bottom:14px;font-size:14px}
   .ft-col ul{gap:10px}
+  .ft-col ul li a{font-size:14px}
 }
 @media(min-width:1024px){
   .ft-grid{gap:48px}
   .ft-col h4{margin-bottom:16px}
   .ft-col ul{gap:12px}
 }
-.ft-copy{text-align:center;padding:14px 0 4px;font-size:11px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
+.ft-copy{text-align:center;padding:14px 0 4px;font-size:10px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
 @media(min-width:640px){.ft-copy{font-size:12px}}
 @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
 
@@ -600,7 +601,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -633,7 +634,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div class="ft-inner max-w-7xl mx-auto pt-10 pb-6 px-4 sm:px-6">
     <div class="ft-grid">
       <div class="ft-col">
-        <h4 class="text-[11px] sm:text-sm">Layanan</h4>
+        <h4>Layanan</h4>
         <ul>
           <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
           <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
@@ -642,7 +643,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         </ul>
       </div>
       <div class="ft-col">
-        <h4 class="text-[11px] sm:text-sm">Informasi</h4>
+        <h4>Informasi</h4>
         <ul>
           <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
           <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
@@ -651,7 +652,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         </ul>
       </div>
       <div class="ft-col">
-        <h4 class="text-[11px] sm:text-sm">Legal</h4>
+        <h4>Legal</h4>
         <ul>
           <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
           <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
@@ -795,25 +796,20 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (METODE MANUAL 100% 1 HALAMAN) =================
+// ================= DOWNLOAD PDF =================
 function downloadPDF() {
   saveStatic();
   var offscreen = document.getElementById('pdf-offscreen');
   var clone = document.getElementById('a4-page').cloneNode(true);
   clone.id = 'a4-pdf-clone';
   
-  clone.style.cssText = '';
-  clone.style.width = '794px';
-  clone.style.height = '1123px';
-  clone.style.minHeight = '1123px';
-  clone.style.overflow = 'hidden';
+  // Jangan hapus cssText agar font dan ukuran dari preview ikut tersimpan
   clone.style.position = 'relative';
-  clone.style.background = '#ffffff';
-  clone.style.color = '#000000';
-  clone.style.padding = '46px 60px'; // Setara dengan 12mm 16mm
-  clone.style.fontFamily = selFont;
-  clone.style.fontSize = selSize + 'pt';
-  clone.style.lineHeight = selLH;
+  clone.style.left = '0';
+  clone.style.top = '0';
+  clone.style.margin = '0';
+  clone.style.transform = 'none';
+  clone.style.boxShadow = 'none';
   
   offscreen.innerHTML = '';
   offscreen.appendChild(clone);
@@ -825,28 +821,22 @@ function downloadPDF() {
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
   
-  // Karena html2pdf.bundle.min.js memuat html2canvas & jsPDF secara global, kita panggil manual
-  html2canvas(clone, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    width: 794,
-    height: 1123,
-    windowWidth: 794,
-    windowHeight: 1123
-  }).then(function(canvas) {
-    var pdf = new jsPDF({
-      unit: 'px',
-      format: [794, 1123],
-      orientation: 'portrait'
-    });
-    
-    // Masukkan gambar canvas ke PDF dengan ukuran yang SAMA PERSIS
-    pdf.addImage(canvas.toDataURL('image/jpeg', 0.98), 'JPEG', 0, 0, 794, 1123, undefined, 'FAST');
-    
-    // Simpan PDF (Hanya 1 halaman, tidak akan ada halaman ke-2)
-    pdf.save(filename + '.pdf');
-    
+  var opt = {
+    margin: 0,
+    filename: filename + '.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { 
+      scale: 3, // Skala tinggi agar resolusi gambar (screenshot) tajam dan jernih
+      useCORS: true, 
+      backgroundColor: '#ffffff',
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: 1000 // Paksa lebar 1000px agar tidak terpengaruh layout HP (mencegah elemen berubah posisi)
+    },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  
+  html2pdf().set(opt).from(clone).save().then(function() {
     btn.disabled = false;
     btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
     offscreen.innerHTML = '';
