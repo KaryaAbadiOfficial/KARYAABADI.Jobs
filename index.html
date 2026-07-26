@@ -227,7 +227,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
     <article class="max-w-5xl mx-auto mb-16 text-center">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center"><span>Panduan Membuat CV yang Menarik untuk HRD</span></h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed text-center max-w-3xl mx-auto"><span>Curriculum Vitae (CV) adalah representasi profesional pertama yang dilihat oleh perekrut. Dalam era digital, banyak perusahaan menggunakan Applicant Tracking System (ATS) untuk menyaring kandidat. Oleh karena itu, CV yang baik tidak hanya secara visual menarik, tetapi juga mudah dibaca oleh sistem.</span></p>
+      <p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed text-center max-w-3xl mx-auto"><span>Curriculum Vitae (CV) adalah representasi profesional pertama yang dilihat oleh perekrut. Dalam era digital, banyak perusahaan menggunakan Applicant Tracking System (ATS) para menyaring kandidat. Oleh karena itu, CV yang baik tidak hanya secara visual menarik, tetapi juga mudah dibaca oleh sistem.</span></p>
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-center max-w-3xl mx-auto"><span>Berikut adalah beberapa tips yang bisa Anda terapkan saat menggunakan tool generator kami:</span></p>
       <div class="grid md:grid-cols-3 gap-6 text-center">
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
@@ -299,6 +299,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="mobile-bottom-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-brand-dark/95 backdrop-blur-md border-t border-brand-border p-3 flex gap-3">
     <button onclick="openMobilePreview()" class="flex-1 py-2.5 bg-brand-red text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-eye"></i> Lihat Preview A4</button>
   </div>
+
+  <!-- Container Khusus Render PDF Mutlak -->
+  <div id="pdf-offscreen" style="position:fixed;left:0;top:0;width:0;height:0;overflow:hidden;pointer-events:none;z-index:-9999;"></div>
 </div>
 
 <div id="view-panduan" class="view">
@@ -531,7 +534,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content w-full">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -832,72 +835,79 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (WYSIWYG MUTLAK 1 HALAMAN) =================
+// ================= DOWNLOAD PDF (MUTLAK WYSIWYG 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
   var btn = document.getElementById('btn-pdf');
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
 
-  var a4Page = document.getElementById('a4-page');
-  var scaler = document.getElementById('a4-scaler');
-  var wrap = document.getElementById('preview-wrap');
+  var sourceNode = document.getElementById('a4-page');
+  var offscreen = document.getElementById('pdf-offscreen');
+  offscreen.innerHTML = ''; 
+
+  var clone = sourceNode.cloneNode(true);
   
-  // Simpan state transformasi zoom & pan asli
-  var originalTransform = scaler.style.transform;
-  var originalWrapOverflow = wrap.style.overflow;
+  // Ambil ukuran exact pixel dari elemen asli yang ada di layar
+  var renderWidth = sourceNode.offsetWidth;
+  var renderHeight = sourceNode.offsetHeight;
+
+  // Kunci ukuran clone agar html2canvas tidak bingung
+  clone.style.width = renderWidth + 'px';
+  clone.style.height = renderHeight + 'px';
+  clone.style.position = 'absolute';
+  clone.style.left = '0px';
+  clone.style.top = '0px';
+  clone.style.margin = '0';
+  clone.style.transform = 'none';
   
-  // Reset zoom ke 100% (scale 1) agar pas A4 dan tidak terdistorsi saat screenshot
-  scaler.style.transform = 'none';
-  wrap.style.overflow = 'hidden'; 
-  
-  // Pastikan style font terbaca inline
-  a4Page.style.fontFamily = selFont;
-  a4Page.style.fontSize = selSize + 'pt';
+  offscreen.appendChild(clone);
 
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
 
-  var opt = {
-    margin: 0,
-    filename: filename + '.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2, 
-      useCORS: true, 
+  // Gunakan html2canvas langsung untuk memotret clone
+  setTimeout(function() {
+    window.html2canvas(clone, {
+      scale: 2,
+      useCORS: true,
       backgroundColor: '#ffffff',
-      width: a4Page.offsetWidth,
-      height: a4Page.offsetHeight,
-      windowWidth: a4Page.offsetWidth,
-      windowHeight: a4Page.offsetHeight,
+      width: renderWidth,
+      height: renderHeight,
+      windowWidth: renderWidth,
+      windowHeight: renderHeight,
       scrollX: 0,
       scrollY: 0,
       logging: false
-    },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all'] }
-  };
-
-  // Beri delay sedikit agar DOM selesai render reset scale-nya
-  setTimeout(function() {
-    html2pdf().set(opt).from(a4Page).save().then(function() {
-      // Kembalikan tampilan zoom & pan ke semula
-      scaler.style.transform = originalTransform;
-      wrap.style.overflow = originalWrapOverflow;
+    }).then(function(canvas) {
+      // Bersihkan clone dari layar
+      offscreen.innerHTML = '';
+      
+      var imgData = canvas.toDataURL('image/jpeg', 1.0);
+      
+      // Generate PDF menggunakan jsPDF langsung dengan format A4 mutlak (210x297mm)
+      var pdf = new window.jspdf.jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      // Tempel gambar full ke 1 halaman A4. 
+      // Ini menjamin 1 halaman exact, tidak terpotong, tidak ada halaman 2.
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+      pdf.save(filename + '.pdf');
       
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
       toast('PDF berhasil diunduh!', 'success');
     }).catch(function(err) {
-      console.error("PDF Generation Error:", err);
-      // Pastikan dikembalikan meski error
-      scaler.style.transform = originalTransform;
-      wrap.style.overflow = originalWrapOverflow;
+      console.error(err);
+      offscreen.innerHTML = '';
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>Download PDF';
       toast('Gagal mengunduh PDF', 'error');
     });
-  }, 100);
+  }, 200);
 }
 
 window.addEventListener('resize', function() { fitPreviewView(); });
