@@ -834,41 +834,35 @@ function handlePhoto(e) {
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (METODE SCREENSHOT HD 1 HALAMAN) =================
+// ================= DOWNLOAD PDF (A4 MUTLAK 1 HALAMAN) =================
 function downloadPDF() {
   saveStatic();
-  var btn = document.getElementById('btn-pdf');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
-
   var offscreen = document.getElementById('pdf-offscreen');
   offscreen.innerHTML = ''; 
-
+  
   var printDoc = document.createElement('div');
-  printDoc.className = 'a4-page';
+  printDoc.className = 'a4-page'; // Class ini sudah mengatur width:210mm, height:297mm, overflow:hidden
   printDoc.innerHTML = document.getElementById('a4-page').innerHTML;
   
-  // Kunci ukuran pixel fix (96 DPI) agar identik dengan A4 di layar
-  printDoc.style.width = '794px'; 
-  printDoc.style.height = '1123px'; 
-  printDoc.style.padding = '38px 48px'; // ~ 10mm margin
-  printDoc.style.boxSizing = 'border-box';
+  // Pastikan styling standard A4 diterapkan tanpa override yang merusak
+  printDoc.style.position = 'absolute';
+  printDoc.style.left = '0';
+  printDoc.style.top = '0';
+  printDoc.style.margin = '0';
   printDoc.style.background = '#ffffff';
   printDoc.style.color = '#000000';
   printDoc.style.fontFamily = selFont;
   printDoc.style.fontSize = selSize + 'pt';
-  printDoc.style.overflow = 'hidden';
-  printDoc.style.position = 'absolute';
-  printDoc.style.left = '0';
-  printDoc.style.top = '0';
-  printDoc.style.lineHeight = '1.35';
   
   offscreen.appendChild(printDoc);
   
   var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
   filename = filename.replace(/\s+/g, '_');
-
-  // Konfigurasi html2pdf: Format PDF dibuat dalam ukuran pixel persis sama dengan elemen
+  
+  var btn = document.getElementById('btn-pdf');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Mengunduh...';
+  
   var opt = {
     margin: 0,
     filename: filename + '.pdf',
@@ -877,15 +871,11 @@ function downloadPDF() {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#ffffff',
-      width: 794, 
-      height: 1123,
-      windowWidth: 794,
-      windowHeight: 1123,
       scrollX: 0,
       scrollY: 0
     },
-    jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' }, // Format px fix 1 halaman
-    pagebreak: { mode: ['avoid-all'] }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, // Format A4 asli 210x297mm
+    pagebreak: { mode: ['css', 'legacy'] }
   };
   
   setTimeout(function() {
