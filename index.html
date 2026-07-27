@@ -168,7 +168,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
     <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
-      <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink:0" fetchpriority="high">
+      <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
       <div class="flex flex-col leading-none whitespace-nowrap">
         <div class="flex items-baseline gap-1">
           <span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span>
@@ -462,7 +462,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
                 <div class="h-0.5 bg-gray-200 w-full"></div>
                 <div class="h-0.5 bg-gray-200 w-full"></div>
                 <div class="h-0.5 bg-gray-200 w-2/3"></div>
-                <div class="h-1 bg-gray-800 w=10 mt-1"></div>
+                <div class="h-1 bg-gray-800 w-10 mt-1"></div>
                 <div class="h-0.5 bg-gray-200 w-full"></div>
               </div>
             </div>
@@ -820,14 +820,7 @@ window._rlamp=function(i){if(i<2)return;lampList.splice(i,1);renderLampF();sched
 function addLamp(){lampList.push('');renderLampF();schedulePreview()}
 function renderForm(){var fc=document.getElementById('form-content');if(curCat==='cv'){var h=settingsH()+photoH();h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="S1 Universitas Indonesia" oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="Teknik Informatika" oninput="schedulePreview()"></div></div></div>';if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','Kota, T/B/TH')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>';h+=dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')}else{var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;var h='';h+=settingsH();h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';var ptInfo='';if(!m.semua){ptInfo+=fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')}if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}h+='<div class="card space-y-2">'+ptInfo+'</div>';h+=secH('Kalimat Pembuka & Penutup');h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';h+=secH('Daftar Lampiran');h+='<div id="lamp-c"></div>';h+=fldH('sTtd','Nama Tanda Tangan','.....');fc.innerHTML=h;renderLampF()}restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')}
 
-// PERUBahan: Auto Crop 3x4 (2.79 cm x 3.81 cm)
-function fotoImg(){
-  var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;'; // Ukuran presisi 3x4
-  if(photoData){
-    return'<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;object-fit:cover"></div>'
-  }
-  return'<div style="'+wStyle+'border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;text-align:center;line-height:1.4">Pas Foto<br>3X4</div>'
-}
+function fotoImg(){var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;';if(photoData){return'<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;object-fit:cover"></div>'}return'<div style="'+wStyle+'border:1px dashed #999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:7pt;text-align:center;line-height:1.4">Pas Foto<br>3X4</div>'}
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
 function _eduTbl(list,mode){var h='';if(mode==='aligned'){h='<table style="'+_tw+'">';list.forEach(function(e){h+='<tr><td style="'+_c1+'">'+(e.t||'……………….')+'</td><td style="'+_c2+'">'+L('Tahun Lulus')+'</td><td style="'+_c3+'">'+(e.y||'0000/0000')+'</td></tr>'});h+='</table>'}else{h='<table style="width:100%">';list.forEach(function(e){h+='<tr><td>'+(e.t||'……………….')+'</td><td style="width:28mm;text-align:center">'+L('Tahun Lulus')+'</td><td style="width:25mm;text-align:right">'+(e.y||'0000/0000')+'</td></tr>'});h+='</table>'}return h}
 function _eduTblNon(list,mode){var h='<table style="'+_tw+'">';list.forEach(function(e){var name=e.t||'……………….';var ket1=e.k?'<br>'+esc(e.k):'';var year=e.y||'0000';var ket2=e.d?'<br>'+esc(e.d):'';if(mode==='aligned'){h+='<tr><td style="'+_c1+'">'+name+ket1+'</td><td style="'+_c2+'">'+L('Tahun Lulus')+'</td><td style="'+_c3+'">'+year+ket2+'</td></tr>'}else{h+='<tr><td style="width:50%">'+name+ket1+'</td><td style="width:28%;text-align:center">'+L('Tahun Lulus')+'</td><td style="width:22%;text-align:right">'+year+ket2+'</td></tr>'}});h+='</table>';return h}
@@ -918,7 +911,7 @@ function resetZoom() {
     applyZoom();
 }
 
-// PERUBahan: Logika Auto Crop 3x4
+// Logika Auto Crop 3x4 (2.79 cm x 3.81 cm)
 function handlePhoto(e){
   var file=e.target.files[0];
   if(!file)return;
@@ -928,7 +921,6 @@ function handlePhoto(e){
   reader.onload=function(ev){
     var img=new Image();
     img.onload=function(){
-      // Target rasio 3x4 (2.79 : 3.81)
       var targetW=2.79;
       var targetH=3.81;
       var targetRatio=targetW/targetH;
@@ -940,16 +932,13 @@ function handlePhoto(e){
       var sx=0,sy=0,sWidth=imgW,sHeight=imgH;
       
       if(imgRatio>targetRatio){
-        // Gambar lebih lebar dari target, potong sisi kiri-kanan
         sWidth=imgH*targetRatio;
         sx=(imgW-sWidth)/2;
       } else {
-        // Gambar lebih tinggi dari target, potong atas-bawah
         sHeight=imgW/targetRatio;
         sy=(imgH-sHeight)/2;
       }
       
-      // Buat canvas dengan resolusi tinggi (misal lebar 400px)
       var canvasW=400;
       var canvasH=Math.round(canvasW/targetRatio);
       var canvas=document.createElement('canvas');
@@ -957,10 +946,8 @@ function handlePhoto(e){
       canvas.height=canvasH;
       var ctx=canvas.getContext('2d');
       
-      // Gambar hasil potongan ke canvas
       ctx.drawImage(img,sx,sy,sWidth,sHeight,0,0,canvasW,canvasH);
       
-      // Konversi ke Data URL
       photoData=canvas.toDataURL('image/jpeg',0.95);
       
       var imgThumb=document.getElementById('photo-thumb');
@@ -978,7 +965,7 @@ function handlePhoto(e){
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (AUTO-FIT 1 PAGE STABLE) =================
+// ================= DOWNLOAD PDF (DENGAN JARAK KHUSUS PDF) =================
 function downloadPDF() {
     saveStatic();
     var offscreen = document.getElementById('pdf-offscreen');
@@ -991,6 +978,17 @@ function downloadPDF() {
     clone.style.margin = '0';
     clone.style.boxShadow = 'none';
     clone.style.width = '210mm';
+    
+    // PERBAIKAN: Perlebar jarak garis horizontal section (PROFIL, dll) KHUSUS UNTUK PDF
+    var stElements = clone.querySelectorAll('.st');
+    for(var i=0; i<stElements.length; i++) {
+        stElements[i].style.paddingBottom = '2mm';
+        stElements[i].style.marginBottom = '5mm';
+        stElements[i].style.marginTop = '6mm';
+        if(i === 0) {
+            stElements[i].style.marginTop = '0';
+        }
+    }
     
     offscreen.innerHTML = '';
     offscreen.appendChild(clone);
