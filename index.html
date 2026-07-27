@@ -20,7 +20,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- Mengganti html2pdf dengan library resmi yang stabil -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
@@ -860,7 +862,7 @@ function handlePhoto(e){var file=e.target.files[0];if(!file)return;if(file.size>
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
 function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''},{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{j:'',m:'',pt:'',jl:'',kt:'',desc:''}];hSkills=['','','','','',''];sSkills=['','','','','',''];kSkills=['','','','','',''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=['',''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
-// ================= DOWNLOAD PDF (AUTO-FIT 1 PAGE) =================
+// ================= DOWNLOAD PDF (AUTO-FIT 1 PAGE STABLE) =================
 function downloadPDF() {
     saveStatic();
     var offscreen = document.getElementById('pdf-offscreen');
@@ -877,34 +879,34 @@ function downloadPDF() {
     offscreen.innerHTML = '';
     offscreen.appendChild(clone);
     
+    // Ukuran A4 dalam piksel pada skala 96dpi
     const mmToPx = 96 / 25.4; 
     const a4HeightPx = 297 * mmToPx;
     
-    // Variabel untuk penyesuaian otomatis
+    // Penyesuaian otomatis (Auto-fit)
     let currentFontSize = parseFloat(selSize);
     let currentLineHeight = parseFloat(selLH);
     let currentPadTB = 12; // padding atas bawah dalam mm
     
-    // Sementara ubah ke auto untuk mengukur tinggi asli konten
+    // Ubah ke auto untuk mengukur tinggi asli konten
     clone.style.height = 'auto';
     clone.style.minHeight = '0';
     clone.style.overflow = 'visible';
     
-    // Looping mengecilkan font & margin jika melebihi 1 halaman A4
     let attempts = 0;
     while (clone.offsetHeight > a4HeightPx && attempts < 40) {
         attempts++;
         let changed = false;
         
-        if (currentFontSize > 7) {
+        if (currentFontSize > 7) { // Minimum font 7pt
             currentFontSize -= 0.5;
             changed = true;
         }
-        if (currentLineHeight > 1.1) {
+        if (currentLineHeight > 1.1) { // Minimum line height 1.1
             currentLineHeight -= 0.05;
             changed = true;
         }
-        if (currentPadTB > 3) {
+        if (currentPadTB > 3) { // Minimum padding 3mm
             currentPadTB -= 1;
             changed = true;
         }
@@ -916,8 +918,9 @@ function downloadPDF() {
         clone.style.padding = currentPadTB + 'mm 16mm';
     }
     
-    // Kunci kembali ukuran menjadi A4 pasti untuk di-screenshot
+    // Kunci kembali menjadi A4 untuk proses screenshot
     clone.style.height = '297mm';
+    clone.style.minHeight = '297mm';
     clone.style.overflow = 'hidden';
     
     var filename = curCat === 'cv' ? 'CV_' + (v('nama') || 'dokumen') : 'Surat_Lamaran_' + (v('nama') || 'dokumen');
@@ -929,16 +932,20 @@ function downloadPDF() {
     
     try {
         var h2c = window.html2canvas;
-        var JsPDF = window.jspdf.jsPDF;
+        var jsPDF = window.jspdf.jsPDF;
+        
+        if(!h2c || !jsPDF) throw "Library PDF tidak ditemukan";
         
         h2c(clone, {
             scale: 3, 
             useCORS: true, 
             backgroundColor: '#ffffff',
-            windowWidth: 1000
+            windowWidth: 1000,
+            width: clone.offsetWidth,
+            height: clone.offsetHeight
         }).then(function(canvas) {
             var imgData = canvas.toDataURL('image/jpeg', 0.98);
-            var pdf = new JsPDF('p', 'mm', 'a4');
+            var pdf = new jsPDF('p', 'mm', 'a4');
             
             var pdfWidth = pdf.internal.pageSize.getWidth(); 
             var pdfHeight = pdf.internal.pageSize.getHeight(); 
