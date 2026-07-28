@@ -155,8 +155,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .article-content li { margin-bottom: 0.5rem; color: #4b5563; text-align: left; position: relative; padding-left: 1.5rem; }
 .dark .article-content li { color: #cbd5e1; }
 .article-content li::before { content: '•'; position: absolute; left: 0.5rem; color: #DC2626; font-weight: bold; }
-.article-content a { color: #DC2626; text-decoration: underline; }
-.article-content strong { color: #111827; }
+.article-content a { color: #DC2626; text-decoration: none; font-weight: 600; }
+.article-content a:visited, .article-content a:active { color: #60A5FA; }
+.article-content strong { color: #111827; font-weight: 700; }
 .dark .article-content strong { color: #fff; }
 </style>
 </head>
@@ -216,7 +217,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-bold tracking-wider mb-6">100% GRATIS & RAMAH ATS</span>
       <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Generator CV & Surat Lamaran Kerja <span class="text-brand-red">Profesional</span></h1>
-      <p class="max-w-xl mx-auto text-gray-400 mb-8 px-4 text-sm md:text-base text-justify md:text-center"><strong>Karya Abadi Jobs</strong> adalah tool online gratis untuk membuat CV dan Surat Lamaran secara otomatis. Desain rapi, format PDF siap cetak, tanpa registrasi, dan ramah ATS.</p>
+      <p class="max-w-xl mx-auto text-gray-400 mb-8 px-4 text-sm md:text-base text-justify md:text-center"><strong>Karya Abadi Jobs</strong> adalah platform online gratis untuk membuat CV dan Surat Lamaran Kerja secara otomatis. Desain dokumen yang rapi, format PDF siap cetak, proses tanpa registrasi, serta struktur yang ramah ATS untuk memudahkan Anda melamar pekerjaan impian.</p>
       <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
         <button onclick="showPage('generator')" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red">Mulai Buat CV <i class="fa-solid fa-arrow-right ml-2"></i></button>
         <button onclick="showPage('tips')" class="px-8 py-3 border border-brand-border text-white font-bold rounded-xl hover:bg-brand-card transition">Lihat Contoh CV</button>
@@ -229,32 +230,32 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-bolt text-xl"></i></div>
         <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Cepat & Mudah</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Cukup isi formulir data diri, pengalaman, dan pendidikan. Pratinjau langsung tersedia real-time tanpa menunggu.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Cukup isi formulir data diri, riwayat pendidikan, hingga pengalaman kerja. Pratinjau dokumen tersedia secara real-time tanpa menunggu proses loading yang lama.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-shield-halved text-xl"></i></div>
         <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Aman & Privat</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Data Anda diproses 100% di browser. Tidak ada data yang dikirim atau disimpan di server kami.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Seluruh data Anda diproses 100% di dalam browser. Tidak ada informasi pribadi yang dikirim, disimpan, atau diakses oleh server kami.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-file-pdf text-xl"></i></div>
         <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Format PDF Standar</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Unduh dokumen dalam format PDF berkualitas tinggi (A4) yang siap dikirim ke HRD perusahaan.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Unduh dokumen dalam format PDF berkualitas tinggi (A4) yang siap dikirimkan langsung ke HRD perusahaan tujuan Anda.</p>
       </div>
     </div>
 
     <article class="max-w-5xl mx-auto mb-16 text-center">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">Panduan Membuat CV yang Menarik untuk HRD</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Curriculum Vitae (CV) adalah representasi profesional pertama yang dilihat oleh perekrut. Dalam era digital, banyak perusahaan menggunakan Applicant Tracking System (ATS) untuk menyaring kandidat. Oleh karena itu, CV yang baik tidak hanya secara visual menarik, tetapi juga mudah dibaca oleh sistem.</p>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-center max-w-3xl mx-auto px-4 text-sm md:text-base">Berikut adalah beberapa tips yang bisa Anda terapkan saat menggunakan tool generator kami:</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Curriculum Vitae (CV) adalah representasi profesional pertama yang dilihat oleh perekrut. Dalam era digital, banyak perusahaan menggunakan Applicant Tracking System (ATS) untuk menyaring kandidat secara otomatis. Oleh karena itu, CV yang baik tidak hanya harus menarik secara visual, tetapi juga mudah dibaca oleh sistem tersebut.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-center max-w-3xl mx-auto px-4 text-sm md:text-base">Berikut adalah beberapa tips penting yang bisa Anda terapkan saat menggunakan tool generator CV kami untuk memaksimalkan peluang lolos seleksi:</p>
       
       <div class="grid md:grid-cols-3 gap-6 text-center">
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl">
             <i class="fa-solid fa-magnifying-glass-chart"></i>
           </div>
-          <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Gunakan Kata Kunci (Keywords)</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Sesuaikan keahlian Anda dengan deskripsi pekerjaan yang dilamar.</p>
+          <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Gunakan Kata Kunci</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Sesuaikan keahlian dan kata kunci teknis Anda dengan deskripsi pekerjaan yang dilamar secara spesifik.</p>
         </div>
         
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
@@ -262,7 +263,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
             <i class="fa-solid fa-layer-group"></i>
           </div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Struktur yang Jelas</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Pastikan bagian Data Pribadi, Pendidikan, dan<br>Pengalaman Kerja terpisah dengan jelas.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpisah dengan jelas dan mudah dipindai.</p>
         </div>
         
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
@@ -270,13 +271,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
             <i class="fa-solid fa-bullseye"></i>
           </div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Singkat dan Padat</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poin penting daripada paragraf panjang.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poin penting yang singkat daripada paragraf panjang.</p>
         </div>
       </div>
     </article>
 
     <div class="mb-16">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Siap Melamar Pekerjaan Impian?</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <button onclick="showPage('generator')" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red">Buat CV Sekarang</button>
     </div>
   </main>
@@ -352,31 +354,38 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-panduan" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1>Panduan Penggunaan Tool Generator</h1>
-    <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai:</p>
+    <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai proses pembuatan dokumen lamaran Anda:</p>
     
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>Langkah 1: Pilih Jenis Dokumen</h2>
-      <p>Di bagian atas halaman <a href="#" onclick="showPage('generator'); return false;">Generator</a>, Anda akan melihat dua tab utama: <strong>CV (Curriculum Vitae)</strong> dan <strong>Surat Melamar Pekerjaan</strong>. Klik tab sesuai dengan dokumen yang ingin Anda buat.</p>
+      <p>Di bagian atas halaman <a href="#" onclick="showPage('generator'); return false;">Generator</a>, Anda akan melihat dua tab utama yaitu <strong>CV (Curriculum Vitae)</strong> dan <strong>Surat Melamar Pekerjaan</strong>. Klik tab sesuai dengan dokumen yang ingin Anda buat untuk melanjutkan proses pengisian data diri.</p>
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>Langkah 2: Pilih Template</h2>
-      <p>Setelah memilih jenis dokumen, pilihlah template yang tersedia. Untuk CV, kami menyediakan 3 pilihan template (Klasik, Modern Tengah, dan Sidebar). Untuk Surat Lamaran, tersedia 6 pilihan format (Email/Umum/Posisi/Spesifik). Klik pada tombol template untuk mengaktifkannya.</p>
+      <p>Setelah memilih jenis dokumen, pilihlah template yang tersedia. Untuk CV, kami menyediakan 4 pilihan template yang dapat disesuaikan dengan kebutuhan Anda. Berikut adalah rekomendasi kategori penggunaan masing-masing template:</p>
+      <ul class="space-y-2 mt-4">
+        <li><strong>CV Template 1:</strong> Sangat cocok digunakan untuk <strong>lulusan baru (fresh graduate)</strong> yang membutuhkan format <strong>standar atau umum</strong> tanpa menyebutkan posisi lowongan kerja secara spesifik.</li>
+        <li><strong>CV Template 2:</strong> Direkomendasikan untuk <strong>lulusan baru atau yang sudah berpengalaman</strong> yang ingin melamar <strong>posisi lowongan kerja tertentu</strong>. Desainnya menonjolkan nama dan posisi yang dilamar di bagian atas.</li>
+        <li><strong>CV Template 3:</strong> Cocok untuk <strong>lulusan baru maupun yang berpengalaman</strong> yang ingin melamar <strong>posisi lowongan kerja</strong> dengan tampilan sidebar yang modern dan terstruktur.</li>
+        <li><strong>CV Template 4:</strong> Alternatif lain untuk <strong>lulusan baru atau yang berpengalaman</strong> yang melamar <strong>posisi lowongan kerja</strong>, namun menyukai tampilan minimalis yang sangat ramah ATS (Applicant Tracking System).</li>
+      </ul>
+      <p class="mt-4">Untuk Surat Lamaran, tersedia 6 pilihan format yang mencakup variasi Email, Umum, Posisi Spesifik, dan Surat untuk Semua PT. Klik pada tombol template untuk mengaktifkannya.</p>
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>Langkah 3: Isi Formulir Data</h2>
-      <p>Pada panel kiri, isi semua kolom formulir sesuai dengan data diri Anda. Mulai dari Informasi Pribadi, Pendidikan, Pengalaman Kerja, hingga Keahlian.</p>
+      <p>Pada panel kiri, isi semua kolom formulir sesuai dengan data diri Anda. Mulai dari Informasi Pribadi, Pendidikan, Pengalaman Kerja, hingga Keahlian. Pastikan data yang dimasukkan sudah valid dan terkini.</p>
       <ul class="space-y-2 mt-4">
         <li><strong>Tambah/Kurang Item:</strong> Pada bagian Pendidikan dan Pengalaman, gunakan tombol plus (+) untuk menambah baris baru, dan tombol minus (-) untuk menghapus.</li>
         <li><strong>Upload Foto:</strong> Anda dapat mengunggah pas foto berformat JPG/PNG (maksimal 2MB) dengan klik area putus-putus. Foto akan otomatis menyesuaikan ukuran.</li>
-        <li><strong>Pengaturan Tampilan:</strong> Sesuaikan jenis font, ukuran font, dan jarak baris agar dokumen terlihat ideal.</li>
+        <li><strong>Pengaturan Tampilan:</strong> Sesuaikan jenis font, ukuran font, dan jarak baris agar dokumen terlihat ideal dan rapi.</li>
       </ul>
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>Langkah 4: Pratinjau (Preview)</h2>
-      <p>Di panel kanan (atau dengan menekan tombol "Preview" di HP), Anda dapat melihat hasil dokumen secara <strong>real-time</strong>. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Pastikan tidak ada teks yang terpotong di bagian bawah halaman.</p>
+      <p>Di panel kanan (atau dengan menekan tombol "Preview" di HP), Anda dapat melihat hasil dokumen secara <strong>real-time</strong>. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Pastikan tidak ada teks yang terpotong di bagian bawah halaman sebelum diunduh.</p>
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
@@ -390,7 +399,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-tips" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1>Tips Karier & Contoh Dokumen Lamaran</h1>
-    <p>Menyusun dokumen lamaran kerja yang baik adalah langkah pertama menuju karier impian. Di halaman ini, kami menyediakan panduan lengkap mengenai cara membuat CV dan Surat Lamaran Kerja yang efektif, profesional, dan mampu menarik perhatian perekrut.</p>
+    <p>Menyusun dokumen lamaran kerja yang baik adalah langkah pertama menuju karier impian. Di halaman ini, kami menyediakan panduan lengkap mengenai cara membuat CV dan Surat Lamaran Kerja yang efektif, profesional, dan mampu menarik perhatian perekrut secara optimal.</p>
     
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>1. Contoh Surat Lamaran Kerja yang Baik dan Benar</h2>
@@ -408,9 +417,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>2. Contoh Template CV Sesuai dengan Website Kami</h2>
-      <p>Berikut adalah ilustrasi contoh tampilan dari template CV yang tersedia di generator Karya Abadi Jobs:</p>
+      <p>Berikut adalah ilustrasi contoh tampilan dari template CV yang tersedia di generator Karya Abadi Jobs. Setiap template dirancang untuk memberikan kesan profesional dan disesuaikan dengan kebutuhan Anda:</p>
       
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+      <div class="grid grid-cols-2 gap-6 mt-8">
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <img src="https://z-cdn-media.chatglm.cn/files/8120d90b-237f-430b-b2c7-9d5b92041ca2.png?auth_key=1885162050-acd6ba507c664f7db1f01eb14e4ce458-0-08369e3fbdbf1af25979b3ff9dbb19cb" alt="Contoh Template CV 1" class="w-full h-full object-contain">
@@ -434,12 +443,33 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 3</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(Sidebar)</p>
         </div>
+
+        <div class="text-center">
+          <div class="bg-white rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex flex-col items-center justify-start p-3 text-gray-800 text-[8px]">
+             <div class="font-bold text-[14px] mt-2 mb-1">NAMA</div>
+             <div class="text-gray-600 text-[9px] mb-3">Lulusan Baru / Posisi</div>
+             <div class="text-gray-500 text-[7px] mb-1">Tempat, Tanggal Lahir</div>
+             <div class="text-gray-500 text-[7px] mb-1">Alamat</div>
+             <div class="text-gray-500 text-[7px] mb-3">No.Hp | E-mail</div>
+             <div class="w-full border-t border-black font-bold mt-1 mb-1 text-[8px]">PROFIL</div>
+             <div class="w-full text-gray-500 text-[6px] leading-tight text-justify mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+             <div class="w-full border-t border-black font-bold mt-1 mb-1 text-[8px]">PENDIDIKAN</div>
+             <div class="w-full text-gray-500 text-[6px]">Sekolah ......... <span class="float-right">Tahun Lulus 0000</span></div>
+             <div class="w-full border-t border-black font-bold mt-1 mb-1 text-[8px]">PENGALAMAN</div>
+             <div class="w-full text-gray-500 text-[6px] font-bold">PT ......... <span class="float-right">Jabatan</span></div>
+             <div class="w-full border-t border-black font-bold mt-1 mb-1 text-[8px]">KEAHLIAN</div>
+             <div class="w-full text-gray-500 text-[6px]">• Keahlian 1</div>
+             <div class="w-full text-gray-500 text-[6px]">• Keahlian 2</div>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 4</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(ATS Sederhana)</p>
+        </div>
       </div>
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>3. Apa itu CV ATS Friendly?</h2>
-      <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyortir ratusan hingga ribuan CV. CV yang "ATS Friendly" berarti CV tersebut dapat dibaca dengan easy oleh robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS.</p>
+      <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyortir ratusan hingga ribuan CV. CV yang "ATS Friendly" berarti CV tersebut dapat dibaca dengan mudah oleh robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS.</p>
       <h3>Tips Agar Lolos ATS:</h3>
       <ul class="space-y-2 mt-2">
         <li>Hindari menggunakan kolom atau desain yang terlalu rumit dengan banyak grafis.</li>
@@ -461,7 +491,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-loker" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1>Info Lowongan Kerja Terpercaya di Indonesia</h1>
-    <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi:</p>
+    <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi utama:</p>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
       <a href="https://www.jobstreet.co.id/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
@@ -469,7 +499,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-solid fa-briefcase"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">JobStreet Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Situs lowongan kerja terbesar di Asia Tenggara. Menyediakan ribunan lowongan dari berbagai industri dengan fitur filtering yang lengkap.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Situs lowongan kerja terbesar di Asia Tenggara. Menyediakan ribuan lowongan dari berbagai industri dengan fitur filtering yang sangat lengkap.</p>
       </a>
 
       <a href="https://id.linkedin.com/jobs" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
@@ -509,7 +539,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-xl"><i class="fa-solid fa-building-shield"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Kemnaker (Pemerintah)</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Portal resmi Kementerian Ketenagakerjaan RI yang menyediakan informasi seputar ketenagakerjaan dan lowongan kerja.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Portal resmi Kementerian Ketenagakerjaan RI yang menyediakan informasi seputar ketenagakerjaan dan lowongan kerja resmi.</p>
       </a>
     </div>
   </main>
@@ -519,12 +549,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-faq" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Pertanyaan yang Sering Diajukan (FAQ)</h1>
-    <p>Berikut adalah beberapa pertanyaan umum seputar penggunaan tool generator Karya Abadi Jobs.</p>
+    <p>Berikut adalah beberapa pertanyaan umum seputar penggunaan tool generator Karya Abadi Jobs beserta jawabannya. Simak informasi berikut untuk membantu Anda memaksimalkan layanan kami:</p>
     
     <div class="space-y-4 mt-8">
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">1. Apakah layanan Karya Abadi Jobs berbayar?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maupun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maupun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi apapun.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">2. Apakah data pribadi saya aman saat menggunakan tool ini?</h3>
@@ -532,11 +562,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">3. Format apa saja yang dihasilkan oleh generator ini?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Hasil akhir dokumen dapat diunduh langsung dalam format PDF (Ukuran A4) yang berkualitas tinggi, profesional, dan siap dikirimkan via email ke perekrut HRD.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Hasil akhir dokumen dapat diunduh langsung dalam format PDF (Ukuran A4) yang berkualitas tinggi, profesional, dan siap dikirimkan secara digital via email kepada perekrut HRD.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Apakah saya perlu mendaftar akun atau login?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Tidak perlu. Anda bisa langsung membuka halaman <a href="#" onclick="showPage('generator'); return false;">Buat CV</a>, mengisi data, dan mengunduh PDF tanpa proses registrasi.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Tidak perlu. Anda bisa langsung membuka halaman <a href="#" onclick="showPage('generator'); return false;">Buat CV</a>, mengisi data, dan mengunduh PDF tanpa proses registrasi yang merepotkan.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">5. Apakah CV yang dihasilkan ramah ATS (Applicant Tracking System)?</h3>
@@ -572,7 +602,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-privacy" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Kebijakan Privasi</h1>
-    <p>Kebijakan Privasi ini menjelaskan bagaimai Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
+    <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
     <p>Karya Abadi Jobs <strong>tidak mengumpulkan, menyimpan, atau mengirimkan</strong> data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telepon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
@@ -590,11 +620,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h1>Ketentuan Layanan</h1>
     <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
-    <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan atau bebas dari kesalahan teknis.</p>
+    <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakuransi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuransi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakuratan, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuratan informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dilarang</h2>
-    <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
+    <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau mengupayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
     <p>Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini adalah milik penuh dari pengguna masing-masing dan bebas digunakan untuk keperluan melamar pekerjaan.</p>
   </main>
@@ -688,7 +718,7 @@ var kSkills=['','','','','',''];
 var skillMode='hs';
 var lampList=['',''];
 var _rpTimer=null;
-var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'}];
+var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'},{id:'cv4',name:'CV Template 4'}];
 var ST_M=[
   {id:'s-ou',name:'Email (Umum)',pos:false,on:true,semua:false},
   {id:'s-tu',name:'Tulis Tangan (Umum)',pos:false,on:false,semua:false},
@@ -721,7 +751,7 @@ function toggleSkillMode(mode){skillMode=mode;var whs=document.getElementById('w
 function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-ou';updCatTabs();renderTplTabs();renderForm();renderPreview()}
 function selectTpl(id){saveStatic();curTpl=id;renderTplTabs();renderForm();renderPreview()}
 function updCatTabs(){document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('border-brand-red','text-brand-red');t.classList.add('border-transparent','text-gray-500')});var el=document.getElementById('cat-'+curCat);if(el){el.classList.add('border-brand-red','text-brand-red');el.classList.remove('border-transparent','text-gray-500')}}
-function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;var gridClass=curCat==='cv'?'grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200':'grid grid-cols-2 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200';var tabsContainer=document.getElementById('tpl-tabs');tabsContainer.className=gridClass;tabsContainer.innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-center '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-200 dark:border-brand-border')+'">'+t.name+'</button>'}).join('')}
+function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;var gridClass=curCat==='cv'?'grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200':'grid grid-cols-2 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200';var tabsContainer=document.getElementById('tpl-tabs');tabsContainer.className=gridClass;tabsContainer.innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-center '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-200 dark:border-brand-border')+'">'+t.name+'</button>'}).join('')}
 function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview()}}
 function openMobilePreview(){var pm=document.getElementById('preview-mobile');pm.classList.remove('hidden');setTimeout(function(){applyZoom()},60)}
 function closeMobilePreview(){document.getElementById('preview-mobile').classList.add('hidden')}
@@ -782,7 +812,7 @@ window._rsk=function(t,i){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);
 window._ask=function(t){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');a.push('');renderSkIF(a,cid,t);schedulePreview()};
 window._rlamp=function(i){if(i<2)return;lampList.splice(i,1);renderLampF();schedulePreview()};
 function addLamp(){lampList.push('');renderLampF();schedulePreview()}
-function renderForm(){var fc=document.getElementById('form-content');if(curCat==='cv'){var h=settingsH()+photoH();h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="S1 Universitas Indonesia" oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="Teknik Informatika" oninput="schedulePreview()"></div></div></div>';if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Operator Produksi')+fldH('ttl','Tempat, Tanggal Lahir','Kota, T/B/TH')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>';h+=dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')}else{var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;var h='';h+=settingsH();h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';var ptInfo='';if(!m.semua){ptInfo+=fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')}if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}h+='<div class="card space-y-2">'+ptInfo+'</div>';h+=secH('Kalimat Pembuka & Penutup');h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';h+=secH('Daftar Lampiran');h+='<div id="lamp-c"></div>';h+=fldH('sTtd','Nama Tanda Tangan','.....');fc.innerHTML=h;renderLampF()}restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')}
+function renderForm(){var fc=document.getElementById('form-content');if(curCat==='cv'){var h=settingsH()+photoH();h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="S1 Universitas Indonesia" oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="Teknik Informatika" oninput="schedulePreview()"></div></div></div>';if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Posisi Lowongan Kerja')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Posisi Lowongan Kerja')+fldH('ttl','Tempat, Tanggal Lahir','Kota, T/B/TH')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+fldH('agama','Agama','.....')+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){h+=taH('profil','Profil (opsional)','Isi jika ingin mengubah deskripsi otomatis...');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','NAMA')+fldH('subtitle','Keterangan di bawah Nama','Lulusan Baru / Posisi Lowongan Kerja')+fldH('ttl','Tempat, Tanggal Lahir','Tempat, Tanggal lahir')+fldH('alamat1','Alamat','Alamat')+fldH('nohp','No. HP','No.Hp')+fldH('email','Email','E-mail')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>';h+=dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>';h+=dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')}else{var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;var h='';h+=settingsH();h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="Subang" oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="1" oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="Januari 2025" oninput="schedulePreview()"></div></div></div>';var ptInfo='';if(!m.semua){ptInfo+=fldH('sPt','Nama Perusahaan','PT. .....')+fldH('sJl','Alamat Perusahaan','Jl. .....')+fldH('sJl2','Alamat Lanjutan','(opsional)')}if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}h+='<div class="card space-y-2">'+ptInfo+'</div>';h+=secH('Kalimat Pembuka & Penutup');h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';h+=secH('Daftar Lampiran');h+='<div id="lamp-c"></div>';h+=fldH('sTtd','Nama Tanda Tangan','.....');fc.innerHTML=h;renderLampF()}restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')}
 
 function fotoImg(){
   var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';
@@ -805,7 +835,156 @@ function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(f
 
 function renderCV1(){var N=v('nama')||'……………….',TTL=v('ttl')||'……………….',JK=v('jk')||'……………….',BN=v('bangsa')||'……………….',AG=v('agama')||'……………….',TB=v('tb')||'……………….',BB=v('bb')||'……………….',HP=v('nohp')||'……………….',ST=v('status')||'……………….',EM=v('email')||'……………….';var a1=joinAddr(v('alamat1'),v('alamat2'))||'………………….',a2=joinAddr(v('alamat3'),v('alamat4'))||'……………………..';var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');function dp(l,val){return'<tr><td class="dl">'+L(l)+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;padding-left:9.5mm"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div></div></div><div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+dp('Nama',esc(N))+dp('Tempat, tanggal lahir',esc(TTL))+dp('Jenis Kelamin',esc(JK))+dp('Bangsa',esc(BN))+dp('Agama',esc(AG))+dp('Tinggi Badan',esc(TB)+' cm')+dp('Berat Badan',esc(BB)+' kg')+dp('Alamat',a1+'<br>'+a2)+dp('No. Hp',esc(HP))+dp('Status',esc(ST))+dp('Email',esc(EM))+'</table><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expPH(expList)+'<div class="st">'+L('KEAHLIAN')+'</div>'+SK}
 function renderCV2(){var N=v('nama')||'NAMA',TTL=v('ttl')||'Tempat, Tanggal Lahir',JK=v('jk')||'Jenis Kelamin',BN=v('bangsa')||'Bangsa',AG=v('agama')||'Agama',TB=v('tb')||'Tinggi Badan',BB=v('bb')||'Berat Badan',ST=v('status')||'Status',HP=v('nohp')||'No. Hp',EM=v('email')||'Email';var al1=joinAddr(v('alamat1'),v('alamat2'))||'Alamat',al2=joinAddr(v('alamat3'),v('alamat4'))||'Kecamatan, Kabupaten/Kota';var SUB=v('subtitle')||'';var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');return'<div style="display:flex;gap:8mm;align-items:center"><div style="flex-shrink:0">'+fotoImg()+'</div><div style="flex:1;text-align:center"><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:3mm"></div>')+'<div>'+esc(TTL)+'</div><div>'+esc(JK)+' | '+esc(BN)+' | '+esc(AG)+' | '+esc(TB)+' cm | '+esc(BB)+' kg | '+esc(ST)+'</div><div>'+al1+'</div><div>'+al2+'</div><div>'+esc(HP)+' | '+esc(EM)+'</div></div></div><div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'aligned')+'<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expPH(expList)+'<div class="st">'+L('KEAHLIAN')+'</div>'+SK}
-function renderCV3(){var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var SUB=v('subtitle')||'';var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:5mm"></div>')+diNoWrap('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi Badan',esc(TB)+' cm')+di('Berat Badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);var rs='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'right')+'<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expPH3(expList)+'<div class="st">'+L('KEAHLIAN')+'</div>'+SK;return'<table style="width:100%;border:none;table-layout:fixed;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:8mm">'+rs+'</td></tr></table>'}
+function renderCV3(){var N=v('nama')||'NAMA',TTL=v('ttl')||'………………………..',JK=v('jk')||'………………………..',BN=v('bangsa')||'………………………..',AG=v('agama')||'………………………..',TB=v('tb')||'………………………..',BB=v('bb')||'………………………..',HP=v('nohp')||'………………………..',ST=v('status')||'………………………..',EM=v('email')||'………………………..';var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var ab=ap.length?ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''):'<div>………………………..</div>';var SUB=v('subtitle')||'';var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');function di(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val){return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div><div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>'+(SUB?'<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>':'<div style="margin-bottom:5mm"></div>')+diNoWrap('Tempat, Tanggal Lahir',esc(TTL))+di('Jenis Kelamin',esc(JK))+di('Bangsa',esc(BN))+di('Agama',esc(AG))+di('Tinggi badan',esc(TB)+' cm')+di('Berat badan',esc(BB)+' kg')+di('No. HP',esc(HP))+di('Status',esc(ST))+di('Email',esc(EM))+di('Alamat',ab);var rs='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm">'+PR+'</div><div class="st">'+eduTitle+'</div>'+eduPHDual(eduList,eduNonList,'right')+'<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expPH3(expList)+'<div class="st">'+L('KEAHLIAN')+'</div>'+SK;return'<table style="width:100%;border:none;table-layout:fixed;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000">'+ls+'</td><td style="vertical-align:top;padding-left:8mm">'+rs+'</td></tr></table>'}
+
+// --- CV4 Specific Helpers ---
+function parseSkillCV4(text) {
+    var t = text.trim();
+    var parts = t.split(/[-:]/);
+    if (parts.length > 1) {
+        return { title: parts[0].trim(), val: parts.slice(1).join(':').trim() };
+    }
+    return { title: t, val: '' };
+}
+
+function renderSkillsCV4(skillArr) {
+    if (!skillArr.length) {
+        skillArr = ['Skill 1 : Keterangan', 'Skill 2 : Keterangan', 'Skill 3 : Keterangan'];
+    }
+    var h = '<table style="width:100%; border-collapse:collapse;">';
+    skillArr.forEach(function(s) {
+        var p = parseSkillCV4(s);
+        h += '<tr>';
+        // Bullet column with tight padding
+        h += '<td style="width:4mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0;">•</td>';
+        // Skill title with tight right padding
+        h += '<td style="white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600;">' + esc(p.title) + '</td>';
+        if (p.val) {
+            // Colon column with tight padding
+            h += '<td style="white-space:nowrap; vertical-align:top; padding:0 1.5mm 2mm 0;">:</td>';
+            // Value column
+            h += '<td style="vertical-align:top; padding:0 0 2mm 0;">' + esc(p.val) + '</td>';
+        } else {
+            h += '<td colspan="2" style="padding-bottom:2mm;"></td>';
+        }
+        h += '</tr>';
+    });
+    h += '</table>';
+    return h;
+}
+
+function renderCV4(){
+  var N=v('nama')||'NAMA',
+  SUB=v('subtitle')||'Lulusan Baru / Posisi Lowongan Kerja',
+  TTL=v('ttl')||'Tempat, Tanggal lahir',
+  AL=v('alamat1')||'Alamat',
+  HP=v('nohp')||'No.Hp',
+  EM=v('email')||'E-mail';
+  var PR=getProfil('');
+
+  // Education
+  var hasNonEdu = eduNonList.some(function(e){ return e.t && e.t.trim(); });
+  var eduH = '';
+  if(hasNonEdu) eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
+  eduH += '<table style="width:100%;">';
+  var hasEdu = eduList.some(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()); });
+  if(!hasEdu && !hasNonEdu){
+      eduH += '<tr><td style="padding:1mm 0;">Pendidikan Terakhir</td><td style="padding:1mm 0;text-align:right;">Tahun Lulus 0000/0000</td></tr>';
+  } else {
+      eduList.forEach(function(e){
+          if(e.t || e.y){
+              eduH += '<tr><td style="padding:1mm 0;">'+esc(e.t||'Pendidikan Terakhir')+'</td><td style="padding:1mm 0;text-align:right;">Tahun Lulus '+esc(e.y||'0000/0000')+'</td></tr>';
+          }
+      });
+  }
+  eduH += '</table>';
+  if(hasNonEdu){
+      eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
+      eduH += '<table style="width:100%;">';
+      eduNonList.forEach(function(e){
+          var ket1 = e.k ? '<br>'+esc(e.k) : '';
+          var ket2 = e.d ? '<br>'+esc(e.d) : '';
+          eduH += '<tr><td style="padding:1mm 0;">'+esc(e.t||'……………….')+ket1+'</td><td style="padding:1mm 0;text-align:right;">Tahun Lulus '+esc(e.y||'0000')+ket2+'</td></tr>';
+      });
+      eduH += '</table>';
+  }
+
+  // Experience
+  var hasExp=expList.some(function(e){return(e.pt&&e.pt.trim())||(e.j&&e.j.trim())||(e.m&&e.m.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim())||(e.desc&&e.desc.trim())});
+  var expH='';
+  if(!hasExp){
+      expH+='<div style="margin-bottom:4mm;">';
+      expH+='<div style="width:100%;"><table style="width:100%;"><tr><td style="font-weight:600;">PT ……………………</td><td style="text-align:right;font-weight:600;">Jabatan/Posisi</td></tr></table></div>';
+      expH+='<div style="width:100%;"><table style="width:100%;"><tr><td>Jl. …………………….</td><td style="text-align:right;">T/B/TH - T/B/TH</td></tr></table></div>';
+      expH+='<div>Kota, Kode Pos</div>';
+      expH+='<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
+      expH+='<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
+      expH+='<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
+      expH+='</div>';
+  } else {
+      expList.forEach(function(e){
+          if(e.pt||e.j||e.m||e.jl||e.kt||e.desc){
+              expH+='<div style="margin-bottom:4mm;">';
+              expH+='<div style="width:100%;"><table style="width:100%;"><tr><td style="font-weight:600;">'+esc(e.pt||'PT ……………………')+'</td><td style="text-align:right;font-weight:600;">'+esc(e.j||'Jabatan/Posisi')+'</td></tr></table></div>';
+              expH+='<div style="width:100%;"><table style="width:100%;"><tr><td>'+esc(e.jl||'Jl. …………………….')+'</td><td style="text-align:right;">'+esc(e.m||'T/B/TH - T/B/TH')+'</td></tr></table></div>';
+              expH+='<div>'+esc(e.kt||'Kota, Kode Pos')+'</div>';
+              
+              if(e.desc && e.desc.trim()){
+                  expH += '<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
+                  var lines = e.desc.trim().split('\n');
+                  lines.forEach(function(l){
+                      if(l.trim()) expH += '<div style="margin-top:1mm; text-align:justify;">' + esc(l.trim()) + '</div>';
+                  });
+              } else {
+                  expH += '<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
+                  expH += '<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
+                  expH += '<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
+              }
+              expH+='</div>';
+          }
+      });
+  }
+
+  // Skills
+  var SK='';
+  if(skillMode==='k'){
+      var items=kSkills.filter(function(s){return s&&s.trim()});
+      SK += renderSkillsCV4(items);
+  } else {
+      var hItems=hSkills.filter(function(s){return s&&s.trim()});
+      var sItems=sSkills.filter(function(s){return s&&s.trim()});
+      if(!hItems.length && !sItems.length){
+          SK += renderSkillsCV4([]);
+      } else {
+          if(hItems.length){
+              SK+='<div style="font-weight:700;margin-bottom:1mm;">Hard Skill</div>';
+              SK += renderSkillsCV4(hItems);
+          }
+          if(sItems.length){
+              if(hItems.length)SK+='<div style="margin-top:2mm;"></div>';
+              SK+='<div style="font-weight:700;margin-bottom:1mm;">Soft Skill</div>';
+              SK += renderSkillsCV4(sItems);
+          }
+      }
+  }
+
+  return '<div>'+
+      '<div style="text-align:center; font-size:1.8em;font-weight:700;text-transform:uppercase;">'+esc(N)+'</div>'+
+      '<div style="text-align:center; font-size:1.1em;font-weight:400;color:#000;margin-top:2mm;">'+esc(SUB)+'</div>'+
+      '<div style="text-align:center; margin-top:3mm;">'+esc(TTL)+'</div>'+
+      '<div style="text-align:center;">'+esc(AL)+'</div>'+
+      '<div style="text-align:center; margin-bottom:5mm;">'+esc(HP)+' | '+esc(EM)+'</div>'+
+      '<div style="border-bottom:1.5pt solid #000; padding-bottom:1.5mm; margin-bottom:4.5mm; margin-top:0;"></div>'+
+      '<div class="st" style="text-align:left;">'+L('PROFIL')+'</div>'+
+      '<div style="text-align:justify;margin-bottom:4mm;">'+PR+'</div>'+
+      '<div class="st">'+L('PENDIDIKAN')+'</div>'+
+      eduH+
+      '<div class="st" style="margin-top:4mm;">'+L('PENGALAMAN KERJA')+'</div>'+
+      expH+
+      '<div class="st">'+L('KEAHLIAN')+'</div>'+
+      SK;
+}
+
 function renderSuratP(){
   var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return'';
   var sK=v('sKota')||'……………….',sT=v('sTgl')||'……………….',sBT=v('sBlnThn')||'……………….';
@@ -837,7 +1016,7 @@ function renderSuratP(){
   var at='<div style="margin-top:2mm;text-align:left">'+L('Kepada Yth,')+'</div><div style="text-align:left">'+L('Bapak/Ibu HRD')+'</div>';
   if(m.semua){at+='<div style="text-align:left">'+L('Di Tempat')+'</div>'}else{at+='<div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2)+'</div>'}
   var body='';if(!m.on){body+='<div style="margin-top:4mm;text-align:left">'+L('Dengan Hormat,')+'</div>'}body+='<div style="margin-top:2mm;text-align:justify;text-indent:8mm">'+esc(pembukaText)+'</div>';if(!m.semua){body+='<div style="margin-top:3mm;text-align:left">'+L('Saya yang bertanda tangan di bawah ini:')+'</div>'}body+='<table style="width:100%;margin-top:2mm">';body+=dr('Nama',esc(N));body+=dr('Tempat dan Tanggal Lahir',esc(TTL));body+=dr('Jenis Kelamin',esc(JK));body+=dr('Agama',esc(AG));body+=dr('Pendidikan Terakhir',esc(PA));body+=dr('Alamat',esc(AL));body+=al2r;body+=dr('Email',esc(EM));body+=dr('No HP',esc(HP));body+='</table>';body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div>';body+='<div style="margin-left:8mm;margin-top:2mm">'+lamps+'</div>';body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">'+esc(penutupText)+'</div>';var ttdN=esc(TTD)||'………………………..';var ttd='<div style="margin-top:8mm;text-align:right">'+L('Hormat saya,')+'</div><div style="margin-top:14mm;text-align:right;font-weight:600;text-decoration:underline">'+ttdN+'</div>';return tw+hl+at+body+ttd}
-function renderPreview(){var html='';if(curCat==='cv'){if(curTpl==='cv1')html=renderCV1();else if(curTpl==='cv2')html=renderCV2();else if(curTpl==='cv3')html=renderCV3()}else{html=renderSuratP()}var p1=document.getElementById('a4-page');var p2=document.getElementById('a4-page-mob');if(p1){p1.innerHTML=html;applyPageStyle()}if(p2){p2.innerHTML=html;applyPageStyle()}applyZoom()}
+function renderPreview(){var html='';if(curCat==='cv'){if(curTpl==='cv1')html=renderCV1();else if(curTpl==='cv2')html=renderCV2();else if(curTpl==='cv3')html=renderCV3();else if(curTpl==='cv4')html=renderCV4()}else{html=renderSuratP()}var p1=document.getElementById('a4-page');var p2=document.getElementById('a4-page-mob');if(p1){p1.innerHTML=html;applyPageStyle()}if(p2){p2.innerHTML=html;applyPageStyle()}applyZoom()}
 
 // ================= ZOOM & SCROLL LOGIC =================
 var userZoom = 1.0;
