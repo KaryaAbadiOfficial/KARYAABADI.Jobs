@@ -203,7 +203,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
-      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg:white/5 hover:text-white">FAQ</a>
+      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
       <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
     </nav>
   </div>
@@ -935,7 +935,7 @@ function renderCV4(){
   SK += renderSkillsCV4(items);
 
   // Explicit perfectly uniform spacing blocks as requested:
-  // No.Hp | Email -> Gap 2mm -> Line -> Gap 10mm -> PROFIL -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> PENDIDIKAN -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> PENGALAMAN KERJA -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> KEAHLIAN -> Gap 2mm -> Line -> Gap 2mm -> content
+  // No.Hp | Email -> Gap 3mm -> Line -> Gap 10mm -> PROFIL -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> PENDIDIKAN -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> PENGALAMAN KERJA -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> KEAHLIAN -> Gap 2mm -> Line -> Gap 2mm -> content
   return '<div>'+
       '<div style="text-align:center; font-size:1.8em;font-weight:700;text-transform:uppercase;">'+esc(N)+'</div>'+
       '<div style="text-align:center; font-size:1.1em;font-weight:400;color:#000;margin-top:2mm;">'+esc(SUB)+'</div>'+
@@ -943,7 +943,7 @@ function renderCV4(){
       '<div style="text-align:center;">'+esc(AL)+'</div>'+
       '<div style="text-align:center;">'+esc(HP)+' | '+esc(EM)+'</div>'+
       
-      '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
+      '<div style="border-bottom:1.5pt solid #000; margin-top:3mm;"></div>'+
       
       '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>'+
       '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
