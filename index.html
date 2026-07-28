@@ -855,15 +855,15 @@ function renderSkillsCV4(skillArr) {
     skillArr.forEach(function(s) {
         var p = parseSkillCV4(s);
         h += '<tr>';
-        // Bullet column with tight padding
-        h += '<td style="width:4mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0;">•</td>';
-        // Skill title with tight right padding
-        h += '<td style="white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600;">' + esc(p.title) + '</td>';
+        // Bullet column
+        h += '<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0;">•</td>';
+        // Skill title (auto-fit width based on longest text using width:1px and nowrap)
+        h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600;">' + esc(p.title) + '</td>';
         if (p.val) {
-            // Colon column with tight padding
-            h += '<td style="white-space:nowrap; vertical-align:top; padding:0 1.5mm 2mm 0;">:</td>';
+            // Colon column
+            h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm;">:</td>';
             // Value column
-            h += '<td style="vertical-align:top; padding:0 0 2mm 0;">' + esc(p.val) + '</td>';
+            h += '<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word;">' + esc(p.val) + '</td>';
         } else {
             h += '<td colspan="2" style="padding-bottom:2mm;"></td>';
         }
@@ -886,25 +886,25 @@ function renderCV4(){
   var hasNonEdu = eduNonList.some(function(e){ return e.t && e.t.trim(); });
   var eduH = '';
   if(hasNonEdu) eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
-  eduH += '<table style="width:100%;">';
+  eduH += '<table style="width:100%; border-collapse:collapse;">';
   var hasEdu = eduList.some(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()); });
   if(!hasEdu && !hasNonEdu){
-      eduH += '<tr><td style="padding:1mm 0;">Pendidikan Terakhir</td><td style="padding:1mm 0;text-align:right;">Tahun Lulus 0000/0000</td></tr>';
+      eduH += '<tr><td style="padding:1mm 0; word-break:break-word;">Pendidikan Terakhir</td><td style="padding:1mm 0;text-align:right; white-space:nowrap;">Tahun Lulus 0000/0000</td></tr>';
   } else {
       eduList.forEach(function(e){
           if(e.t || e.y){
-              eduH += '<tr><td style="padding:1mm 0;">'+esc(e.t||'Pendidikan Terakhir')+'</td><td style="padding:1mm 0;text-align:right;">Tahun Lulus '+esc(e.y||'0000/0000')+'</td></tr>';
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word;">'+esc(e.t||'Pendidikan Terakhir')+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap;">Tahun Lulus '+esc(e.y||'0000/0000')+'</td></tr>';
           }
       });
   }
   eduH += '</table>';
   if(hasNonEdu){
       eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
-      eduH += '<table style="width:100%;">';
+      eduH += '<table style="width:100%; border-collapse:collapse;">';
       eduNonList.forEach(function(e){
           var ket1 = e.k ? '<br>'+esc(e.k) : '';
           var ket2 = e.d ? '<br>'+esc(e.d) : '';
-          eduH += '<tr><td style="padding:1mm 0;">'+esc(e.t||'……………….')+ket1+'</td><td style="padding:1mm 0;text-align:right;">Tahun Lulus '+esc(e.y||'0000')+ket2+'</td></tr>';
+          eduH += '<tr><td style="padding:1mm 0; word-break:break-word;">'+esc(e.t||'……………….')+ket1+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap;">Tahun Lulus '+esc(e.y||'0000')+ket2+'</td></tr>';
       });
       eduH += '</table>';
   }
@@ -914,31 +914,31 @@ function renderCV4(){
   var expH='';
   if(!hasExp){
       expH+='<div style="margin-bottom:4mm;">';
-      expH+='<div style="width:100%;"><table style="width:100%;"><tr><td style="font-weight:600;">PT ……………………</td><td style="text-align:right;font-weight:600;">Jabatan/Posisi</td></tr></table></div>';
-      expH+='<div style="width:100%;"><table style="width:100%;"><tr><td>Jl. …………………….</td><td style="text-align:right;">T/B/TH - T/B/TH</td></tr></table></div>';
-      expH+='<div>Kota, Kode Pos</div>';
+      expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="font-weight:600; word-break:break-word;">PT ……………………</td><td style="white-space:nowrap; text-align:right; font-weight:600; padding-left:2mm;">Jabatan/Posisi</td></tr></table></div>';
+      expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="word-break:break-word;">Jl. …………………….</td><td style="white-space:nowrap; text-align:right; padding-left:2mm;">T/B/TH - T/B/TH</td></tr></table></div>';
+      expH+='<div style="word-break:break-word;">Kota, Kode Pos</div>';
       expH+='<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
-      expH+='<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
-      expH+='<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
+      expH+='<div style="margin-top:1mm; text-align:justify; word-break:break-word;">……………………………………………………………………………………………………</div>';
+      expH+='<div style="margin-top:1mm; text-align:justify; word-break:break-word;">……………………………………………………………………………………………………</div>';
       expH+='</div>';
   } else {
       expList.forEach(function(e){
           if(e.pt||e.j||e.m||e.jl||e.kt||e.desc){
               expH+='<div style="margin-bottom:4mm;">';
-              expH+='<div style="width:100%;"><table style="width:100%;"><tr><td style="font-weight:600;">'+esc(e.pt||'PT ……………………')+'</td><td style="text-align:right;font-weight:600;">'+esc(e.j||'Jabatan/Posisi')+'</td></tr></table></div>';
-              expH+='<div style="width:100%;"><table style="width:100%;"><tr><td>'+esc(e.jl||'Jl. …………………….')+'</td><td style="text-align:right;">'+esc(e.m||'T/B/TH - T/B/TH')+'</td></tr></table></div>';
-              expH+='<div>'+esc(e.kt||'Kota, Kode Pos')+'</div>';
+              expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="font-weight:600; word-break:break-word;">'+esc(e.pt||'PT ……………………')+'</td><td style="white-space:nowrap; text-align:right; font-weight:600; padding-left:2mm;">'+esc(e.j||'Jabatan/Posisi')+'</td></tr></table></div>';
+              expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="word-break:break-word;">'+esc(e.jl||'Jl. …………………….')+'</td><td style="white-space:nowrap; text-align:right; padding-left:2mm;">'+esc(e.m||'T/B/TH - T/B/TH')+'</td></tr></table></div>';
+              expH+='<div style="word-break:break-word;">'+esc(e.kt||'Kota, Kode Pos')+'</div>';
               
               if(e.desc && e.desc.trim()){
                   expH += '<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
                   var lines = e.desc.trim().split('\n');
                   lines.forEach(function(l){
-                      if(l.trim()) expH += '<div style="margin-top:1mm; text-align:justify;">' + esc(l.trim()) + '</div>';
+                      if(l.trim()) expH += '<div style="margin-top:1mm; text-align:justify; word-break:break-word;">' + esc(l.trim()) + '</div>';
                   });
               } else {
                   expH += '<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
-                  expH += '<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
-                  expH += '<div style="margin-top:1mm; text-align:justify;">……………………………………………………………………………………………………</div>';
+                  expH += '<div style="margin-top:1mm; text-align:justify; word-break:break-word;">……………………………………………………………………………………………………</div>';
+                  expH += '<div style="margin-top:1mm; text-align:justify; word-break:break-word;">……………………………………………………………………………………………………</div>';
               }
               expH+='</div>';
           }
@@ -976,7 +976,7 @@ function renderCV4(){
       '<div style="text-align:center; margin-bottom:5mm;">'+esc(HP)+' | '+esc(EM)+'</div>'+
       '<div style="border-bottom:1.5pt solid #000; padding-bottom:1.5mm; margin-bottom:4.5mm; margin-top:0;"></div>'+
       '<div class="st" style="text-align:left;">'+L('PROFIL')+'</div>'+
-      '<div style="text-align:justify;margin-bottom:4mm;">'+PR+'</div>'+
+      '<div style="text-align:justify;margin-bottom:4mm; word-break:break-word;">'+PR+'</div>'+
       '<div class="st">'+L('PENDIDIKAN')+'</div>'+
       eduH+
       '<div class="st" style="margin-top:4mm;">'+L('PENGALAMAN KERJA')+'</div>'+
