@@ -203,7 +203,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
-      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
+      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg:white/5 hover:text-white">FAQ</a>
       <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
     </nav>
   </div>
@@ -510,7 +510,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Glints Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, dan karir remote. Menyediakan juga pelatihan dan kelas untuk meningguhkan skill.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, dan karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
       </a>
 
       <a href="https://www.karir.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
@@ -935,7 +935,7 @@ function renderCV4(){
   SK += renderSkillsCV4(items);
 
   // Explicit perfectly uniform spacing blocks as requested:
-  // No.Hp | Email -> Gap 1px -> Line -> Gap 10mm -> PROFIL -> Gap 1px -> Line -> Gap 2mm -> content -> Gap 5mm -> PENDIDIKAN -> Gap 1px -> Line -> Gap 2mm -> content -> Gap 5mm -> PENGALAMAN KERJA -> Gap 1px -> Line -> Gap 2mm -> content -> Gap 5mm -> KEAHLIAN -> Gap 1px -> Line -> Gap 2mm -> content
+  // No.Hp | Email -> Gap 2mm -> Line -> Gap 10mm -> PROFIL -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> PENDIDIKAN -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> PENGALAMAN KERJA -> Gap 2mm -> Line -> Gap 2mm -> content -> Gap 5mm -> KEAHLIAN -> Gap 2mm -> Line -> Gap 2mm -> content
   return '<div>'+
       '<div style="text-align:center; font-size:1.8em;font-weight:700;text-transform:uppercase;">'+esc(N)+'</div>'+
       '<div style="text-align:center; font-size:1.1em;font-weight:400;color:#000;margin-top:2mm;">'+esc(SUB)+'</div>'+
@@ -943,22 +943,22 @@ function renderCV4(){
       '<div style="text-align:center;">'+esc(AL)+'</div>'+
       '<div style="text-align:center;">'+esc(HP)+' | '+esc(EM)+'</div>'+
       
-      '<div style="border-bottom:1.5pt solid #000; margin-top:1px;"></div>'+
+      '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
       
       '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>'+
-      '<div style="border-bottom:1.5pt solid #000; margin-top:1px;"></div>'+
+      '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
       '<div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>'+
       
       '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div>'+
-      '<div style="border-bottom:1.5pt solid #000; margin-top:1px;"></div>'+
+      '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
       '<div style="margin-top:2mm;">'+eduH+'</div>'+
       
       '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div>'+
-      '<div style="border-bottom:1.5pt solid #000; margin-top:1px;"></div>'+
+      '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
       '<div style="margin-top:2mm;">'+expH+'</div>'+
       
       '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div>'+
-      '<div style="border-bottom:1.5pt solid #000; margin-top:1px;"></div>'+
+      '<div style="border-bottom:1.5pt solid #000; margin-top:2mm;"></div>'+
       '<div style="margin-top:2mm;">'+SK+'</div>';
 }
 
