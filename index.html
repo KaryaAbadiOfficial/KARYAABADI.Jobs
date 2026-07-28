@@ -168,8 +168,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <!-- GLOBAL HEADER -->
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
-    <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
-      <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
+    <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink:0">
+      <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink:0" fetchpriority="high">
       <div class="flex flex-col leading-none whitespace-nowrap">
         <div class="flex items-baseline gap-1">
           <span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span>
@@ -186,7 +186,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('faq'); return false;" class="hover:text-white">FAQ</a>
       <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
-    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink:0">
       <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
         <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
         <i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i>
@@ -622,9 +622,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakuratan, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuratan informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakuransi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuransi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dilarang</h2>
-    <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau mengupayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
+    <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
     <p>Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini adalah milik penuh dari pengguna masing-masing dan bebas digunakan untuk keperluan melamar pekerjaan.</p>
   </main>
@@ -855,14 +855,10 @@ function renderSkillsCV4(skillArr) {
     skillArr.forEach(function(s) {
         var p = parseSkillCV4(s);
         h += '<tr>';
-        // Bullet column
         h += '<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0;">•</td>';
-        // Skill title (auto-fit width based on longest text using width:1px and nowrap)
         h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600;">' + esc(p.title) + '</td>';
         if (p.val) {
-            // Colon column
             h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm;">:</td>';
-            // Value column
             h += '<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word;">' + esc(p.val) + '</td>';
         } else {
             h += '<td colspan="2" style="padding-bottom:2mm;"></td>';
@@ -913,9 +909,9 @@ function renderCV4(){
   var hasExp=expList.some(function(e){return(e.pt&&e.pt.trim())||(e.j&&e.j.trim())||(e.m&&e.m.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim())||(e.desc&&e.desc.trim())});
   var expH='';
   if(!hasExp){
-      expH+='<div style="margin-bottom:4mm;">';
-      expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="font-weight:600; word-break:break-word;">PT ……………………</td><td style="white-space:nowrap; text-align:right; font-weight:600; padding-left:2mm;">Jabatan/Posisi</td></tr></table></div>';
-      expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="word-break:break-word;">Jl. …………………….</td><td style="white-space:nowrap; text-align:right; padding-left:2mm;">T/B/TH - T/B/TH</td></tr></table></div>';
+      expH+='<div style="margin-bottom:5mm;">';
+      expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="font-weight:600; word-break:break-word; width:50%;">PT ……………………</td><td style="text-align:right; font-weight:600; padding-left:2mm; word-break:break-word; width:50%;">Jabatan/Posisi</td></tr></table></div>';
+      expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="word-break:break-word; width:50%;">Jl. …………………….</td><td style="text-align:right; padding-left:2mm; word-break:break-word; width:50%;">T/B/TH - T/B/TH</td></tr></table></div>';
       expH+='<div style="word-break:break-word;">Kota, Kode Pos</div>';
       expH+='<div style="margin-top:2mm; font-weight:700;">Deskripsi Pekerjaan :</div>';
       expH+='<div style="margin-top:1mm; text-align:justify; word-break:break-word;">……………………………………………………………………………………………………</div>';
@@ -924,9 +920,9 @@ function renderCV4(){
   } else {
       expList.forEach(function(e){
           if(e.pt||e.j||e.m||e.jl||e.kt||e.desc){
-              expH+='<div style="margin-bottom:4mm;">';
-              expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="font-weight:600; word-break:break-word;">'+esc(e.pt||'PT ……………………')+'</td><td style="white-space:nowrap; text-align:right; font-weight:600; padding-left:2mm;">'+esc(e.j||'Jabatan/Posisi')+'</td></tr></table></div>';
-              expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="word-break:break-word;">'+esc(e.jl||'Jl. …………………….')+'</td><td style="white-space:nowrap; text-align:right; padding-left:2mm;">'+esc(e.m||'T/B/TH - T/B/TH')+'</td></tr></table></div>';
+              expH+='<div style="margin-bottom:5mm;">';
+              expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="font-weight:600; word-break:break-word; width:50%;">'+esc(e.pt||'PT ……………………')+'</td><td style="text-align:right; font-weight:600; padding-left:2mm; word-break:break-word; width:50%;">'+esc(e.j||'Jabatan/Posisi')+'</td></tr></table></div>';
+              expH+='<div style="width:100%;"><table style="width:100%; border-collapse:collapse;"><tr><td style="word-break:break-word; width:50%;">'+esc(e.jl||'Jl. …………………….')+'</td><td style="text-align:right; padding-left:2mm; word-break:break-word; width:50%;">'+esc(e.m||'T/B/TH - T/B/TH')+'</td></tr></table></div>';
               expH+='<div style="word-break:break-word;">'+esc(e.kt||'Kota, Kode Pos')+'</div>';
               
               if(e.desc && e.desc.trim()){
@@ -968,20 +964,30 @@ function renderCV4(){
       }
   }
 
+  // Uniform spacing helper for CV4 (margin-top set to 10mm for exact spacing)
+  function cv4St(title) {
+      return '<div style="text-align:left; font-weight:700; border-bottom:1.5pt solid #000; padding-bottom:1.5mm; margin-bottom:5mm; margin-top:10mm; letter-spacing:.3px;">' + title + '</div>';
+  }
+
   return '<div>'+
       '<div style="text-align:center; font-size:1.8em;font-weight:700;text-transform:uppercase;">'+esc(N)+'</div>'+
       '<div style="text-align:center; font-size:1.1em;font-weight:400;color:#000;margin-top:2mm;">'+esc(SUB)+'</div>'+
       '<div style="text-align:center; margin-top:3mm;">'+esc(TTL)+'</div>'+
       '<div style="text-align:center;">'+esc(AL)+'</div>'+
-      '<div style="text-align:center; margin-bottom:5mm;">'+esc(HP)+' | '+esc(EM)+'</div>'+
-      '<div style="border-bottom:1.5pt solid #000; padding-bottom:1.5mm; margin-bottom:4.5mm; margin-top:0;"></div>'+
-      '<div class="st" style="text-align:left;">'+L('PROFIL')+'</div>'+
-      '<div style="text-align:justify;margin-bottom:4mm; word-break:break-word;">'+PR+'</div>'+
-      '<div class="st">'+L('PENDIDIKAN')+'</div>'+
-      eduH+
-      '<div class="st" style="margin-top:4mm;">'+L('PENGALAMAN KERJA')+'</div>'+
-      expH+
-      '<div class="st">'+L('KEAHLIAN')+'</div>'+
+      '<div style="text-align:center; margin-bottom:0mm;">'+esc(HP)+' | '+esc(EM)+'</div>'+
+      
+      '<div style="border-bottom:1.5pt solid #000; padding-bottom:1.5mm; margin-bottom:0mm; margin-top:5mm;"></div>'+
+      
+      cv4St(L('PROFIL'))+
+      '<div style="text-align:justify; margin-bottom:0mm; word-break:break-word;">'+PR+'</div>'+
+      
+      cv4St(L('PENDIDIKAN'))+
+      '<div style="margin-bottom:0mm;">'+eduH+'</div>'+
+      
+      cv4St(L('PENGALAMAN KERJA'))+
+      '<div style="margin-bottom:0mm;">'+expH+'</div>'+
+      
+      cv4St(L('KEAHLIAN'))+
       SK;
 }
 
