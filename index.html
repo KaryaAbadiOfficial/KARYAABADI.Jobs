@@ -13,6 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KARYA ABADI JOBS - Generator CV & Surat Lamaran Kerja Gratis</title>
 <meta name="description" content="Karya Abadi Jobs adalah tool online gratis untuk membuat CV ATS dan Surat Lamaran Kerja. Template profesional, mudah diunduh PDF, tanpa registrasi.">
+<!-- Script AdSense Utama untuk Iklan Otomatis -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2272135901889807" crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-2272135901889807">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -46,11 +47,10 @@ body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .a4-page table td{padding:.4mm 0;vertical-align:top}
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
 
-/* Perubahan CSS untuk Zoom & Pan Bebas */
 #preview-wrap, #preview-wrap-mob {
   position: relative;
   overflow: hidden;
-  touch-action: none; /* Mencegah scroll native agar bisa ditarik bebas */
+  touch-action: none;
   cursor: grab;
 }
 #preview-wrap:active, #preview-wrap-mob:active {
@@ -325,7 +325,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
         </div>
       </div>
-      <!-- Class diubah agar tidak scroll native -->
       <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
         <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
       </div>
@@ -343,7 +342,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
       </div>
     </div>
-    <!-- Class diubah agar tidak scroll native -->
     <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
       <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
     </div>
@@ -603,7 +601,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakuratan, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuratan informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakuransi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuratan informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dilarang</h2>
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
@@ -690,16 +688,21 @@ function showPage(pageId) {
     }
     
     // Trigger AdSense ads for the active view (Lazy Loading for SPA)
+    // Penambahan window.dispatchEvent untuk memaksa AdSense Auto Ads memindai ulang halaman
     setTimeout(function() {
       try {
+        // Paksa AdSense mengecek ulang layout
+        window.dispatchEvent(new Event('resize'));
+        
+        // Load iklan manual
         var ads = view.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status])');
         for (var i = 0; i < ads.length; i++) {
           (adsbygoogle = window.adsbygoogle || []).push({});
         }
       } catch (e) {
-        // Fail silently if AdSense is blocked or not loaded
+        // Fail silently
       }
-    }, 300);
+    }, 500);
   }
 }
 
@@ -1011,7 +1014,7 @@ function calcBaseZoom(isMobile) {
     var p = document.getElementById(isMobile ? 'a4-page-mob' : 'a4-page');
     if(!w || !p) return 1;
     var pw = p.offsetWidth;
-    var ww = w.clientWidth - 24; // padding p-3 (12px each side)
+    var ww = w.clientWidth - 24;
     if(!pw || !ww) return 1;
     return Math.min(1, ww / pw);
 }
@@ -1082,11 +1085,9 @@ function resetZoom() {
     applyZoom();
 }
 
-// Attach Listeners
 var wrapD = document.getElementById('preview-wrap');
 var wrapM = document.getElementById('preview-wrap-mob');
 
-// Desktop: Mouse Drag
 wrapD.addEventListener('mousedown', function(e) {
     isDragging = true;
     dragStartX = e.clientX;
@@ -1105,14 +1106,12 @@ window.addEventListener('mouseup', function() {
     isDragging = false;
 });
 
-// Desktop: Mouse Wheel Zoom
 wrapD.addEventListener('wheel', function(e) {
     e.preventDefault();
     var delta = e.deltaY < 0 ? 0.1 : -0.1;
     zoomPreview(delta, e.clientX, e.clientY);
 }, { passive: false });
 
-// Mobile: Touch Pan & Pinch
 wrapM.addEventListener('touchstart', function(e) {
     if (e.touches.length === 1) {
         isDragging = true;
@@ -1331,7 +1330,6 @@ function downloadPDF() {
     }
 }
 
-// Initialize Generator
 window.addEventListener('resize',function(){updateVH();applyZoom()});
 (function init(){updateVH();renderTplTabs();renderForm();renderPreview();setTimeout(function(){ resetZoom(); generatorInitialized = true; }, 50);})();
 </script>
