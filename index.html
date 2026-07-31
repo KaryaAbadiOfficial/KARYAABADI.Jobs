@@ -169,25 +169,25 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .article-content strong { color: #111827; font-weight: 700; }
 .dark .article-content strong { color: #fff; }
 
-/* CSS for Automatic Slider */
+/* CSS for Interactive CV Slider */
 .slider-container { position: relative; width: 100%; overflow: hidden; border: 1px solid #e5e7eb; border-radius: 12px; background: #f3f4f6; }
 .dark .slider-container { background: #1A1A1A; border-color: #2a2a2a; }
-.slider-wrapper { display: flex; width: 100%; animation: slideAnim 20s infinite; }
-.slider-slide { min-width: 100%; position: relative; }
-.slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; }
-.slider-caption { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); z-index: 10; }
-@keyframes slideAnim {
-  0% { transform: translateX(0%); }
-  20% { transform: translateX(0%); }
-  25% { transform: translateX(-100%); }
-  45% { transform: translateX(-100%); }
-  50% { transform: translateX(-200%); }
-  70% { transform: translateX(-200%); }
-  75% { transform: translateX(-300%); }
-  95% { transform: translateX(-300%); }
-  100% { transform: translateX(0%); }
+.slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
+.slider-slide { min-width: 100%; position: relative; cursor: pointer; }
+.slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; pointer-events: none; }
+.slider-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 10; width: 90%; pointer-events: none; }
+.slider-caption { background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); text-align: center; }
+.slider-nav { position: absolute; top: 45%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; cursor: pointer; border-radius: 50%; z-index: 20; font-size: 16px; transition: background 0.3s; display: flex; align-items: center; justify-content: center; }
+.slider-nav:hover { background: rgba(220, 38, 38, 0.9); }
+.slider-nav.prev { left: 15px; }
+.slider-nav.next { right: 15px; }
+.slider-dots { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; }
+.slider-dot { height: 10px; width: 10px; background-color: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: background-color 0.3s; }
+.slider-dot.active { background-color: #DC2626; }
+@media(max-width: 640px) {
+  .slider-nav { width: 32px; height: 32px; font-size: 14px; }
+  .slider-caption { font-size: 12px; padding: 4px 12px; }
 }
-.slider-container:hover .slider-wrapper { animation-play-state: paused; }
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen flex flex-col">
@@ -243,39 +243,43 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-bold tracking-wider mb-6">100% GRATIS & RAMAH ATS</span>
       <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Generator CV & Surat Lamaran Kerja <span class="text-brand-red">Profesional</span></h1>
       <p class="max-w-xl mx-auto text-gray-400 mb-8 px-4 text-sm md:text-base text-justify md:text-center"><strong>Karya Abadi Jobs</strong> adalah platform online gratis untuk membuat CV dan Surat Lamaran Kerja secara otomatis. Desain dokumen yang rapi, format PDF siap cetak, proses tanpa registrasi, serta struktur yang ramah ATS untuk memudahkan Anda melamar pekerjaan impian.</p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
-        <button onclick="showPage('generator')" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red">Mulai Buat CV <i class="fa-solid fa-arrow-right ml-2"></i></button>
-        <button onclick="showPage('tips')" class="px-8 py-3 border border-brand-border text-white font-bold rounded-xl hover:bg-brand-card transition">Lihat Contoh CV</button>
-      </div>
     </div>
   </section>
 
-  <!-- AUTO SLIDER CONToh CV -->
+  <!-- INTERACTIVE SLIDER CONTOH CV -->
   <section class="max-w-4xl mx-auto px-4 py-12 md:py-16">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Contoh Template CV</h2>
-    <p class="text-gray-600 dark:text-gray-400 mb-8 text-center text-sm md:text-base">Geser atau tunggu slide berpindah otomatis untuk melihat berbagai contoh desain CV profesional kami.</p>
-    <div class="slider-container shadow-xl">
-      <div class="slider-wrapper">
-        <div class="slider-slide">
+    <p class="text-gray-600 dark:text-gray-400 mb-8 text-center text-sm md:text-base">Geser slider atau klik template untuk langsung menggunakannya.</p>
+    <div class="slider-container shadow-xl" id="cvSlider">
+      <div class="slider-wrapper" id="cvSliderWrapper">
+        <div class="slider-slide" onclick="selectTemplate('cv1')">
           <img src="https://z-cdn-media.chatglm.cn/files/92dbf75f-6472-4247-bcea-0f27c78fd812.png?auth_key=1885486254-725ede8387bb49e48779d44a2051e79e-0-ea14b37d5fc36da0026e4f2658caa6b9" alt="Contoh CV 1">
-          <div class="slider-caption">Contoh CV 1</div>
+          <div class="slider-overlay">
+            <span class="slider-caption">Contoh CV 1 (Klasik)</span>
+          </div>
         </div>
-        <div class="slider-slide">
+        <div class="slider-slide" onclick="selectTemplate('cv2')">
           <img src="https://z-cdn-media.chatglm.cn/files/86949d85-57fc-49c9-95e3-35eb8a407a6a.png?auth_key=1885486254-1ab58971e3234464903ad49e621de038-0-11cf443be91c77fe1d942fdce551cfb9" alt="Contoh CV 2">
-          <div class="slider-caption">Contoh CV 2</div>
+          <div class="slider-overlay">
+            <span class="slider-caption">Contoh CV 2 (Modern Center)</span>
+          </div>
         </div>
-        <div class="slider-slide">
+        <div class="slider-slide" onclick="selectTemplate('cv3')">
           <img src="https://z-cdn-media.chatglm.cn/files/90be1a66-a120-4949-a3c0-028b0a33a05e.png?auth_key=1885486254-e3b849d4cf064b3ebff3450a3fb09f5f-0-ed21d31bdc6f5a3cbc3102baa307390e" alt="Contoh CV 3">
-          <div class="slider-caption">Contoh CV 3</div>
+          <div class="slider-overlay">
+            <span class="slider-caption">Contoh CV 3 (Sidebar)</span>
+          </div>
         </div>
-        <div class="slider-slide">
+        <div class="slider-slide" onclick="selectTemplate('cv4')">
           <img src="https://z-cdn-media.chatglm.cn/files/3d959fd3-742d-4c9b-9fc6-98af0eb73efe.png?auth_key=1885486254-af18571394f94538bfd708d9fcbd64f4-0-a240e33fddbd3971a3760f68d48ef5a7" alt="Contoh CV 4">
-          <div class="slider-caption">Contoh CV 4</div>
+          <div class="slider-overlay">
+            <span class="slider-caption">Contoh CV 4 (ATS Sederhana)</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="text-center mt-8">
-      <button onclick="showPage('generator')" class="px-6 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-brand-darkred transition text-sm">Pilih Template Ini <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i></button>
+      <button class="slider-nav prev" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="slider-nav next" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="slider-dots" id="sliderDots"></div>
     </div>
   </section>
 
@@ -454,28 +458,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <div class="grid grid-cols-2 gap-6 mt-8">
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
-            <img src="https://z-cdn-media.chatglm.cn/files/8120d90b-237f-430b-b2c7-9d5b92041ca2.png?auth_key=1885162050-acd6ba507c664f7db1f01eb14e4ce458-0-08369e3fbdbf1af25979b3ff9dbb19cb" alt="Contoh Template CV 1" class="w-full h-full object-contain">
+            <img src="https://z-cdn-media.chatglm.cn/files/19533c59-4e67-425b-b8a9-4fc54a7ef8ec.png?auth_key=1885491240-ed132b7d9807468888009a56acbfc89b-0-5cd9474af84aa60730dd313a98d56313" alt="Contoh Template CV 1" class="w-full h-full object-contain">
           </div>
           <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 1</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(Klasik)</p>
         </div>
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
-            <img src="https://z-cdn-media.chatglm.cn/files/54016eec-1d22-4853-8520-2fedf74cc2dc.png?auth_key=1885159945-33d0ee03e0184323a31762261d1239aa-0-7e0c85387427c9ad0278e0981ead8a3e" alt="Contoh Template CV 2" class="w-full h-full object-contain">
+            <img src="https://z-cdn-media.chatglm.cn/files/7b81a6af-2e6b-4bf5-b4a9-aa0ab53ccf3a.png?auth_key=1885491240-85c449bd67d04618b05376ee4a8f7548-0-41ad6348760d291d722e80ee986fda94" alt="Contoh Template CV 2" class="w-full h-full object-contain">
           </div>
           <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 2</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(Modern Center)</p>
         </div>
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
-            <img src="https://z-cdn-media.chatglm.cn/files/d2d856de-a749-4450-9a7f-9342c00905d0.png?auth_key=1885162050-a29d91936d6c4c62bd2769697a2ac9fe-0-f4a462095fc476f278fc8e79062bb4de" alt="Contoh Template CV 3" class="w-full h-full object-contain">
+            <img src="https://z-cdn-media.chatglm.cn/files/675d84c5-3280-4e51-9d1b-328eb240c963.png?auth_key=1885491240-4f51f89eed0045278868914fc8d73c15-0-d49c43f89edec36f6dbd311e1a61fc18" alt="Contoh Template CV 3" class="w-full h-full object-contain">
           </div>
           <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 3</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(Sidebar)</p>
         </div>
         <div class="text-center">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
-            <img src="https://z-cdn-media.chatglm.cn/files/ce361f2d-a094-4db9-b9e3-715f22587c82.png?auth_key=1885262042-5922b19e80304058b05c512edf5d1730-0-63d66bffd0122484364601122d0e15a2" alt="Contoh Template CV 4" class="w-full h-full object-contain">
+            <img src="https://z-cdn-media.chatglm.cn/files/72dbdfe4-e992-497d-9b54-22a1719d173c.png?auth_key=1885491240-f653955205004bae86fda880ec73e20c-0-70f1ac6ac8b301126e1a34a1f91d29c6" alt="Contoh Template CV 4" class="w-full h-full object-contain">
           </div>
           <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 4</h3>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(ATS Sederhana)</p>
@@ -623,7 +627,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakuransi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dilarang</h2>
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
@@ -709,6 +713,66 @@ function showPage(pageId) {
       }, 50);
     }
   }
+}
+
+// ================= CV SLIDER LOGIC =================
+var currentSlide = 0;
+var totalSlides = 4;
+var slideInterval;
+
+function initSlider() {
+  var dotsContainer = document.getElementById('sliderDots');
+  if(!dotsContainer) return;
+  dotsContainer.innerHTML = '';
+  for(var i=0; i<totalSlides; i++) {
+    var dot = document.createElement('span');
+    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('onclick', 'goToSlide(' + i + ')');
+    dotsContainer.appendChild(dot);
+  }
+  startAutoSlide();
+  
+  var slider = document.getElementById('cvSlider');
+  if(slider) {
+    slider.addEventListener('mouseenter', function() { clearInterval(slideInterval); });
+    slider.addEventListener('mouseleave', function() { startAutoSlide(); });
+  }
+}
+
+function goToSlide(index) {
+  currentSlide = (index + totalSlides) % totalSlides;
+  var wrapper = document.getElementById('cvSliderWrapper');
+  if(wrapper) {
+    wrapper.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+  }
+  var dots = document.querySelectorAll('.slider-dot');
+  dots.forEach(function(dot, idx){
+    if(idx === currentSlide) dot.classList.add('active');
+    else dot.classList.remove('active');
+  });
+}
+
+function changeSlide(direction) {
+  goToSlide(currentSlide + direction);
+  clearInterval(slideInterval);
+  startAutoSlide();
+}
+
+function startAutoSlide() {
+  clearInterval(slideInterval);
+  slideInterval = setInterval(function() {
+    goToSlide(currentSlide + 1);
+  }, 5000);
+}
+
+function selectTemplate(tplId) {
+  curCat = 'cv';
+  curTpl = tplId;
+  updCatTabs();
+  renderTplTabs();
+  renderForm();
+  renderPreview();
+  showPage('generator');
 }
 
 // ================= APP LOGIC =================
@@ -1336,7 +1400,7 @@ function downloadPDF() {
 }
 
 window.addEventListener('resize',function(){updateVH();applyZoom()});
-(function init(){updateVH();renderTplTabs();renderForm();renderPreview();setTimeout(function(){ resetZoom(); generatorInitialized = true; }, 50);})();
+(function init(){updateVH();initSlider();renderTplTabs();renderForm();renderPreview();setTimeout(function(){ resetZoom(); generatorInitialized = true; }, 50);})();
 </script>
 </body>
 </html>
