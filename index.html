@@ -173,7 +173,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .slider-container { position: relative; width: 100%; overflow: hidden; border: 1px solid #e5e7eb; border-radius: 12px; background: #f3f4f6; }
 .dark .slider-container { background: #1A1A1A; border-color: #2a2a2a; }
 .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
-.slider-slide { min-width: 100%; position: relative; cursor: pointer; }
+.slider-slide { min-width: 100%; position: relative; }
 .slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; pointer-events: none; }
 .slider-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 10; width: 90%; pointer-events: none; }
 .slider-caption { background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); text-align: center; }
@@ -224,13 +224,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
-      <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
+      <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Info Lowongan</a>
       <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
       <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
     </nav>
@@ -249,28 +249,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <!-- INTERACTIVE SLIDER CONTOH CV -->
   <section class="max-w-4xl mx-auto px-4 py-12 md:py-16">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Contoh Template CV</h2>
-    <p class="text-gray-600 dark:text-gray-400 mb-8 text-center text-sm md:text-base">Geser slider atau klik template untuk langsung menggunakannya.</p>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 text-center text-sm md:text-base">Geser slider untuk melihat berbagai contoh desain CV profesional kami.</p>
     <div class="slider-container shadow-xl" id="cvSlider">
       <div class="slider-wrapper" id="cvSliderWrapper">
-        <div class="slider-slide" onclick="selectTemplate('cv1')">
+        <div class="slider-slide">
           <img src="https://z-cdn-media.chatglm.cn/files/92dbf75f-6472-4247-bcea-0f27c78fd812.png?auth_key=1885486254-725ede8387bb49e48779d44a2051e79e-0-ea14b37d5fc36da0026e4f2658caa6b9" alt="Contoh CV 1">
           <div class="slider-overlay">
             <span class="slider-caption">Contoh CV 1 (Klasik)</span>
           </div>
         </div>
-        <div class="slider-slide" onclick="selectTemplate('cv2')">
-          <img src="https://z-cdn-media.chatglm.cn/files/86949d85-57fc-49c9-95e3-35eb8a407a6a.png?auth_key=1885486254-1ab58971e3234464903ad49e621de038-0-11cf443be91c77fe1d942fdce551cfb9" alt="Contoh CV 2">
+        <div class="slider-slide">
+          <img src="https://z-cdn-media.chatglm.cn/files/25e835a6-8d33-4cfa-8d97-be665a903601.png?auth_key=1885492108-83d8d85bd2e4402f80e26a188679fa47-0-1498cc31ee3a37201c6917b7e0392582" alt="Contoh CV 2">
           <div class="slider-overlay">
             <span class="slider-caption">Contoh CV 2 (Modern Center)</span>
           </div>
         </div>
-        <div class="slider-slide" onclick="selectTemplate('cv3')">
+        <div class="slider-slide">
           <img src="https://z-cdn-media.chatglm.cn/files/90be1a66-a120-4949-a3c0-028b0a33a05e.png?auth_key=1885486254-e3b849d4cf064b3ebff3450a3fb09f5f-0-ed21d31bdc6f5a3cbc3102baa307390e" alt="Contoh CV 3">
           <div class="slider-overlay">
             <span class="slider-caption">Contoh CV 3 (Sidebar)</span>
           </div>
         </div>
-        <div class="slider-slide" onclick="selectTemplate('cv4')">
+        <div class="slider-slide">
           <img src="https://z-cdn-media.chatglm.cn/files/3d959fd3-742d-4c9b-9fc6-98af0eb73efe.png?auth_key=1885486254-af18571394f94538bfd708d9fcbd64f4-0-a240e33fddbd3971a3760f68d48ef5a7" alt="Contoh CV 4">
           <div class="slider-overlay">
             <span class="slider-caption">Contoh CV 4 (ATS Sederhana)</span>
@@ -627,7 +627,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakuransi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dilarang</h2>
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
@@ -763,16 +763,6 @@ function startAutoSlide() {
   slideInterval = setInterval(function() {
     goToSlide(currentSlide + 1);
   }, 5000);
-}
-
-function selectTemplate(tplId) {
-  curCat = 'cv';
-  curTpl = tplId;
-  updCatTabs();
-  renderTplTabs();
-  renderForm();
-  renderPreview();
-  showPage('generator');
 }
 
 // ================= APP LOGIC =================
