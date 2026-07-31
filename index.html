@@ -168,6 +168,26 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .article-content a:visited, .article-content a:active { color: #60A5FA; }
 .article-content strong { color: #111827; font-weight: 700; }
 .dark .article-content strong { color: #fff; }
+
+/* CSS for Automatic Slider */
+.slider-container { position: relative; width: 100%; overflow: hidden; border: 1px solid #e5e7eb; border-radius: 12px; background: #f3f4f6; }
+.dark .slider-container { background: #1A1A1A; border-color: #2a2a2a; }
+.slider-wrapper { display: flex; width: 100%; animation: slideAnim 20s infinite; }
+.slider-slide { min-width: 100%; position: relative; }
+.slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; }
+.slider-caption { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); z-index: 10; }
+@keyframes slideAnim {
+  0% { transform: translateX(0%); }
+  20% { transform: translateX(0%); }
+  25% { transform: translateX(-100%); }
+  45% { transform: translateX(-100%); }
+  50% { transform: translateX(-200%); }
+  70% { transform: translateX(-200%); }
+  75% { transform: translateX(-300%); }
+  95% { transform: translateX(-300%); }
+  100% { transform: translateX(0%); }
+}
+.slider-container:hover .slider-wrapper { animation-play-state: paused; }
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen flex flex-col">
@@ -204,7 +224,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
@@ -229,6 +249,36 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </div>
   </section>
+
+  <!-- AUTO SLIDER CONToh CV -->
+  <section class="max-w-4xl mx-auto px-4 py-12 md:py-16">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Contoh Template CV</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 text-center text-sm md:text-base">Geser atau tunggu slide berpindah otomatis untuk melihat berbagai contoh desain CV profesional kami.</p>
+    <div class="slider-container shadow-xl">
+      <div class="slider-wrapper">
+        <div class="slider-slide">
+          <img src="https://z-cdn-media.chatglm.cn/files/92dbf75f-6472-4247-bcea-0f27c78fd812.png?auth_key=1885486254-725ede8387bb49e48779d44a2051e79e-0-ea14b37d5fc36da0026e4f2658caa6b9" alt="Contoh CV 1">
+          <div class="slider-caption">Contoh CV 1</div>
+        </div>
+        <div class="slider-slide">
+          <img src="https://z-cdn-media.chatglm.cn/files/86949d85-57fc-49c9-95e3-35eb8a407a6a.png?auth_key=1885486254-1ab58971e3234464903ad49e621de038-0-11cf443be91c77fe1d942fdce551cfb9" alt="Contoh CV 2">
+          <div class="slider-caption">Contoh CV 2</div>
+        </div>
+        <div class="slider-slide">
+          <img src="https://z-cdn-media.chatglm.cn/files/90be1a66-a120-4949-a3c0-028b0a33a05e.png?auth_key=1885486254-e3b849d4cf064b3ebff3450a3fb09f5f-0-ed21d31bdc6f5a3cbc3102baa307390e" alt="Contoh CV 3">
+          <div class="slider-caption">Contoh CV 3</div>
+        </div>
+        <div class="slider-slide">
+          <img src="https://z-cdn-media.chatglm.cn/files/3d959fd3-742d-4c9b-9fc6-98af0eb73efe.png?auth_key=1885486254-af18571394f94538bfd708d9fcbd64f4-0-a240e33fddbd3971a3760f68d48ef5a7" alt="Contoh CV 4">
+          <div class="slider-caption">Contoh CV 4</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <button onclick="showPage('generator')" class="px-6 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-brand-darkred transition text-sm">Pilih Template Ini <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i></button>
+    </div>
+  </section>
+
   <main class="max-w-7xl mx-auto px-4 py-12 text-center">
     <div class="grid md:grid-cols-3 gap-6 mb-16">
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
@@ -424,7 +474,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">(Sidebar)</p>
         </div>
         <div class="text-center">
-          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items:center justify-center p-2">
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-brand-border mb-3 aspect-[3/4] flex items-center justify-center p-2">
             <img src="https://z-cdn-media.chatglm.cn/files/ce361f2d-a094-4db9-b9e3-715f22587c82.png?auth_key=1885262042-5922b19e80304058b05c512edf5d1730-0-63d66bffd0122484364601122d0e15a2" alt="Contoh Template CV 4" class="w-full h-full object-contain">
           </div>
           <h3 class="font-bold text-gray-900 dark:text-white text-center">Template 4</h3>
@@ -560,7 +610,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>2. Penggunaan Foto dan File</h2>
     <p>Foto yang diunggah melalui fitur upload pas foto diproses sepenuhnya di sisi klien (client-side) menggunakan teknologi API bawaan browser dan tidak pernah diunggah ke server kami maupun server pihak ketiga.</p>
     <h2>3. Cookies dan Pelacakan Pihak Ketiga</h2>
-    <p>Platform ini menampilkan iklan dari layanan pihak ketiga (Google AdSense). Google sebagai penyedia iklan mungkin menggunakan cookies (termasuk Google DoubleClick DART cookie) untuk menayangkan iklan yang relevan berdasarkan kunjungan pengguna di internet. Penggunaan cookies tersebut tunduk pada kebijakan privasi Google, dan Anda dapat menonaktifkannya melalui pengaturan browser Anda. Kami tidak menggunakan cookies untuk melacak aktivitas pribadi pengguna di luar keperluan penayangan iklan.</p>
+    <p>Platform ini tidak menggunakan cookies pihak ketiga untuk melacak aktivitas pribadi pengguna. Kami berkomitmen untuk menjaga privasi Anda sepenuhnya.</p>
     <h2>4. Perubahan Kebijakan</h2>
     <p>Kami berhak untuk mengubah atau memperbarui Kebijakan Privasi ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku sejak dipublikasikan di halaman ini. Pengguna disarankan untuk meninjau halaman ini secara berkala.</p>
   </main>
@@ -569,7 +619,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -592,7 +642,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>3. Verifikasi Dokumen</h2>
     <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ejaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
-    <p>Platform ini mungkin mengandung tautan ke situs web pihak ketiga (misalnya iklan atau sumber informasi). Kami tidak bertanggung jawab atas konten, kebijakan privasi, atau praktik situs web pihak ketiga tersebut.</p>
+    <p>Platform ini mungkin mengandung tautan ke situs web pihak ketiga (misalnya sumber informasi). Kami tidak bertanggung jawab atas konten, kebijakan privasi, atau praktik situs web pihak ketiga tersebut.</p>
   </main>
 </div>
 
