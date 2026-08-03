@@ -207,7 +207,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </a>
     <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); return false;" class="hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); return false;" class="hover:text-white">Buat CV</a>
+      <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;" class="hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;" class="hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('panduan'); return false;" class="hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); return false;" class="hover:text-white">Tips & Contoh</a>
@@ -229,7 +229,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
+      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
@@ -282,7 +282,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-layer-group"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Struktur yang Jelas</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpisah dengan jelas dan mudah dipindai.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpisah dengan jelas dan easy dipindai.</p>
         </div>
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
@@ -333,8 +333,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Siap Melamar Pekerjaan Impian?</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <div class="flex flex-col items-center gap-4">
-        <button onclick="showPage('generator')" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red">Buat CV</button>
-        <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition">Buat Surat Melamar Pekerjaan</button>
+        <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red">Buat CV Sekarang</button>
+        <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-3 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition">Buat Surat Melamar Pekerjaan Sekarang</button>
       </div>
     </div>
   </main>
@@ -665,7 +665,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <div class="ft-col">
         <h4>Layanan</h4>
         <ul>
-          <li><a href="#" onclick="showPage('generator'); return false;">Buat CV Online</a></li>
+          <li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li>
           <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
           <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
           <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
