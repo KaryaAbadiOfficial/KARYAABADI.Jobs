@@ -1006,11 +1006,25 @@ function _eduTblNon(list,mode){
 }
 
 function eduPHDual(formalList,nonFormalList,mode){
-  var hasNon=nonFormalList.some(function(e){return(e.t&&e.t.trim())||(e.d&&e.d.trim())||(e.k&&e.k.trim())||(e.j&&e.j.trim())});
+  var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
+
+  var hasNon = nonFormalCount > 0;
+  var hasFormal = formalCount > 0;
+  
   var h='';
   var formalTbl=_eduTbl(formalList,mode);
-  if(hasNon)h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>';
+  
+  // Tampilkan sub-label "Pendidikan Formal" hanya jika ada pendidikan non formal ATAU formalCount > 1
+  // Sesuai permintaan: 
+  // - Jika formal 1 dan non formal kosong -> tidak ada label formal
+  // - Jika formal > 1 dan non formal kosong -> tidak ada label formal
+  // - Jika non formal diisi -> ada label formal
+  if(hasNon && hasFormal) {
+    h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>';
+  }
   h+=formalTbl;
+  
   var nonFormalTbl=_eduTblNon(nonFormalList,mode);
   if(hasNon&&nonFormalTbl){
     h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">'+L('Pendidikan Nonformal')+'</div>';
@@ -1026,9 +1040,18 @@ function kSkillPHSingle(list){var items=(list||[]).filter(function(s){return s&&
 function skCombined(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var html='';if(hItems.length){var thirdH=Math.ceil(hItems.length/3);var hC1=hItems.slice(0,thirdH),hC2=hItems.slice(thirdH,thirdH*2),hC3=hItems.slice(thirdH*2);function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';html+='<table style="width:100%;margin-bottom:3mm"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl(hC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl(hC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl(hC3)+'</td></tr></table>'}if(sItems.length){var thirdS=Math.ceil(sItems.length/3);var sC1=sItems.slice(0,thirdS),sC2=sItems.slice(thirdS,thirdS*2),sC3=sItems.slice(thirdS*2);function bl2(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Soft Skill')+'</div>';html+='<table style="width:100%"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl2(sC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl2(sC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl2(sC3)+'</td></tr></table>'}return html}
 function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';for(var i=0;i<hItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(hItems[i].trim())+'</td></tr></table></div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">'+L('Soft Skill')+'</div>';for(var i=0;i<sItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(sItems[i].trim())+'</td></tr></table></div>'}return h}
 
-function renderCV1(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);var h='<div style="display:flex;gap:8mm;align-items:center">';var fi=fotoImg();if(fi){h+='<div style="flex-shrink:0">'+fi+'</div>'}h+='<div style="flex:1;padding-left:'+(fi?'9.5mm':'0')+'">';if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}h+='</div></div>';function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl">'+L(l)+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
-function renderCV2(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);var h='<div style="display:flex;gap:8mm;align-items:center">';var fi=fotoImg();if(fi){h+='<div style="flex-shrink:0">'+fi+'</div>'}h+='<div style="flex:1;text-align:center">';if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';h+='</div></div>';if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
-function renderCV3(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);var eduCount=eduList.filter(function(e){return e.t&&e.t.trim()}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL);ls+=di('Jenis Kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div>'}if(eduHTML){rs+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){rs+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){rs+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return'<table style="width:100%;border:none;table-layout:fixed;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>'}
+function renderCV1(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
+var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
+var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
+var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);var h='<div style="display:flex;gap:8mm;align-items:center">';var fi=fotoImg();if(fi){h+='<div style="flex-shrink:0">'+fi+'</div>'}h+='<div style="flex:1;padding-left:'+(fi?'9.5mm':'0')+'">';if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}h+='</div></div>';function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl">'+L(l)+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+function renderCV2(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
+var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
+var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
+var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);var h='<div style="display:flex;gap:8mm;align-items:center">';var fi=fotoImg();if(fi){h+='<div style="flex-shrink:0">'+fi+'</div>'}h+='<div style="flex:1;text-align:center">';if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';h+='</div></div>';if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+function renderCV3(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);
+var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
+var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
+var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL);ls+=di('Jenis Kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div>'}if(eduHTML){rs+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){rs+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){rs+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return'<table style="width:100%;border:none;table-layout:fixed;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>'}
 
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
 function renderSkillsCV4(skillArr){if(!skillArr.length)return'';var h='<table style="width:100%; border-collapse:collapse;">';skillArr.forEach(function(s){var p=parseSkillCV4(s);if(!p.title&&!p.val)return;h+='<tr>';h+='<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0;">•</td>';h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600;">'+esc(p.title)+'</td>';if(p.val){h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm;">:</td>';h+='<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word;">'+esc(p.val)+'</td>'}else{h+='<td colspan="2" style="padding-bottom:2mm;"></td>'}h+='</tr>'});h+='</table>';return h}
@@ -1037,17 +1060,17 @@ function renderCV4(){
   var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
   
-  var hasEdu = eduList.some(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); });
+  var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
   var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
   
   var eduH = '';
-  if(hasEdu || hasNonEdu) {
-    eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
-  }
-  eduH += '<table style="width:100%; border-collapse:collapse;">';
-  if(!hasEdu && !hasNonEdu){
-      eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">Pendidikan Terakhir</td><td style="padding:1mm 0; text-align:center; width:30%;"></td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">0000-0000</td></tr>';
-  } else {
+  if(formalCount > 0 || hasNonEdu) {
+      // Tampilkan sub-label "Pendidikan Formal" hanya jika ada pendidikan non formal
+      if(hasNonEdu && formalCount > 0) {
+          eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
+      }
+      
+      eduH += '<table style="width:100%; border-collapse:collapse;">';
       eduList.forEach(function(e){
           if(e.t || e.y || e.p){
               var midVal = '';
@@ -1060,46 +1083,89 @@ function renderCV4(){
               } else if(e.p && e.p.trim()){
                 rightVal = esc(e.p);
               }
-              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+esc(e.t||'Pendidikan Terakhir')+'</td><td style="padding:1mm 0; text-align:center; width:30%;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">'+rightVal+'</td></tr>';
-          }
-      });
-  }
-  eduH += '</table>';
-  
-  if(hasNonEdu){
-      eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
-      eduH += '<table style="width:100%; border-collapse:collapse;">';
-      eduNonList.forEach(function(e){
-          var leftVal1 = e.t ? esc(e.t) : '';
-          var rightVal1 = e.d ? esc(e.d) : '';
-          
-          var leftVal2 = e.k ? esc(e.k) : '';
-          var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
-          
-          if(leftVal1 || rightVal1) {
-              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%;">'+rightVal1+'</td></tr>';
-          }
-          if(leftVal2) {
-              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
-          }
-          if(leftVal3) {
-              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">'+rightVal+'</td></tr>';
           }
       });
       eduH += '</table>';
+      
+      if(hasNonEdu){
+          eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
+          eduH += '<table style="width:100%; border-collapse:collapse;">';
+          eduNonList.forEach(function(e){
+              var leftVal1 = e.t ? esc(e.t) : '';
+              var rightVal1 = e.d ? esc(e.d) : '';
+              
+              var leftVal2 = e.k ? esc(e.k) : '';
+              var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
+              
+              if(leftVal1 || rightVal1) {
+                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%;">'+rightVal1+'</td></tr>';
+              }
+              if(leftVal2) {
+                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+              }
+              if(leftVal3) {
+                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+              }
+          });
+          eduH += '</table>';
+      }
   }
 
-  var expH='';expList.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;expH+='<div style="margin-bottom:3mm;">';if(e.pt)expH+='<div style="font-weight:600; word-break:break-word;">'+esc(e.pt)+'</div>';if(e.jl)expH+='<div style="word-break:break-word; font-size:9pt;">'+esc(e.jl)+'</div>';if(e.kt)expH+='<div style="word-break:break-word; font-size:9pt;">'+esc(e.kt)+'</div>';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p){if(!p.j&&!p.m&&!p.desc)return;expH+='<div style="margin-top:1mm; padding-left:4mm; border-left:2px solid #eee;">';if(p.j)expH+='<div style="font-weight:600;">'+esc(p.j)+'</div>';if(p.m)expH+='<div style="font-size:9pt;">'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){expH+='<div style="font-weight:600;margin-top:1mm;font-size:9pt;">'+L('Deskripsi Pekerjaan :')+'</div>';var lines=p.desc.trim().split('\n');lines.forEach(function(l){if(l.trim())expH+='<div style="text-align:justify; word-break:break-word;font-size:9pt;">'+esc(l.trim())+'</div>'})}expH+='</div>'})}expH+='</div>'});
-  var SK=renderSkillsCV4(kSkills.filter(function(s){return s&&s.trim()}));
+  var expH='';
+  expList.forEach(function(e){
+      var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());
+      var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});
+      if(!hasCompanyInfo&&!hasPosInfo)return;
+      expH+='<div style="margin-bottom:3mm;">';
+      if(e.pt)expH+='<div style="font-weight:600; word-break:break-word;">'+esc(e.pt)+'</div>';
+      if(e.jl)expH+='<div style="word-break:break-word; font-size:9pt;">'+esc(e.jl)+'</div>';
+      if(e.kt)expH+='<div style="word-break:break-word; font-size:9pt;">'+esc(e.kt)+'</div>';
+      if(e.posList&&e.posList.length>0){
+          e.posList.forEach(function(p){
+              if(!p.j&&!p.m&&!p.desc)return;
+              expH+='<div style="margin-top:1mm; padding-left:4mm; border-left:2px solid #eee;">';
+              if(p.j)expH+='<div style="font-weight:600;">'+esc(p.j)+'</div>';
+              if(p.m)expH+='<div style="font-size:9pt;">'+esc(p.m)+'</div>';
+              if(p.desc&&p.desc.trim()){
+                  expH+='<div style="font-weight:600;margin-top:1mm;font-size:9pt;">'+L('Deskripsi Pekerjaan :')+'</div>';
+                  var lines=p.desc.trim().split('\n');
+                  lines.forEach(function(l){
+                      if(l.trim()) expH+='<div style="text-align:justify; word-break:break-word;font-size:9pt;">'+esc(l.trim())+'</div>';
+                  });
+              }
+              expH+='</div>';
+          });
+      }
+      expH+='</div>';
+  });
+
+  var SK='';
+  var items=kSkills.filter(function(s){return s&&s.trim()});
+  if(items.length){
+      SK=renderSkillsCV4(items);
+  }
+
   var lines=[];
   if(N)lines.push('<div style="text-align:center; font-size:1.8em;font-weight:700;text-transform:uppercase;">'+esc(N)+'</div>');
   if(SUB)lines.push('<div style="text-align:center; font-size:1.1em;font-weight:400;color:#000;margin-top:2mm;">'+esc(SUB)+'</div>');
   if(TTL)lines.push('<div style="text-align:center; margin-top:3mm;">'+esc(TTL)+'</div>');
   if(AL)lines.push('<div style="text-align:center;">'+esc(AL)+'</div>');
   var contact4=[];if(HP)contact4.push(esc(HP));if(EM)contact4.push(esc(EM));if(contact4.length)lines.push('<div style="text-align:center;">'+contact4.join(' | ')+'</div>');
-  var h='<div>'+lines.join('')+'<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:3mm;"></div>';
+  
+  var hasHeader = lines.length > 0;
+  
+  var h='<div>';
+  if(hasHeader) {
+      h+=lines.join('')+'<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:3mm;"></div>';
+  }
+  
   if(PR){h+='<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div><div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm;"></div><div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>'}
-  if(eduH){h+='<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div><div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm;"></div><div style="margin-top:2mm;">'+eduH+'</div>'}
+  
+  if(eduH){
+    var eduTitle = formalCount > 1 ? L('RIWAYAT PENDIDIKAN') : L('PENDIDIKAN TERAKHIR');
+    h+='<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+eduTitle+'</div><div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm;"></div><div style="margin-top:2mm;">'+eduH+'</div>';
+  }
   if(expH){h+='<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div><div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm;"></div><div style="margin-top:2mm;">'+expH+'</div>'}
   if(SK){h+='<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div><div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm;"></div><div style="margin-top:2mm;">'+SK+'</div>'}
   return h;
