@@ -657,7 +657,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
     <p>Penggunaan template dari platform ini <strong>tidak menjamin</strong> bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
-    <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ejaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
+    <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ephaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
     <p>Platform ini mungkin mengandung tautan ke situs web pihak ketiga (misalnya sumber informasi). Kami tidak bertanggung jawab atas konten, kebijakan privasi, atau praktik situs web pihak ketiga tersebut.</p>
   </main>
@@ -1037,11 +1037,14 @@ function renderCV4(){
   var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
   
-  var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
-  var eduH = '';
-  if(hasNonEdu) eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
-  eduH += '<table style="width:100%; border-collapse:collapse;">';
   var hasEdu = eduList.some(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); });
+  var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
+  
+  var eduH = '';
+  if(hasEdu || hasNonEdu) {
+    eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
+  }
+  eduH += '<table style="width:100%; border-collapse:collapse;">';
   if(!hasEdu && !hasNonEdu){
       eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">Pendidikan Terakhir</td><td style="padding:1mm 0; text-align:center; width:30%;"></td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">0000-0000</td></tr>';
   } else {
@@ -1062,6 +1065,7 @@ function renderCV4(){
       });
   }
   eduH += '</table>';
+  
   if(hasNonEdu){
       eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
       eduH += '<table style="width:100%; border-collapse:collapse;">';
