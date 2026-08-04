@@ -174,7 +174,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
 .slider-slide { min-width: 100%; position: relative; }
 .slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; pointer-events: none; }
-.slider-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 10; width: 90%; pointer-events: none; }
+.slider-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction:column; align-items: center; gap: 10px; z-index: 10; width: 90%; pointer-events: none; }
 .slider-caption { background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); text-align: center; }
 .slider-nav { position: absolute; top: 45%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; cursor: pointer; border-radius: 50%; z-index: 20; font-size: 16px; transition: background 0.3s; display: flex; align-items: center; justify-content: center; }
 .slider-nav:hover { background: rgba(220, 38, 38, 0.9); }
@@ -549,7 +549,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Glints Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, dan karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
       </a>
       <a href="https://www.karir.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
         <div class="flex items-center gap-4 mb-3">
@@ -602,7 +602,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Tentang Karya Abadi Jobs</h1>
     <p><strong>Karya Abadi Jobs</strong> bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami adalah sebuah platform <strong>website tool / generator gratis</strong> yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan mudah.</p>
-    <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutama bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
+    <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutapi bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
     <p>Sebagai tool berbasis web, seluruh proses pembuatan dokumen dilakukan secara lokal di peramban (browser) pengguna. Ini artinya, data pribadi Anda tidak akan dikirim atau disimpan di server kami. Setelah selesai mengisi formulir, Anda dapat langsung mengunduh hasilnya dalam format PDF yang siap untuk dicetak atau dikirim secara digital via email.</p>
     <p>Kami terus berupaya mengembangkan dan meningkatkan kualitas template serta fitur agar Karya Abadi Jobs dapat memberikan manfaat yang maksimal bagi seluruh masyarakat Indonesia yang sedang dalam pencarian pekerjaan.</p>
   </main>
@@ -793,8 +793,8 @@ function startAutoSlide() {
 // ================= APP LOGIC =================
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
-var eduList=[{t:'',n:'',y:''}];
-var eduNonList=[{t:'',k:'',y:'',d:''}];
+var eduList=[{t:'',p:'',y:''}];
+var eduNonList=[{t:'',k:'',d:'',j:''}];
 var expList=[{pt:'', jl:'', kt:'', posList:[{j:'', m:'', desc:''}]}];
 var hSkills=[''];
 var sSkills=[''];
@@ -858,29 +858,38 @@ function settingsH(){
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No. / Dsn. RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
 function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No. / Dsn." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
-function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){return'<div class="grid grid-cols-5 gap-2 items-end '+(i>0?'mt-2':'')+'"><div class="col-span-3"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div><div class="col-span-2"><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000-0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div></div>'}).join('')}
+
+function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){
+  var h='<div class="grid grid-cols-2 gap-2 items-end '+(i>0?'mt-2':'')+'">';
+  h+='<div class="col-span-2"><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div>';
+  h+='<div><label class="fl">Periode</label><input class="fi" placeholder="0000-0000" value="'+esc(e.p)+'" oninput="eduList['+i+'].p=this.value;schedulePreview()"></div>';
+  h+='<div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div>';
+  h+='</div>';
+  return h;
+}).join('')}
+
 function renderEduNonF(){
-  var c=document.getElementById('edu-non-c');
-  if(!c)return;
+  var c=document.getElementById('edu-non-c');if(!c)return;
   var jenisOpts = ['Kursus','Pelatihan','Workshop','Sertifikasi','Bootcamp','Keterampilan','Keagamaan'];
   c.innerHTML=eduNonList.map(function(e,i){
     var h='<div class="grid grid-cols-2 gap-2 '+(i>0?'mt-2':'')+'">';
-    h+='<div><label class="fl">Jenis Pendidikan</label><select class="fi" onchange="eduNonList['+i+'].t=this.value;schedulePreview()">';
+    h+='<div><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduNonList['+i+'].t=this.value;schedulePreview()"></div>';
+    h+='<div><label class="fl">Masa Pendidikan</label><input class="fi" placeholder="....." value="'+esc(e.d)+'" oninput="eduNonList['+i+'].d=this.value;schedulePreview()"></div>';
+    h+='<div><label class="fl">Keterangan Pendidikan</label><input class="fi" placeholder="....." value="'+esc(e.k)+'" oninput="eduNonList['+i+'].k=this.value;schedulePreview()"></div>';
+    h+='<div></div>';
+    h+='<div class="col-span-2"><label class="fl">Jenis Pendidikan</label><select class="fi" onchange="eduNonList['+i+'].j=this.value;schedulePreview()">';
     h+='<option value="">-- Pilih --</option>';
     jenisOpts.forEach(function(opt){
-      h+='<option value="'+opt+'"'+(e.t===opt?' selected':'')+'>'+opt+'</option>';
+      h+='<option value="'+opt+'"'+(e.j===opt?' selected':'')+'>'+opt+'</option>';
     });
     h+='</select></div>';
-    h+='<div><label class="fl">Bulan</label><input class="fi" placeholder="....." value="'+esc(e.d)+'" oninput="eduNonList['+i+'].d=this.value;schedulePreview()"></div>';
-    h+='<div><label class="fl">Keterangan Pendidikan</label><input class="fi" placeholder="....." value="'+esc(e.k)+'" oninput="eduNonList['+i+'].k=this.value;schedulePreview()"></div>';
-    h+='<div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="....." value="'+esc(e.y)+'" oninput="eduNonList['+i+'].y=this.value;schedulePreview()"></div>';
     h+='</div>';
     return h;
   }).join('');
 }
-function addEdu(){eduList.push({t:'',n:'',y:''});renderEduF();renderPreview()}
+function addEdu(){eduList.push({t:'',p:'',y:''});renderEduF();renderPreview()}
 function rmEdu(){if(eduList.length>1){eduList.pop();renderEduF();renderPreview()}}
-function addEduNon(){eduNonList.push({t:'',k:'',y:'',d:''});renderEduNonF();renderPreview()}
+function addEduNon(){eduNonList.push({t:'',k:'',d:'',j:''});renderEduNonF();renderPreview()}
 function rmEduNon(){if(eduNonList.length>1){eduNonList.pop();renderEduNonF();renderPreview()}}
 
 function renderExpF(){
@@ -888,7 +897,7 @@ function renderExpF(){
   if(!c)return;
   c.innerHTML=expList.map(function(e,i){
     var h='<div class="border dark:border-brand-border border-gray-200 rounded-lg p-3 mb-3 '+(i>0?'mt-2':'')+'">';
-    h+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Nama Perusahaan</label><input class="fi" placeholder="....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div><label class="fl">Jalan</label><input class="fi" placeholder="....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div></div>';
+    h+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Nama Perusahaan</label><input class="fi" placeholder="....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div><label class="fl">Alamat Perusahaan</label><input class="fi" placeholder="....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div></div>';
     h+='<div><label class="fl">Kota, Kode Pos</label><input class="fi" placeholder="....." value="'+esc(e.kt)+'" oninput="expList['+i+'].kt=this.value;schedulePreview()"></div>';
     h+='<div class="mt-3 border-t dark:border-brand-border/50 pt-3">';
     if(!e.posList)e.posList=[{j:'',m:'',desc:''}];
@@ -927,9 +936,79 @@ function renderForm(){var fc=document.getElementById('form-content');if(curCat==
 
 function fotoImg(){var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';if(photoData){return'<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;object-fit:cover"></div>'}return''}
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
-function _eduTbl(list,mode){var rows='';list.forEach(function(e){if((e.t&&e.t.trim())||(e.y&&e.y.trim())){var leftVal=esc(e.t);var rightVal=esc(e.y);if(mode==='aligned'){rows+='<tr><td style="width:60%;vertical-align:top;padding-right:3mm;word-break:break-word;">'+leftVal+'</td><td style="width:40%;vertical-align:top;text-align:right;word-break:break-word;">'+rightVal+'</td></tr>'}else{rows+='<tr><td>'+leftVal+'</td><td style="width:28mm;text-align:right">'+rightVal+'</td></tr>'}}});return rows?'<table style="'+_tw+'">'+rows+'</table>':''}
-function _eduTblNon(list,mode){var rows='';list.forEach(function(e){if((e.t&&e.t.trim())||(e.y&&e.y.trim())){var name=e.t||'';var ket1=e.k?'<br>'+esc(e.k):'';var year=e.y||'';var ket2=e.d?'<br>'+esc(e.d):'';if(mode==='aligned'){rows+='<tr><td style="width:60%;vertical-align:top;padding-right:3mm;word-break:break-word;">'+name+ket1+'</td><td style="width:40%;vertical-align:top;text-align:right;word-break:break-word;">'+year+ket2+'</td></tr>'}else{rows+='<tr><td>'+name+ket1+'</td><td style="width:28mm;text-align:right">'+year+ket2+'</td></tr>'}}});return rows?'<table style="'+_tw+'">'+rows+'</table>':''}
-function eduPHDual(formalList,nonFormalList,mode){var hasNon=nonFormalList.some(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())});var h='';var formalTbl=_eduTbl(formalList,mode);if(hasNon)h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>';h+=formalTbl;var nonFormalTbl=_eduTblNon(nonFormalList,mode);if(hasNon&&nonFormalTbl){h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">'+L('Pendidikan Nonformal')+'</div>';h+=nonFormalTbl}return h}
+
+function _eduTbl(list,mode){
+  var rows='';
+  list.forEach(function(e){
+    if((e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())){
+      var leftVal=esc(e.t);
+      var midVal = e.y && e.y.trim() ? 'Tahun Lulus' : '';
+      var rightVal = '';
+      if(e.y && e.y.trim()){
+        rightVal = esc(e.y);
+      } else if(e.p && e.p.trim()){
+        rightVal = esc(e.p);
+      }
+      if(mode==='aligned'){
+        rows+='<tr><td style="width:45%;vertical-align:top;padding-right:3mm;word-break:break-word;">'+leftVal+'</td><td style="width:35%;vertical-align:top;text-align:center;word-break:break-word;">'+midVal+'</td><td style="width:20%;vertical-align:top;text-align:right;word-break:break-word;">'+rightVal+'</td></tr>';
+      } else {
+        rows+='<tr><td style="width:45%;">'+leftVal+'</td><td style="width:35%;text-align:center">'+midVal+'</td><td style="width:20%;text-align:right">'+rightVal+'</td></tr>';
+      }
+    }
+  });
+  return rows?'<table style="'+_tw+'">'+rows+'</table>':'';
+}
+
+function _eduTblNon(list,mode){
+  var rows='';
+  list.forEach(function(e){
+    var hasContent = (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());
+    if(hasContent){
+      var leftVal1 = e.t ? esc(e.t) : '';
+      var rightVal1 = e.d ? esc(e.d) : '';
+      
+      var leftVal2 = e.k ? esc(e.k) : '';
+      var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
+      
+      if(leftVal1 || rightVal1) {
+        if(mode==='aligned'){
+          rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;">'+leftVal1+'</td><td style="width:50%;vertical-align:top;text-align:right;word-break:break-word;">'+rightVal1+'</td></tr>';
+        } else {
+          rows+='<tr><td style="width:50%;">'+leftVal1+'</td><td style="width:50%;text-align:right">'+rightVal1+'</td></tr>';
+        }
+      }
+      if(leftVal2) {
+        if(mode==='aligned'){
+          rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;">'+leftVal2+'</td><td style="width:50%;"></td></tr>';
+        } else {
+          rows+='<tr><td style="width:50%;">'+leftVal2+'</td><td style="width:50%;"></td></tr>';
+        }
+      }
+      if(leftVal3) {
+        if(mode==='aligned'){
+          rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;">'+leftVal3+'</td><td style="width:50%;"></td></tr>';
+        } else {
+          rows+='<tr><td style="width:50%;">'+leftVal3+'</td><td style="width:50%;"></td></tr>';
+        }
+      }
+    }
+  });
+  return rows?'<table style="'+_tw+'">'+rows+'</table>':'';
+}
+
+function eduPHDual(formalList,nonFormalList,mode){
+  var hasNon=nonFormalList.some(function(e){return(e.t&&e.t.trim())||(e.d&&e.d.trim())||(e.k&&e.k.trim())||(e.j&&e.j.trim())});
+  var h='';
+  var formalTbl=_eduTbl(formalList,mode);
+  if(hasNon)h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>';
+  h+=formalTbl;
+  var nonFormalTbl=_eduTblNon(nonFormalList,mode);
+  if(hasNon&&nonFormalTbl){
+    h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">'+L('Pendidikan Nonformal')+'</div>';
+    h+=nonFormalTbl;
+  }
+  return h;
+}
 function expPH(list){if(!list||list.length===0)return'';var h='';list.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;var leftContent='';if(e.pt)leftContent+='<div style="font-weight:600">'+esc(e.pt)+'</div>';if(e.jl)leftContent+='<div>'+esc(e.jl)+'</div>';if(e.kt)leftContent+='<div>'+esc(e.kt)+'</div>';var rightContent='';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p,idx){if(!p.j&&!p.m&&!p.desc)return;if(idx>0&&rightContent)rightContent+='<div style="margin-top:2mm;border-top:1px solid #eee;padding-top:2mm;"></div>';if(p.j)rightContent+='<div style="font-weight:600">'+esc(p.j)+'</div>';if(p.m)rightContent+='<div style="font-size:9pt">'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){rightContent+='<div style="font-weight:600;margin-top:1mm;font-size:9pt">'+L('Deskripsi Pekerjaan:')+'</div>';rightContent+='<div style="text-align:justify;line-height:1.4;word-break:break-word;font-size:9pt">'+esc(p.desc.trim())+'</div>'}})}if(leftContent||rightContent){h+='<div style="margin-bottom:3mm"><table style="'+_tw+'"><tr><td style="'+_r1+'">'+leftContent+'</td><td style="'+_r2+'">'+rightContent+'</td></tr></table></div>'}});return h}
 function expPH3(list){if(!list||list.length===0)return'';var h='';list.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;h+='<div style="margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">';if(e.pt)h+='<div style="font-weight:600">'+esc(e.pt)+'</div>';if(e.jl)h+='<div style="font-size:9pt">'+esc(e.jl)+'</div>';if(e.kt)h+='<div style="font-size:9pt">'+esc(e.kt)+'</div>';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p){if(!p.j&&!p.m&&!p.desc)return;h+='<div style="margin-top:2mm; padding-left:4mm; border-left:2px solid #eee;">';if(p.j)h+='<div style="font-weight:600">'+esc(p.j)+'</div>';if(p.m)h+='<div style="font-size:9pt">'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){h+='<div style="font-weight:600;margin-top:1mm;font-size:9pt">'+L('Deskripsi Pekerjaan:')+'</div>';h+='<div style="text-align:justify;line-height:1.4;word-break:break-word;overflow-wrap:break-word;font-size:9pt">'+esc(p.desc.trim())+'</div>'}h+='</div>'})}h+='</div>'});return h}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
@@ -948,7 +1027,52 @@ function renderSkillsCV4(skillArr){if(!skillArr.length)return'';var h='<table st
 function renderCV4(){
   var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
-  var eduHTML=eduPHDual(eduList,eduNonList,'aligned');
+  
+  var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
+  var eduH = '';
+  if(hasNonEdu) eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
+  eduH += '<table style="width:100%; border-collapse:collapse;">';
+  var hasEdu = eduList.some(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); });
+  if(!hasEdu && !hasNonEdu){
+      eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">Pendidikan Terakhir</td><td style="padding:1mm 0; text-align:center; width:30%;"></td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">0000-0000</td></tr>';
+  } else {
+      eduList.forEach(function(e){
+          if(e.t || e.y || e.p){
+              var midVal = e.y && e.y.trim() ? 'Tahun Lulus' : '';
+              var rightVal = '';
+              if(e.y && e.y.trim()){
+                rightVal = esc(e.y);
+              } else if(e.p && e.p.trim()){
+                rightVal = esc(e.p);
+              }
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+esc(e.t||'Pendidikan Terakhir')+'</td><td style="padding:1mm 0; text-align:center; width:30%;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">'+rightVal+'</td></tr>';
+          }
+      });
+  }
+  eduH += '</table>';
+  if(hasNonEdu){
+      eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
+      eduH += '<table style="width:100%; border-collapse:collapse;">';
+      eduNonList.forEach(function(e){
+          var leftVal1 = e.t ? esc(e.t) : '';
+          var rightVal1 = e.d ? esc(e.d) : '';
+          
+          var leftVal2 = e.k ? esc(e.k) : '';
+          var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
+          
+          if(leftVal1 || rightVal1) {
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%;">'+rightVal1+'</td></tr>';
+          }
+          if(leftVal2) {
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+          }
+          if(leftVal3) {
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+          }
+      });
+      eduH += '</table>';
+  }
+
   var expH='';expList.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&e.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;expH+='<div style="margin-bottom:3mm;">';if(e.pt)expH+='<div style="font-weight:600; word-break:break-word;">'+esc(e.pt)+'</div>';if(e.jl)expH+='<div style="word-break:break-word; font-size:9pt;">'+esc(e.jl)+'</div>';if(e.kt)expH+='<div style="word-break:break-word; font-size:9pt;">'+esc(e.kt)+'</div>';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p){if(!p.j&&!p.m&&!p.desc)return;expH+='<div style="margin-top:1mm; padding-left:4mm; border-left:2px solid #eee;">';if(p.j)expH+='<div style="font-weight:600;">'+esc(p.j)+'</div>';if(p.m)expH+='<div style="font-size:9pt;">'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){expH+='<div style="font-weight:600;margin-top:1mm;font-size:9pt;">'+L('Deskripsi Pekerjaan :')+'</div>';var lines=p.desc.trim().split('\n');lines.forEach(function(l){if(l.trim())expH+='<div style="text-align:justify; word-break:break-word;font-size:9pt;">'+esc(l.trim())+'</div>'})}expH+='</div>'})}expH+='</div>'});
   var SK=renderSkillsCV4(kSkills.filter(function(s){return s&&s.trim()}));
   var lines=[];
@@ -1202,7 +1326,7 @@ function handlePhoto(e){
 }
 
 function toggleDark(){document.documentElement.classList.toggle('dark');var isDark=document.documentElement.classList.contains('dark');toast(isDark?'Mode gelap aktif':'Mode terang aktif','info')}
-function resetForm(){if(curCat==='cv'){eduList=[{t:'',n:'',y:''}];eduNonList=[{t:'',k:'',y:'',d:''}];expList=[{pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]}];hSkills=[''];sSkills=[''];kSkills=[''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=[''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
+function resetForm(){if(curCat==='cv'){eduList=[{t:'',p:'',y:''}];eduNonList=[{t:'',k:'',d:'',j:''}];expList=[{pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]}];hSkills=[''];sSkills=[''];kSkills=[''];skillMode='hs';photoData=null;savedCV={};selFont='Arial';selSize=10;selLH=1.4}else{lampList=[''];photoData=null;savedSurat={};selFont='Arial';selSize=10;selLH=1.4}renderForm();renderPreview();toast('Formulir berhasil direset','info')}
 
 function downloadPDF() {
     saveStatic();
