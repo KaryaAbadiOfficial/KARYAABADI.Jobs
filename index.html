@@ -939,7 +939,7 @@ function renderForm(){
   restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')
 }
 
-function fotoImg(){var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';if(photoData){return'<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;object-fit:cover"></div>'}return''}
+function fotoImg(){var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1.5px solid #aaa;';if(photoData){return'<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;object-fit:cover"></div>'}return''}
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
 
 function _eduTbl(list,mode){
@@ -1272,9 +1272,39 @@ function handlePhoto(event) {
   }
   var reader = new FileReader();
   reader.onload = function(e) {
-    photoData = e.target.result;
-    restorePhoto();
-    renderPreview();
+    var img = new Image();
+    img.onload = function() {
+      // Auto Crop 3x4
+      var canvas = document.createElement('canvas');
+      var targetW = 300;
+      var targetH = 400;
+      canvas.width = targetW;
+      canvas.height = targetH;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, targetW, targetH);
+
+      var sourceW = img.width;
+      var sourceH = img.height;
+      var sourceAspect = sourceW / sourceH;
+      var targetAspect = targetW / targetH;
+
+      var sx = 0, sy = 0, sw = sourceW, sh = sourceH;
+
+      if (sourceAspect > targetAspect) {
+        sw = sourceH * targetAspect;
+        sx = (sourceW - sw) / 2;
+      } else {
+        sh = sourceW / targetAspect;
+        sy = (sourceH - sh) / 2;
+      }
+
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
+      photoData = canvas.toDataURL('image/jpeg', 0.9);
+      restorePhoto();
+      renderPreview();
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -1301,11 +1331,15 @@ function resetForm() {
 }
 
 var currentZoom = 1;
+var panState = { x: 0, y: 0, startX: 0, startY: 0, isDragging: false };
+
 function zoomPreview(delta) {
   currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta));
   applyZoom();
 }
 function resetZoom() {
+  panState.x = 0;
+  panState.y = 0;
   var wrap = document.getElementById('preview-wrap');
   var mobWrap = document.getElementById('preview-wrap-mob');
   var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap;
@@ -1322,12 +1356,48 @@ function resetZoom() {
 function applyZoom() {
   var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')];
   scalers.forEach(function(s) {
-    if(s) s.style.transform = 'scale(' + currentZoom + ')';
+    if(s) s.style.transform = 'translate(' + panState.x + 'px, ' + panState.y + 'px) scale(' + currentZoom + ')';
   });
   var levels = document.querySelectorAll('.zoom-level');
   levels.forEach(function(l) {
     l.textContent = Math.round(currentZoom * 100) + '%';
   });
+}
+
+function initPan() {
+  var wraps = [document.getElementById('preview-wrap'), document.getElementById('preview-wrap-mob')];
+  wraps.forEach(function(wrap) {
+    if(!wrap) return;
+    wrap.addEventListener('mousedown', startPan);
+    wrap.addEventListener('touchstart', startPan, {passive: false});
+    document.addEventListener('mousemove', movePan);
+    document.addEventListener('touchmove', movePan, {passive: false});
+    document.addEventListener('mouseup', endPan);
+    document.addEventListener('touchend', endPan);
+  });
+}
+
+function startPan(e) {
+  if(e.target.classList.contains('zoom-btn') || e.target.closest('.zoom-btn')) return;
+  panState.isDragging = true;
+  var pt = e.touches ? e.touches[0] : e;
+  panState.startX = pt.clientX - panState.x;
+  panState.startY = pt.clientY - panState.y;
+  document.body.style.userSelect = 'none';
+}
+
+function movePan(e) {
+  if(!panState.isDragging) return;
+  e.preventDefault();
+  var pt = e.touches ? e.touches[0] : e;
+  panState.x = pt.clientX - panState.startX;
+  panState.y = pt.clientY - panState.startY;
+  applyZoom();
+}
+
+function endPan() {
+  panState.isDragging = false;
+  document.body.style.userSelect = '';
 }
 
 function downloadPDF() {
@@ -1388,34 +1458,11 @@ function downloadWord() {
     html = renderSurat();
   }
   
-  var style = '<style>body{font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';color:#000;} table{width:100%;border-collapse:collapse;} .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:5mm;} .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}</style>';
-  var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
-  var footer = "</body></html>";
-  var sourceHTML = header + html + footer;
-  
-  var blob = new Blob(['\ufeff', sourceHTML], {
-    type: 'application/msword'
-  });
-  
-  var url = URL.createObjectURL(blob);
-  var fileDownload = document.createElement("a");
-  fileDownload.href = url;
-  fileDownload.download = (curCat === 'cv' ? 'CV-' : 'Surat-Lamaran-') + (v('nama') || 'Unduhan') + '.doc';
-  document.body.appendChild(fileDownload);
-  fileDownload.click();
-  document.body.removeChild(fileDownload);
-  toast('File Word berhasil diunduh!', 'success');
-}
-
-// INIT
-window.addEventListener('load', function() {
-  updateVH();
-  initSlider();
-  renderForm();
-  renderPreview();
-  resetZoom();
-});
-window.addEventListener('resize', updateVH);
-</script>
-</body>
-</html>
+  var style = `
+  <style>
+  @page Section1 { size: 210mm 297mm; margin: 0; }
+  div.Section1 { page: Section1; }
+  body { font-family: `+selFont+`; font-size: `+selSize+`pt; line-height: `+selLH+`; color: #000; margin: 0; }
+  table { width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+  .a4-page { width: 210mm; min-height: 297mm; background: #fff; color: #000; padding: 12mm 16mm; box-sizing: border-box; }
+  .st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm;
