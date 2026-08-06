@@ -619,7 +619,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -1135,7 +1135,28 @@ var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL);ls+=di('Jenis Kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div>'}if(eduHTML){rs+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){rs+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){rs+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>'}
 
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
-function renderSkillsCV4(skillArr){if(!skillArr.length)return'';var h='<table style="width:100%; border-collapse:collapse; border:none;">';skillArr.forEach(function(s){var p=parseSkillCV4(s);if(!p.title&&!p.val)return;h+='<tr>';h+='<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; border:none;">•</td>';h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600; border:none;">'+esc(p.title)+'</td>';if(p.val){h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm; border:none;">:</td>';h+='<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word; border:none;">'+esc(p.val)+'</td>'}else{h+='<td colspan="2" style="padding-bottom:2mm; border:none;"></td>'}h+='</tr>'});h+='</table>';return h}
+function renderSkillsCV4(skillArr){
+  var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
+  if(!items.length) return '';
+  
+  var h = '<table style="width:100%; border-collapse:collapse; border:none;">';
+  items.forEach(function(s){
+    var p = parseSkillCV4(s);
+    if(!p.title && !p.val) return;
+    h += '<tr>';
+    h += '<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; border:none;">•</td>';
+    h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600; border:none;">' + esc(p.title) + '</td>';
+    if (p.val) {
+      h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm; border:none;">:</td>';
+      h += '<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word; border:none;">' + esc(p.val) + '</td>';
+    } else {
+      h += '<td colspan="2" style="padding-bottom:2mm; border:none;"></td>';
+    }
+    h += '</tr>';
+  });
+  h += '</table>';
+  return h;
+}
 
 function renderCV4(){
   var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
@@ -1207,11 +1228,29 @@ function renderCV4(){
   
   if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm; font-size:10pt;">'+contactArr.join(' | ')+'</div>';
   
-  if(PR) h += '<div class="st">PROFIL</div><div style="text-align:justify;">'+PR+'</div>';
+  if(PR) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>';
+  }
   
-  if(eduH) h += '<div class="st">PENDIDIKAN</div>'+eduH;
-  if(expH) h += '<div class="st">PENGALAMAN KERJA</div>'+expH;
-  if(skH) h += '<div class="st">KEAHLIAN</div>'+skH;
+  if(eduH) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="margin-top:2mm;">'+eduH+'</div>';
+  }
+  
+  if(expH) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="margin-top:2mm;">'+expH+'</div>';
+  }
+  
+  if(skH) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="margin-top:2mm;">'+skH+'</div>';
+  }
   
   return h;
 }
