@@ -288,7 +288,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Singkat dan Padat</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poin important yang singkat daripada paragraf panjang.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poins important yang singkat daripada paragraf panjang.</p>
         </div>
       </div>
     </article>
@@ -334,11 +334,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <div class="flex flex-col items-center gap-5">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Buat</span>
           <span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span>
         </button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Buat</span>
           <span class="block text-base uppercase tracking-wide">Surat Melamar Pekerjaan</span>
         </button>
       </div>
@@ -464,7 +464,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li><strong>Tujuan:</strong> Kepada Yth. HRD Manager [Nama Perusahaan] di Tempat.</li>
         <li><strong>Pembuka:</strong> Salam hormat ("Dengan Hormat,") dan sumber informasi lowongan.</li>
         <li><strong>Isi:</strong> Data diri singkat (Nama, TTL, Pendidikan) dan posisi yang dilamar.</li>
-        <li><strong>Daftar Lampiran:</strong> Poin-poin dokumen yang dilampirkan (CV, Ijazah, Foto, dll).</li>
+        <li><strong>Daftar Lampiran:</strong> Poin-poins dokumen yang dilampirkan (CV, Ijazah, Foto, dll).</li>
         <li><strong>Penutup:</strong> Harapan untuk mengikuti tes wawancara dan ucapan terima kasih.</li>
         <li><strong>Tanda Tangan:</strong> Nama jelas dan tanda tangan di bagian bawah kanan.</li>
       </ul>
@@ -992,7 +992,6 @@ function renderForm(){
 }
 
 function fotoImg(){
-  // Ukuran standar 2.79 x 3.81 cm (3x4)
   var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';
   if(photoData){
     return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;"></div>';
@@ -1277,14 +1276,14 @@ function renderSuratP() {
     if (m.semua) {
       sumberStr = 'lowongan pekerjaan';
     } else {
-      sumberStr = 'lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….') + ' , ';
+      sumberStr = 'lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….') + ', ';
     }
     
     var pembukaEmail = 'Sehubungan dengan informasi ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka kesempatan';
     if (m.pos) {
-      pembukaEmail += ' untuk posisi ' + esc(v('sPosisi') || '……………….') + ' ,';
+      pembukaEmail += ' untuk posisi ' + esc(v('sPosisi') || '……………….') + ',';
     } else {
-      pembukaEmail += ' ,';
+      pembukaEmail += ',';
     }
     pembukaEmail += ' melalui surat ini saya bermaksud untuk mengajukan diri, guna bergabung dengan perusahaan yang Bapak/Ibu pimpin.';
 
@@ -1310,7 +1309,7 @@ function renderSuratP() {
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 0 0; vertical-align:top;">Subjek</td><td style="width:3mm; border:none; padding:0;">:</td><td style="border:none; padding:0;">' + esc(subjek) + '</td></tr>';
     h += '</table>';
 
-    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Yth.<br>HRD PT ' + esc(PT) + '<br>di Tempat</div>';
+    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Yth.<br>Bapak/Ibu HRD ' + esc(PT) + '<br>di Tempat</div>';
 
     h += '<p style="margin: 0 0 4mm 0; line-height: 1.5;">Dengan hormat,</p>';
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>';
@@ -1648,7 +1647,12 @@ function downloadPDF() {
         pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save((curCat === 'cv' ? 'CV-' : 'Surat-Lamaran-') + (v('nama') || 'Unduhan') + '.pdf');
+      
+      // Format nama file unduhan
+      var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+      var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
+      pdf.save(fileNamePrefix + safeName + '.pdf');
+      
       element.innerHTML = '';
       toast('PDF berhasil diunduh!', 'success');
     }).catch(function(err) {
@@ -1695,7 +1699,12 @@ function downloadWord() {
   var url = URL.createObjectURL(blob);
   var fileDownload = document.createElement("a");
   fileDownload.href = url;
-  fileDownload.download = (curCat === 'cv' ? 'CV-' : 'Surat-Lamaran-') + (v('nama') || 'Unduhan') + '.doc';
+  
+  // Format nama file unduhan
+  var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+  var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
+  fileDownload.download = fileNamePrefix + safeName + '.doc';
+  
   document.body.appendChild(fileDownload);
   fileDownload.click();
   document.body.removeChild(fileDownload);
