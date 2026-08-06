@@ -748,7 +748,7 @@ var ST_M=[
   {id:'s-ts',name:'Tulis Tangan (Semua PT)',pos:false,on:false,semua:true}
 ];
 
-var _tw='width:100%;table-layout:fixed;border-collapse:collapse;';
+var _tw='width:100%;table-layout:fixed;border-collapse:collapse;border:none;';
 var _c1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
 var _c2='width:28%;vertical-align:top;padding-left:3mm;padding-right:2mm;word-break:break-word;';
 var _c3='width:22%;vertical-align:top;text-align:right;word-break:break-word;';
@@ -939,7 +939,13 @@ function renderForm(){
   restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')
 }
 
-function fotoImg(){var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1.5px solid #aaa;';if(photoData){return'<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;object-fit:cover"></div>'}return''}
+function fotoImg(){
+  var wStyle='width:3cm;height:4cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';
+  if(photoData){
+    return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;"></div>';
+  }
+  return '';
+}
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
 
 function _eduTbl(list,mode){
@@ -1029,26 +1035,54 @@ function eduPHDual(formalList,nonFormalList,mode){
 function expPH(list){if(!list||list.length===0)return'';var h='';list.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;var leftContent='';if(e.pt)leftContent+='<div style="font-weight:600">'+esc(e.pt)+'</div>';if(e.jl)leftContent+='<div>'+esc(e.jl)+'</div>';if(e.kt)leftContent+='<div>'+esc(e.kt)+'</div>';var rightContent='';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p,idx){if(!p.j&&!p.m&&!p.desc)return;if(idx>0&&rightContent)rightContent+='<div style="margin-top:2mm;border-top:1px solid #eee;padding-top:2mm;"></div>';if(p.j)rightContent+='<div style="font-weight:600">'+esc(p.j)+'</div>';if(p.m)rightContent+='<div style="font-size:9pt">'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){rightContent+='<div style="font-weight:600;margin-top:1mm;font-size:9pt">'+L('Deskripsi Pekerjaan:')+'</div>';rightContent+='<div style="text-align:justify;line-height:1.4;word-break:break-word;font-size:9pt">'+esc(p.desc.trim())+'</div>'}})}if(leftContent||rightContent){h+='<div style="margin-bottom:3mm"><table style="'+_tw+'"><tr><td style="'+_r1+'">'+leftContent+'</td><td style="'+_r2+'">'+rightContent+'</td></tr></table></div>'}});return h}
 function expPH3(list){if(!list||list.length===0)return'';var h='';list.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;h+='<div style="margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">';if(e.pt)h+='<div style="font-weight:600">'+esc(e.pt)+'</div>';if(e.jl)h+='<div style="font-size:9pt">'+esc(e.jl)+'</div>';if(e.kt)h+='<div style="font-size:9pt">'+esc(e.kt)+'</div>';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p){if(!p.j&&!p.m&&!p.desc)return;h+='<div style="margin-top:2mm; padding-left:4mm; border-left:2px solid #eee;">';if(p.j)h+='<div style="font-weight:600">'+esc(p.j)+'</div>';if(p.m)h+='<div style="font-size:9pt">'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){h+='<div style="font-weight:600;margin-top:1mm;font-size:9pt">'+L('Deskripsi Pekerjaan:')+'</div>';h+='<div style="text-align:justify;line-height:1.4;word-break:break-word;overflow-wrap:break-word;font-size:9pt">'+esc(p.desc.trim())+'</div>'}h+='</div>'})}h+='</div>'});return h}
 function joinAddr(){var parts=[];for(var i=0;i<arguments.length;i++){if(arguments[i]&&arguments[i].trim())parts.push(esc(arguments[i]))}return parts.length?parts.join(', '):''}
-function kSkillPH(list){var items=(list||[]).filter(function(s){return s&&s.trim()});if(!items.length)return'';var h='<table style="width:100%">';var cols=2;for(var i=0;i<items.length;i+=cols){h+='<tr>';for(var j=0;j<cols;j++){var idx=i+j;if(idx<items.length){var val=items[idx]?items[idx].trim():'';h+='<td style="width:50%;vertical-align:top;padding:0.2mm 3mm 0.2mm 0;text-align:left;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(val)+'</td></tr></table></td>'}else{h+='<td style="width:50%;vertical-align:top;padding:0.2mm 3mm 0.2mm 0;text-align:left;"></td>'}}h+='</tr>'}h+='</table>';return h}
-function kSkillPHSingle(list){var items=(list||[]).filter(function(s){return s&&s.trim()});if(!items.length)return'';var h='';for(var i=0;i<items.length;i++){var val=items[i].trim();h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(val)+'</td></tr></table></div>'}return h}
-function skCombined(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var html='';if(hItems.length){var thirdH=Math.ceil(hItems.length/3);var hC1=hItems.slice(0,thirdH),hC2=hItems.slice(thirdH,thirdH*2),hC3=hItems.slice(thirdH*2);function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';html+='<table style="width:100%;margin-bottom:3mm"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl(hC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl(hC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl(hC3)+'</td></tr></table>'}if(sItems.length){var thirdS=Math.ceil(sItems.length/3);var sC1=sItems.slice(0,thirdS),sC2=sItems.slice(thirdS,thirdS*2),sC3=sItems.slice(thirdS*2);function bl2(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Soft Skill')+'</div>';html+='<table style="width:100%"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl2(sC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl2(sC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl2(sC3)+'</td></tr></table>'}return html}
-function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';for(var i=0;i<hItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(hItems[i].trim())+'</td></tr></table></div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">'+L('Soft Skill')+'</div>';for(var i=0;i<sItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(sItems[i].trim())+'</td></tr></table></div>'}return h}
+function kSkillPH(list){var items=(list||[]).filter(function(s){return s&&s.trim()});if(!items.length)return'';var h='<table style="width:100%;border:none;">';var cols=2;for(var i=0;i<items.length;i+=cols){h+='<tr>';for(var j=0;j<cols;j++){var idx=i+j;if(idx<items.length){var val=items[idx]?items[idx].trim():'';h+='<td style="width:50%;vertical-align:top;padding:0.2mm 3mm 0.2mm 0;text-align:left;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(val)+'</td></tr></table></td>'}else{h+='<td style="width:50%;vertical-align:top;padding:0.2mm 3mm 0.2mm 0;text-align:left;"></td>'}}h+='</tr>'}h+='</table>';return h}
+function kSkillPHSingle(list){var items=(list||[]).filter(function(s){return s&&s.trim()});if(!items.length)return'';var h='';for(var i=0;i<items.length;i++){var val=items[i].trim();h+='<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(val)+'</td></tr></table></div>'}return h}
+function skCombined(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var html='';if(hItems.length){var thirdH=Math.ceil(hItems.length/3);var hC1=hItems.slice(0,thirdH),hC2=hItems.slice(thirdH,thirdH*2),hC3=hItems.slice(thirdH*2);function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';html+='<table style="width:100%;margin-bottom:3mm;border:none;"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl(hC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl(hC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl(hC3)+'</td></tr></table>'}if(sItems.length){var thirdS=Math.ceil(sItems.length/3);var sC1=sItems.slice(0,thirdS),sC2=sItems.slice(thirdS,thirdS*2),sC3=sItems.slice(thirdS*2);function bl2(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Soft Skill')+'</div>';html+='<table style="width:100%;border:none;"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0">'+bl2(sC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm">'+bl2(sC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0">'+bl2(sC3)+'</td></tr></table>'}return html}
+function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';for(var i=0;i<hItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(hItems[i].trim())+'</td></tr></table></div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">'+L('Soft Skill')+'</div>';for(var i=0;i<sItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top;">\u2022</td><td style="vertical-align:top;">'+esc(sItems[i].trim())+'</td></tr></table></div>'}return h}
 
 function renderCV1(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
-var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);var h='<div style="display:flex;gap:8mm;align-items:center">';var fi=fotoImg();if(fi){h+='<div style="flex-shrink:0">'+fi+'</div>'}h+='<div style="flex:1;padding-left:'+(fi?'9.5mm':'0')+'">';if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}h+='</div></div>';function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl">'+L(l)+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
+
+var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
+var fi=fotoImg();
+if(fi){
+  h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm;">'+fi+'</td>';
+  h+='<td style="vertical-align:top;">';
+} else {
+  h+='<td colspan="2" style="vertical-align:top;">';
+}
+if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}
+h+='</td></tr></table>';
+
+function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl">'+L(l)+'</td><td class="dc">:</td><td>'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+
 function renderCV2(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
-var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);var h='<div style="display:flex;gap:8mm;align-items:center">';var fi=fotoImg();if(fi){h+='<div style="flex-shrink:0">'+fi+'</div>'}h+='<div style="flex:1;text-align:center">';if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';h+='</div></div>';if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
+
+var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
+var fi=fotoImg();
+if(fi){
+  h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm;">'+fi+'</td>';
+  h+='<td style="vertical-align:top; text-align:center;">';
+} else {
+  h+='<td colspan="2" style="vertical-align:top; text-align:center;">';
+}
+if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="font-size:10pt;font-weight:600;color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
+h+='</td></tr></table>';
+
+if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+
 function renderCV3(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
-var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL);ls+=di('Jenis Kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div>'}if(eduHTML){rs+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){rs+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){rs+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return'<table style="width:100%;border:none;table-layout:fixed;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>'}
+var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="font-size:9pt;font-weight:600;color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL);ls+=di('Jenis Kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div>'}if(eduHTML){rs+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){rs+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){rs+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>'}
 
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
-function renderSkillsCV4(skillArr){if(!skillArr.length)return'';var h='<table style="width:100%; border-collapse:collapse;">';skillArr.forEach(function(s){var p=parseSkillCV4(s);if(!p.title&&!p.val)return;h+='<tr>';h+='<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0;">•</td>';h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600;">'+esc(p.title)+'</td>';if(p.val){h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm;">:</td>';h+='<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word;">'+esc(p.val)+'</td>'}else{h+='<td colspan="2" style="padding-bottom:2mm;"></td>'}h+='</tr>'});h+='</table>';return h}
+function renderSkillsCV4(skillArr){if(!skillArr.length)return'';var h='<table style="width:100%; border-collapse:collapse; border:none;">';skillArr.forEach(function(s){var p=parseSkillCV4(s);if(!p.title&&!p.val)return;h+='<tr>';h+='<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; border:none;">•</td>';h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600; border:none;">'+esc(p.title)+'</td>';if(p.val){h+='<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm; border:none;">:</td>';h+='<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word; border:none;">'+esc(p.val)+'</td>'}else{h+='<td colspan="2" style="padding-bottom:2mm; border:none;"></td>'}h+='</tr>'});h+='</table>';return h}
 
 function renderCV4(){
   var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
@@ -1063,7 +1097,7 @@ function renderCV4(){
           eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
       }
       
-      eduH += '<table style="width:100%; border-collapse:collapse;">';
+      eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
       eduList.forEach(function(e){
           if(e.t || e.y || e.p){
               var midVal = '';
@@ -1076,14 +1110,14 @@ function renderCV4(){
               } else if(e.p && e.p.trim()){
                 rightVal = esc(e.p);
               }
-              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%;">'+rightVal+'</td></tr>';
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%; border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%; border:none;">'+rightVal+'</td></tr>';
           }
       });
       eduH += '</table>';
       
       if(hasNonEdu){
           eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
-          eduH += '<table style="width:100%; border-collapse:collapse;">';
+          eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
           eduNonList.forEach(function(e){
               var leftVal1 = e.t ? esc(e.t) : '';
               var rightVal1 = e.d ? esc(e.d) : '';
@@ -1092,13 +1126,13 @@ function renderCV4(){
               var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
               
               if(leftVal1 || rightVal1) {
-                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%;">'+rightVal1+'</td></tr>';
+                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>';
               }
               if(leftVal2) {
-                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>';
               }
               if(leftVal3) {
-                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%;"></td></tr>';
+                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>';
               }
           });
           eduH += '</table>';
@@ -1162,13 +1196,13 @@ function renderSurat() {
     h += ' di perusahaan yang Bapak/Ibu pimpin.</p>';
     
     h += '<p>Saya yang bertanda tangan di bawah ini:</p>';
-    h += '<table style="margin-bottom: 5mm;">';
-    if(nama) h += '<tr><td style="width:40mm;">Nama</td><td>: ' + esc(nama) + '</td></tr>';
-    if(v('ttl')) h += '<tr><td style="width:40mm;">Tempat, Tgl Lahir</td><td>: ' + esc(v('ttl')) + '</td></tr>';
-    if(v('jk')) h += '<tr><td style="width:40mm;">Jenis Kelamin</td><td>: ' + esc(v('jk')) + '</td></tr>';
-    if(v('pendAkhir')) h += '<tr><td style="width:40mm;">Pendidikan</td><td>: ' + esc(v('pendAkhir')) + '</td></tr>';
-    if(v('nohp')) h += '<tr><td style="width:40mm;">No. HP</td><td>: ' + esc(v('nohp')) + '</td></tr>';
-    if(v('email')) h += '<tr><td style="width:40mm;">Email</td><td>: ' + esc(v('email')) + '</td></tr>';
+    h += '<table style="margin-bottom: 5mm; border:none; border-collapse:collapse;">';
+    if(nama) h += '<tr><td style="width:40mm; border:none;">Nama</td><td style="border:none;">: ' + esc(nama) + '</td></tr>';
+    if(v('ttl')) h += '<tr><td style="width:40mm; border:none;">Tempat, Tgl Lahir</td><td style="border:none;">: ' + esc(v('ttl')) + '</td></tr>';
+    if(v('jk')) h += '<tr><td style="width:40mm; border:none;">Jenis Kelamin</td><td style="border:none;">: ' + esc(v('jk')) + '</td></tr>';
+    if(v('pendAkhir')) h += '<tr><td style="width:40mm; border:none;">Pendidikan</td><td style="border:none;">: ' + esc(v('pendAkhir')) + '</td></tr>';
+    if(v('nohp')) h += '<tr><td style="width:40mm; border:none;">No. HP</td><td style="border:none;">: ' + esc(v('nohp')) + '</td></tr>';
+    if(v('email')) h += '<tr><td style="width:40mm; border:none;">Email</td><td style="border:none;">: ' + esc(v('email')) + '</td></tr>';
     h += '</table>';
     
     h += '<p>Demikian surat lamaran ini saya buat dengan sebenar-benarnya. Besar harapan saya untuk dapat mengikuti proses seleksi selanjutnya. Atas perhatian Bapak/Ibu, saya ucapkan terima kasih.</p>';
@@ -1206,15 +1240,15 @@ function renderSurat() {
     }
 
     h += '<p>Saya yang bertanda tangan di bawah ini:</p>';
-    h += '<table style="margin-bottom: 5mm;">';
-    if(nama) h += '<tr><td style="width:40mm;">Nama</td><td>: ' + esc(nama) + '</td></tr>';
-    if(v('ttl')) h += '<tr><td style="width:40mm;">Tempat, Tgl Lahir</td><td>: ' + esc(v('ttl')) + '</td></tr>';
-    if(v('jk')) h += '<tr><td style="width:40mm;">Jenis Kelamin</td><td>: ' + esc(v('jk')) + '</td></tr>';
-    if(v('agama')) h += '<tr><td style="width:40mm;">Agama</td><td>: ' + esc(v('agama')) + '</td></tr>';
-    if(v('pendAkhir')) h += '<tr><td style="width:40mm;">Pendidikan</td><td>: ' + esc(v('pendAkhir')) + '</td></tr>';
-    if(v('alamat1')) h += '<tr><td style="width:40mm;">Alamat</td><td>: ' + esc(v('alamat1')) + (v('alamat2') ? ', ' + esc(v('alamat2')) : '') + '</td></tr>';
-    if(v('nohp')) h += '<tr><td style="width:40mm;">No. HP</td><td>: ' + esc(v('nohp')) + '</td></tr>';
-    if(v('email')) h += '<tr><td style="width:40mm;">Email</td><td>: ' + esc(v('email')) + '</td></tr>';
+    h += '<table style="margin-bottom: 5mm; border:none; border-collapse:collapse;">';
+    if(nama) h += '<tr><td style="width:40mm; border:none;">Nama</td><td style="border:none;">: ' + esc(nama) + '</td></tr>';
+    if(v('ttl')) h += '<tr><td style="width:40mm; border:none;">Tempat, Tgl Lahir</td><td style="border:none;">: ' + esc(v('ttl')) + '</td></tr>';
+    if(v('jk')) h += '<tr><td style="width:40mm; border:none;">Jenis Kelamin</td><td style="border:none;">: ' + esc(v('jk')) + '</td></tr>';
+    if(v('agama')) h += '<tr><td style="width:40mm; border:none;">Agama</td><td style="border:none;">: ' + esc(v('agama')) + '</td></tr>';
+    if(v('pendAkhir')) h += '<tr><td style="width:40mm; border:none;">Pendidikan</td><td style="border:none;">: ' + esc(v('pendAkhir')) + '</td></tr>';
+    if(v('alamat1')) h += '<tr><td style="width:40mm; border:none;">Alamat</td><td style="border:none;">: ' + esc(v('alamat1')) + (v('alamat2') ? ', ' + esc(v('alamat2')) : '') + '</td></tr>';
+    if(v('nohp')) h += '<tr><td style="width:40mm; border:none;">No. HP</td><td style="border:none;">: ' + esc(v('nohp')) + '</td></tr>';
+    if(v('email')) h += '<tr><td style="width:40mm; border:none;">Email</td><td style="border:none;">: ' + esc(v('email')) + '</td></tr>';
     h += '</table>';
     
     var penutup = v('sPenutup');
@@ -1263,46 +1297,51 @@ function renderPreview() {
   if(pm) pm.innerHTML = html;
 }
 
+// Canvas Cropping Logic for 3x4 Photo
 function handlePhoto(event) {
   var file = event.target.files[0];
   if(!file) return;
-  if(file.size > 2 * 1024 * 1024) {
-    toast('Ukuran foto maksimal 2MB', 'error');
+  if(file.size > 5 * 1024 * 1024) { // Allow up to 5MB before crop
+    toast('Ukuran foto maksimal 5MB', 'error');
     return;
   }
+  
   var reader = new FileReader();
   reader.onload = function(e) {
     var img = new Image();
     img.onload = function() {
-      // Auto Crop 3x4
-      var canvas = document.createElement('canvas');
-      var targetW = 300;
-      var targetH = 400;
-      canvas.width = targetW;
-      canvas.height = targetH;
-      var ctx = canvas.getContext('2d');
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(0, 0, targetW, targetH);
-
-      var sourceW = img.width;
-      var sourceH = img.height;
-      var sourceAspect = sourceW / sourceH;
-      var targetAspect = targetW / targetH;
-
-      var sx = 0, sy = 0, sw = sourceW, sh = sourceH;
-
-      if (sourceAspect > targetAspect) {
-        sw = sourceH * targetAspect;
-        sx = (sourceW - sw) / 2;
+      // Crop to 3:4 aspect ratio
+      var targetRatio = 3 / 4; // width / height
+      var imgRatio = img.width / img.height;
+      
+      var cropWidth, cropHeight, cropX, cropY;
+      
+      if (imgRatio > targetRatio) {
+        // Image is wider than needed, crop width
+        cropHeight = img.height;
+        cropWidth = cropHeight * targetRatio;
+        cropX = (img.width - cropWidth) / 2;
+        cropY = 0;
       } else {
-        sh = sourceW / targetAspect;
-        sy = (sourceH - sh) / 2;
+        // Image is taller than needed, crop height
+        cropWidth = img.width;
+        cropHeight = cropWidth / targetRatio;
+        cropX = 0;
+        cropY = (img.height - cropHeight) / 2;
       }
-
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
+      
+      // High res canvas for better PDF quality
+      var canvas = document.createElement('canvas');
+      canvas.width = 300; 
+      canvas.height = 400; 
+      
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
+      
       photoData = canvas.toDataURL('image/jpeg', 0.9);
       restorePhoto();
       renderPreview();
+      toast('Foto berhasil dipotong otomatis (3x4)', 'success');
     };
     img.src = e.target.result;
   };
@@ -1330,33 +1369,93 @@ function resetForm() {
   toast('Form telah direset', 'info');
 }
 
+// ================= PREVIEW PAN & ZOOM LOGIC =================
 var currentZoom = 1;
-var panState = { x: 0, y: 0, startX: 0, startY: 0, isDragging: false };
+var panState = {
+  dragging: false,
+  startX: 0,
+  startY: 0,
+  offsetX: 0,
+  offsetY: 0,
+  activeScaler: null,
+  activeWrap: null
+};
+
+function initPanZoom() {
+  var wrap = document.getElementById('preview-wrap');
+  var mobWrap = document.getElementById('preview-wrap-mob');
+  
+  wrap.addEventListener('mousedown', startDrag);
+  wrap.addEventListener('touchstart', startDrag, {passive: false});
+  
+  mobWrap.addEventListener('mousedown', startDrag);
+  mobWrap.addEventListener('touchstart', startDrag, {passive: false});
+  
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('touchmove', drag, {passive: false});
+  
+  document.addEventListener('mouseup', endDrag);
+  document.addEventListener('touchend', endDrag);
+}
+
+function startDrag(e) {
+  panState.dragging = true;
+  panState.activeWrap = e.currentTarget;
+  panState.activeScaler = e.currentTarget.querySelector('div[id^="a4-scaler"]');
+  if(!panState.activeScaler) return;
+  
+  var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  
+  panState.startX = clientX - panState.offsetX;
+  panState.startY = clientY - panState.offsetY;
+  panState.activeWrap.style.cursor = 'grabbing';
+  e.preventDefault();
+}
+
+function drag(e) {
+  if(!panState.dragging || !panState.activeScaler) return;
+  var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  
+  panState.offsetX = clientX - panState.startX;
+  panState.offsetY = clientY - panState.startY;
+  
+  panState.activeScaler.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')';
+}
+
+function endDrag() {
+  if(!panState.dragging) return;
+  panState.dragging = false;
+  if(panState.activeWrap) panState.activeWrap.style.cursor = 'grab';
+}
 
 function zoomPreview(delta) {
   currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta));
   applyZoom();
 }
+
 function resetZoom() {
-  panState.x = 0;
-  panState.y = 0;
+  panState.offsetX = 0;
+  panState.offsetY = 0;
   var wrap = document.getElementById('preview-wrap');
   var mobWrap = document.getElementById('preview-wrap-mob');
   var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap;
   
   if(activeWrap && activeWrap.offsetWidth > 0) {
-    var containerWidth = activeWrap.offsetWidth - 24;
-    var scalerWidth = 210 * 3.7795;
+    var containerWidth = activeWrap.offsetWidth - 24; 
+    var scalerWidth = 210 * 3.7795; 
     currentZoom = Math.min(1, containerWidth / scalerWidth);
   } else {
     currentZoom = 0.6;
   }
   applyZoom();
 }
+
 function applyZoom() {
   var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')];
   scalers.forEach(function(s) {
-    if(s) s.style.transform = 'translate(' + panState.x + 'px, ' + panState.y + 'px) scale(' + currentZoom + ')';
+    if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')';
   });
   var levels = document.querySelectorAll('.zoom-level');
   levels.forEach(function(l) {
@@ -1364,42 +1463,7 @@ function applyZoom() {
   });
 }
 
-function initPan() {
-  var wraps = [document.getElementById('preview-wrap'), document.getElementById('preview-wrap-mob')];
-  wraps.forEach(function(wrap) {
-    if(!wrap) return;
-    wrap.addEventListener('mousedown', startPan);
-    wrap.addEventListener('touchstart', startPan, {passive: false});
-    document.addEventListener('mousemove', movePan);
-    document.addEventListener('touchmove', movePan, {passive: false});
-    document.addEventListener('mouseup', endPan);
-    document.addEventListener('touchend', endPan);
-  });
-}
-
-function startPan(e) {
-  if(e.target.classList.contains('zoom-btn') || e.target.closest('.zoom-btn')) return;
-  panState.isDragging = true;
-  var pt = e.touches ? e.touches[0] : e;
-  panState.startX = pt.clientX - panState.x;
-  panState.startY = pt.clientY - panState.y;
-  document.body.style.userSelect = 'none';
-}
-
-function movePan(e) {
-  if(!panState.isDragging) return;
-  e.preventDefault();
-  var pt = e.touches ? e.touches[0] : e;
-  panState.x = pt.clientX - panState.startX;
-  panState.y = pt.clientY - panState.startY;
-  applyZoom();
-}
-
-function endPan() {
-  panState.isDragging = false;
-  document.body.style.userSelect = '';
-}
-
+// ================= DOWNLOAD LOGIC =================
 function downloadPDF() {
   var element = document.getElementById('pdf-offscreen');
   var html = '';
@@ -1458,11 +1522,49 @@ function downloadWord() {
     html = renderSurat();
   }
   
-  var style = `
-  <style>
-  @page Section1 { size: 210mm 297mm; margin: 0; }
-  div.Section1 { page: Section1; }
-  body { font-family: `+selFont+`; font-size: `+selSize+`pt; line-height: `+selLH+`; color: #000; margin: 0; }
-  table { width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-  .a4-page { width: 210mm; min-height: 297mm; background: #fff; color: #000; padding: 12mm 16mm; box-sizing: border-box; }
-  .st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm;
+  // Pre-process HTML for Word compatibility
+  // Remove object-fit which isn't supported in Word, set explicit size
+  html = html.replace(/object-fit:\s*cover;?/g, '');
+  
+  var style = '<style>
+  body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }
+  table { width: 100%; border-collapse: collapse; border: none; }
+  td { vertical-align: top; border: none; }
+  .st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm; margin-bottom: 4.5mm; margin-top: 5mm; }
+  .dp-t td { padding: 0.6mm 0; }
+  .dp-t .dl { width: 48mm; white-space: nowrap; }
+  .dp-t .dc { width: 3mm; text-align: center; }
+  p { margin: 0 0 5mm 0; }
+  </style>';
+  
+  var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
+  var footer = "</body></html>";
+  var sourceHTML = header + html + footer;
+  
+  var blob = new Blob(['\ufeff', sourceHTML], {
+    type: 'application/msword'
+  });
+  
+  var url = URL.createObjectURL(blob);
+  var fileDownload = document.createElement("a");
+  fileDownload.href = url;
+  fileDownload.download = (curCat === 'cv' ? 'CV-' : 'Surat-Lamaran-') + (v('nama') || 'Unduhan') + '.doc';
+  document.body.appendChild(fileDownload);
+  fileDownload.click();
+  document.body.removeChild(fileDownload);
+  toast('File Word berhasil diunduh!', 'success');
+}
+
+// ================= INITIALIZATION =================
+window.addEventListener('load', function() {
+  updateVH();
+  initSlider();
+  renderForm();
+  renderPreview();
+  resetZoom();
+  initPanZoom();
+});
+window.addEventListener('resize', updateVH);
+</script>
+</body>
+</html>
