@@ -960,8 +960,11 @@ function renderForm(){
       
       h+=fldH('sTtd','Nama Tanda Tangan','.....');
 
-      // Tombol Copy Khusus Email
-      h+='<button onclick="copyEmailText()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-copy mr-1.5 text-xs"></i>Copy Teks Email (untuk Paste ke Gmail)</button>';
+      // Tombol Khusus Email
+      h+='<div class="flex flex-col gap-2 mt-4">';
+      h+='<button onclick="openInGmail()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>Buka & Isi Otomatis di Gmail</button>';
+      h+='<button onclick="copyEmailText()" class="w-full py-3 rounded-xl font-semibold text-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-copy mr-1.5 text-xs"></i>Copy Teks Email (untuk Paste Manual)</button>';
+      h+='</div>';
       
       fc.innerHTML=h;
       renderLampF();
@@ -1257,6 +1260,80 @@ function renderCV4(){
   return h;
 }
 
+// Fungsi untuk membuka Gmail secara otomatis dengan isi terpisah
+function openInGmail() {
+    var m = ST_M.find(function(t){return t.id===curTpl});
+    if(!m || !m.on) return;
+    
+    var N = v('nama') || '……………….';
+    var TTD = v('sTtd') || N;
+    var HP = v('nohp') || '……………….';
+    var EM = v('email') || '……………….';
+    var PT = v('sPt') || '……………….';
+    var sEmailPerusahaan = v('sEmailPerusahaan') || '';
+    
+    var subjek = 'Lamaran Pekerjaan';
+    if (m.pos && v('sPosisi')) subjek += ' - ' + v('sPosisi');
+    if (N !== '……………….') subjek += ' - ' + N;
+    
+    var sumberStr;
+    if (m.semua) {
+      sumberStr = 'lowongan pekerjaan';
+    } else {
+      sumberStr = 'lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….') + ', ';
+    }
+    
+    var pembukaEmail = 'Sehubungan dengan informasi ' + sumberStr + ' bahwa ' + PT + ' sedang membuka kesempatan';
+    if (m.pos) {
+      pembukaEmail += ' untuk posisi ' + (v('sPosisi') || '……………….') + ',';
+    } else {
+      pembukaEmail += ',';
+    }
+    pembukaEmail += ' melalui surat ini saya bermaksud untuk mengajukan diri, guna bergabung dengan perusahaan yang Bapak/Ibu pimpin.';
+    
+    var li = [];
+    for (var i = 0; i < lampList.length; i++) {
+      var val = lampList[i] && lampList[i].trim();
+      if (!val) continue;
+      li.push(val);
+    }
+    
+    var namaFile = (N !== '……………….') ? N : 'Nama Pelamar';
+    if (m.pos && v('sPosisi')) namaFile += '_' + (v('sPosisi') || '');
+    
+    // Isi body email (teks biasa)
+    var body = '';
+    body += 'Yth.\n';
+    body += 'Bapak/Ibu HRD\n';
+    body += PT + '\n';
+    body += 'di Tempat\n\n';
+    body += 'Dengan hormat,\n\n';
+    body += pembukaEmail + '\n\n';
+    body += 'Sebagai bahan pertimbangan Bapak/Ibu, bersama email ini saya telah melampirkan satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
+    
+    if(li.length) {
+      li.forEach(function(item, idx){
+        body += (idx + 1) + '. ' + item + '\n';
+      });
+    } else {
+      body += '1. ……………….\n2. ……………….\n3. ……………….\n';
+    }
+    body += '\n';
+    body += 'Besar harapan saya untuk diberikan kesempatan mengikuti tahap wawancara, agar saya dapat menjelaskan lebih mendalam mengenai potensi dan kontribusi yang dapat saya berikan.\n\n';
+    body += 'Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\n';
+    body += 'Hormat saya,\n\n\n';
+    body += TTD + '\n';
+    body += HP + '\n';
+    body += EM;
+    
+    // Buat URL Gmail
+    var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(sEmailPerusahaan) + '&su=' + encodeURIComponent(subjek) + '&body=' + encodeURIComponent(body);
+    
+    // Buka di tab baru
+    window.open(gmailUrl, '_blank');
+    toast('Membuka Gmail di tab baru...', 'info');
+}
+
 function copyEmailText() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
@@ -1320,11 +1397,9 @@ function copyEmailText() {
     text += HP + '\n';
     text += EM;
     
-    // Mencoba menyalin ke clipboard
     navigator.clipboard.writeText(text).then(function() {
         toast('Teks email berhasil disalin! Silakan paste di Gmail.', 'success');
     }).catch(function(err) {
-        // Fallback jika clipboard API tidak didukung (misal HTTP biasa)
         var textarea = document.createElement("textarea");
         textarea.value = text;
         textarea.style.position = "fixed"; 
