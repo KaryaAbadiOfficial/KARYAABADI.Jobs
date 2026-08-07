@@ -227,7 +227,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Buat CV</a>
@@ -514,7 +514,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <h2>2. Rekomendasi Memilih Template CV</h2>
       <p>Kami menyediakan 4 pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Pilihlah yang paling tepat:</p>
       <ul class="space-y-2 mt-4">
-        <li><strong>CV Template 1 (Klasik):</strong> Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional yang mementingkan kelengkapan data pribadi.</li>
+        <li><strong>CV Template 1 (Klasik):</strong> Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional que mementingkan kelengkapan data pribadi.</li>
         <li><strong>CV Template 2 (Modern Center):</strong> Desain modern dengan nama dan info kontak di tengah. Cocok untuk fresh graduate atau pelamar di industri kreatif, media, dan startup.</li>
         <li><strong>CV Template 3 (Sidebar):</strong> Memanfaatkan layout dua kolom (sidebar kiri). Ideal untuk Anda yang memiliki banyak pengalaman kerja dan daftar keahlian panjang, sehingga CV terlihat lebih terstruktur dan tidak terlalu padat.</li>
         <li><strong>CV Template 4 (ATS Sederhana):</strong> Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional yang menggunakan sistem ATS (Applicant Tracking System).</li>
@@ -622,7 +622,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h1>Kebijakan Privasi</h1>
     <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
-    <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telepon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
+    <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telefon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
     <p>Foto yang diunggah melalui fitur upload pas foto diproses sepenuhnya di sisi klien (client-side) menggunakan teknologi API bawaan browser dan tidak pernah diunggah ke server kami maupun server pihak ketiga.</p>
     <h2>3. Cookies dan Pelacakan Pihak Ketiga</h2>
@@ -1286,23 +1286,22 @@ function openInGmail() {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '';
     
     var subjek = 'Lamaran Pekerjaan';
-    if (m.pos && v('sPosisi')) subjek += ' - ' + v('sPosisi');
+    if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
     if (N !== '……………….') subjek += ' - ' + N;
     
     var sumberStr;
     if (m.semua) {
-      sumberStr = 'lowongan pekerjaan';
+      sumberStr = 'informasi lowongan pekerjaan yang ada';
     } else {
-      sumberStr = 'lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….') + ', ';
+      sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….');
     }
     
-    var pembukaEmail = 'Sehubungan dengan informasi ' + sumberStr + ' bahwa ' + PT + ' sedang membuka kesempatan';
+    var pembukaEmail;
     if (m.pos) {
-      pembukaEmail += ' untuk posisi ' + (v('sPosisi') || '……………….') + ',';
+      pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + PT + ' sedang membuka lowongan untuk posisi ' + (v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
-      pembukaEmail += ',';
+      pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + PT + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
-    pembukaEmail += ' melalui surat ini saya bermaksud untuk mengajukan diri, guna bergabung dengan perusahaan yang Bapak/Ibu pimpin.';
     
     var li = [];
     for (var i = 0; i < lampList.length; i++) {
@@ -1316,13 +1315,13 @@ function openInGmail() {
     
     // Isi body email (teks biasa)
     var body = '';
-    body += 'Yth.\n';
+    body += 'Kepada Yth.\n';
     body += 'Bapak/Ibu HRD\n';
     body += PT + '\n';
     body += 'di Tempat\n\n';
     body += 'Dengan hormat,\n\n';
     body += pembukaEmail + '\n\n';
-    body += 'Sebagai bahan pertimbangan Bapak/Ibu, bersama email ini saya telah melampirkan satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
+    body += 'Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
     
     if(li.length) {
       li.forEach(function(item, idx){
@@ -1332,7 +1331,7 @@ function openInGmail() {
       body += '1. ……………….\n2. ……………….\n3. ……………….\n';
     }
     body += '\n';
-    body += 'Besar harapan saya untuk diberikan kesempatan mengikuti tahap wawancara, agar saya dapat menjelaskan lebih mendalam mengenai potensi dan kontribusi yang dapat saya berikan.\n\n';
+    body += 'Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.\n\n';
     body += 'Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\n';
     body += 'Hormat saya,\n\n\n';
     body += TTD + '\n';
@@ -1362,23 +1361,22 @@ function renderSuratP() {
   if (m.on) {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
     var subjek = 'Lamaran Pekerjaan';
-    if (m.pos && v('sPosisi')) subjek += ' - ' + v('sPosisi');
+    if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
     if (v('nama')) subjek += ' - ' + v('nama');
 
     var sumberStr;
     if (m.semua) {
-      sumberStr = 'lowongan pekerjaan';
+      sumberStr = 'informasi lowongan pekerjaan yang ada';
     } else {
-      sumberStr = 'lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….') + ', ';
+      sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….');
     }
     
-    var pembukaEmail = 'Sehubungan dengan informasi ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka kesempatan';
+    var pembukaEmail;
     if (m.pos) {
-      pembukaEmail += ' untuk posisi ' + esc(v('sPosisi') || '……………….') + ',';
+      pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka lowongan untuk posisi ' + esc(v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
-      pembukaEmail += ',';
+      pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + esc(PT) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
-    pembukaEmail += ' melalui surat ini saya bermaksud untuk mengajukan diri, guna bergabung dengan perusahaan yang Bapak/Ibu pimpin.';
 
     // Dynamic Daftar Lampiran
     var li = [];
@@ -1402,15 +1400,15 @@ function renderSuratP() {
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 0 0; vertical-align:top;">Subjek</td><td style="width:3mm; border:none; padding:0;">:</td><td style="border:none; padding:0;">' + esc(subjek) + '</td></tr>';
     h += '</table>';
 
-    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Yth.<br>Bapak/Ibu HRD<br>' + esc(PT) + '<br>di Tempat</div>';
+    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Kepada Yth.<br>Bapak/Ibu HRD<br>' + esc(PT) + '<br>di Tempat</div>';
 
     h += '<p style="margin: 0 0 4mm 0; line-height: 1.5;">Dengan hormat,</p>';
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>';
-    h += '<p style="margin: 0 0 2mm 0; text-align: justify; line-height: 1.5;">Sebagai bahan pertimbangan Bapak/Ibu, bersama email ini saya telah melampirkan satu file PDF (' + namaFile + '.pdf) yang mencakup:</p>';
+    h += '<p style="margin: 0 0 2mm 0; text-align: justify; line-height: 1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:</p>';
     
     h += '<div style="margin: 0 0 4mm 8mm; line-height: 1.5;">' + lamps + '</div>';
 
-    h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk diberikan kesempatan mengikuti tahap wawancara, agar saya dapat menjelaskan lebih mendalam mengenai potensi dan kontribusi yang dapat saya berikan.</p>';
+    h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>';
     h += '<p style="margin: 0 0 8mm 0; text-align: justify; line-height: 1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>';
 
     h += '<div style="margin-top: 6mm; line-height: 1.6;">';
@@ -1440,17 +1438,17 @@ function renderSuratP() {
 
   var autoPembuka = '';
   if (m.semua) {
-    autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu Pimpin, berikut saya sampaikan data diri saya:';
+    autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:';
   } else if (m.pos) {
-    autoPembuka = 'Sesuai dengan informasi adanya lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', saya bermaksud untuk melamar pekerjaan sebagai ' + esc(POS) + '.';
+    autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai ' + esc(POS) + '.';
   } else {
-    autoPembuka = 'Sesuai dengan informasi adanya lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', saya bermaksud untuk melamar pekerjaan di Perusahaan yang Bapak/Ibu pimpin.';
+    autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin.';
   }
   
   var customPembuka = v('sPembuka') && v('sPembuka').trim();
   var pembukaText = customPembuka ? customPembuka : autoPembuka;
   
-  var autoPenutup = 'Demikian surat lamaran pekerjaan ini saya buat dengan sebenarnya dan saya berharap untuk bisa bergabung dengan perusahaan yang Bapak/Ibu pimpin. Atas perhatian Bapak/Ibu pimpinan, saya ucapkan terima kasih.';
+  var autoPenutup = 'Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';
   var customPenutup = v('sPenutup') && v('sPenutup').trim();
   var penutupText = customPenutup ? customPenutup : autoPenutup;
 
@@ -1481,10 +1479,10 @@ function renderSuratP() {
   
   var tw = '<div style="text-align:right">' + esc(sK) + ', ' + esc(sT) + ' ' + esc(sBT) + '</div>';
   var hl = '<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">' + L('Hal') + '</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">' + L('Lampiran') + '</td><td style="padding-left:2mm">: ' + lampCountText + '</td></tr></table>';
-  var at = '<div style="margin-top:2mm;text-align:left">' + L('Kepada Yth,') + '</div><div style="text-align:left">' + L('Bapak/Ibu HRD') + '</div>';
+  var at = '<div style="margin-top:2mm;text-align:left">' + L('Kepada Yth.') + '</div><div style="text-align:left">' + L('Bapak/Ibu HRD') + '</div>';
   
   if (m.semua) {
-    at += '<div style="text-align:left">' + L('Di Tempat') + '</div>';
+    at += '<div style="text-align:left">' + L('di Tempat') + '</div>';
   } else {
     at += '<div style="text-align:left">' + esc(PT) + '</div><div style="text-align:left">' + esc(JL) + '</div>';
     if (JL2 && JL2.trim()) at += '<div style="text-align:left">' + esc(JL2) + '</div>';
@@ -1496,7 +1494,7 @@ function renderSuratP() {
   }
   body += '<div style="margin-top:2mm;text-align:justify;text-indent:8mm">' + esc(pembukaText) + '</div>';
   if (!m.semua) {
-    body += '<div style="margin-top:3mm;text-align:left">' + L('Saya yang bertanda tangan di bawah ini:') + '</div>';
+    body += '<div style="margin-top:3mm;text-align:left">' + L('Bersama ini, saya yang bertanda tangan di bawah ini:') + '</div>';
   }
   body += '<table style="width:100%;margin-top:2mm">';
   body += dr('Nama', esc(N));
@@ -1509,7 +1507,7 @@ function renderSuratP() {
   body += dr('Email', esc(EM));
   body += dr('No HP', esc(HP));
   body += '</table>';
-  body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan bagi Bapak/Ibu bersama surat ini turut saya lampirkan:</div>';
+  body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini turut saya lampirkan:</div>';
   body += '<div style="margin-left:8mm;margin-top:2mm">' + lamps + '</div>';
   body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">' + esc(penutupText) + '</div>';
   
