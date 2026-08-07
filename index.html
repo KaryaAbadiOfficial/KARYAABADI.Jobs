@@ -959,6 +959,9 @@ function renderForm(){
       h+='<div id="lamp-c"></div>';
       
       h+=fldH('sTtd','Nama Tanda Tangan','.....');
+
+      // Tombol Copy Khusus Email
+      h+='<button onclick="copyEmailText()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-copy mr-1.5 text-xs"></i>Copy Teks Email (untuk Paste ke Gmail)</button>';
       
       fc.innerHTML=h;
       renderLampF();
@@ -1254,6 +1257,91 @@ function renderCV4(){
   return h;
 }
 
+function copyEmailText() {
+    var m = ST_M.find(function(t){return t.id===curTpl});
+    if(!m || !m.on) return;
+    
+    var N = v('nama') || '……………….';
+    var TTD = v('sTtd') || N;
+    var HP = v('nohp') || '……………….';
+    var EM = v('email') || '……………….';
+    var PT = v('sPt') || '……………….';
+    var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
+    
+    var subjek = 'Lamaran Pekerjaan';
+    if (m.pos && v('sPosisi')) subjek += ' - ' + v('sPosisi');
+    if (N !== '……………….') subjek += ' - ' + N;
+    
+    var sumberStr;
+    if (m.semua) {
+      sumberStr = 'lowongan pekerjaan';
+    } else {
+      sumberStr = 'lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….') + ', ';
+    }
+    
+    var pembukaEmail = 'Sehubungan dengan informasi ' + sumberStr + ' bahwa ' + PT + ' sedang membuka kesempatan';
+    if (m.pos) {
+      pembukaEmail += ' untuk posisi ' + (v('sPosisi') || '……………….') + ',';
+    } else {
+      pembukaEmail += ',';
+    }
+    pembukaEmail += ' melalui surat ini saya bermaksud untuk mengajukan diri, guna bergabung dengan perusahaan yang Bapak/Ibu pimpin.';
+    
+    var li = [];
+    for (var i = 0; i < lampList.length; i++) {
+      var val = lampList[i] && lampList[i].trim();
+      if (!val) continue;
+      li.push(val);
+    }
+    
+    var namaFile = (N !== '……………….') ? N : 'Nama Pelamar';
+    if (m.pos && v('sPosisi')) namaFile += '_' + (v('sPosisi') || '');
+    
+    var text = '';
+    text += 'Kepada\t: ' + sEmailPerusahaan + '\n';
+    text += 'Subjek\t: ' + subjek + '\n\n';
+    text += 'Yth.\nBapak/Ibu HRD\n' + PT + '\ndi Tempat\n\n';
+    text += 'Dengan hormat,\n\n';
+    text += pembukaEmail + '\n\n';
+    text += 'Sebagai bahan pertimbangan Bapak/Ibu, bersama email ini saya telah melampirkan satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
+    
+    if(li.length) {
+      li.forEach(function(item, idx){
+        text += (idx + 1) + '. ' + item + '\n';
+      });
+    } else {
+      text += '1. ……………….\n2. ……………….\n3. ……………….\n';
+    }
+    text += '\n';
+    text += 'Besar harapan saya untuk diberikan kesempatan mengikuti tahap wawancara, agar saya dapat menjelaskan lebih mendalam mengenai potensi dan kontribusi yang dapat saya berikan.\n\n';
+    text += 'Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\n';
+    text += 'Hormat saya,\n\n\n';
+    text += TTD + '\n';
+    text += HP + '\n';
+    text += EM;
+    
+    // Mencoba menyalin ke clipboard
+    navigator.clipboard.writeText(text).then(function() {
+        toast('Teks email berhasil disalin! Silakan paste di Gmail.', 'success');
+    }).catch(function(err) {
+        // Fallback jika clipboard API tidak didukung (misal HTTP biasa)
+        var textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed"; 
+        textarea.style.opacity = 0;
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            toast('Teks email berhasil disalin! Silakan paste di Gmail.', 'success');
+        } catch (e) {
+            toast('Gagal menyalin teks', 'error');
+        }
+        document.body.removeChild(textarea);
+    });
+}
+
 function renderSuratP() {
   var m = ST_M.find(function(t){return t.id===curTpl});
   if(!m) return '';
@@ -1309,7 +1397,7 @@ function renderSuratP() {
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 0 0; vertical-align:top;">Subjek</td><td style="width:3mm; border:none; padding:0;">:</td><td style="border:none; padding:0;">' + esc(subjek) + '</td></tr>';
     h += '</table>';
 
-    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Yth.<br>Bapak/Ibu HRD ' + esc(PT) + '<br>di Tempat</div>';
+    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Yth.<br>Bapak/Ibu HRD<br>' + esc(PT) + '<br>di Tempat</div>';
 
     h += '<p style="margin: 0 0 4mm 0; line-height: 1.5;">Dengan hormat,</p>';
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>';
