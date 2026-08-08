@@ -1322,7 +1322,7 @@ function _eduTblNon(list,mode){
 
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k and e.k.trim()) || (e.j && e.j.trim());}).length;
 
   var hasNon = nonFormalCount > 0;
   var hasFormal = formalCount > 0;
@@ -2505,17 +2505,18 @@ function generateLampiranPDFNow() {
         var w = item.width;
         var h = item.height;
         var isLandscape = w > h;
-        // jsPDF expects format as [short_side, long_side] in portrait, 
-        // and swaps them if orientation is 'l'
+        
+        // Array format: [width, height] in pixels (treated as points by jsPDF)
+        // To avoid jsPDF auto-swapping, we pass orientation and the array as [short, long]
         var formatArr = [Math.min(w, h), Math.max(w, h)];
         var orient = isLandscape ? 'l' : 'p';
         
         if(idx === 0) {
+          // Using 'pt' (points) ensures 1px = 1pt exactly.
           pdf = new window.jspdf.jsPDF({
             orientation: orient,
-            unit: 'px',
-            format: formatArr,
-            hotfixes: ['px_scaling']
+            unit: 'pt', 
+            format: formatArr
           });
         } else {
           pdf.addPage(formatArr, orient);
@@ -2526,6 +2527,7 @@ function generateLampiranPDFNow() {
         var pageHeight = pdf.internal.pageSize.getHeight();
         
         // Add image to exactly cover the page (0 margin, exact dimensions)
+        // This guarantees no white borders and image fills 100% of the page.
         pdf.addImage(item.data, 'JPEG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
       });
       
