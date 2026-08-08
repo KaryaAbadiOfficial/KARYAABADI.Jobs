@@ -1099,7 +1099,7 @@ function settingsH(){
 
 function dynBtns(addFn,rmFn){return'<div class="flex gap-2 mt-2"><button onclick="'+addFn+'" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button><button onclick="'+rmFn+'" class="dyn-btn dyn-rm" title="Kurangi"><i class="fa-solid fa-minus text-xs"></i></button></div>'}
 function addressFormH(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No. / Dsn. RT. RW." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
-function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No. / Dsn." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2" class="fi fi-s" placeholder="RT. RW." oninput="schedulePreview()"><input id="alamat3" class="fi fi-s" placeholder="Kelurahan/Desa" oninput="schedulePreview()"><input id="alamat4" class="fi fi-s" placeholder="Kecamatan" oninput="schedulePreview()"><input id="alamat5" class="fi fi-s" placeholder="Kabupaten/Kota" oninput="schedulePreview()"></div></div></div>'}
+function addressFormH3(){return'<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-red text-xs"></i> Alamat</label><div class="space-y-2 mt-1"><input id="alamat1" class="fi fi-s" placeholder="Jl. No. / Dsn." oninput="schedulePreview()"><div class="addr-sub space-y-2"><input id="alamat2' class='fi fi-s' placeholder='RT. RW.' oninput='schedulePreview()'><input id='alamat3' class='fi fi-s' placeholder='Kelurahan/Desa' oninput='schedulePreview()'><input id='alamat4' class='fi fi-s' placeholder='Kecamatan' oninput='schedulePreview()'><input id='alamat5' class='fi fi-s' placeholder='Kabupaten/Kota' oninput='schedulePreview()'></div></div></div>'}
 
 function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.innerHTML=eduList.map(function(e,i){
   if(!e.m) e.m='y';
@@ -2500,8 +2500,8 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
-      var dpi = 300; // Standard print DPI for physical size accuracy
-      var mmPerPx = 25.4 / dpi;
+      // Setting konversi: 100 pixel = 1 cm, berarti 1 mm = 10 pixel
+      var mmPerPx = 0.1; 
       
       lampiranImages.forEach(function(item, idx) {
         var wMM = item.width * mmPerPx;
