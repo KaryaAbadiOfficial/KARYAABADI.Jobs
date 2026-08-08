@@ -342,7 +342,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
-      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
+      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Lampiran PDF</a>
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tips & Contoh</a>
@@ -2500,25 +2500,33 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
-      var ptPerPx = 0.75; // 72pt / 96px (Standard PDF to Web Pixel ratio)
       
       lampiranImages.forEach(function(item, idx) {
-        var pageWidthPt = item.width * ptPerPx;
-        var pageHeightPt = item.height * ptPerPx;
-        var orientation = pageWidthPt > pageHeightPt ? 'l' : 'p';
+        var w = item.width;
+        var h = item.height;
+        var isLandscape = w > h;
+        // jsPDF expects format as [short_side, long_side] in portrait, 
+        // and swaps them if orientation is 'l'
+        var formatArr = [Math.min(w, h), Math.max(w, h)];
+        var orient = isLandscape ? 'l' : 'p';
         
         if(idx === 0) {
           pdf = new window.jspdf.jsPDF({
-            orientation: orientation,
-            unit: 'pt',
-            format: [pageWidthPt, pageHeightPt]
+            orientation: orient,
+            unit: 'px',
+            format: formatArr,
+            hotfixes: ['px_scaling']
           });
         } else {
-          pdf.addPage([pageWidthPt, pageHeightPt], orientation);
+          pdf.addPage(formatArr, orient);
         }
         
-        // Add image to exactly cover the page (0 margin)
-        pdf.addImage(item.data, 'JPEG', 0, 0, pageWidthPt, pageHeightPt, undefined, 'FAST');
+        // Get the exact page dimensions from jsPDF internal settings
+        var pageWidth = pdf.internal.pageSize.getWidth();
+        var pageHeight = pdf.internal.pageSize.getHeight();
+        
+        // Add image to exactly cover the page (0 margin, exact dimensions)
+        pdf.addImage(item.data, 'JPEG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
       });
       
       var filenameInput = document.getElementById('lampiran-filename');
