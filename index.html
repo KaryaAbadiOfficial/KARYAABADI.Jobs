@@ -778,7 +778,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-brands fa-linkedin"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">LinkedIn Jobs</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutama untuk posisi manajerial dan multinasional.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Platform profesional terbaik untuk membangun jaringan и mencari pekerjaan, terutama untuk posisi manajerial dan multinasional.</p>
       </a>
       <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
         <div class="flex items-center gap-4 mb-3">
@@ -865,7 +865,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memerikkan kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dalarikan</h2>
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
@@ -1322,7 +1322,7 @@ function _eduTblNon(list,mode){
 
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d and e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
 
   var hasNon = nonFormalCount > 0;
   var hasFormal = formalCount > 0;
@@ -2500,29 +2500,29 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
-      // Setting konversi: 100 pixel = 1 cm, berarti 1 mm = 10 pixel
-      var mmPerPx = 0.1; 
       
       lampiranImages.forEach(function(item, idx) {
-        var wMM = item.width * mmPerPx;
-        var hMM = item.height * mmPerPx;
+        var w = item.width;
+        var h = item.height;
+        var isLandscape = w > h;
         
-        // Ensure minimum size to prevent jsPDF errors
-        wMM = Math.max(1, wMM);
-        hMM = Math.max(1, hMM);
+        // To avoid jsPDF auto-swapping dimensions based on orientation string,
+        // we explicitly define width and height matching the image exactly.
+        var formatArr = [w, h];
         
         if(idx === 0) {
           pdf = new window.jspdf.jsPDF({
-            orientation: wMM > hMM ? 'l' : 'p',
-            unit: 'mm', 
-            format: [wMM, hMM]
+            orientation: 'p', // 'p' or 'l' doesn't matter much if format is exact, but we pass exact format
+            unit: 'px',
+            format: formatArr,
+            hotfixes: ['px_scaling'] // Essential for accurate pixel scaling in jsPDF
           });
         } else {
-          pdf.addPage([wMM, hMM], wMM > hMM ? 'l' : 'p');
+          pdf.addPage(formatArr, 'p');
         }
         
         // Add image to exactly cover the page (0 margin, exact dimensions)
-        pdf.addImage(item.data, 'JPEG', 0, 0, wMM, hMM, undefined, 'FAST');
+        pdf.addImage(item.data, 'JPEG', 0, 0, w, h, undefined, 'FAST');
       });
       
       var filenameInput = document.getElementById('lampiran-filename');
