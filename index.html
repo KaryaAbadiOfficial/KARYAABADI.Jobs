@@ -343,7 +343,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
-      <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
+      <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Lampiran PDF</a>
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Info Lowongan</a>
@@ -585,20 +585,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan otomatis</p>
       </div>
-      <div class="card">
-        <label class="fl">Ukuran Halaman PDF</label>
-        <select id="lampiran-pagesize" class="fi mb-3">
-          <option value="a4">A4 (21.0 x 29.7 cm)</option>
-          <option value="f4">F4 / Folio (21.5 x 33.0 cm)</option>
-          <option value="ktp">Kartu Identitas / KTP (5.4 x 8.6 cm)</option>
-          <option value="foto3x4">Pas Foto 3x4 (2.79 x 3.81 cm)</option>
-        </select>
-        <label class="fl">Orientasi Halaman</label>
-        <select id="lampiran-orientation" class="fi">
-          <option value="auto">Otomatis (Menyesuaikan Gambar)</option>
-          <option value="p">Potret (Portrait)</option>
-          <option value="l">Lanskap (Landscape)</option>
-        </select>
+      <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50">
+        <label class="fl flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1">
+          <span class="font-bold">Otomatis (Sesuai Gambar Asli)</span>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar tanpa border putih.</p>
       </div>
     </div>
 
@@ -619,8 +611,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <ul class="space-y-1 list-disc list-inside">
             <li>Foto/dokumen dengan resolusi tinggi akan otomatis dikompresi tanpa mengurangi keterbacaan teks.</li>
             <li>Urutan gambar dapat diatur dengan <strong>menyeret (drag & drop)</strong> item atau menggunakan tombol panah Atas/Bawah.</li>
-            <li>Ukuran halaman PDF dapat dipilih sesuai kebutuhan (A4, F4, KTP, Pas Foto 3x4).</li>
-            <li>Orientasi halaman dapat diatur Otomatis (sesuai gambar), Potret, atau Lanskap.</li>
+            <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar (tanpa margin/border putih).</li>
             <li>Setiap 1 gambar akan menjadi 1 halaman terpisah dalam PDF.</li>
             <li>Pastikan dokumen terbaca jelas sebelum mengunggah untuk hasil kompresi yang optimal.</li>
           </ul>
@@ -716,8 +707,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li><strong>Buka Halaman Lampiran PDF:</strong> Klik menu "Lampiran PDF" di navigasi atas.</li>
         <li><strong>Upload Gambar:</strong> Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format yang didukung adalah JPG dan PNG.</li>
         <li><strong>Atur Urutan (Drag & Drop):</strong> Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item.</li>
-        <li><strong>Pilih Ukuran Halaman:</strong> Pilih ukuran halaman PDF sesuai kebutuhan: A4 (21x29.7 cm), F4 (21.5x33 cm), KTP (5.4x8.6 cm), atau Pas Foto 3x4 (2.79x3.81 cm).</li>
-        <li><strong>Pilih Orientasi:</strong> Tentukan orientasi halaman: Otomatis (sesuai rasio gambar), Potret (tegak), atau Lanskap (menyamping).</li>
+        <li><strong>Ukuran Halaman Otomatis:</strong> Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar (tanpa margin/border putih). Anda tidak perlu memilih orientasi atau ukuran kertas.</li>
         <li><strong>Kompresi Otomatis:</strong> Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time.</li>
         <li><strong>Download PDF:</strong> Klik tombol "Download PDF Lampiran" untuk mengunduh file PDF yang sudah jadi.</li>
       </ul>
@@ -827,7 +817,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Bagaimana cara membuat PDF lampiran dari gambar dokumen?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Anda juga dapat memilih ukuran halaman (A4, F4, KTP, Pas Foto 3x4) dan orientasinya.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar tanpa border putih.</p>
       </div>
     </div>
   </main>
@@ -1040,7 +1030,7 @@ var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
 var eduList=[{t:'',m:'y',p:'',y:''}];
 var eduNonList=[{t:'',k:'',d:'',j:''}];
-var expList=[{pt:'', jl:'', kt:'', posList:[{j:'', m:'', desc:''}]}];
+var expList=[{pt:'', jl:'', kt:'', posList:[{j:'', m:'',desc:''}]}];
 var hSkills=[''];
 var sSkills=[''];
 var kSkills=[''];
@@ -2231,10 +2221,11 @@ function processLampiranFiles(files) {
 
 function finalizeLampiranUpload() {
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
+  var safeTarget = TARGET_PDF_SIZE - 30000; // Safe margin for PDF wrapper bytes
   
-  if(total > TARGET_PDF_SIZE) {
+  if(total > safeTarget) {
     toast('Mengompresi agar sesuai 1 MB...', 'info');
-    setTimeout(function() { recompressAllToTarget(); }, 100);
+    setTimeout(function() { recompressAllToTarget(safeTarget); }, 100);
   } else {
     renderLampiranList();
     updateLampiranSummary();
@@ -2242,22 +2233,23 @@ function finalizeLampiranUpload() {
   }
 }
 
-function recompressAllToTarget() {
+function recompressAllToTarget(currentTarget) {
   if(lampiranImages.length === 0) {
     renderLampiranList();
     updateLampiranSummary();
     return;
   }
   
+  var target = currentTarget || TARGET_PDF_SIZE;
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  if(total <= TARGET_PDF_SIZE) {
+  if(total <= target) {
     renderLampiranList();
     updateLampiranSummary();
     return;
   }
   
   // Calculate budget per image with safety margin (90% of target)
-  var budget = Math.floor(TARGET_PDF_SIZE * 0.9 / lampiranImages.length);
+  var budget = Math.floor(target * 0.9 / lampiranImages.length);
   budget = Math.max(20 * 1024, budget);
   
   var index = 0;
@@ -2268,7 +2260,7 @@ function recompressAllToTarget() {
     if(index >= lampiranImages.length) {
       var newTotal = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
       iteration++;
-      if(newTotal > TARGET_PDF_SIZE && iteration < MAX_ITER) {
+      if(newTotal > target && iteration < MAX_ITER) {
         // Try again with smaller budget
         budget = Math.floor(budget * 0.65);
         budget = Math.max(15 * 1024, budget);
@@ -2277,7 +2269,7 @@ function recompressAllToTarget() {
       } else {
         renderLampiranList();
         updateLampiranSummary();
-        if(newTotal > TARGET_PDF_SIZE) {
+        if(newTotal > target) {
           toast('Kompresi maksimal tercapai: ' + formatBytes(newTotal), 'info');
         } else {
           toast('Kompresi selesai: ' + formatBytes(newTotal), 'success');
@@ -2458,16 +2450,17 @@ function generateLampiranPDF() {
     return;
   }
   
+  var safeTarget = TARGET_PDF_SIZE - 30000;
   // Final compression check
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  if(total > TARGET_PDF_SIZE) {
+  if(total > safeTarget) {
     toast('Mengompresi ulang agar sesuai 1 MB...', 'info');
     var btn = document.getElementById('btn-lampiran-pdf');
     if(btn) {
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';
     }
-    recompressAllToTarget();
+    recompressAllToTarget(safeTarget);
     // Wait for compression then generate
     var waitCount = 0;
     var waitTimer = setInterval(function() {
@@ -2507,67 +2500,25 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
-      
-      var sizeSelect = document.getElementById('lampiran-pagesize');
-      var orientSelect = document.getElementById('lampiran-orientation');
-      
-      var pageSize = sizeSelect ? sizeSelect.value : 'a4';
-      var orientMode = orientSelect ? orientSelect.value : 'auto'; // 'auto', 'p', 'l'
-      
-      var sizeInfo = {
-        'a4': { w: 210, h: 297 },
-        'f4': { w: 215, h: 330 },
-        'ktp': { w: 54, h: 86 },
-        'foto3x4': { w: 27.9, h: 38.1 }
-      };
-      
-      var baseW = sizeInfo[pageSize].w;
-      var baseH = sizeInfo[pageSize].h;
-      var formatArr = [Math.min(baseW, baseH), Math.max(baseW, baseH)]; // [width, height] for portrait
+      var ptPerPx = 0.75; // 72pt / 96px (Standard PDF to Web Pixel ratio)
       
       lampiranImages.forEach(function(item, idx) {
-        var isLandscape;
-        if (orientMode === 'auto') {
-          isLandscape = item.width > item.height;
-        } else if (orientMode === 'l') {
-          isLandscape = true;
-        } else {
-          isLandscape = false;
-        }
+        var pageWidthPt = item.width * ptPerPx;
+        var pageHeightPt = item.height * ptPerPx;
+        var orientation = pageWidthPt > pageHeightPt ? 'l' : 'p';
         
         if(idx === 0) {
-          pdf = new window.jspdf.jsPDF({orientation: isLandscape ? 'l' : 'p', unit: 'mm', format: formatArr});
+          pdf = new window.jspdf.jsPDF({
+            orientation: orientation,
+            unit: 'pt',
+            format: [pageWidthPt, pageHeightPt]
+          });
         } else {
-          pdf.addPage(formatArr, isLandscape ? 'l' : 'p');
+          pdf.addPage([pageWidthPt, pageHeightPt], orientation);
         }
         
-        var pageWidth = pdf.internal.pageSize.getWidth();
-        var pageHeight = pdf.internal.pageSize.getHeight();
-        
-        var margin = 2; // 2mm margin
-        var availW = pageWidth - 2 * margin;
-        var availH = pageHeight - 2 * margin;
-        
-        var imgRatio = item.width / item.height;
-        var pageRatio = availW / availH;
-        var imgW, imgH;
-        
-        if(imgRatio > pageRatio) {
-          imgW = availW;
-          imgH = imgW / imgRatio;
-        } else {
-          imgH = availH;
-          imgW = imgH * imgRatio;
-        }
-        
-        var x = (pageWidth - imgW) / 2;
-        var y = (pageHeight - imgH) / 2;
-        
-        // Add white background
-        pdf.setFillColor(255, 255, 255);
-        pdf.rect(0, 0, pageWidth, pageHeight, 'F');
-        
-        pdf.addImage(item.data, 'JPEG', x, y, imgW, imgH, undefined, 'FAST');
+        // Add image to exactly cover the page (0 margin)
+        pdf.addImage(item.data, 'JPEG', 0, 0, pageWidthPt, pageHeightPt, undefined, 'FAST');
       });
       
       var filenameInput = document.getElementById('lampiran-filename');
