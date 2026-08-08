@@ -341,11 +341,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
-      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
-      <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
-      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
-      <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
+      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Buat CV</a>
+      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Surat Melamar Pekerjaan</a>
+      <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Lampiran PDF</a>
+      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
+      <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Info Lowongan</a>
       <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">FAQ</a>
       <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tentang</a>
@@ -827,7 +827,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Tentang Karya Abadi Jobs</h1>
     <p>Karya Abadi Jobs bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami adalah sebuah platform website tool / generator gratis yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan mudah.</p>
-    <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutama bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
+    <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutapi bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
     <p>Sebagai tool berbasis web, seluruh proses pembuatan dokumen dilakukan secara lokal di peramban (browser) pengguna. Ini artinya, data pribadi Anda tidak akan dikirim atau disimpan di server kami. Setelah selesai mengisi formulir, Anda dapat langsung mengunduh hasilnya dalam format PDF atau Word yang siap untuk dicetak atau dikirim secara digital via email.</p>
     <p>Kami terus berupaya mengembangkan dan meningkatkan kualitas template serta fitur agar Karya Abadi Jobs dapat memberikan manfaat yang maksimal bagi seluruh masyarakat Indonesia yang sedang dalam pencarian pekerjaan.</p>
   </main>
@@ -2500,35 +2500,29 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
+      var dpi = 300; // Standard print DPI for physical size accuracy
+      var mmPerPx = 25.4 / dpi;
       
       lampiranImages.forEach(function(item, idx) {
-        var w = item.width;
-        var h = item.height;
-        var isLandscape = w > h;
+        var wMM = item.width * mmPerPx;
+        var hMM = item.height * mmPerPx;
         
-        // Array format: [width, height] in pixels (treated as points by jsPDF)
-        // To avoid jsPDF auto-swapping, we pass orientation and the array as [short, long]
-        var formatArr = [Math.min(w, h), Math.max(w, h)];
-        var orient = isLandscape ? 'l' : 'p';
+        // Ensure minimum size to prevent jsPDF errors
+        wMM = Math.max(1, wMM);
+        hMM = Math.max(1, hMM);
         
         if(idx === 0) {
-          // Using 'pt' (points) ensures 1px = 1pt exactly.
           pdf = new window.jspdf.jsPDF({
-            orientation: orient,
-            unit: 'pt', 
-            format: formatArr
+            orientation: wMM > hMM ? 'l' : 'p',
+            unit: 'mm', 
+            format: [wMM, hMM]
           });
         } else {
-          pdf.addPage(formatArr, orient);
+          pdf.addPage([wMM, hMM], wMM > hMM ? 'l' : 'p');
         }
         
-        // Get the exact page dimensions from jsPDF internal settings
-        var pageWidth = pdf.internal.pageSize.getWidth();
-        var pageHeight = pdf.internal.pageSize.getHeight();
-        
         // Add image to exactly cover the page (0 margin, exact dimensions)
-        // This guarantees no white borders and image fills 100% of the page.
-        pdf.addImage(item.data, 'JPEG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
+        pdf.addImage(item.data, 'JPEG', 0, 0, wMM, hMM, undefined, 'FAST');
       });
       
       var filenameInput = document.getElementById('lampiran-filename');
