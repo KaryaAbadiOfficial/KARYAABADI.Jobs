@@ -220,9 +220,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   margin-bottom: 8px;
   background: #fff;
   transition: all .2s;
+  cursor: grab;
+}
+.lampiran-item.dragging { 
+  opacity: 0.4;
+  cursor: grabbing;
+}
+.lampiran-item.drag-over { 
+  border-color: #DC2626; 
+  border-style: solid;
+  background: rgba(220,38,38,0.03);
 }
 .dark .lampiran-item { background: #1A1A1A; border-color: #2a2a2a; }
-.lampiran-item:hover { border-color: #DC2626; }
+.dark .lampiran-item.drag-over { background: rgba(220,38,38,0.08); }
+.lampiran-item:hover { border-color: rgba(220,38,38,0.5); }
+.lampiran-grip {
+  color: #9ca3af;
+  cursor: grab;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lampiran-grip:active { cursor: grabbing; }
 .lampiran-thumb { 
   width: 56px; 
   height: 72px; 
@@ -231,6 +251,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   border: 1px solid #e5e7eb;
   flex-shrink: 0;
   background: #f3f4f6;
+  pointer-events: none;
 }
 .dark .lampiran-thumb { border-color: #2a2a2a; background: #111; }
 .lampiran-move-btn {
@@ -323,11 +344,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
-      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
-      <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
-      <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
-      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
-      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
+      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
+      <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tips & Contoh</a>
+      <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Info Lowongan</a>
+      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">FAQ</a>
+      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tentang</a>
     </nav>
   </div>
 </header>
@@ -379,7 +400,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Singkat dan Padat</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poin penting yang singkat daripada paragraf panjang.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poins important yang singkat daripada paragraf panjang.</p>
         </div>
       </div>
     </article>
@@ -425,11 +446,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <div class="flex flex-col items-center gap-5">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Buat</span>
           <span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span>
         </button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Buat</span>
           <span class="block text-base uppercase tracking-wide">Surat Melamar Pekerjaan</span>
         </button>
       </div>
@@ -564,13 +585,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan otomatis</p>
       </div>
-      <div class="card">
+      <div class="card flex flex-col justify-center">
         <label class="fl">Orientasi Halaman</label>
-        <select id="lampiran-orientation" class="fi">
-          <option value="p">Potret (Portrait)</option>
-          <option value="l">Lanskap (Landscape)</option>
-        </select>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pilih orientasi sesuai dokumen</p>
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 bg-gray-50 dark:bg-brand-black p-3 rounded-lg border border-gray-200 dark:border-brand-border">
+          <i class="fa-solid fa-wand-magic-sparkles text-brand-red"></i>
+          <span><strong>Otomatis (Menyesuaikan Gambar)</strong></span>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Potret untuk dokumen tegak, Lanskap untuk dokumen menyamping</p>
       </div>
     </div>
 
@@ -590,7 +611,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <p class="font-bold">Tips Penggunaan:</p>
           <ul class="space-y-1 list-disc list-inside">
             <li>Foto/dokumen dengan resolusi tinggi akan otomatis dikompresi tanpa mengurangi keterbacaan teks.</li>
-            <li>Urutan gambar dapat diatur dengan tombol panah Atas/Bawah. Urutan ini menentukan urutan halaman pada PDF.</li>
+            <li>Urutan gambar dapat diatur dengan <strong>menyeret (drag & drop)</strong> item atau menggunakan tombol panah Atas/Bawah.</li>
+            <li>Orientasi halaman pada PDF akan otomatis menyesuaikan rasio gambar (Potret untuk dokumen tegak, Lanskap untuk dokumen menyamping).</li>
             <li>Setiap gambar akan menjadi 1 halaman terpisah dalam PDF berukuran A4.</li>
             <li>Pastikan dokumen terbaca jelas sebelum mengunggah untuk hasil kompresi yang optimal.</li>
           </ul>
@@ -644,7 +666,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2>Langkah 5: Cara Membuat Surat Lamaran Kerja yang Baik dan Benar</h2>
-      <p>Surat lamaran kerja adalah dokumen formal yang sangat penting. Pastikan Anda menggunakan bahasa yang sopan, struktur yang baku, dan tidak ada kesalahan ketik. Berikut adalah struktur standar surat lamaran di Indonesia:</p>
+      <p>Surat lamaran kerja adalah dokumen formal yang sangat important. Pastikan Anda menggunakan bahasa yang sopan, struktur yang baku, dan tidak ada kesalahan ketik. Berikut adalah struktur standar surat lamaran di Indonesia:</p>
       <ul class="space-y-2 mt-4">
         <li><strong>Tempat dan Tanggal:</strong> Ditulis di kanan atas (misal: Jakarta, 24 Mei 2024).</li>
         <li><strong>Hal:</strong> Ditulis di bawah tanggal (misal: Hal: Lamaran Pekerjaan).</li>
@@ -652,7 +674,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li><strong>Tujuan:</strong> Kepada Yth. HRD Manager [Nama Perusahaan] di Tempat.</li>
         <li><strong>Pembuka:</strong> Salam hormat ("Dengan Hormat,") dan sumber informasi lowongan.</li>
         <li><strong>Isi:</strong> Data diri singkat (Nama, TTL, Pendidikan) dan posisi yang dilamar.</li>
-        <li><strong>Daftar Lampiran:</strong> Poin-poin dokumen yang dilampirkan (CV, Ijazah, Foto, dll).</li>
+        <li><strong>Daftar Lampiran:</strong> Poin-poins dokumen yang dilampirkan (CV, Ijazah, Foto, dll).</li>
         <li><strong>Penutup:</strong> Harapan untuk mengikuti tes wawancara dan ucapan terima kasih.</li>
         <li><strong>Tanda Tangan:</strong> Nama jelas dan tanda tangan di bagian bawah kanan.</li>
       </ul>
@@ -685,9 +707,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <ul class="space-y-2 mt-4">
         <li><strong>Buka Halaman Lampiran PDF:</strong> Klik menu "Lampiran PDF" di navigasi atas.</li>
         <li><strong>Upload Gambar:</strong> Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format yang didukung adalah JPG dan PNG.</li>
-        <li><strong>Atur Urutan:</strong> Gunakan tombol panah Atas/Bawah pada setiap item untuk mengatur urutan halaman PDF sesuai keinginan Anda.</li>
+        <li><strong>Atur Urutan (Drag & Drop):</strong> Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item.</li>
+        <li><strong>Orientasi Otomatis:</strong> Sistem akan mendeteksi rasio lebar-tinggi gambar. Jika gambar tegak (potret), halaman PDF otomatis berformat Potret. Jika gambar menyamping (lanskap), halaman PDF otomatis berformat Lanskap.</li>
         <li><strong>Kompresi Otomatis:</strong> Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time.</li>
-        <li><strong>Pilih Orientasi:</strong> Pilih orientasi Potret (Portrait) atau Lanskap (Landscape) sesuai dengan orientasi dokumen asli Anda.</li>
         <li><strong>Download PDF:</strong> Klik tombol "Download PDF Lampiran" untuk mengunduh file PDF yang sudah jadi.</li>
       </ul>
     </div>
@@ -715,7 +737,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <h2>2. Rekomendasi Memilih Template CV</h2>
       <p>Kami menyediakan 4 pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Pilihlah yang paling tepat:</p>
       <ul class="space-y-2 mt-4">
-        <li><strong>CV Template 1 (Klasik):</strong> Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional yang mementingkan kelengkapan data pribadi.</li>
+        <li><strong>CV Template 1 (Klasik):</strong> Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional que mementingkan kelengkapan data pribadi.</li>
         <li><strong>CV Template 2 (Modern Center):</strong> Desain modern dengan nama dan info kontak di tengah. Cocok untuk fresh graduate atau pelamar di industri kreatif, media, dan startup.</li>
         <li><strong>CV Template 3 (Sidebar):</strong> Memanfaatkan layout dua kolom (sidebar kiri). Ideal untuk Anda yang memiliki banyak pengalaman kerja dan daftar keahlian panjang, sehingga CV terlihat lebih terstruktur dan tidak terlalu padat.</li>
         <li><strong>CV Template 4 (ATS Sederhana):</strong> Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional yang menggunakan sistem ATS (Applicant Tracking System).</li>
@@ -771,7 +793,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">Glints Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Fokus pada talenta muda, startup, dan karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
       </a>
     </div>
   </main>
@@ -784,7 +806,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="space-y-4 mt-8">
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">1. Apakah layanan Karya Abadi Jobs berbayar?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maupun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi apapun.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maipun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi apapun.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">2. Apakah data pribadi saya aman saat menggunakan tool ini?</h3>
@@ -796,7 +818,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Bagaimana cara membuat PDF lampiran dari gambar dokumen?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB dan menyesuaikan orientasi halaman berdasarkan bentuk gambar.</p>
       </div>
     </div>
   </main>
@@ -806,7 +828,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Tentang Karya Abadi Jobs</h1>
     <p>Karya Abadi Jobs bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami adalah sebuah platform website tool / generator gratis yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan mudah.</p>
-    <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutama bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
+    <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutapi bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
     <p>Sebagai tool berbasis web, seluruh proses pembuatan dokumen dilakukan secara lokal di peramban (browser) pengguna. Ini artinya, data pribadi Anda tidak akan dikirim atau disimpan di server kami. Setelah selesai mengisi formulir, Anda dapat langsung mengunduh hasilnya dalam format PDF atau Word yang siap untuk dicetak atau dikirim secara digital via email.</p>
     <p>Kami terus berupaya mengembangkan dan meningkatkan kualitas template serta fitur agar Karya Abadi Jobs dapat memberikan manfaat yang maksimal bagi seluruh masyarakat Indonesia yang sedang dalam pencarian pekerjaan.</p>
   </main>
@@ -827,9 +849,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h1>Kebijakan Privasi</h1>
     <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
-    <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telepon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
+    <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telefon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
-    <p>Foto yang diunggah melalui fitur upload pas foto maupun gambar dokumen pada fitur Lampiran PDF diproses sepenuhnya di sisi klien (client-side) menggunakan teknologi API bawaan browser dan tidak pernah diunggah ke server kami maupun server pihak ketiga.</p>
+    <p>Foto yang diunggah melalui fitur upload pas foto diproses sepenuhnya di sisi klien (client-side) menggunakan teknologi API bawaan browser dan tidak pernah diunggah ke server kami maupun server pihak ketiga.</p>
     <h2>3. Cookies dan Pelacakan Pihak Ketiga</h2>
     <p>Platform ini tidak menggunakan cookies pihak ketiga untuk melacak aktivitas pribadi pengguna. Kami berkomitmen untuk menjaga privasi Anda sepenuhnya.</p>
     <h2>4. Perubahan Kebijakan</h2>
@@ -840,12 +862,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1>Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
-    <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
+    <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuratan informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
-    <h2>3. Penggunaan yang Dilarang</h2>
+    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <h2>3. Penggunaan yang Dalarikan</h2>
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
     <p>Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini adalah milik penuh dari pengguna masing-masing dan bebas digunakan untuk keperluan melamar pekerjaan.</p>
@@ -861,7 +883,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
     <p>Penggunaan template dari platform ini tidak menjamin bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
-    <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ejaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
+    <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ephaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
     <p>Platform ini mungkin mengandung tautan ke situs web pihak ketiga (misalnya sumber informasi). Kami tidak bertanggung jawab atas konten, kebijakan privasi, atau praktik situs web pihak ketiga tersebut.</p>
   </main>
@@ -1031,6 +1053,7 @@ var lampiranImages = []; // {data, name, originalSize, compressedSize, width, he
 var TARGET_PDF_SIZE = 1 * 1024 * 1024; // 1 MB dalam byte
 var MAX_LAMPIRAN_IMAGES = 15;
 var lampiranProcessing = false;
+var draggedItemIdx = null;
 
 var _tw='width:100%;table-layout:fixed;border-collapse:collapse;border:none;';
 var _c1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
@@ -1172,6 +1195,7 @@ function renderForm(){
     var h='';
     h+=settingsH();
     
+    // Khusus Template Email
     if(m.on) {
       var ptInfo='';
       ptInfo+=fldH('sPt','Nama Perusahaan','.....');
@@ -1192,11 +1216,13 @@ function renderForm(){
       
       h+=fldH('sTtd','Nama Tanda Tangan','.....');
 
+      // Tombol Khusus Email
       h+='<button onclick="openInGmail()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>Buka & Isi Otomatis di Gmail</button>';
       
       fc.innerHTML=h;
       renderLampF();
     } 
+    // Khusus Template Tulis Tangan
     else {
       h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
       
@@ -1487,6 +1513,7 @@ function renderCV4(){
   return h;
 }
 
+// Fungsi untuk membuka Gmail secara otomatis dengan isi terpisah
 function openInGmail() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
@@ -1526,6 +1553,7 @@ function openInGmail() {
     var namaFile = (N !== '……………….') ? N : 'Nama Pelamar';
     if (m.pos && v('sPosisi')) namaFile += '_' + (v('sPosisi') || '');
     
+    // Isi body email (teks biasa)
     var body = '';
     body += 'Kepada Yth.\n';
     body += 'Bapak/Ibu HRD\n';
@@ -1550,8 +1578,10 @@ function openInGmail() {
     body += HP + '\n';
     body += EM;
     
+    // Buat URL Gmail
     var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(sEmailPerusahaan) + '&su=' + encodeURIComponent(subjek) + '&body=' + encodeURIComponent(body);
     
+    // Buka di tab baru
     window.open(gmailUrl, '_blank');
     toast('Membuka Gmail di tab baru...', 'info');
 }
@@ -1560,12 +1590,14 @@ function renderSuratP() {
   var m = ST_M.find(function(t){return t.id===curTpl});
   if(!m) return '';
   
+  // Variabel Umum
   var N = v('nama') || '……………….';
   var TTD = v('sTtd') || N;
   var HP = v('nohp') || '……………….';
   var EM = v('email') || '……………….';
   var PT = v('sPt') || '……………….';
   
+  // KHUSUS TEMPLATE EMAIL
   if (m.on) {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
     var subjek = 'Lamaran Pekerjaan';
@@ -1586,6 +1618,7 @@ function renderSuratP() {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + esc(PT) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
 
+    // Dynamic Daftar Lampiran
     var li = [];
     var lc = 0;
     for (var i = 0; i < lampList.length; i++) {
@@ -1596,7 +1629,7 @@ function renderSuratP() {
     }
     var lamps = li.length ? li.map(function(item, idx) {
       return '<div style="margin-bottom: 1mm;">' + (idx + 1) + '. ' + esc(item) + '</div>';
-    }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>';
+    }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>'; // Default jika kosong
 
     var namaFile = (N !== '……………….') ? esc(N) : 'Nama Pelamar';
     if (m.pos && v('sPosisi')) namaFile += '_' + esc(v('sPosisi'));
@@ -1628,6 +1661,7 @@ function renderSuratP() {
     return h;
   }
   
+  // KHUSUS TEMPLATE TULIS TANGAN
   var sK = v('sKota') || '……………….';
   var sT = v('sTgl') || '……………….';
   var sBT = v('sBlnThn') || '……………….';
@@ -1741,10 +1775,11 @@ function renderPreview() {
   if(pm) pm.innerHTML = html;
 }
 
+// Canvas Cropping Logic for 3x4 Photo (Standard 2.79 x 3.81 cm)
 function handlePhoto(event) {
   var file = event.target.files[0];
   if(!file) return;
-  if(file.size > 5 * 1024 * 1024) {
+  if(file.size > 5 * 1024 * 1024) { // Allow up to 5MB before crop
     toast('Ukuran foto maksimal 5MB', 'error');
     return;
   }
@@ -1753,26 +1788,30 @@ function handlePhoto(event) {
   reader.onload = function(e) {
     var img = new Image();
     img.onload = function() {
+      // Persis ke rasio 2.79 / 3.81
       var targetRatio = 2.79 / 3.81;
       var imgRatio = img.width / img.height;
       
       var cropWidth, cropHeight, cropX, cropY;
       
       if (imgRatio > targetRatio) {
+        // Gambar lebih lebar dari target, crop lebar (kanan-kiri)
         cropHeight = img.height;
         cropWidth = cropHeight * targetRatio;
         cropX = (img.width - cropWidth) / 2;
         cropY = 0;
       } else {
+        // Gambar lebih tinggi dari target, crop tinggi (atas-bawah)
         cropWidth = img.width;
         cropHeight = cropWidth / targetRatio;
         cropX = 0;
         cropY = (img.height - cropHeight) / 2;
       }
       
+      // Resolusi canvas yang setara dengan 300 DPI (perkiraan untuk kualitas cetak A4)
       var canvas = document.createElement('canvas');
-      canvas.width = 330;
-      canvas.height = 451;
+      canvas.width = 330;  // ~2.79 cm
+      canvas.height = 451; // ~3.81 cm
       
       var ctx = canvas.getContext('2d');
       ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
@@ -1940,6 +1979,7 @@ function downloadPDF() {
         heightLeft -= pageHeight;
       }
       
+      // Format nama file unduhan
       var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
@@ -1965,6 +2005,7 @@ function downloadWord() {
     html = renderSuratP();
   }
   
+  // Pre-process HTML for Word compatibility
   html = html.replace(/object-fit:\s*cover;?/g, '');
   
   var style = '<style>'+
@@ -1990,6 +2031,7 @@ function downloadWord() {
   var fileDownload = document.createElement("a");
   fileDownload.href = url;
   
+  // Format nama file unduhan
   var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
@@ -2272,7 +2314,8 @@ function renderLampiranList() {
   
   var h = '';
   lampiranImages.forEach(function(item, idx) {
-    h += '<div class="lampiran-item">';
+    h += '<div class="lampiran-item" draggable="true" ondragstart="handleDragStart(event, ' + idx + ')" ondragover="handleDragOver(event, ' + idx + ')" ondrop="handleDrop(event, ' + idx + ')" ondragend="handleDragEnd(event)" ondragleave="handleDragLeave(event, ' + idx + ')">';
+    h += '<div class="lampiran-grip"><i class="fa-solid fa-grip-vertical text-lg"></i></div>';
     h += '<div class="flex flex-col gap-1">';
     h += '<button onclick="moveLampiranImage(' + idx + ', -1)" class="lampiran-move-btn" ' + (idx === 0 ? 'disabled' : '') + ' title="Naik"><i class="fa-solid fa-chevron-up"></i></button>';
     h += '<button onclick="moveLampiranImage(' + idx + ', 1)" class="lampiran-move-btn" ' + (idx === lampiranImages.length - 1 ? 'disabled' : '') + ' title="Turun"><i class="fa-solid fa-chevron-down"></i></button>';
@@ -2283,13 +2326,55 @@ function renderLampiranList() {
     h += '<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">';
     h += formatBytes(item.originalSize) + ' → <span class="font-bold text-brand-red">' + formatBytes(item.compressedSize) + '</span>';
     h += '</div>';
-    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + item.width + '×' + item.height + 'px</div>';
+    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + item.width + '×' + item.height + 'px • ' + (item.width > item.height ? 'Lanskap' : 'Potret') + '</div>';
     h += '</div>';
     h += '<button onclick="removeLampiranImage(' + idx + ')" class="lampiran-remove-btn" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>';
     h += '</div>';
   });
   
   c.innerHTML = h;
+}
+
+// === DRAG & DROP REORDER LOGIC ===
+function handleDragStart(e, idx) {
+  draggedItemIdx = idx;
+  e.target.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', idx); // Required for Firefox
+}
+
+function handleDragOver(e, idx) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  if(draggedItemIdx !== null && draggedItemIdx !== idx) {
+    var target = e.currentTarget;
+    target.classList.add('drag-over');
+  }
+}
+
+function handleDragLeave(e, idx) {
+  e.currentTarget.classList.remove('drag-over');
+}
+
+function handleDrop(e, idx) {
+  e.preventDefault();
+  e.stopPropagation();
+  e.currentTarget.classList.remove('drag-over');
+  
+  if(draggedItemIdx === null || draggedItemIdx === idx) return;
+  
+  var item = lampiranImages.splice(draggedItemIdx, 1)[0];
+  lampiranImages.splice(idx, 0, item);
+  
+  draggedItemIdx = null;
+  renderLampiranList();
+  toast('Urutan gambar diperbarui', 'info');
+}
+
+function handleDragEnd(e) {
+  e.target.classList.remove('dragging');
+  document.querySelectorAll('.lampiran-item').forEach(function(el){ el.classList.remove('drag-over'); });
+  draggedItemIdx = null;
 }
 
 function moveLampiranImage(idx, dir) {
@@ -2412,28 +2497,23 @@ function generateLampiranPDFNow() {
   
   setTimeout(function() {
     try {
-      var orientation = document.getElementById('lampiran-orientation');
-      var orient = orientation ? orientation.value : 'p';
-      
-      var pdf = new window.jspdf.jsPDF(orient, 'mm', 'a4');
-      var pageWidth, pageHeight;
-      
-      if(orient === 'l') {
-        pageWidth = 297;
-        pageHeight = 210;
-      } else {
-        pageWidth = 210;
-        pageHeight = 297;
-      }
-      
-      var margin = 5;
-      var availW = pageWidth - 2 * margin;
-      var availH = pageHeight - 2 * margin;
+      var pdf = null;
       
       lampiranImages.forEach(function(item, idx) {
-        if(idx > 0) pdf.addPage();
+        var isLandscape = item.width > item.height;
+        var pageWidth = isLandscape ? 297 : 210;
+        var pageHeight = isLandscape ? 210 : 297;
         
-        // Fit image to page preserving aspect ratio
+        if(idx === 0) {
+          pdf = new window.jspdf.jsPDF(isLandscape ? 'l' : 'p', 'mm', 'a4');
+        } else {
+          pdf.addPage('a4', isLandscape ? 'l' : 'p');
+        }
+        
+        var margin = 5;
+        var availW = pageWidth - 2 * margin;
+        var availH = pageHeight - 2 * margin;
+        
         var imgRatio = item.width / item.height;
         var pageRatio = availW / availH;
         var imgW, imgH;
