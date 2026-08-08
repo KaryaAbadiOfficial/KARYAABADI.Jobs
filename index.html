@@ -585,13 +585,20 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan otomatis</p>
       </div>
-      <div class="card flex flex-col justify-center">
+      <div class="card">
+        <label class="fl">Ukuran Halaman PDF</label>
+        <select id="lampiran-pagesize" class="fi mb-3">
+          <option value="a4">A4 (21.0 x 29.7 cm)</option>
+          <option value="f4">F4 / Folio (21.5 x 33.0 cm)</option>
+          <option value="ktp">Kartu Identitas / KTP (5.4 x 8.6 cm)</option>
+          <option value="foto3x4">Pas Foto 3x4 (2.79 x 3.81 cm)</option>
+        </select>
         <label class="fl">Orientasi Halaman</label>
-        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 bg-gray-50 dark:bg-brand-black p-3 rounded-lg border border-gray-200 dark:border-brand-border">
-          <i class="fa-solid fa-wand-magic-sparkles text-brand-red"></i>
-          <span><strong>Otomatis (Menyesuaikan Gambar)</strong></span>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Potret untuk dokumen tegak, Lanskap untuk dokumen menyamping</p>
+        <select id="lampiran-orientation" class="fi">
+          <option value="auto">Otomatis (Menyesuaikan Gambar)</option>
+          <option value="p">Potret (Portrait)</option>
+          <option value="l">Lanskap (Landscape)</option>
+        </select>
       </div>
     </div>
 
@@ -612,8 +619,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <ul class="space-y-1 list-disc list-inside">
             <li>Foto/dokumen dengan resolusi tinggi akan otomatis dikompresi tanpa mengurangi keterbacaan teks.</li>
             <li>Urutan gambar dapat diatur dengan <strong>menyeret (drag & drop)</strong> item atau menggunakan tombol panah Atas/Bawah.</li>
-            <li>Orientasi halaman pada PDF akan otomatis menyesuaikan rasio gambar (Potret untuk dokumen tegak, Lanskap untuk dokumen menyamping).</li>
-            <li>Setiap gambar akan menjadi 1 halaman terpisah dalam PDF berukuran A4.</li>
+            <li>Ukuran halaman PDF dapat dipilih sesuai kebutuhan (A4, F4, KTP, Pas Foto 3x4).</li>
+            <li>Orientasi halaman dapat diatur Otomatis (sesuai gambar), Potret, atau Lanskap.</li>
+            <li>Setiap 1 gambar akan menjadi 1 halaman terpisah dalam PDF.</li>
             <li>Pastikan dokumen terbaca jelas sebelum mengunggah untuk hasil kompresi yang optimal.</li>
           </ul>
         </div>
@@ -708,7 +716,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li><strong>Buka Halaman Lampiran PDF:</strong> Klik menu "Lampiran PDF" di navigasi atas.</li>
         <li><strong>Upload Gambar:</strong> Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format yang didukung adalah JPG dan PNG.</li>
         <li><strong>Atur Urutan (Drag & Drop):</strong> Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item.</li>
-        <li><strong>Orientasi Otomatis:</strong> Sistem akan mendeteksi rasio lebar-tinggi gambar. Jika gambar tegak (potret), halaman PDF otomatis berformat Potret. Jika gambar menyamping (lanskap), halaman PDF otomatis berformat Lanskap.</li>
+        <li><strong>Pilih Ukuran Halaman:</strong> Pilih ukuran halaman PDF sesuai kebutuhan: A4 (21x29.7 cm), F4 (21.5x33 cm), KTP (5.4x8.6 cm), atau Pas Foto 3x4 (2.79x3.81 cm).</li>
+        <li><strong>Pilih Orientasi:</strong> Tentukan orientasi halaman: Otomatis (sesuai rasio gambar), Potret (tegak), atau Lanskap (menyamping).</li>
         <li><strong>Kompresi Otomatis:</strong> Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time.</li>
         <li><strong>Download PDF:</strong> Klik tombol "Download PDF Lampiran" untuk mengunduh file PDF yang sudah jadi.</li>
       </ul>
@@ -818,7 +827,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Bagaimana cara membuat PDF lampiran dari gambar dokumen?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB dan menyesuaikan orientasi halaman berdasarkan bentuk gambar.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Anda juga dapat memilih ukuran halaman (A4, F4, KTP, Pas Foto 3x4) dan orientasinya.</p>
       </div>
     </div>
   </main>
@@ -2499,18 +2508,43 @@ function generateLampiranPDFNow() {
     try {
       var pdf = null;
       
+      var sizeSelect = document.getElementById('lampiran-pagesize');
+      var orientSelect = document.getElementById('lampiran-orientation');
+      
+      var pageSize = sizeSelect ? sizeSelect.value : 'a4';
+      var orientMode = orientSelect ? orientSelect.value : 'auto'; // 'auto', 'p', 'l'
+      
+      var sizeInfo = {
+        'a4': { w: 210, h: 297 },
+        'f4': { w: 215, h: 330 },
+        'ktp': { w: 54, h: 86 },
+        'foto3x4': { w: 27.9, h: 38.1 }
+      };
+      
+      var baseW = sizeInfo[pageSize].w;
+      var baseH = sizeInfo[pageSize].h;
+      var formatArr = [Math.min(baseW, baseH), Math.max(baseW, baseH)]; // [width, height] for portrait
+      
       lampiranImages.forEach(function(item, idx) {
-        var isLandscape = item.width > item.height;
-        var pageWidth = isLandscape ? 297 : 210;
-        var pageHeight = isLandscape ? 210 : 297;
-        
-        if(idx === 0) {
-          pdf = new window.jspdf.jsPDF(isLandscape ? 'l' : 'p', 'mm', 'a4');
+        var isLandscape;
+        if (orientMode === 'auto') {
+          isLandscape = item.width > item.height;
+        } else if (orientMode === 'l') {
+          isLandscape = true;
         } else {
-          pdf.addPage('a4', isLandscape ? 'l' : 'p');
+          isLandscape = false;
         }
         
-        var margin = 5;
+        if(idx === 0) {
+          pdf = new window.jspdf.jsPDF({orientation: isLandscape ? 'l' : 'p', unit: 'mm', format: formatArr});
+        } else {
+          pdf.addPage(formatArr, isLandscape ? 'l' : 'p');
+        }
+        
+        var pageWidth = pdf.internal.pageSize.getWidth();
+        var pageHeight = pdf.internal.pageSize.getHeight();
+        
+        var margin = 2; // 2mm margin
         var availW = pageWidth - 2 * margin;
         var availH = pageHeight - 2 * margin;
         
