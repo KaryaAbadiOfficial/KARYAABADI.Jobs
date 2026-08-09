@@ -1048,7 +1048,7 @@ var ST_M=[
 ];
 
 // === STATE LAMPIRAN PDF ===
-var lampiranImages = []; // {data, name, originalSize, compressedSize, width, height}
+var lampiranImages = []; // {data, name, originalSize, compressedSize, width, height, originalWidth, originalHeight}
 var TARGET_PDF_SIZE = 1 * 1024 * 1024; // 1 MB dalam byte
 var MAX_LAMPIRAN_IMAGES = 15;
 var lampiranProcessing = false;
@@ -1979,7 +1979,7 @@ function downloadPDF() {
       }
       
       // Format nama file unduhan
-      var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
+      var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
       
@@ -2031,7 +2031,7 @@ function downloadWord() {
   fileDownload.href = url;
   
   // Format nama file unduhan
-  var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
+  var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
   
@@ -2183,7 +2183,9 @@ function processLampiranFiles(files) {
             originalSize: file.size,
             compressedSize: size,
             width: w,
-            height: h
+            height: h,
+            originalWidth: img.width,
+            originalHeight: img.height
           });
           remaining--;
           if(remaining === 0) {
@@ -2233,10 +2235,11 @@ function finalizeLampiranUpload() {
   }
 }
 
-function recompressAllToTarget(currentTarget) {
+function recompressAllToTarget(currentTarget, callback) {
   if(lampiranImages.length === 0) {
     renderLampiranList();
     updateLampiranSummary();
+    if(callback) callback();
     return;
   }
   
@@ -2245,6 +2248,7 @@ function recompressAllToTarget(currentTarget) {
   if(total <= target) {
     renderLampiranList();
     updateLampiranSummary();
+    if(callback) callback();
     return;
   }
   
@@ -2274,6 +2278,7 @@ function recompressAllToTarget(currentTarget) {
         } else {
           toast('Kompresi selesai: ' + formatBytes(newTotal), 'success');
         }
+        if(callback) callback();
       }
       return;
     }
@@ -2315,6 +2320,11 @@ function renderLampiranList() {
   
   var h = '';
   lampiranImages.forEach(function(item, idx) {
+    var dispW = item.originalWidth || item.width;
+    var dispH = item.originalHeight || item.height;
+    var pageWIn = (dispW / 100).toFixed(1);
+    var pageHIn = (dispH / 100).toFixed(1);
+    
     h += '<div class="lampiran-item" draggable="true" ondragstart="handleDragStart(event, ' + idx + ')" ondragover="handleDragOver(event, ' + idx + ')" ondrop="handleDrop(event, ' + idx + ')" ondragend="handleDragEnd(event)" ondragleave="handleDragLeave(event, ' + idx + ')">';
     h += '<div class="lampiran-grip"><i class="fa-solid fa-grip-vertical text-lg"></i></div>';
     h += '<div class="flex flex-col gap-1">';
@@ -2327,7 +2337,7 @@ function renderLampiranList() {
     h += '<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">';
     h += formatBytes(item.originalSize) + ' → <span class="font-bold text-brand-red">' + formatBytes(item.compressedSize) + '</span>';
     h += '</div>';
-    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + item.width + '×' + item.height + 'px • ' + (item.width > item.height ? 'Lanskap' : 'Potret') + '</div>';
+    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + dispW + '×' + dispH + 'px • ' + (dispW > dispH ? 'Lanskap' : 'Potret') + ' • ' + pageWIn + 'x' + pageHIn + ' inch</div>';
     h += '</div>';
     h += '<button onclick="removeLampiranImage(' + idx + ')" class="lampiran-remove-btn" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>';
     h += '</div>';
@@ -2342,7 +2352,7 @@ function handleDragStart(e, idx) {
   e.currentTarget.classList.add('dragging');
   e.dataTransfer.effectAllowed = 'move';
   try {
-    e.dataTransfer.setData('text/plain', String(idx)); // Required for Firefox
+    e.dataTransfer.setData('text/plain', String(idx));
   } catch(err) {}
 }
 
@@ -2453,7 +2463,6 @@ function generateLampiranPDF() {
   }
   
   var safeTarget = TARGET_PDF_SIZE - 30000;
-  // Final compression check
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
   if(total > safeTarget) {
     toast('Mengompresi ulang agar sesuai 1 MB...', 'info');
@@ -2462,28 +2471,12 @@ function generateLampiranPDF() {
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';
     }
-    recompressAllToTarget(safeTarget);
-    // Wait for compression then generate
-    var waitCount = 0;
-    var waitTimer = setInterval(function() {
-      waitCount++;
-      if(!lampiranProcessing && waitCount > 5) {
-        clearInterval(waitTimer);
-        if(btn) {
-          btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-        }
-        generateLampiranPDFNow();
+    recompressAllToTarget(safeTarget, function() {
+      if(btn) {
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
       }
-      if(waitCount > 60) { // 30s timeout
-        clearInterval(waitTimer);
-        if(btn) {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-        }
-        // Try generate anyway
-        generateLampiranPDFNow();
-      }
-    }, 500);
+      generateLampiranPDFNow();
+    });
     return;
   }
   
@@ -2506,8 +2499,11 @@ function generateLampiranPDFNow() {
       var ptPerPx = 72 / dpi; // 1 inch = 72 pt, 100 px = 1 inch, jadi 1 px = 0.72 pt
       
       lampiranImages.forEach(function(item, idx) {
-        var wPt = item.width * ptPerPx;
-        var hPt = item.height * ptPerPx;
+        var origW = item.originalWidth || item.width;
+        var origH = item.originalHeight || item.height;
+        
+        var wPt = origW * ptPerPx;
+        var hPt = origH * ptPerPx;
         
         var orientation = wPt > hPt ? 'l' : 'p';
         var formatArr = [wPt, hPt];
@@ -2557,7 +2553,6 @@ function initLampiranDropZone() {
   if(!drop || !input) return;
   
   drop.addEventListener('click', function(e) {
-    // Prevent click from triggering when clicking inside the area on certain elements
     input.click();
   });
   
