@@ -674,13 +674,8 @@ function toggleMobileMenu() {
   const iconOpen = btn.querySelector('.menu-icon-open');
   const iconClose = btn.querySelector('.menu-icon-close');
   menu.classList.toggle('hidden');
-  if (menu.classList.contains('hidden')) {
-    iconOpen.classList.remove('hidden');
-    iconClose.classList.add('hidden');
-  } else {
-    iconOpen.classList.add('hidden');
-    iconClose.classList.remove('hidden');
-  }
+  if (menu.classList.contains('hidden')) { iconOpen.classList.remove('hidden'); iconClose.classList.add('hidden') } 
+  else { iconOpen.classList.add('hidden'); iconClose.classList.remove('hidden') }
 }
 function toggleDark() { document.documentElement.classList.toggle('dark'); }
 
@@ -694,14 +689,11 @@ function showPage(pageId) {
     window.scrollTo(0, 0);
     if (pageId === 'generator') {
       setTimeout(() => {
-        updateVH();
-        renderPreview();
-        if (!generatorInitialized) { resetZoom(); generatorInitialized = true; } else { applyZoom(); }
+        updateVH(); renderPreview();
+        if (!generatorInitialized) { resetZoom(); generatorInitialized = true } else { applyZoom() }
       }, 50);
     }
-    if (pageId === 'lampiran') {
-      setTimeout(() => { updateLampiranSummary(); }, 50);
-    }
+    if (pageId === 'lampiran') { setTimeout(() => { updateLampiranSummary() }, 50) }
   }
 }
 
@@ -720,19 +712,19 @@ function initSlider() {
   startAutoSlide();
   var slider = document.getElementById('cvSlider');
   if(slider) {
-    slider.addEventListener('mouseenter', function() { clearInterval(slideInterval); });
-    slider.addEventListener('mouseleave', function() { startAutoSlide(); });
+    slider.addEventListener('mouseenter', function() { clearInterval(slideInterval) });
+    slider.addEventListener('mouseleave', function() { startAutoSlide() });
   }
 }
 function goToSlide(index) {
   currentSlide = (index + totalSlides) % totalSlides;
   var wrapper = document.getElementById('cvSliderWrapper');
-  if(wrapper) { wrapper.style.transform = 'translateX(-' + (currentSlide * 100) + '%)'; }
+  if(wrapper) { wrapper.style.transform = 'translateX(-' + (currentSlide * 100) + '%)' }
   var dots = document.querySelectorAll('.slider-dot');
-  dots.forEach(function(dot, idx){ if(idx === currentSlide) dot.classList.add('active'); else dot.classList.remove('active'); });
+  dots.forEach(function(dot, idx){ if(idx === currentSlide) dot.classList.add('active'); else dot.classList.remove('active') });
 }
-function changeSlide(direction) { goToSlide(currentSlide + direction); clearInterval(slideInterval); startAutoSlide(); }
-function startAutoSlide() { clearInterval(slideInterval); slideInterval = setInterval(function() { goToSlide(currentSlide + 1); }, 5000); }
+function changeSlide(direction) { goToSlide(currentSlide + direction); clearInterval(slideInterval); startAutoSlide() }
+function startAutoSlide() { clearInterval(slideInterval); slideInterval = setInterval(function() { goToSlide(currentSlide + 1) }, 5000) }
 
 // ================= APP LOGIC =================
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
@@ -1005,7 +997,7 @@ var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);fu
 
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
 function renderSkillsCV4(skillArr){
-  var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
+  var items = (skillArr || []).filter(function(s){ return s && s.trim() });
   if(!items.length) return '';
   var h = '<table style="width:100%; border-collapse:collapse; border:none;">';
   items.forEach(function(s){
@@ -1507,7 +1499,6 @@ function processLampiranFiles(files) {
             if (limitReached || pageNum > numPages) { filesProcessed++; checkComplete(); return }
             if (newItems.length + lampiranImages.length >= MAX_LAMPIRAN_IMAGES) { limitReached = true; toast('Batas maksimal ' + MAX_LAMPIRAN_IMAGES + ' halaman tercapai.', 'info'); filesProcessed++; checkComplete(); return }
             pdf.getPage(pageNum).then(function(page) {
-              // Render dengan DPI 100 agar konsisi dengan gambar biasa
               var desiredDpi = 100;
               var scale = desiredDpi / 72; 
               var viewport = page.getViewport({ scale: scale });
@@ -1532,7 +1523,6 @@ function processLampiranFiles(files) {
                         originalSize: origSize, 
                         compressedSize: cSize,
                         width: cW, height: cH,
-                        // SIMPAN DIMENSI ASLI (SEBELUM KOMPRESI) UNTUK PERHITUNGAN UKURAN HALAMAN
                         originalWidth: tempImg.width,
                         originalHeight: tempImg.height
                       });
@@ -1566,7 +1556,6 @@ function processLampiranFiles(files) {
                 originalSize: file.size,
                 compressedSize: size,
                 width: w, height: h,
-                // SIMPAN DIMENSI ASLI (SEBELUM KOMPRESI)
                 originalWidth: img.width,
                 originalHeight: img.height
               });
@@ -1625,7 +1614,6 @@ function recompressAllToTarget(currentTarget, callback) {
         item.compressedSize = size;
         item.width = w;
         item.height = h;
-        // originalWidth dan originalHeight TIDAK diubah agar ukuran halaman PDF tetap
         index++;
         setTimeout(processNext, 10);
       });
@@ -1644,7 +1632,6 @@ function renderLampiranList() {
   if(empty) empty.style.display = 'none';
   var h = '';
   lampiranImages.forEach(function(item, idx) {
-    // Gunakan dimensi ASLI untuk ditampilkan agar user tahu ukuran sebenarnya
     var dispW = item.originalWidth || item.width;
     var dispH = item.originalHeight || item.height;
     var pageWIn = (dispW / 100).toFixed(1);
@@ -1729,15 +1716,17 @@ function generateLampiranPDFNow() {
         var imgH = item.originalHeight || item.height;
         var wPt = imgW * ptPerPx;
         var hPt = imgH * ptPerPx;
-        // Kembalikan orientasi otomatis agar tidak terbalik
-        var orientation = wPt > hPt ? 'l' : 'p';
+        
+        // FIX BUG jsPDF: Selalu gunakan 'p' (portrait) saat memberikan array format [wPt, hPt]
+        // agar jsPDF tidak menukar dimensi secara otomatis.
+        var orientation = 'p'; 
         var formatArr = [wPt, hPt];
+        
         if(idx === 0) {
           pdf = new window.jspdf.jsPDF({ orientation: orientation, unit: 'pt', format: formatArr });
         } else {
           pdf.addPage(formatArr, orientation);
         }
-        // Tempel gambar (yang sudah dikompres) menutupi seluruh halaman fisik
         pdf.addImage(item.data, 'JPEG', 0, 0, wPt, hPt, undefined, 'FAST');
       });
       var filenameInput = document.getElementById('lampiran-filename');
