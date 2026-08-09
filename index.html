@@ -52,6 +52,13 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','syst
   hyphens: manual;
 }
 
+/* === JUSTIFY TAPI RATA TENGAH (UNTUK KARTU DENGAN IKON) === */
+.text-center-justify {
+  text-align: justify !important;
+  text-align-last: center !important;
+  text-justify: inter-word !important;
+}
+
 body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -392,17 +399,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-bolt text-xl"></i></div>
         <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Cepat & Mudah</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm text-justify">Cukup isi formulir data diri, riwayat pendidikan, hingga pengalaman kerja. Pratinjau dokumen tersedia secara real-time tanpa menunggu proses loading&nbsp;yang&nbsp;lama.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm text-center-justify">Cukup isi formulir data diri, riwayat pendidikan, hingga pengalaman kerja. Pratinjau dokumen tersedia secara real-time tanpa menunggu proses loading yang lama. Hasilnya langsung bisa diunduh dalam format PDF atau Word.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-shield-halved text-xl"></i></div>
         <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Aman & Privat</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm text-justify">Seluruh data Anda diproses 100% di dalam browser. Tidak ada informasi pribadi yang dikirim, disimpan, atau diakses oleh server&nbsp;kami.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm text-center-justify">Seluruh data Anda diproses 100% di dalam browser. Tidak ada informasi pribadi yang dikirim, disimpan, atau diakses oleh server kami. Keamanan dan privasi data Anda adalah prioritas utama kami.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-file-pdf text-xl"></i></div>
         <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Format PDF Standar</h3>
-        <p class="text-gray-600 dark:text-gray-400 text-sm text-justify">Unduh dokumen dalam format PDF berkualitas tinggi (A4) yang siap dikirimkan langsung ke HRD perusahaan&nbsp;tujuan&nbsp;Anda.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm text-center-justify">Unduh dokumen dalam format PDF berkualitas tinggi (A4) yang siap dikirimkan langsung ke HRD perusahaan tujuan Anda. Format ini dijamin rapi dan kompatibel di berbagai perangkat.</p>
       </div>
     </div>
     
@@ -414,17 +421,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Gunakan Kata Kunci</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Sesuaikan keahlian dan kata kunci teknis Anda dengan deskripsi pekerjaan yang dilamar secara&nbsp;spesifik.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-center-justify">Sesuaikan keahlian dan kata kunci teknis Anda dengan deskripsi pekerjaan yang dilamar secara spesifik. Hal ini akan membantu CV Anda lebih mudah ditemukan oleh sistem HRD.</p>
         </div>
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-layer-group"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Struktur yang Jelas</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpisah dengan jelas dan mudah&nbsp;dipindai.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-center-justify">Pastikan bagian Data Pribadi, Pendidikan, dan Pengalaman Kerja terpisah dengan jelas dan mudah dipindai. Gunakan poin-poin agar informasi terlihat lebih terstruktur.</p>
         </div>
         <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center">
           <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Singkat dan Padat</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-justify">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poins important yang singkat daripada paragraf&nbsp;panjang.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-center-justify">Idealnya CV hanya terdiri dari 1-2 halaman. Gunakan poin-poin penting yang singkat daripada paragraf panjang. Ini membuat perekrut lebih cepat membaca profil Anda.</p>
         </div>
       </div>
     </article>
