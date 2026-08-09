@@ -20,15 +20,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- Library PDF.js untuk membaca file PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
-// Setting worker PDF.js
-if (window.pdfjsLib) {
-  window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-}
 </script>
 <style>
 :root{--avh:100vh}
@@ -530,13 +524,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 </div>
 
-<!-- === VIEW LAMPIRAN PDF: Ubah Gambar/PDF Menjadi PDF === -->
+<!-- === VIEW LAMPIRAN PDF: Ubah Gambar Menjadi PDF === -->
 <div id="view-lampiran" class="view">
   <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
     <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3">Gabungkan Gambar & PDF Jadi <span class="text-brand-red">Lampiran Lamaran</span></h1>
-      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base text-justify md:text-center">Unggah salinan dokumen lamaran pekerjaan Anda berupa Gambar (Ijazah, Transkrip, Sertifikat, KTP) maupun File PDF. Sistem akan otomatis menggabungkan dan mengompresi semuanya menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD.</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3">Ubah Gambar Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
+      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base text-justify md:text-center">Unggah salinan dokumen lamaran pekerjaan Anda (Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, Pas Foto, dll). Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD.</p>
     </div>
   </section>
 
@@ -547,23 +541,23 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red"><i class="fa-solid fa-cloud-arrow-up text-lg"></i></div>
         <div>
           <h2 class="font-bold text-gray-900 dark:text-white text-base">Upload Salinan Dokumen</h2>
-          <p class="text-xs text-gray-500 dark:text-gray-400">Klik atau seret file gambar/PDF ke area di bawah ini</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Klik atau seret gambar ke area di bawah ini</p>
         </div>
       </div>
       
       <div class="lampiran-upload-area" id="lampiran-drop">
-        <i class="fa-solid fa-file-arrow-up text-4xl text-brand-red mb-3"></i>
-        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret file ke sini</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG, PDF &nbsp;•&nbsp; Maksimal 15 halaman</p>
-        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg,application/pdf" multiple class="hidden">
+        <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
+        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret gambar ke sini</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG &nbsp;•&nbsp; Maksimal 15 gambar</p>
+        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
       </div>
     </div>
 
     <div id="lampiran-list-wrapper" class="mb-6">
       <div id="lampiran-empty" class="lampiran-empty-state">
         <i class="fa-solid fa-folder-open"></i>
-        <p class="text-sm font-semibold">Belum ada file diunggah</p>
-        <p class="text-xs mt-1">Unggah gambar atau PDF untuk membuat lampiran PDF</p>
+        <p class="text-sm font-semibold">Belum ada gambar diunggah</p>
+        <p class="text-xs mt-1">Unggah salinan dokumen untuk membuat PDF lampiran</p>
       </div>
       <div id="lampiran-list"></div>
     </div>
@@ -580,7 +574,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div>
       </div>
       <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
-        <span id="lampiran-img-count">0 halaman</span>
+        <span id="lampiran-img-count">0 gambar</span>
         <span>Target Maksimal: 1 MB (1.048.576 byte)</span>
       </div>
     </div>
@@ -596,7 +590,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1">
           <span class="font-bold">Otomatis (DPI 100)</span>
         </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap halaman dengan resolusi 100 DPI (tanpa margin/border putih).</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI (tanpa margin/border putih).</p>
       </div>
     </div>
 
@@ -615,10 +609,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="text-xs text-blue-700 dark:text-blue-300 space-y-2">
           <p class="font-bold">Tips Penggunaan:</p>
           <ul class="space-y-1 list-disc list-inside">
-            <li>File PDF yang diunggah akan otomatis diubah menjadi gambar (rasterized) terlebih dahulu agar dapat dikompresi bersama gambar lainnya.</li>
             <li>Foto/dokumen dengan resolusi tinggi akan otomatis dikompresi tanpa mengurangi keterbacaan teks.</li>
-            <li>Urutan halaman dapat diatur dengan <strong>menyeret (drag & drop)</strong> item atau menggunakan tombol panah Atas/Bawah.</li>
-            <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar/halaman dengan resolusi 100 DPI (tanpa margin/border putih).</li>
+            <li>Urutan gambar dapat diatur dengan <strong>menyeret (drag & drop)</strong> item atau menggunakan tombol panah Atas/Bawah.</li>
+            <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI (tanpa margin/border putih).</li>
+            <li>Setiap 1 gambar akan menjadi 1 halaman terpisah dalam PDF.</li>
             <li>Pastikan dokumen terbaca jelas sebelum mengunggah untuk hasil kompresi yang optimal.</li>
           </ul>
         </div>
@@ -707,14 +701,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
-      <h2>Langkah 8: Membuat PDF Lampiran dari Gambar/PDF Dokumen</h2>
-      <p>Karya Abadi Jobs juga menyediakan fitur <strong>"Lampiran PDF"</strong> yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) maupun file PDF yang sudah ada menjadi satu file PDF yang siap dikirim. Berikut cara menggunakannya:</p>
+      <h2>Langkah 8: Membuat PDF Lampiran dari Gambar Dokumen</h2>
+      <p>Karya Abadi Jobs juga menyediakan fitur <strong>"Lampiran PDF"</strong> yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) menjadi satu file PDF yang siap dikirim. Berikut cara menggunakannya:</p>
       <ul class="space-y-2 mt-4">
         <li><strong>Buka Halaman Lampiran PDF:</strong> Klik menu "Lampiran PDF" di navigasi atas.</li>
-        <li><strong>Upload Gambar/PDF:</strong> Klik area upload atau seret beberapa file gambar (JPG/PNG) atau PDF sekaligus ke area tersebut.</li>
-        <li><strong>Atur Urutan (Drag & Drop):</strong> Anda dapat mengatur urutan halaman PDF dengan cara menyeret item ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item.</li>
-        <li><strong>Ukuran Halaman Otomatis (DPI 100):</strong> Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing halaman dengan resolusi 100 DPI (tanpa margin/border putih). Anda tidak perlu memilih orientasi atau ukuran kertas.</li>
-        <li><strong>Kompresi Otomatis:</strong> Sistem akan otomatis mengubah file PDF menjadi gambar dan mengompresi semua halaman sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time.</li>
+        <li><strong>Upload Gambar:</strong> Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format yang didukung adalah JPG dan PNG.</li>
+        <li><strong>Atur Urutan (Drag & Drop):</strong> Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item.</li>
+        <li><strong>Ukuran Halaman Otomatis (DPI 100):</strong> Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI (tanpa margin/border putih). Anda tidak perlu memilih orientasi atau ukuran kertas.</li>
+        <li><strong>Kompresi Otomatis:</strong> Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time.</li>
         <li><strong>Download PDF:</strong> Klik tombol "Download PDF Lampiran" untuk mengunduh file PDF yang sudah jadi.</li>
       </ul>
     </div>
@@ -822,8 +816,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Hasil akhir dokumen dapat diunduh dalam format PDF (Ukuran A4) dan Ms. Word yang berkualitas tinggi, profesional, dan siap dikirimkan secara digital via email kepada perekrut HRD.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
-        <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Bagaimana cara membuat PDF lampiran dari gambar atau PDF dokumen?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload file gambar (JPG/PNG) atau PDF Anda, atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar dengan resolusi 100 DPI tanpa border putih.</p>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Bagaimana cara membuat PDF lampiran dari gambar dokumen?</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar dengan resolusi 100 DPI tanpa border putih.</p>
       </div>
     </div>
   </main>
@@ -856,7 +850,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>1. Data yang Dikumpulkan</h2>
     <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telefon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
-    <p>Foto dan file PDF yang diunggah melalui fitur unggahan diproses sepenuhnya di sisi klien (client-side) menggunakan teknologi API bawaan browser dan tidak pernah diunggah ke server kami maupun server pihak ketiga.</p>
+    <p>Foto yang diunggah melalui fitur upload pas foto diproses sepenuhnya di sisi klien (client-side) menggunakan teknologi API bawaan browser dan tidak pernah diunggah ke server kami maupun server pihak ketiga.</p>
     <h2>3. Cookies dan Pelacakan Pihak Ketiga</h2>
     <p>Platform ini tidak menggunakan cookies pihak ketiga untuk melacak aktivitas pribadi pengguna. Kami berkomitmen untuk menjaga privasi Anda sepenuhnya.</p>
     <h2>4. Perubahan Kebijakan</h2>
@@ -902,7 +896,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <ul>
           <li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li>
           <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
-          <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar/PDF ke PDF)</a></li>
+          <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar ke PDF)</a></li>
           <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
           <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
         </ul>
@@ -1328,7 +1322,7 @@ function _eduTblNon(list,mode){
 
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k and e.k.trim()) || (e.j && e.j.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
 
   var hasNon = nonFormalCount > 0;
   var hasFormal = formalCount > 0;
@@ -2048,7 +2042,7 @@ function downloadWord() {
 }
 
 // ========================================================
-// === FITUR LAMPIRAN PDF: GAMBAR/PDF MENJADI PDF (MAKS 1 MB) ===
+// === FITUR LAMPIRAN PDF: GAMBAR MENJADI PDF (MAKS 1 MB) ===
 // ========================================================
 
 function formatBytes(bytes) {
@@ -2063,6 +2057,7 @@ function dataUrlSize(dataUrl) {
   var idx = dataUrl.indexOf(',');
   if(idx < 0) return 0;
   var base64Len = dataUrl.length - idx - 1;
+  // Approximate binary size from base64 length
   return Math.round(base64Len * 3 / 4);
 }
 
@@ -2083,6 +2078,7 @@ function compressImageToSize(img, targetSize, callback) {
     ctx.fillRect(0, 0, width, height);
     ctx.drawImage(img, 0, 0, width, height);
     
+    // Binary search for best quality within target
     var low = 0.25, high = 0.92, best = null;
     for(var i = 0; i < 8; i++) {
       var mid = (low + high) / 2;
@@ -2101,6 +2097,7 @@ function compressImageToSize(img, targetSize, callback) {
   var result = attemptCompression(w, h);
   var scale = 0.85;
   
+  // If still too big at lowest quality, reduce dimensions progressively
   while(!result && scale > 0.15) {
     var newW = Math.round(w * scale);
     var newH = Math.round(h * scale);
@@ -2109,6 +2106,7 @@ function compressImageToSize(img, targetSize, callback) {
     scale -= 0.1;
   }
   
+  // Last resort: use minimum quality available
   if(!result) {
     var canvas = document.createElement('canvas');
     var minW = Math.min(w, 800);
@@ -2139,20 +2137,22 @@ function processLampiranFiles(files) {
     return;
   }
   
-  var validFiles = files.filter(function(f){ return f.type.startsWith('image/') || f.type === 'application/pdf'; });
-  if(validFiles.length === 0) {
-    toast('Tidak ada file gambar/PDF yang valid', 'error');
+  // Filter only images
+  var imageFiles = files.filter(function(f){ return f.type.startsWith('image/'); });
+  if(imageFiles.length === 0) {
+    toast('Tidak ada file gambar yang valid', 'error');
     return;
   }
   
+  // Check max limit
   var available = MAX_LAMPIRAN_IMAGES - lampiranImages.length;
   if(available <= 0) {
-    toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' halaman', 'error');
+    toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' gambar', 'error');
     return;
   }
-  if(validFiles.length > available) {
-    toast('Hanya ' + available + ' halaman lagi yang dapat ditambahkan', 'info');
-    validFiles = validFiles.slice(0, available);
+  if(imageFiles.length > available) {
+    toast('Hanya ' + available + ' gambar lagi yang dapat ditambahkan', 'info');
+    imageFiles = imageFiles.slice(0, available);
   }
   
   lampiranProcessing = true;
@@ -2161,164 +2161,69 @@ function processLampiranFiles(files) {
   if(btnPdf) btnPdf.disabled = true;
   if(btnClear) btnClear.disabled = true;
   
-  toast('Memproses ' + validFiles.length + ' file...', 'info');
+  toast('Memproses ' + imageFiles.length + ' gambar...', 'info');
   
-  var totalFiles = validFiles.length;
-  var filesProcessed = 0;
+  var remaining = imageFiles.length;
   var newItems = [];
-  var limitReached = false;
   
-  function checkComplete() {
-    if(filesProcessed === totalFiles) {
-      if(newItems.length + lampiranImages.length > MAX_LAMPIRAN_IMAGES) {
-        newItems = newItems.slice(0, MAX_LAMPIRAN_IMAGES - lampiranImages.length);
-      }
-      newItems.sort(function(a,b){ return a.name.localeCompare(b.name); });
-      lampiranImages = lampiranImages.concat(newItems);
-      lampiranProcessing = false;
-      finalizeLampiranUpload();
-    }
-  }
-  
-  validFiles.forEach(function(file) {
-    if (file.type === 'application/pdf') {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var typedarray = new Uint8Array(e.target.result);
-        pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
-          var numPages = pdf.numPages;
-          var pagesDone = 0;
-          
-          function renderPage(pageNum) {
-            if (limitReached || pageNum > numPages) {
-              filesProcessed++;
-              checkComplete();
-              return;
-            }
-            if (newItems.length + lampiranImages.length >= MAX_LAMPIRAN_IMAGES) {
-              limitReached = true;
-              toast('Batas maksimal ' + MAX_LAMPIRAN_IMAGES + ' halaman tercapai.', 'info');
-              filesProcessed++;
-              checkComplete();
-              return;
-            }
-            
-            pdf.getPage(pageNum).then(function(page) {
-              // PERBAIKAN: Render PDF tepat pada 100 DPI agar sesuai dengan perhitungan gambar
-              var desiredDpi = 100;
-              var scale = desiredDpi / 72; // 1 point = 1/72 inch
-              var viewport = page.getViewport({ scale: scale });
-              
-              var maxDim = 2200;
-              if (viewport.width > maxDim || viewport.height > maxDim) {
-                var scaleFix = maxDim / Math.max(viewport.width, viewport.height);
-                viewport = page.getViewport({ scale: scaleFix });
-              }
-              
-              var canvas = document.createElement('canvas');
-              canvas.width = viewport.width;
-              canvas.height = viewport.height;
-              var ctx = canvas.getContext('2d');
-              
-              page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function() {
-                var tempDataUrl = canvas.toDataURL('image/jpeg', 0.92);
-                var tempImg = new Image();
-                tempImg.onload = function() {
-                  var origSize = dataUrlSize(tempDataUrl);
-                  
-                  // Setingan kompresi sama dengan gambar
-                  var totalExpected = lampiranImages.length + newItems.length + (numPages - pagesDone);
-                  var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
-                  budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
-                  
-                  compressImageToSize(tempImg, budget, function(cDataUrl, cSize, cW, cH) {
-                    if (newItems.length + lampiranImages.length < MAX_LAMPIRAN_IMAGES) {
-                      newItems.push({
-                        data: cDataUrl,
-                        name: file.name + ' (Hlm ' + pageNum + ')',
-                        originalSize: origSize, 
-                        compressedSize: cSize,
-                        width: cW,
-                        height: cH,
-                        originalWidth: tempImg.width,
-                        originalHeight: tempImg.height
-                      });
-                    } else {
-                      limitReached = true;
-                    }
-                    pagesDone++;
-                    renderPage(pageNum + 1);
-                  });
-                };
-                tempImg.src = tempDataUrl;
-              });
-            }).catch(function(err) {
-              console.error('Error rendering page', err);
-              pagesDone++;
-              renderPage(pageNum + 1);
-            });
+  imageFiles.forEach(function(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        // Initial budget: ~900KB / total expected images
+        var totalExpected = lampiranImages.length + imageFiles.length;
+        var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
+        budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
+        
+        compressImageToSize(img, budget, function(dataUrl, size, w, h) {
+          newItems.push({
+            data: dataUrl,
+            name: file.name,
+            originalSize: file.size,
+            compressedSize: size,
+            width: w,
+            height: h,
+            originalWidth: img.width,
+            originalHeight: img.height
+          });
+          remaining--;
+          if(remaining === 0) {
+            // Sort new items by name for consistency
+            newItems.sort(function(a,b){ return a.name.localeCompare(b.name); });
+            lampiranImages = lampiranImages.concat(newItems);
+            lampiranProcessing = false;
+            finalizeLampiranUpload();
           }
-          renderPage(1);
-        }).catch(function(err) {
-          toast('Gagal memuat PDF: ' + file.name, 'error');
-          filesProcessed++;
-          checkComplete();
         });
       };
-      reader.onerror = function() {
-        toast('Gagal membaca: ' + file.name, 'error');
-        filesProcessed++;
-        checkComplete();
+      img.onerror = function() {
+        toast('Gagal memuat: ' + file.name, 'error');
+        remaining--;
+        if(remaining === 0) {
+          lampiranImages = lampiranImages.concat(newItems);
+          lampiranProcessing = false;
+          finalizeLampiranUpload();
+        }
       };
-      reader.readAsArrayBuffer(file);
-    } else {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var img = new Image();
-        img.onload = function() {
-          var totalExpected = lampiranImages.length + newItems.length + (validFiles.length - filesProcessed);
-          var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
-          budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
-          
-          compressImageToSize(img, budget, function(dataUrl, size, w, h) {
-            if (newItems.length + lampiranImages.length < MAX_LAMPIRAN_IMAGES) {
-              newItems.push({
-                data: dataUrl,
-                name: file.name,
-                originalSize: file.size,
-                compressedSize: size,
-                width: w,
-                height: h,
-                originalWidth: img.width,
-                originalHeight: img.height
-              });
-            } else {
-              limitReached = true;
-            }
-            filesProcessed++;
-            checkComplete();
-          });
-        };
-        img.onerror = function() {
-          toast('Gagal memuat: ' + file.name, 'error');
-          filesProcessed++;
-          checkComplete();
-        };
-        img.src = e.target.result;
-      };
-      reader.onerror = function() {
-        toast('Gagal membaca: ' + file.name, 'error');
-        filesProcessed++;
-        checkComplete();
-      };
-      reader.readAsDataURL(file);
-    }
+      img.src = e.target.result;
+    };
+    reader.onerror = function() {
+      toast('Gagal membaca: ' + file.name, 'error');
+      remaining--;
+      if(remaining === 0) {
+        lampiranImages = lampiranImages.concat(newItems);
+        lampiranProcessing = false;
+        finalizeLampiranUpload();
+      }
+    };
+    reader.readAsDataURL(file);
   });
 }
 
 function finalizeLampiranUpload() {
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  var safeTarget = TARGET_PDF_SIZE - 30000; 
+  var safeTarget = TARGET_PDF_SIZE - 30000; // Safe margin for PDF wrapper bytes
   
   if(total > safeTarget) {
     toast('Mengompresi agar sesuai 1 MB...', 'info');
@@ -2326,7 +2231,7 @@ function finalizeLampiranUpload() {
   } else {
     renderLampiranList();
     updateLampiranSummary();
-    toast(lampiranImages.length + ' halaman siap dijadikan PDF', 'success');
+    toast(lampiranImages.length + ' gambar siap dijadikan PDF', 'success');
   }
 }
 
@@ -2347,6 +2252,7 @@ function recompressAllToTarget(currentTarget, callback) {
     return;
   }
   
+  // Calculate budget per image with safety margin (90% of target)
   var budget = Math.floor(target * 0.9 / lampiranImages.length);
   budget = Math.max(20 * 1024, budget);
   
@@ -2359,6 +2265,7 @@ function recompressAllToTarget(currentTarget, callback) {
       var newTotal = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
       iteration++;
       if(newTotal > target && iteration < MAX_ITER) {
+        // Try again with smaller budget
         budget = Math.floor(budget * 0.65);
         budget = Math.max(15 * 1024, budget);
         index = 0;
@@ -2430,7 +2337,7 @@ function renderLampiranList() {
     h += '<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">';
     h += formatBytes(item.originalSize) + ' → <span class="font-bold text-brand-red">' + formatBytes(item.compressedSize) + '</span>';
     h += '</div>';
-    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + dispW + '×' + dispH + 'px • ' + (dispW > dispH ? 'Landscap' : 'Potrait') + ' • ' + pageWIn + 'x' + pageHIn + ' inch</div>';
+    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + dispW + '×' + dispH + 'px • ' + (dispW > dispH ? 'Lanskap' : 'Potret') + ' • ' + pageWIn + 'x' + pageHIn + ' inch</div>';
     h += '</div>';
     h += '<button onclick="removeLampiranImage(' + idx + ')" class="lampiran-remove-btn" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>';
     h += '</div>';
@@ -2439,6 +2346,7 @@ function renderLampiranList() {
   c.innerHTML = h;
 }
 
+// === DRAG & DROP REORDER LOGIC ===
 function handleDragStart(e, idx) {
   draggedItemIdx = idx;
   e.currentTarget.classList.add('dragging');
@@ -2473,7 +2381,7 @@ function handleDrop(e, idx) {
   
   draggedItemIdx = null;
   renderLampiranList();
-  toast('Urutan halaman diperbarui', 'info');
+  toast('Urutan gambar diperbarui', 'info');
 }
 
 function handleDragEnd(e) {
@@ -2495,16 +2403,16 @@ function removeLampiranImage(idx) {
   lampiranImages.splice(idx, 1);
   renderLampiranList();
   updateLampiranSummary();
-  toast('Halaman dihapus', 'info');
+  toast('Gambar dihapus', 'info');
 }
 
 function clearLampiranImages() {
   if(lampiranImages.length === 0) return;
-  if(!confirm('Hapus semua halaman?')) return;
+  if(!confirm('Hapus semua gambar?')) return;
   lampiranImages = [];
   renderLampiranList();
   updateLampiranSummary();
-  toast('Semua halaman dihapus', 'info');
+  toast('Semua gambar dihapus', 'info');
 }
 
 function updateLampiranSummary() {
@@ -2541,16 +2449,16 @@ function updateLampiranSummary() {
     totalSizeEl.textContent = formatBytes(total) + ' / 1 MB';
   }
   if(sizeBarEl) sizeBarEl.style.width = percent + '%';
-  if(imgCountEl) imgCountEl.textContent = lampiranImages.length + ' halaman • ' + percent.toFixed(1) + '% dari 1 MB';
+  if(imgCountEl) imgCountEl.textContent = lampiranImages.length + ' gambar • ' + percent.toFixed(1) + '% dari 1 MB';
 }
 
 function generateLampiranPDF() {
   if(lampiranImages.length === 0) {
-    toast('Belum ada file', 'error');
+    toast('Belum ada gambar', 'error');
     return;
   }
   if(lampiranProcessing) {
-    toast('Sedang memproses file...', 'info');
+    toast('Sedang memproses gambar...', 'info');
     return;
   }
   
@@ -2587,8 +2495,8 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
-      var dpi = 100; 
-      var ptPerPx = 72 / dpi; 
+      var dpi = 100; // Setting DPI sesuai PDF24
+      var ptPerPx = 72 / dpi; // 1 inch = 72 pt, 100 px = 1 inch, jadi 1 px = 0.72 pt
       
       lampiranImages.forEach(function(item, idx) {
         var origW = item.originalWidth || item.width;
