@@ -347,8 +347,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
-      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
+      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Buat CV</a>
+      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Lampiran PDF</a>
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tips & Contoh</a>
@@ -1193,7 +1193,7 @@ function renderForm(){
     var h=settingsH();
     if(curTpl!=='cv4'){h+=photoH()}
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
-    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
+    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
     h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')
   } else {
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
@@ -1211,7 +1211,7 @@ function renderForm(){
       
       h+=secH('Data Diri & Kontak');
       h+='<div class="card space-y-2">';
-      h+=fldH('nama','Nama Lengkap','.....');
+      h+=fldH('nombre','Nama Lengkap','.....');
       h+=fldH('nohp','No. Hp','.....');
       h+=fldH('email','Email','.....');
       h+='</div>';
@@ -1241,7 +1241,7 @@ function renderForm(){
       h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';
       
       h+=secH('Data Pribadi');
-      h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';
+      h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';
       
       h+=secH('Daftar Lampiran');
       h+='<div id="lamp-c"></div>';
@@ -1356,7 +1356,7 @@ function kSkillPHSingle(list){var items=(list||[]).filter(function(s){return s&&
 function skCombined(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var html='';if(hItems.length){var thirdH=Math.ceil(hItems.length/3);var hC1=hItems.slice(0,thirdH),hC2=hItems.slice(thirdH,thirdH*2),hC3=hItems.slice(thirdH*2);function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top; border:none;">\u2022</td><td style="vertical-align:top; border:none;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';html+='<table style="width:100%;margin-bottom:3mm;border:none;"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0; border:none;">'+bl(hC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm; border:none;">'+bl(hC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0; border:none;">'+bl(hC3)+'</td></tr></table>'}if(sItems.length){var thirdS=Math.ceil(sItems.length/3);var sC1=sItems.slice(0,thirdS),sC2=sItems.slice(thirdS,thirdS*2),sC3=sItems.slice(thirdS*2);function bl2(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top; border:none;">\u2022</td><td style="vertical-align:top; border:none;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Soft Skill')+'</div>';html+='<table style="width:100%;border:none;"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0; border:none;">'+bl2(sC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm; border:none;">'+bl2(sC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0; border:none;">'+bl2(sC3)+'</td></tr></table>'}return html}
 function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length) return '';var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';for(var i=0;i<hItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top; border:none;">\u2022</td><td style="vertical-align:top; border:none;">'+esc(hItems[i].trim())+'</td></tr></table></div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">'+L('Soft Skill')+'</div>';for(var i=0;i<sItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;border:none;"><tr><td style="width:4mm;vertical-align:top; border:none;">\u2022</td><td style="vertical-align:top; border:none;">'+esc(sItems[i].trim())+'</td></tr></table></div>'}return h}
 
-function renderCV1(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
+function renderCV1(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
@@ -1374,7 +1374,7 @@ h+='</td></tr></table>';
 
 function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
-function renderCV2(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
+function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
@@ -1392,7 +1392,7 @@ h+='</td></tr></table>';
 
 if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
-function renderCV3(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);
+function renderCV3(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL);ls+=di('Jenis Kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div>'}if(eduHTML){rs+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){rs+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){rs+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>'}
@@ -1422,7 +1422,7 @@ function renderSkillsCV4(skillArr){
 }
 
 function renderCV4(){
-  var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
+  var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
   
   var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
@@ -1523,7 +1523,7 @@ function openInGmail() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
     
-    var N = v('nama') || '……………….';
+    var N = v('nombre') || '……………….';
     var TTD = v('sTtd') || N;
     var HP = v('nohp') || '……………….';
     var EM = v('email') || '……………….';
@@ -1596,7 +1596,7 @@ function renderSuratP() {
   if(!m) return '';
   
   // Variabel Umum
-  var N = v('nama') || '……………….';
+  var N = v('nombre') || '……………….';
   var TTD = v('sTtd') || N;
   var HP = v('nohp') || '……………….';
   var EM = v('email') || '……………….';
@@ -1607,7 +1607,7 @@ function renderSuratP() {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
     var subjek = 'Lamaran Pekerjaan';
     if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
-    if (v('nama')) subjek += ' - ' + v('nama');
+    if (v('nombre')) subjek += ' - ' + v('nombre');
 
     var sumberStr;
     if (m.semua) {
@@ -1985,7 +1985,7 @@ function downloadPDF() {
       }
       
       // Format nama file unduhan
-      var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+      var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
       
@@ -2037,7 +2037,7 @@ function downloadWord() {
   fileDownload.href = url;
   
   // Format nama file unduhan
-  var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+  var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
   
@@ -2217,23 +2217,36 @@ function processLampiranFiles(files) {
               var ctx = canvas.getContext('2d');
               
               page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function() {
-                var dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-                var img = new Image();
-                img.onload = function() {
-                  newItems.push({
-                    data: dataUrl,
-                    name: file.name + ' (Hlm ' + pageNum + ')',
-                    originalSize: file.size, 
-                    compressedSize: dataUrlSize(dataUrl),
-                    width: img.width,
-                    height: img.height,
-                    originalWidth: img.width,
-                    originalHeight: img.height
+                var tempDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+                var tempImg = new Image();
+                tempImg.onload = function() {
+                  var origSize = dataUrlSize(tempDataUrl);
+                  
+                  // Setingan kompresi sama dengan gambar
+                  var totalExpected = lampiranImages.length + newItems.length + (numPages - pagesDone);
+                  var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
+                  budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
+                  
+                  compressImageToSize(tempImg, budget, function(cDataUrl, cSize, cW, cH) {
+                    if (newItems.length + lampiranImages.length < MAX_LAMPIRAN_IMAGES) {
+                      newItems.push({
+                        data: cDataUrl,
+                        name: file.name + ' (Hlm ' + pageNum + ')',
+                        originalSize: origSize, 
+                        compressedSize: cSize,
+                        width: cW,
+                        height: cH,
+                        originalWidth: tempImg.width,
+                        originalHeight: tempImg.height
+                      });
+                    } else {
+                      limitReached = true;
+                    }
+                    pagesDone++;
+                    renderPage(pageNum + 1);
                   });
-                  pagesDone++;
-                  renderPage(pageNum + 1);
                 };
-                img.src = dataUrl;
+                tempImg.src = tempDataUrl;
               });
             }).catch(function(err) {
               console.error('Error rendering page', err);
@@ -2259,7 +2272,7 @@ function processLampiranFiles(files) {
       reader.onload = function(e) {
         var img = new Image();
         img.onload = function() {
-          var totalExpected = lampiranImages.length + validFiles.length;
+          var totalExpected = lampiranImages.length + newItems.length + (validFiles.length - filesProcessed);
           var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
           budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
           
