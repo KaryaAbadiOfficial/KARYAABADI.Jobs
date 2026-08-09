@@ -347,8 +347,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
-      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">FAQ</a>
-      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tentang</a>
+      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
+      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
     </nav>
   </div>
 </header>
@@ -588,9 +588,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50">
         <label class="fl flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
         <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1">
-          <span class="font-bold">Otomatis (Sesuai Gambar Asli)</span>
+          <span class="font-bold">Otomatis (DPI 100)</span>
         </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar tanpa border putih.</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI (tanpa margin/border putih).</p>
       </div>
     </div>
 
@@ -611,7 +611,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <ul class="space-y-1 list-disc list-inside">
             <li>Foto/dokumen dengan resolusi tinggi akan otomatis dikompresi tanpa mengurangi keterbacaan teks.</li>
             <li>Urutan gambar dapat diatur dengan <strong>menyeret (drag & drop)</strong> item atau menggunakan tombol panah Atas/Bawah.</li>
-            <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar (tanpa margin/border putih).</li>
+            <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI (tanpa margin/border putih).</li>
             <li>Setiap 1 gambar akan menjadi 1 halaman terpisah dalam PDF.</li>
             <li>Pastikan dokumen terbaca jelas sebelum mengunggah untuk hasil kompresi yang optimal.</li>
           </ul>
@@ -707,7 +707,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li><strong>Buka Halaman Lampiran PDF:</strong> Klik menu "Lampiran PDF" di navigasi atas.</li>
         <li><strong>Upload Gambar:</strong> Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format yang didukung adalah JPG dan PNG.</li>
         <li><strong>Atur Urutan (Drag & Drop):</strong> Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item.</li>
-        <li><strong>Ukuran Halaman Otomatis:</strong> Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar (tanpa margin/border putih). Anda tidak perlu memilih orientasi atau ukuran kertas.</li>
+        <li><strong>Ukuran Halaman Otomatis (DPI 100):</strong> Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI (tanpa margin/border putih). Anda tidak perlu memilih orientasi atau ukuran kertas.</li>
         <li><strong>Kompresi Otomatis:</strong> Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time.</li>
         <li><strong>Download PDF:</strong> Klik tombol "Download PDF Lampiran" untuk mengunduh file PDF yang sudah jadi.</li>
       </ul>
@@ -817,7 +817,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2">4. Bagaimana cara membuat PDF lampiran dari gambar dokumen?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar tanpa border putih.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar dengan resolusi 100 DPI tanpa border putih.</p>
       </div>
     </div>
   </main>
@@ -1979,7 +1979,7 @@ function downloadPDF() {
       }
       
       // Format nama file unduhan
-      var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+      var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
       
@@ -2031,7 +2031,7 @@ function downloadWord() {
   fileDownload.href = url;
   
   // Format nama file unduhan
-  var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+  var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
   
@@ -2502,27 +2502,27 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
+      var dpi = 100; // Setting DPI sesuai PDF24
+      var ptPerPx = 72 / dpi; // 1 inch = 72 pt, 100 px = 1 inch, jadi 1 px = 0.72 pt
       
       lampiranImages.forEach(function(item, idx) {
-        var w = item.width;
-        var h = item.height;
+        var wPt = item.width * ptPerPx;
+        var hPt = item.height * ptPerPx;
         
-        // Pastikan orientasi sesuai dengan rasio gambar untuk mencegah jsPDF menukar dimensi
-        var orientation = w > h ? 'l' : 'p';
-        var formatArr = [w, h];
+        var orientation = wPt > hPt ? 'l' : 'p';
+        var formatArr = [wPt, hPt];
         
         if(idx === 0) {
           pdf = new window.jspdf.jsPDF({
             orientation: orientation,
-            unit: 'px', // Menggunakan px sebagai unit
+            unit: 'pt',
             format: formatArr
           });
         } else {
           pdf.addPage(formatArr, orientation);
         }
         
-        // Tempel gambar tepat menutupi seluruh halaman tanpa margin
-        pdf.addImage(item.data, 'JPEG', 0, 0, w, h, undefined, 'FAST');
+        pdf.addImage(item.data, 'JPEG', 0, 0, wPt, hPt, undefined, 'FAST');
       });
       
       var filenameInput = document.getElementById('lampiran-filename');
