@@ -784,7 +784,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-brands fa-linkedin"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red">LinkedIn Jobs</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Platform profesional terbaik untuk membangun jaringan and mencari pekerjaan, terutama untuk posisi manajerial dan multinasional.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-justify">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutama untuk posisi manajerial dan multinasional.</p>
       </a>
       <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
         <div class="flex items-center gap-4 mb-3">
@@ -1328,7 +1328,6 @@ function _eduTblNon(list,mode){
 
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  // PERBAIKAN ERROR DISINI: 'and' diganti '&&'
   var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
 
   var hasNon = nonFormalCount > 0;
@@ -1423,7 +1422,7 @@ function renderSkillsCV4(skillArr){
 }
 
 function renderCV4(){
-  var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
+  var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
   
   var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
@@ -1524,7 +1523,7 @@ function openInGmail() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
     
-    var N = v('nama') || '……………….';
+    var N = v('nombre') || '……………….';
     var TTD = v('sTtd') || N;
     var HP = v('nohp') || '……………….';
     var EM = v('email') || '……………….';
@@ -1597,7 +1596,7 @@ function renderSuratP() {
   if(!m) return '';
   
   // Variabel Umum
-  var N = v('nama') || '……………….';
+  var N = v('nombre') || '……………….';
   var TTD = v('sTtd') || N;
   var HP = v('nohp') || '……………….';
   var EM = v('email') || '……………….';
@@ -1608,7 +1607,7 @@ function renderSuratP() {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
     var subjek = 'Lamaran Pekerjaan';
     if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
-    if (v('nama')) subjek += ' - ' + v('nama');
+    if (v('nombre')) subjek += ' - ' + v('nombre');
 
     var sumberStr;
     if (m.semua) {
@@ -1986,7 +1985,7 @@ function downloadPDF() {
       }
       
       // Format nama file unduhan
-      var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+      var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
       
@@ -2038,7 +2037,7 @@ function downloadWord() {
   fileDownload.href = url;
   
   // Format nama file unduhan
-  var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
+  var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
   
@@ -2598,17 +2597,17 @@ function generateLampiranPDFNow() {
         var wPt = origW * ptPerPx;
         var hPt = origH * ptPerPx;
         
-        var orientation = wPt > hPt ? 'l' : 'p';
+        // PERBAIKAN: Selalu gunakan 'p' (portrait) agar jsPDF tidak menukar dimensi secara otomatis
         var formatArr = [wPt, hPt];
         
         if(idx === 0) {
           pdf = new window.jspdf.jsPDF({
-            orientation: orientation,
+            orientation: 'p',
             unit: 'pt',
             format: formatArr
           });
         } else {
-          pdf.addPage(formatArr, orientation);
+          pdf.addPage(formatArr, 'p');
         }
         
         pdf.addImage(item.data, 'JPEG', 0, 0, wPt, hPt, undefined, 'FAST');
