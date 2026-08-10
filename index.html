@@ -20,9 +20,15 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Tambahkan PDF.js untuk membaca file PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
+// Set worker untuk PDF.js
+if (window.pdfjsLib) {
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
 </script>
 <style>
 :root{--avh:100vh}
@@ -403,7 +409,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="max-w-7xl mx-auto px-4 py-10 md:py-14 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-6">100% GRATIS & RAMAH ATS</span>
       <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Generator CV & Surat Lamaran Kerja <span class="text-brand-red">Profesional</span></h1>
-      <p class="max-w-xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base text-justify font-normal"><strong>Karya Abadi Jobs</strong> adalah platform online gratis untuk membuat CV và Surat Lamaran Kerja secara otomatis. Desain dokumen yang rapi, format PDF siap cetak, proses tanpa registrasi, serta struktur yang ramah ATS untuk memudahkan Anda melamar pekerjaan&nbsp;impian.</p>
+      <p class="max-w-xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base text-justify font-normal"><strong>Karya Abadi Jobs</strong> adalah platform online gratis untuk membuat CV dan Surat Lamaran Kerja secara otomatis. Desain dokumen yang rapi, format PDF siap cetak, proses tanpa registrasi, serta struktur yang ramah ATS untuk memudahkan Anda melamar pekerjaan&nbsp;impian.</p>
     </div>
   </section>
 
@@ -491,7 +497,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi&nbsp;Jobs.</p>
       <div class="flex flex-col items-center gap-5">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity=80">Buat</span>
+          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
           <span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span>
         </button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
@@ -569,13 +575,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 </div>
 
-<!-- === VIEW LAMPIRAN PDF: Ubah Gambar Menjadi PDF === -->
+<!-- === VIEW LAMPIRAN PDF: Ubah Gambar/PDF Menjadi PDF === -->
 <div id="view-lampiran" class="view">
   <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
     <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Ubah File JPG, JPEG, PNG Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
-      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Ubah File JPG, JPEG, PNG, PDF Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
+      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, Pas Foto, atau file PDF lainnya. Sistem akan otomatis mengompresi dan menggabungkan semua file menjadi satu PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
     </div>
   </section>
 
@@ -587,21 +593,21 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
         </div>
         <h2 class="font-bold text-gray-900 dark:text-white text-base text-center">Upload Salinan Dokumen</h2>
-        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar ke area di bawah ini</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar/PDF ke area di bawah ini</p>
       </div>
       
       <div class="lampiran-upload-area" id="lampiran-drop">
         <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
-        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm text-center">Klik atau seret gambar ke sini</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Format: JPG, JPEG, PNG &nbsp;•&nbsp; Maksimal 15 gambar</p>
-        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
+        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm text-center">Klik atau seret file ke sini</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Format: JPG, JPEG, PNG, PDF &nbsp;•&nbsp; Maksimal 15 file/halaman</p>
+        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg,application/pdf" multiple class="hidden">
       </div>
     </div>
 
     <div id="lampiran-list-wrapper" class="mb-6">
       <div id="lampiran-empty" class="lampiran-empty-state">
         <i class="fa-solid fa-folder-open"></i>
-        <p class="text-sm font-semibold text-center">Belum ada gambar diunggah</p>
+        <p class="text-sm font-semibold text-center">Belum ada file diunggah</p>
         <p class="text-xs mt-1 text-center">Unggah salinan dokumen untuk membuat PDF lampiran Anda sekarang juga secara gratis.</p>
       </div>
       <div id="lampiran-list"></div>
@@ -653,10 +659,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <i class="fa-solid fa-circle-info text-blue-500 text-lg"></i>
         <p class="font-bold text-blue-700 dark:text-blue-300 text-sm">Tips Penggunaan:</p>
         <ul class="text-xs text-blue-700 dark:text-blue-300 space-y-2 max-w-xl no-bullet">
-          <li>Foto atau dokumen dengan resolusi tinggi akan otomatis dikompresi dengan baik tanpa mengurangi keterbacaan teks pada gambar tersebut.</li>
+          <li>Foto, dokumen, atau file PDF dengan resolusi tinggi akan otomatis dikompresi dengan baik tanpa mengurangi keterbacaan teks pada gambar tersebut.</li>
+          <li>Jika Anda mengunggah file PDF, setiap halaman akan otomatis dikonversi menjadi gambar agar ukurannya seragam dan sesuai dengan pengaturan resolusi 100 DPI.</li>
           <li>Urutan halaman gambar dapat diatur dengan mudah menggunakan menyeret (drag & drop) item atau menggunakan tombol panah Atas dan Bawah.</li>
-          <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI tanpa margin sama sekali.</li>
-          <li>Setiap 1 gambar akan menjadi 1 halaman terpisah di dalam PDF, sehingga dokumen lampiran Anda akan terlihat sangat rapi dan profesional.</li>
+          <li>Setiap 1 halaman akan menjadi 1 halaman terpisah di dalam PDF, sehingga dokumen lampiran Anda akan terlihat sangat rapi dan profesional.</li>
           <li>Pastikan dokumen asli terbaca jelas sebelum mengunggah untuk mendapatkan hasil kompresi yang paling optimal dan profesional.</li>
         </ul>
       </div>
@@ -834,16 +840,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
 
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 8: Membuat PDF Lampiran dari Gambar Dokumen</h2>
-      <p>Karya Abadi Jobs juga menyediakan fitur <strong>"Lampiran PDF"</strong> yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) menjadi satu file PDF yang siap dikirim ke HRD. Berikut panduan cara menggunakannya dengan mudah:</p>
+      <h2>Langkah 8: Membuat PDF Lampiran dari Gambar atau Dokumen PDF</h2>
+      <p>Karya Abadi Jobs juga menyediakan fitur <strong>"Lampiran PDF"</strong> yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) atau file PDF yang sudah ada menjadi satu file PDF yang siap dikirim ke HRD. Berikut panduan cara menggunakannya dengan mudah:</p>
       <ul class="space-y-4 mt-4 no-bullet">
         <li>
           <strong class="block text-center">Buka Halaman Lampiran PDF:</strong>
           <p class="mt-1">Klik menu "Lampiran PDF" yang ada di navigasi atas halaman ini.</p>
         </li>
         <li>
-          <strong class="block text-center">Upload Gambar:</strong>
-          <p class="mt-1">Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format gambar yang didukung adalah JPG dan PNG.</p>
+          <strong class="block text-center">Upload Gambar/PDF:</strong>
+          <p class="mt-1">Klik area upload atau seret beberapa file gambar (JPG/PNG) atau file PDF sekaligus ke area tersebut.</p>
         </li>
         <li>
           <strong class="block text-center">Atur Urutan (Drag & Drop):</strong>
@@ -977,7 +983,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="space-y-4 mt-8">
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5 text-center">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2 text-center">1. Apakah layanan Karya Abadi Jobs berbayar?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maipun Surat Lamaran Kerja tanpa batasan và tanpa biaya tersembunyi&nbsp;apapun.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Tidak. Karya Abadi Jobs 100% gratis untuk membuat dan mengunduh CV maipun Surat Lamaran Kerja tanpa batasan dan tanpa biaya tersembunyi&nbsp;apapun.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5 text-center">
         <h3 class="font-bold text-gray-900 dark:text-white mb-2 text-center">2. Apakah data pribadi saya aman saat menggunakan tool ini?</h3>
@@ -988,8 +994,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Hasil akhir dokumen dapat diunduh dalam format PDF (Ukuran A4) dan Ms. Word yang berkualitas tinggi, profesional, dan siap dikirimkan secara digital via email kepada perekrut&nbsp;HRD.</p>
       </div>
       <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-lg p-5 text-center">
-        <h3 class="font-bold text-gray-900 dark:text-white mb-2 text-center">4. Bagaimana cara membuat PDF lampiran dari gambar dokumen?</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar dengan resolusi 100 DPI tanpa border&nbsp;putih.</p>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-2 text-center">4. Bagaimana cara membuat PDF lampiran dari gambar atau PDF dokumen?</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar atau file PDF salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar dengan resolusi 100 DPI tanpa border&nbsp;putih.</p>
       </div>
     </div>
   </main>
@@ -998,9 +1004,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-about" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Tentang Karya Abadi Jobs</h1>
-    <p class="text-center-justify">Karya Abadi Jobs bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami là một platform website tool / generator gratis yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan&nbsp;mudah.</p>
-    <p class="text-center-justify">Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) và Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutapi bagi fresh graduate. Oleh karena itu, tool này dibuat với formulir yang sederhana dan template yang terstruktur&nbsp;rapi.</p>
-    <p class="text-center-justify">Sebagai tool berbasis web, seluruh proses pembuatan dokumen dilakukan secara lokal di peramban (browser) pengguna. Ini artinya, data pribadi Anda tidak akan dikirim hoặc disimpan di server kami. Setelah selesai mengisi formulir, Anda dapat langsung mengunduh hasilnya trong format PDF hoặc Word yang siap untuk dicetak hoặc dikirim secara&nbsp;digital.</p>
+    <p class="text-center-justify">Karya Abadi Jobs bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami adalah sebuah platform website tool / generator gratis yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan&nbsp;mudah.</p>
+    <p class="text-center-justify">Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutapi bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur&nbsp;rapi.</p>
+    <p class="text-center-justify">Sebagai tool berbasis web, seluruh proses pembuatan dokumen dilakukan secara lokal di peramban (browser) pengguna. Ini artinya, data pribadi Anda tidak akan dikirim atau disimpan di server kami. Setelah selesai mengisi formulir, Anda dapat langsung mengunduh hasilnya dalam format PDF atau Word yang siap untuk dicetak atau dikirim secara&nbsp;digital.</p>
     <p class="text-center-justify">Kami terus berupaya mengembangkan dan meningkatkan kualitas template serta fitur agar Karya Abadi Jobs dapat memberikan manfaat yang maksimal bagi seluruh masyarakat Indonesia yang sedang dalam pencarian&nbsp;pekerjaan.</p>
   </main>
 </div>
@@ -1008,10 +1014,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-contact" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Hubungi Kami</h1>
-    <p class="text-center-justify">Jika Anda memiliki pertanyaan, saran, kritik, hoặc masukan terkait layanan tool generator Karya Abadi Jobs, jangan ragu untuk menghubungi kami. Tim kami akan berusaha merespons setiap pesan&nbsp;sesegera&nbsp;mungkin.</p>
+    <p class="text-center-justify">Jika Anda memiliki pertanyaan, saran, kritik, atau masukan terkait layanan tool generator Karya Abadi Jobs, jangan ragu untuk menghubungi kami. Tim kami akan berusaha merespons setiap pesan&nbsp;sesegera&nbsp;mungkin.</p>
     <p class="text-center">Email: karyaabadi24434@gmail.com</p>
-    <p class="text-center-justify">Kami sangat menghargai setiap masukan dari pengguna karena hal tersebut membantu kami dalam mengembangkan và meningkatkan kualitas platform ini agar dapat memberikan manfaat yang lebih baik lagi bagi para pencari kerja di&nbsp;seluruh&nbsp;Indonesia.</p>
-    <p class="text-center-justify">Catatan: Karya Abadi Jobs là tool pembuatan dokumen. Kami tidak menyediakan lowongan kerja và tidak dapat memberikan saran terkait proses rekrutmen di perusahaan tertentu. Untuk informasi terkait lowongan kerja, silakan hubungi langsung pihak perusahaan yang&nbsp;bersangkutan.</p>
+    <p class="text-center-justify">Kami sangat menghargai setiap masukan dari pengguna karena hal tersebut membantu kami dalam mengembangkan dan meningkatkan kualitas platform ini agar dapat memberikan manfaat yang lebih baik lagi bagi para pencari kerja di&nbsp;seluruh&nbsp;Indonesia.</p>
+    <p class="text-center-justify">Catatan: Karya Abadi Jobs adalah tool pembuatan dokumen. Kami tidak menyediakan lowongan kerja dan tidak dapat memberikan saran terkait proses rekrutmen di perusahaan tertentu. Untuk informasi terkait lowongan kerja, silakan hubungi langsung pihak perusahaan yang&nbsp;bersangkutan.</p>
   </main>
 </div>
 
@@ -1026,7 +1032,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h2>3. Cookies dan Pelacakan Pihak Ketiga</h2>
     <p class="text-center-justify">Platform ini tidak menggunakan cookies pihak ketiga untuk melacak aktivitas pribadi pengguna. Kami berkomitmen untuk menjaga privasi Anda&nbsp;sepenuhnya.</p>
     <h2>4. Perubahan Kebijakan</h2>
-    <p class="text-center-justify">Kami berhak untuk mengubah atau memperbarui Kebijakan Privasi ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku sejak dipublikasikan di halaman ini. Pengguna disarankan untuk meninjau halaman này secara&nbsp;berkala.</p>
+    <p class="text-center-justify">Kami berhak untuk mengubah atau memperbarui Kebijakan Privasi ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku sejak dipublikasikan di halaman ini. Pengguna disarankan untuk meninjau halaman ini secara&nbsp;berkala.</p>
   </main>
 </div>
 
@@ -1035,13 +1041,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h1 class="text-center">Ketentuan Layanan</h1>
     <p class="text-center-justify">Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform&nbsp;ini.</p>
     <h2>1. Sifat Layanan</h2>
-    <p class="text-center-justify">Karya Abadi Jobs disediakan secara gratis và "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan hoặc bebas dari kesalahan&nbsp;teknis.</p>
+    <p class="text-center-justify">Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan atau bebas dari kesalahan&nbsp;teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p class="text-center-justify">Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, và kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs không bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurati informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak&nbsp;perusahaan.</p>
+    <p class="text-center-justify">Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurati informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak&nbsp;perusahaan.</p>
     <h2>3. Penggunaan yang Dalarikan</h2>
     <p class="text-center-justify">Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber&nbsp;website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
-    <p class="text-center-justify">Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini là milik penuh dari pengguna masing-masing và bebas digunakan untuk keperluan melamar&nbsp;pekerjaan.</p>
+    <p class="text-center-justify">Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini adalah milik penuh dari pengguna masing-masing dan bebas digunakan untuk keperluan melamar&nbsp;pekerjaan.</p>
   </main>
 </div>
 
@@ -1050,11 +1056,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <h1 class="text-center">Disclaimer</h1>
     <p class="text-center-justify">Halaman Disclaimer ini menjelaskan batasan tanggung jawab yang melekat pada penggunaan tool generator Karya Abadi Jobs. Dengan menggunakan platform ini, Anda dianggap telah memahami batasan-batasan yang diuraikan di bawah&nbsp;ini.</p>
     <h2>1. Sifat Alat Bantu</h2>
-    <p class="text-center-justify">Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV và Surat Lamaran Pekerjaan secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai với persyaratan spesifik dari setiap perusahaan atau instansi yang&nbsp;dituju.</p>
+    <p class="text-center-justify">Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Pekerjaan secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang&nbsp;dituju.</p>
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
-    <p class="text-center-justify">Penggunaan template dari platform ini không menjamin bahwa pengguna akan diterima pada proses rekrutmen hoặc lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, và tingkat persaingan với pelamar&nbsp;lainnya.</p>
+    <p class="text-center-justify">Penggunaan template dari platform ini tidak menjamin bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar&nbsp;lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
-    <p class="text-center-justify">Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ephaan, và format sudah sesuai. Kesalahan atau ketidaksesuaian informasi trong dokumen adalah tanggung jawab sepenuhnya dari&nbsp;pengguna.</p>
+    <p class="text-center-justify">Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ephaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari&nbsp;pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
     <p class="text-center-justify">Platform ini mungkin mengandung tautan ke situs web pihak ketiga (misalnya sumber informasi). Kami tidak bertanggung jawab atas konten, kebijakan privasi, atau praktik situs web pihak ketiga&nbsp;tersebut.</p>
   </main>
@@ -1068,7 +1074,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <ul>
           <li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li>
           <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
-          <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar ke PDF)</a></li>
+          <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar/PDF ke PDF)</a></li>
           <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
           <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
         </ul>
@@ -1250,7 +1256,7 @@ function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-ou';u
 function selectTpl(id){saveStatic();curTpl=id;renderTplTabs();renderForm();renderPreview()}
 function updCatTabs(){document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('border-brand-red','text-brand-red');t.classList.add('border-transparent','text-gray-500')});var el=document.getElementById('cat-'+curCat);if(el){el.classList.add('border-brand-red','text-brand-red');el.classList.remove('border-transparent','text-gray-500')}}
 function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;var gridClass=curCat==='cv'?'grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200':'grid grid-cols-2 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200';var tabsContainer=document.getElementById('tpl-tabs');tabsContainer.className=gridClass;tabsContainer.innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-center '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-200 dark:border-brand-border')+'">'+t.name+'</button>'}).join('')}
-function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview()}}
+function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview'}}
 function openMobilePreview(){var pm=document.getElementById('preview-mobile');pm.classList.remove('hidden');setTimeout(function(){resetZoom()},60)}
 function closeMobilePreview(){document.getElementById('preview-mobile').classList.add('hidden')}
 function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
@@ -1786,7 +1792,7 @@ function renderSuratP() {
     if (m.pos) {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka lowongan untuk posisi ' + esc(v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
-      pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + esc(PT) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
+      pembukaEmail = 'Sehubungan với ' + sumberStr + ' di ' + esc(PT) + ', với ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
 
     // Dynamic Daftar Lampiran
@@ -2214,7 +2220,7 @@ function downloadWord() {
 }
 
 // ========================================================
-// === FITUR LAMPIRAN PDF: GAMBAR MENJADI PDF (MAKS 1 MB) ===
+// === FITUR LAMPIRAN PDF: GAMBAR/PDF MENJADI PDF (MAKS 1 MB) ===
 // ========================================================
 
 function formatBytes(bytes) {
@@ -2303,28 +2309,83 @@ function handleLampiranUpload(event) {
   event.target.value = '';
 }
 
+// Fungsi khusus untuk membaca file PDF dan mengekstrak setiap halaman menjadi gambar
+function extractPdfPages(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var typedarray = new Uint8Array(e.target.result);
+        pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+            var totalPdfPages = pdf.numPages;
+            var pagesProcessed = 0;
+            var extractedImages = [];
+            
+            for (var i = 1; i <= totalPdfPages; i++) {
+                (function(pageNum) {
+                    pdf.getPage(pageNum).then(function(page) {
+                        // Render di 2x scale untuk kualitas sebelum dikompresi
+                        var viewport = page.getViewport({ scale: 2.0 }); 
+                        var canvas = document.createElement('canvas');
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        var ctx = canvas.getContext('2d');
+                        
+                        page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function() {
+                            var dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                            extractedImages.push({
+                                data: dataUrl,
+                                name: file.name + ' - Hal. ' + pageNum,
+                                originalSize: dataUrlSize(dataUrl), 
+                                width: viewport.width / 2, // Kompensasi scale 2.0
+                                height: viewport.height / 2,
+                                originalWidth: viewport.width / 2,
+                                originalHeight: viewport.height / 2,
+                                pageNum: pageNum
+                            });
+                            pagesProcessed++;
+                            
+                            if (pagesProcessed === totalPdfPages) {
+                                // Urutkan berdasarkan nomor halaman
+                                extractedImages.sort(function(a, b) { return a.pageNum - b.pageNum; });
+                                callback(extractedImages);
+                            }
+                        });
+                    });
+                })(i);
+            }
+        }).catch(function(err) {
+            console.error("Error loading PDF: ", err);
+            toast('Gagal membaca PDF: ' + file.name, 'error');
+            callback([]);
+        });
+    };
+    reader.readAsArrayBuffer(file);
+}
+
 function processLampiranFiles(files) {
   if(lampiranProcessing) {
     toast('Sedang memproses, mohon tunggu...', 'info');
     return;
   }
   
-  // Filter only images
-  var imageFiles = files.filter(function(f){ return f.type.startsWith('image/'); });
-  if(imageFiles.length === 0) {
-    toast('Tidak ada file gambar yang valid', 'error');
+  // Filter gambar dan PDF
+  var validFiles = files.filter(function(f){ 
+    return f.type.startsWith('image/') || f.type === 'application/pdf'; 
+  });
+  
+  if(validFiles.length === 0) {
+    toast('Tidak ada file gambar atau PDF yang valid', 'error');
     return;
   }
   
-  // Check max limit
+  // Check max limit (15 file)
   var available = MAX_LAMPIRAN_IMAGES - lampiranImages.length;
   if(available <= 0) {
-    toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' gambar', 'error');
+    toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' file/halaman', 'error');
     return;
   }
-  if(imageFiles.length > available) {
-    toast('Hanya ' + available + ' gambar lagi yang dapat ditambahkan', 'info');
-    imageFiles = imageFiles.slice(0, available);
+  if(validFiles.length > available) {
+    toast('Hanya ' + available + ' file lagi yang dapat ditambahkan', 'info');
+    validFiles = validFiles.slice(0, available);
   }
   
   lampiranProcessing = true;
@@ -2333,69 +2394,81 @@ function processLampiranFiles(files) {
   if(btnPdf) btnPdf.disabled = true;
   if(btnClear) btnClear.disabled = true;
   
-  toast('Memproses ' + imageFiles.length + ' gambar...', 'info');
+  toast('Memproses ' + validFiles.length + ' file...', 'info');
   
-  var remaining = imageFiles.length;
+  var remaining = validFiles.length;
   var newItems = [];
   
-  imageFiles.forEach(function(file) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      var img = new Image();
-      img.onload = function() {
-        // Initial budget: ~900KB / total expected images
-        var totalExpected = lampiranImages.length + imageFiles.length;
-        var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
-        budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
-        
-        compressImageToSize(img, budget, function(dataUrl, size, w, h) {
-          newItems.push({
-            data: dataUrl,
-            name: file.name,
-            originalSize: file.size,
-            compressedSize: size,
-            width: w,
-            height: h,
-            originalWidth: img.width,
-            originalHeight: img.height
-          });
-          remaining--;
-          if(remaining === 0) {
-            // Sort new items by name for consistency
-            newItems.sort(function(a,b){ return a.name.localeCompare(b.name); });
-            lampiranImages = lampiranImages.concat(newItems);
-            lampiranProcessing = false;
-            finalizeLampiranUpload();
-          }
+  validFiles.forEach(function(file) {
+    if (file.type === 'application/pdf') {
+        // Ekstrak halaman PDF jadi gambar
+        extractPdfPages(file, function(extracted) {
+            newItems = newItems.concat(extracted);
+            remaining--;
+            if(remaining === 0) {
+                finalizeProcessing(newItems);
+            }
         });
-      };
-      img.onerror = function() {
-        toast('Gagal memuat: ' + file.name, 'error');
-        remaining--;
-        if(remaining === 0) {
-          lampiranImages = lampiranImages.concat(newItems);
-          lampiranProcessing = false;
-          finalizeLampiranUpload();
-        }
-      };
-      img.src = e.target.result;
-    };
-    reader.onerror = function() {
-      toast('Gagal membaca: ' + file.name, 'error');
-      remaining--;
-      if(remaining === 0) {
-        lampiranImages = lampiranImages.concat(newItems);
-        lampiranProcessing = false;
-        finalizeLampiranUpload();
-      }
-    };
-    reader.readAsDataURL(file);
+    } else {
+        // Proses gambar biasa
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.onload = function() {
+                var totalExpected = lampiranImages.length + validFiles.length; 
+                var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
+                budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
+                
+                compressImageToSize(img, budget, function(dataUrl, size, w, h) {
+                    newItems.push({
+                        data: dataUrl,
+                        name: file.name,
+                        originalSize: file.size,
+                        compressedSize: size,
+                        width: w,
+                        height: h,
+                        originalWidth: img.width,
+                        originalHeight: img.height
+                    });
+                    remaining--;
+                    if(remaining === 0) {
+                        finalizeProcessing(newItems);
+                    }
+                });
+            };
+            img.onerror = function() {
+                toast('Gagal memuat: ' + file.name, 'error');
+                remaining--;
+                if(remaining === 0) finalizeProcessing(newItems);
+            };
+            img.src = e.target.result;
+        };
+        reader.onerror = function() {
+            toast('Gagal membaca: ' + file.name, 'error');
+            remaining--;
+            if(remaining === 0) finalizeProcessing(newItems);
+        };
+        reader.readAsDataURL(file);
+    }
   });
+}
+
+function finalizeProcessing(newItems) {
+    // Pastikan tidak melebihi batas maksimal setelah ekstraksi PDF
+    if(lampiranImages.length + newItems.length > MAX_LAMPIRAN_IMAGES) {
+        var allowed = MAX_LAMPIRAN_IMAGES - lampiranImages.length;
+        newItems = newItems.slice(0, allowed);
+        toast('Batas maksimal ' + MAX_LAMPIRAN_IMAGES + ' halaman tercapai.', 'info');
+    }
+    
+    lampiranImages = lampiranImages.concat(newItems);
+    lampiranProcessing = false;
+    finalizeLampiranUpload();
 }
 
 function finalizeLampiranUpload() {
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  var safeTarget = TARGET_PDF_SIZE - 30000; // Safe margin for PDF wrapper bytes
+  var safeTarget = TARGET_PDF_SIZE - 30000; 
   
   if(total > safeTarget) {
     toast('Mengompresi agar sesuai 1 MB...', 'info');
@@ -2403,7 +2476,7 @@ function finalizeLampiranUpload() {
   } else {
     renderLampiranList();
     updateLampiranSummary();
-    toast(lampiranImages.length + ' gambar siap dijadikan PDF', 'success');
+    toast(lampiranImages.length + ' file/halaman siap dijadikan PDF', 'success');
   }
 }
 
@@ -2424,7 +2497,6 @@ function recompressAllToTarget(currentTarget, callback) {
     return;
   }
   
-  // Calculate budget per image with safety margin (90% of target)
   var budget = Math.floor(target * 0.9 / lampiranImages.length);
   budget = Math.max(20 * 1024, budget);
   
@@ -2437,7 +2509,6 @@ function recompressAllToTarget(currentTarget, callback) {
       var newTotal = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
       iteration++;
       if(newTotal > target && iteration < MAX_ITER) {
-        // Try again with smaller budget
         budget = Math.floor(budget * 0.65);
         budget = Math.max(15 * 1024, budget);
         index = 0;
@@ -2621,12 +2692,12 @@ function updateLampiranSummary() {
     totalSizeEl.textContent = formatBytes(total) + ' / 1 MB';
   }
   if(sizeBarEl) sizeBarEl.style.width = percent + '%';
-  if(imgCountEl) imgCountEl.textContent = lampiranImages.length + ' gambar • ' + percent.toFixed(1) + '% dari 1 MB';
+  if(imgCountEl) imgCountEl.textContent = lampiranImages.length + ' halaman • ' + percent.toFixed(1) + '% dari 1 MB';
 }
 
 function generateLampiranPDF() {
   if(lampiranImages.length === 0) {
-    toast('Belum ada gambar', 'error');
+    toast('Belum ada file', 'error');
     return;
   }
   if(lampiranProcessing) {
@@ -2667,8 +2738,8 @@ function generateLampiranPDFNow() {
   setTimeout(function() {
     try {
       var pdf = null;
-      var dpi = 100; // Setting DPI sesuai PDF24
-      var ptPerPx = 72 / dpi; // 1 inch = 72 pt, 100 px = 1 inch, jadi 1 px = 0.72 pt
+      var dpi = 100; 
+      var ptPerPx = 72 / dpi; 
       
       lampiranImages.forEach(function(item, idx) {
         var origW = item.originalWidth || item.width;
