@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0W6GP10X59"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-0W6GP10X59');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KARYA ABADI JOBS - Generator CV & Surat Lamaran Kerja Gratis</title>
@@ -20,352 +12,77 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- Tambahkan PDF.js untuk membaca file PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
-// Set worker untuk PDF.js
-if (window.pdfjsLib) {
-  window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-}
+if (window.pdfjsLib) { window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; }
 </script>
 <style>
 :root{--avh:100vh}
 @supports(height:100dvh){:root{--avh:100dvh}}
 *{margin:0;padding:0;box-sizing:border-box}
-
-/* === TAMPILAN RAPIH & JUSTIFY TANPA MEMOTONG KATA DENGAN STRIP === */
-.article-content p, .article-content li, 
-#view-home p, #view-home li, 
-#view-panduan p, #view-panduan li, 
-#view-tips p, #view-tips li, 
-#view-loker p, #view-loker li, 
-#view-faq p, #view-faq li, 
-#view-about p, #view-about li, 
-#view-contact p, #view-contact li, 
-#view-privacy p, #view-privacy li, 
-#view-terms p, #view-terms li, 
-#view-disclaimer p, #view-disclaimer li, 
-#view-lampiran p, #view-lampiran li {
-  text-align: justify;
-  text-align-last: left;
-  text-justify: inter-word;
-  word-break: normal;
-  overflow-wrap: break-word;
-  -webkit-hyphens: manual;
-  -ms-hyphens: manual;
-  hyphens: manual;
-}
-
-/* === JUSTIFY RATA TENGAH KHUSUS LAMPIRAN PDF, PANDUAN, TIPS & CONTOH === */
-#view-lampiran p, #view-lampiran li,
-#view-panduan p, #view-panduan li,
-#view-tips p, #view-tips li {
-  text-align: justify !important;
-  text-align-last: center !important;
-  text-justify: inter-word !important;
-}
-
-/* === JUSTIFY TAPI RATA TENGAH (UNTUK KARTU DENGAN IKON / TEKS UTAMA) === */
-.text-center-justify {
-  text-align: justify !important;
-  text-align-last: center !important;
-  text-justify: inter-word !important;
-}
-
-/* === TANPA BULET (UNTUK DAFTAR PANDUAN & TIPS) === */
-.article-content ul.no-bullet { list-style: none; margin-left: 0; padding-left: 0; }
-.article-content ul.no-bullet li { margin-bottom: 1.2rem; }
-.article-content ul.no-bullet li::before { content: none; }
-
+.article-content p, .article-content li, #view-home p, #view-home li, #view-panduan p, #view-panduan li, #view-tips p, #view-tips li, #view-loker p, #view-loker li, #view-faq p, #view-faq li, #view-about p, #view-about li, #view-contact p, #view-contact li, #view-privacy p, #view-privacy li, #view-terms p, #view-terms li, #view-disclaimer p, #view-disclaimer li, #view-lampiran p, #view-lampiran li { text-align: justify; text-align-last: left; text-justify: inter-word; word-break: normal; overflow-wrap: break-word; -webkit-hyphens: manual; -ms-hyphens: manual; hyphens: manual; }
+#view-lampiran p, #view-lampiran li, #view-panduan p, #view-panduan li, #view-tips p, #view-tips li { text-align: justify !important; text-align-last: center !important; text-justify: inter-word !important; }
+.text-center-justify { text-align: justify !important; text-align-last: center !important; text-justify: inter-word !important; }
+.article-content ul.no-bullet { list-style: none; margin-left: 0; padding-left: 0; } .article-content ul.no-bullet li { margin-bottom: 1.2rem; } .article-content ul.no-bullet li::before { content: none; }
 body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}
-.dark ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-
-.view { display: none; }
-.view.active { display: block; }
-
+::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-track{background:transparent} ::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px} .dark ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
+.view { display: none; } .view.active { display: block; }
 .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
-.a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:5mm;letter-spacing:.3px}
-.a4-page .st:first-child{margin-top:0}
-.a4-page table{width:100%;border-collapse:collapse}
-.a4-page table td{padding:.4mm 0;vertical-align:top}
-.a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; }
-.a4-page ol, .a4-page ul { margin: 0 0 4mm 8mm; padding-left: 0; line-height: 1.5; }
+.a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:5mm;letter-spacing:.3px} .a4-page .st:first-child{margin-top:0}
+.a4-page table{width:100%;border-collapse:collapse} .a4-page table td{padding:.4mm 0;vertical-align:top}
+.a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; } .a4-page ol, .a4-page ul { margin: 0 0 4mm 8mm; padding-left: 0; line-height: 1.5; }
 .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
-
-#preview-wrap, #preview-wrap-mob {
-  position: relative;
-  overflow: hidden;
-  touch-action: none;
-  cursor: grab;
-}
-#preview-wrap:active, #preview-wrap-mob:active {
-  cursor: grabbing;
-}
-#a4-scaler, #a4-scaler-mob {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0 0;
-  will-change: transform;
-}
-
+#preview-wrap, #preview-wrap-mob { position: relative; overflow: hidden; touch-action: none; cursor: grab; } #preview-wrap:active, #preview-wrap-mob:active { cursor: grabbing; }
+#a4-scaler, #a4-scaler-mob { position: absolute; top: 0; left: 0; transform-origin: 0 0; will-change: transform; }
 #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast-item{padding:10px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px)}
-.toast-item.show{transform:translateX(0)}
-.toast-item.success{background:rgba(153,27,27,.92)}
-.toast-item.error{background:rgba(220,38,38,.92)}
-.toast-item.info{background:rgba(30,30,30,.92)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.fade-up{animation:fadeUp .25s ease both}
-@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}70%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
-.pulse-red{animation:pulseRed 2s infinite}
-
-.fi{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e5e7eb;font-size:14px;transition:all .2s;background:#fff;color:#111}
-.fi:focus{outline:none;border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
-.dark .fi{background:#151515;border-color:#2a2a2a;color:#e5e5e5}
-.dark .fi:focus{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.15)}
-
-.fl{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;display:block;letter-spacing:.01em;color:#111}
-.dark .fl{color:#f1f5f9}
-.fl-sub{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.01em;color:#374151}
-.dark .fl-sub{color:#cbd5e1}
-
-textarea.fi{resize:vertical;min-height:60px}
-select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.dyn-btn{width:36px;height:36px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
-.dyn-btn:active{transform:scale(.9)}
-.dyn-add{background:transparent;color:#DC2626;border:1.5px solid #DC2626}
-.dyn-add:hover{background:#DC2626;color:#fff}
-.dark .dyn-add{border-color:#DC2626;color:#DC2626}
-.dark .dyn-add:hover{background:#DC2626;color:#fff}
-.dyn-rm{background:#DC2626;color:#fff}
-.dyn-rm:hover{background:#991B1B}
-.sk-rm{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5e7eb;color:#DC2626;background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
-.sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
-.sk-rm:active{transform:scale(.9)}
-.dark .sk-rm{background:transparent;border-color:#2a2a2a;color:#DC2626}
-.dark .sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
-input[type=range]{-webkit-appearance:none;height:5px;border-radius:3px;background:#e5e7eb;outline:none;flex:1}
-.dark input[type=range]{background:#2a2a2a}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#DC2626;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.addr-sub{position:relative;padding-left:16px}
-.addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
-
-.zoom-btn{padding:5px 8px;background:transparent;border:1px solid #e5e7eb;border-radius:6px;color:#6b7280;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;width:28px;height:28px}
-.dark .zoom-btn{border-color:#2a2a2a;color:#9ca3af}
-.zoom-btn:hover{border-color:#DC2626;color:#DC2626}
-.zoom-btn:active{transform:scale(.90)}
-.zoom-btn-mob{padding:5px 8px;background:rgba(255,255,255,0.05);border:none;border-radius:6px;color:#fff;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;width:28px;height:28px}
-.zoom-btn-mob:active{transform:scale(.90)}
-
-.mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:6px env(safe-area-inset-bottom,6px)}
-.dark .mob-bar{background:rgba(17,17,17,.95);border-top-color:#2a2a2a}
-.mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
-.mob-bar button.active{color:#DC2626}
-.dark .mob-bar button.active{color:#FACC15}
-.mob-bar button i{font-size:18px}
-
-.form-sec{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #e5e7eb;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.dark .form-sec{border-bottom-color:#2a2a2a}
-.form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
-.form-subsec{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:700;color:#DC2626;letter-spacing:.04em;text-transform:uppercase;padding:0 0 8px;margin-bottom:10px;border-bottom:1px solid rgba(220,38,38,.12);display:flex;align-items:center;gap:6px}
-.form-subsec i{font-size:9px;opacity:.6}
-
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
-.dark .card{background:#1A1A1A;border-color:#2a2a2a}
-
-.fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-@media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 150px)}}
-.pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
-
-.site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700}
-.site-footer a:hover{color:#DC2626}
-.ft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.ft-col h4{font-family:'Inter',system-ui,sans-serif;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.02em;font-size:11px}
-.ft-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
-.ft-col ul li a{color:#9ca3af;font-weight:600;line-height:1.4;display:inline-block;font-size:12px}
-.ft-col ul li a:hover{color:#DC2626}
-@media(min-width:640px){
-  .ft-grid{gap:24px}
-  .ft-col h4{margin-bottom:14px;font-size:14px}
-  .ft-col ul{gap:10px}
-  .ft-col ul li a{font-size:14px}
-}
-@media(min-width:1024px){
-  .ft-grid{gap:48px}
-  .ft-col h4{margin-bottom:16px}
-  .ft-col ul{gap:12px}
-}
-.ft-copy{text-align:center;padding:14px 0 4px;font-size:10px;color:#9ca3af;letter-spacing:.01em;font-weight:600}
-@media(min-width:640px){.ft-copy{font-size:12px}}
-@media(max-width:1023px){.ft-inner{padding-bottom:70px}}
-
-.article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
-.dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
-.article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; text-align: center; }
-.dark .article-content h2 { color: #fff; }
-.article-content h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1f2937; text-align: center; }
-.dark .article-content h3 { color: #f1f5f9; }
-.article-content p { margin-bottom: 1rem; line-height: 1.8; color: #4b5563; text-align: justify; }
-.dark .article-content p { color: #cbd5e1; }
-.article-content ul { list-style: none; margin-left: 0; margin-bottom: 1rem; }
-.article-content li { margin-bottom: 0.5rem; color: #4b5563; text-align: justify; position: relative; padding-left: 1.5rem; }
-.dark .article-content li { color: #cbd5e1; }
-.article-content li::before { content: '•'; position: absolute; left: 0.5rem; color: #DC2626; font-weight: bold; }
-.article-content a { color: #DC2626; text-decoration: none; font-weight: 600; }
-.article-content a:visited, .article-content a:active { color: #60A5FA; }
-.article-content strong { color: #111827; font-weight: 700; }
-.dark .article-content strong { color: #fff; }
-
-.slider-container { position: relative; width: 100%; overflow: hidden; border: 1px solid #e5e7eb; border-radius: 12px; background: #f3f4f6; }
-.dark .slider-container { background: #1A1A1A; border-color: #2a2a2a; }
-.slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
-.slider-slide { min-width: 100%; position: relative; }
-.slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; pointer-events: none; }
-.slider-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction:column; align-items: center; gap: 10px; z-index: 10; width: 90%; pointer-events: none; }
-.slider-caption { background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); text-align: center; }
-.slider-nav { position: absolute; top: 45%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; cursor: pointer; border-radius: 50%; z-index: 20; font-size: 16px; transition: background 0.3s; display: flex; align-items: center; justify-content: center; }
-.slider-nav:hover { background: rgba(220, 38, 38, 0.9); }
-.slider-nav.prev { left: 15px; }
-.slider-nav.next { right: 15px; }
-.slider-dots { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; }
-.slider-dot { height: 10px; width: 10px; background-color: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: background-color 0.3s; }
-.slider-dot.active { background-color: #DC2626; }
-@media(max-width: 640px) {
-  .slider-nav { width: 32px; height: 32px; font-size: 14px; }
-  .slider-caption { font-size: 12px; padding: 4px 12px; }
-}
-
-/* === STYLES UNTUK FITUR LAMPIRAN PDF === */
-.lampiran-upload-area { 
-  border: 2.5px dashed #d1d5db; 
-  border-radius: 14px; 
-  padding: 36px 20px; 
-  text-align: center; 
-  cursor: pointer; 
-  transition: all .2s;
-  background: #f9fafb;
-  position: relative;
-}
-.dark .lampiran-upload-area { background: #151515; border-color: #2a2a2a; }
-.lampiran-upload-area:hover, .lampiran-upload-area.dragover { 
-  border-color: #DC2626; 
-  background: rgba(220,38,38,0.05);
-  transform: translateY(-1px);
-}
-.dark .lampiran-upload-area:hover, .dark .lampiran-upload-area.dragover {
-  background: rgba(220,38,38,0.08);
-}
-.lampiran-item { 
-  display: flex; 
-  align-items: center; 
-  gap: 12px; 
-  padding: 12px; 
-  border: 1px solid #e5e7eb; 
-  border-radius: 12px; 
-  margin-bottom: 8px;
-  background: #fff;
-  transition: all .2s;
-  cursor: grab;
-}
-.lampiran-item.dragging { 
-  opacity: 0.4;
-  cursor: grabbing;
-}
-.lampiran-item.drag-over { 
-  border-color: #DC2626; 
-  border-style: solid;
-  background: rgba(220,38,38,0.03);
-}
-.dark .lampiran-item { background: #1A1A1A; border-color: #2a2a2a; }
-.dark .lampiran-item.drag-over { background: rgba(220,38,38,0.08); }
-.lampiran-item:hover { border-color: rgba(220,38,38,0.5); }
-.lampiran-grip {
-  color: #9ca3af;
-  cursor: grab;
-  padding: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.lampiran-grip:active { cursor: grabbing; }
-.lampiran-thumb { 
-  width: 56px; 
-  height: 72px; 
-  object-fit: cover; 
-  border-radius: 6px; 
-  border: 1px solid #e5e7eb;
-  flex-shrink: 0;
-  background: #f3f4f6;
-  pointer-events: none;
-}
-.dark .lampiran-thumb { border-color: #2a2a2a; background: #111; }
-.lampiran-move-btn {
-  width: 28px; 
-  height: 28px; 
-  border-radius: 6px; 
-  background: #f3f4f6;
-  color: #6b7280;
-  border: none;
-  cursor: pointer;
-  transition: all .15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-}
-.dark .lampiran-move-btn { background: #2a2a2a; color: #9ca3af; }
-.lampiran-move-btn:hover:not(:disabled) { background: #DC2626; color: #fff; }
-.lampiran-move-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.lampiran-remove-btn {
-  width: 36px; 
-  height: 36px; 
-  border-radius: 8px; 
-  background: rgba(220,38,38,0.1);
-  color: #DC2626;
-  border: none;
-  cursor: pointer;
-  transition: all .15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.lampiran-remove-btn:hover { background: #DC2626; color: #fff; }
-.size-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; position: relative; }
-.dark .size-bar { background: #2a2a2a; }
-.size-bar-fill { height: 100%; background: linear-gradient(90deg, #10b981 0%, #10b981 60%, #f59e0b 80%, #ef4444 100%); transition: width .4s ease; border-radius: 4px; }
-.lampiran-empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: #9ca3af;
-}
-.lampiran-empty-state i {
-  font-size: 48px;
-  margin-bottom: 12px;
-  opacity: 0.4;
-}
+.toast-item.show{transform:translateX(0)} .toast-item.success{background:rgba(153,27,27,.92)} .toast-item.error{background:rgba(220,38,38,.92)} .toast-item.info{background:rgba(30,30,30,.92)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}} .fade-up{animation:fadeUp .25s ease both}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}70%{box-shadow:0 0 0 8px rgba(220,38,38,0)}} .pulse-red{animation:pulseRed 2s infinite}
+.fi{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e5e7eb;font-size:14px;transition:all .2s;background:#fff;color:#111} .fi:focus{outline:none;border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)} .dark .fi{background:#151515;border-color:#2a2a2a;color:#e5e5e5} .dark .fi:focus{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.15)}
+.fl{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;display:block;letter-spacing:.01em;color:#111} .dark .fl{color:#f1f5f9} .fl-sub{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.01em;color:#374151} .dark .fl-sub{color:#cbd5e1}
+textarea.fi{resize:vertical;min-height:60px} select.fi{cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.dyn-btn{width:36px;height:36px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:none;display:inline-flex;align-items:center;justify-content:center;font-size:13px} .dyn-btn:active{transform:scale(.9)} .dyn-add{background:transparent;color:#DC2626;border:1.5px solid #DC2626} .dyn-add:hover{background:#DC2626;color:#fff} .dark .dyn-add{border-color:#DC2626;color:#DC2626} .dark .dyn-add:hover{background:#DC2626;color:#fff} .dyn-rm{background:#DC2626;color:#fff} .dyn-rm:hover{background:#991B1B}
+.sk-rm{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1.5px solid #e5e7eb;color:#DC2626;background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0} .sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626} .sk-rm:active{transform:scale(.9)} .dark .sk-rm{background:transparent;border-color:#2a2a2a;color:#DC2626} .dark .sk-rm:hover{background:#DC2626;color:#fff;border-color:#DC2626}
+input[type=range]{-webkit-appearance:none;height:5px;border-radius:3px;background:#e5e7eb;outline:none;flex:1} .dark input[type=range]{background:#2a2a2a} input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#DC2626;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.addr-sub{position:relative;padding-left:16px} .addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
+.zoom-btn{padding:5px 8px;background:transparent;border:1px solid #e5e7eb;border-radius:6px;color:#6b7280;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;width:28px;height:28px} .dark .zoom-btn{border-color:#2a2a2a;color:#9ca3af} .zoom-btn:hover{border-color:#DC2626;color:#DC2626} .zoom-btn:active{transform:scale(.90)} .zoom-btn-mob{padding:5px 8px;background:rgba(255,255,255,0.05);border:none;border-radius:6px;color:#fff;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;width:28px;height:28px} .zoom-btn-mob:active{transform:scale(.90)}
+.mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:6px env(safe-area-inset-bottom,6px)} .dark .mob-bar{background:rgba(17,17,17,.95);border-top-color:#2a2a2a} .mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer} .mob-bar button.active{color:#DC2626} .dark .mob-bar button.active{color:#FACC15} .mob-bar button i{font-size:18px}
+.form-sec{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:800;color:#DC2626;text-transform:uppercase;letter-spacing:.05em;padding:12px 0 8px;border-bottom:1px solid #e5e7eb;margin-bottom:12px;display:flex;align-items:center;gap:8px} .dark .form-sec{border-bottom-color:#2a2a2a} .form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
+.form-subsec{font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:700;color:#DC2626;letter-spacing:.04em;text-transform:uppercase;padding:0 0 8px;margin-bottom:10px;border-bottom:1px solid rgba(220,38,38,.12);display:flex;align-items:center;gap:6px} .form-subsec i{font-size:9px;opacity:.6}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px} .dark .card{background:#1A1A1A;border-color:#2a2a2a}
+.fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch} @media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 150px)}} .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
+.site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700} .site-footer a:hover{color:#DC2626}
+.ft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px} .ft-col h4{font-family:'Inter',system-ui,sans-serif;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.02em;font-size:11px} .ft-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px} .ft-col ul li a{color:#9ca3af;font-weight:600;line-height:1.4;display:inline-block;font-size:12px} .ft-col ul li a:hover{color:#DC2626}
+@media(min-width:640px){.ft-grid{gap:24px} .ft-col h4{margin-bottom:14px;font-size:14px} .ft-col ul{gap:10px} .ft-col ul li a{font-size:14px}} @media(min-width:1024px){.ft-grid{gap:48px} .ft-col h4{margin-bottom:16px} .ft-col ul{gap:12px}}
+.ft-copy{text-align:center;padding:14px 0 4px;font-size:10px;color:#9ca3af;letter-spacing:.01em;font-weight:600} @media(min-width:640px){.ft-copy{font-size:12px}} @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
+.article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; } .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
+.article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; text-align: center; } .dark .article-content h2 { color: #fff; }
+.article-content h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1f2937; text-align: center; } .dark .article-content h3 { color: #f1f5f9; }
+.article-content p { margin-bottom: 1rem; line-height: 1.8; color: #4b5563; text-align: justify; } .dark .article-content p { color: #cbd5e1; }
+.article-content ul { list-style: none; margin-left: 0; margin-bottom: 1rem; } .article-content li { margin-bottom: 0.5rem; color: #4b5563; text-align: justify; position: relative; padding-left: 1.5rem; } .dark .article-content li { color: #cbd5e1; } .article-content li::before { content: '•'; position: absolute; left: 0.5rem; color: #DC2626; font-weight: bold; }
+.article-content a { color: #DC2626; text-decoration: none; font-weight: 600; } .article-content a:visited, .article-content a:active { color: #60A5FA; } .article-content strong { color: #111827; font-weight: 700; } .dark .article-content strong { color: #fff; }
+.slider-container { position: relative; width: 100%; overflow: hidden; border: 1px solid #e5e7eb; border-radius: 12px; background: #f3f4f6; } .dark .slider-container { background: #1A1A1A; border-color: #2a2a2a; } .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; } .slider-slide { min-width: 100%; position: relative; } .slider-slide img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 500px; pointer-events: none; } .slider-overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction:column; align-items: center; gap: 10px; z-index: 10; width: 90%; pointer-events: none; } .slider-caption { background: rgba(17, 17, 17, 0.8); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; backdrop-filter: blur(4px); text-align: center; }
+.slider-nav { position: absolute; top: 45%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; cursor: pointer; border-radius: 50%; z-index: 20; font-size: 16px; transition: background 0.3s; display: flex; align-items: center; justify-content: center; } .slider-nav:hover { background: rgba(220, 38, 38, 0.9); } .slider-nav.prev { left: 15px; } .slider-nav.next { right: 15px; } .slider-dots { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; } .slider-dot { height: 10px; width: 10px; background-color: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: background-color 0.3s; } .slider-dot.active { background-color: #DC2626; }
+@media(max-width: 640px) { .slider-nav { width: 32px; height: 32px; font-size: 14px; } .slider-caption { font-size: 12px; padding: 4px 12px; } }
+.lampiran-upload-area { border: 2.5px dashed #d1d5db; border-radius: 14px; padding: 36px 20px; text-align: center; cursor: pointer; transition: all .2s; background: #f9fafb; position: relative; } .dark .lampiran-upload-area { background: #151515; border-color: #2a2a2a; } .lampiran-upload-area:hover, .lampiran-upload-area.dragover { border-color: #DC2626; background: rgba(220,38,38,0.05); transform: translateY(-1px); } .dark .lampiran-upload-area:hover, .dark .lampiran-upload-area.dragover { background: rgba(220,38,38,0.08); }
+.lampiran-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 8px; background: #fff; transition: all .2s; cursor: grab; } .lampiran-item.dragging { opacity: 0.4; cursor: grabbing; } .lampiran-item.drag-over { border-color: #DC2626; border-style: solid; background: rgba(220,38,38,0.03); } .dark .lampiran-item { background: #1A1A1A; border-color: #2a2a2a; } .dark .lampiran-item.drag-over { background: rgba(220,38,38,0.08); } .lampiran-item:hover { border-color: rgba(220,38,38,0.5); }
+.lampiran-grip { color: #9ca3af; cursor: grab; padding: 4px; display: flex; flex-direction: column; gap: 2px; } .lampiran-grip:active { cursor: grabbing; } .lampiran-thumb { width: 56px; height: 72px; object-fit: cover; border-radius: 6px; border: 1px solid #e5e7eb; flex-shrink: 0; background: #f3f4f6; pointer-events: none; } .dark .lampiran-thumb { border-color: #2a2a2a; background: #111; }
+.lampiran-move-btn { width: 28px; height: 28px; border-radius: 6px; background: #f3f4f6; color: #6b7280; border: none; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; font-size: 11px; } .dark .lampiran-move-btn { background: #2a2a2a; color: #9ca3af; } .lampiran-move-btn:hover:not(:disabled) { background: #DC2626; color: #fff; } .lampiran-move-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.lampiran-remove-btn { width: 36px; height: 36px; border-radius: 8px; background: rgba(220,38,38,0.1); color: #DC2626; border: none; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; } .lampiran-remove-btn:hover { background: #DC2626; color: #fff; }
+.size-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; position: relative; } .dark .size-bar { background: #2a2a2a; } .size-bar-fill { height: 100%; background: linear-gradient(90deg, #10b981 0%, #10b981 60%, #f59e0b 80%, #ef4444 100%); transition: width .4s ease; border-radius: 4px; }
+.lampiran-empty-state { text-align: center; padding: 40px 20px; color: #9ca3af; } .lampiran-empty-state i { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
 </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen flex flex-col">
-
 <div id="toast-box"></div>
-
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
     <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
       <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
-      <div class="flex flex-col leading-none whitespace-nowrap">
-        <div class="flex items-baseline gap-1">
-          <span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span>
-          <span class="text-red-500 font-bold text-[13px] sm:text-base">JOBS</span>
-        </div>
-      </div>
+      <div class="flex flex-col leading-none whitespace-nowrap"><div class="flex items-baseline gap-1"><span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span><span class="text-red-500 font-bold text-[13px] sm:text-base">JOBS</span></div></div>
     </a>
     <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); return false;" class="hover:text-white">Beranda</a>
@@ -379,14 +96,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-      <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
-        <i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i>
-        <i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i>
-      </button>
-      <button onclick="toggleMobileMenu()" id="menu-btn" class="lg:hidden w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Menu">
-        <i class="fa-solid fa-bars text-sm text-white/70 menu-icon-open"></i>
-        <i class="fa-solid fa-xmark text-sm text-white/70 menu-icon-close hidden"></i>
-      </button>
+      <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"><i class="dark:hidden fa-solid fa-moon text-xs text-white/70"></i><i class="hidden dark:inline fa-solid fa-sun text-xs text-white/70"></i></button>
+      <button onclick="toggleMobileMenu()" id="menu-btn" class="lg:hidden w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Menu"><i class="fa-solid fa-bars text-sm text-white/70 menu-icon-open"></i><i class="fa-solid fa-xmark text-sm text-white/70 menu-icon-close hidden"></i></button>
     </div>
   </div>
   <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
@@ -412,7 +123,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <p class="max-w-xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base text-justify font-normal"><strong>Karya Abadi Jobs</strong> adalah platform online gratis untuk membuat CV dan Surat Lamaran Kerja secara otomatis. Desain dokumen yang rapi, format PDF siap cetak, proses tanpa registrasi, serta struktur yang ramah ATS untuk memudahkan Anda melamar pekerjaan&nbsp;impian.</p>
     </div>
   </section>
-
   <main class="max-w-7xl mx-auto px-4 pt-8 pb-12 text-center">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Keunggulan dalam Pembuatan CV (Curriculum Vitae) dan Surat Melamar Pekerjaan</h2>
     <div class="grid md:grid-cols-3 gap-6 mb-16">
@@ -432,7 +142,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <p class="text-gray-600 dark:text-gray-400 text-sm text-center-justify">Unduh dokumen dalam format PDF berkualitas tinggi (A4) yang siap dikirimkan langsung ke HRD perusahaan tujuan Anda. Format ini dijamin rapi dan kompatibel di berbagai perangkat.</p>
       </div>
     </div>
-    
     <article class="max-w-5xl mx-auto mb-16 text-center">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">Panduan Membuat CV yang Menarik untuk HRD</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Curriculum Vitae (CV) adalah representasi profesional pertama yang dilihat oleh perekrut. Dalam era digital, banyak perusahaan menggunakan Applicant Tracking System (ATS) untuk menyaring kandidat secara otomatis. Oleh karena itu, CV yang baik tidak hanya harus menarik secara visual, tetapi juga mudah dibaca oleh sistem&nbsp;tersebut.</p>
@@ -455,55 +164,27 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         </div>
       </div>
     </article>
-
     <section class="max-w-4xl mx-auto px-4 py-12 md:py-16">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Contoh Template CV</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-8 text-sm md:text-base" style="text-align: center; text-align-last: center;">Geser slider untuk melihat berbagai contoh desain CV profesional kami.</p>
       <div class="slider-container shadow-xl" id="cvSlider">
         <div class="slider-wrapper" id="cvSliderWrapper">
-          <div class="slider-slide">
-            <img src="https://z-cdn-media.chatglm.cn/files/6de2e5f9-ed25-46af-84c8-06040feb2f1d.png?auth_key=1885901947-22aa9807b43345c19cd89f96ad94b7dd-0-dca7e7e954ed15a73e211899d8699561" alt="Contoh CV 1">
-            <div class="slider-overlay">
-              <span class="slider-caption">Contoh CV 1 (Klasik)</span>
-            </div>
-          </div>
-          <div class="slider-slide">
-            <img src="https://z-cdn-media.chatglm.cn/files/52be6164-7284-40e0-9487-a27592c4f35d.png?auth_key=1885901947-539f786109f24b3690ae4d756a7a66da-0-4e33b142d7a146a886fa8077eec3014b" alt="Contoh CV 2">
-            <div class="slider-overlay">
-              <span class="slider-caption">Contoh CV 2 (Modern Center)</span>
-            </div>
-          </div>
-          <div class="slider-slide">
-            <img src="https://z-cdn-media.chatglm.cn/files/03f99211-13bb-4c1f-8360-7f707725eb6a.png?auth_key=1885901947-fa2a120660964ef98a7977ac0a6450bd-0-a19acb94403017f7ba342b7cd6e9513d" alt="Contoh CV 3">
-            <div class="slider-overlay">
-              <span class="slider-caption">Contoh CV 3 (Sidebar)</span>
-            </div>
-          </div>
-          <div class="slider-slide">
-            <img src="https://z-cdn-media.chatglm.cn/files/c9ceeadd-cb43-4f33-a772-7627dfb4c31b.png?auth_key=1885901947-17e82eda2dca41e1b75695b4cc213b80-0-362c6c156b8efddd2e6a71510a15ce73" alt="Contoh CV 4">
-            <div class="slider-overlay">
-              <span class="slider-caption">Contoh CV 4 (ATS Sederhana)</span>
-            </div>
-          </div>
+          <div class="slider-slide"><img src="https://z-cdn-media.chatglm.cn/files/6de2e5f9-ed25-46af-84c8-06040feb2f1d.png?auth_key=1885901947-22aa9807b43345c19cd89f96ad94b7dd-0-dca7e7e954ed15a73e211899d8699561" alt="Contoh CV 1"><div class="slider-overlay"><span class="slider-caption">Contoh CV 1 (Klasik)</span></div></div>
+          <div class="slider-slide"><img src="https://z-cdn-media.chatglm.cn/files/52be6164-7284-40e0-9487-a27592c4f35d.png?auth_key=1885901947-539f786109f24b3690ae4d756a7a66da-0-4e33b142d7a146a886fa8077eec3014b" alt="Contoh CV 2"><div class="slider-overlay"><span class="slider-caption">Contoh CV 2 (Modern Center)</span></div></div>
+          <div class="slider-slide"><img src="https://z-cdn-media.chatglm.cn/files/03f99211-13bb-4c1f-8360-7f707725eb6a.png?auth_key=1885901947-fa2a120660964ef98a7977ac0a6450bd-0-a19acb94403017f7ba342b7cd6e9513d" alt="Contoh CV 3"><div class="slider-overlay"><span class="slider-caption">Contoh CV 3 (Sidebar)</span></div></div>
+          <div class="slider-slide"><img src="https://z-cdn-media.chatglm.cn/files/c9ceeadd-cb43-4f33-a772-7627dfb4c31b.png?auth_key=1885901947-17e82eda2dca41e1b75695b4cc213b80-0-362c6c156b8efddd2e6a71510a15ce73" alt="Contoh CV 4"><div class="slider-overlay"><span class="slider-caption">Contoh CV 4 (ATS Sederhana)</span></div></div>
         </div>
         <button class="slider-nav prev" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="slider-nav next" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
         <div class="slider-dots" id="sliderDots"></div>
       </div>
     </section>
-
     <div class="mb-16">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Siap Melamar Pekerjaan Impian?</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi&nbsp;Jobs.</p>
       <div class="flex flex-col items-center gap-5">
-        <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
-          <span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span>
-        </button>
-        <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
-          <span class="block text-base uppercase tracking-wide">Surat Melamar Pekerjaan</span>
-        </button>
+        <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20"><span class="block text-xs uppercase tracking-wider opacity-80">Buat</span><span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span></button>
+        <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20"><span class="block text-xs uppercase tracking-wider opacity-80">Buat</span><span class="block text-base uppercase tracking-wide">Surat Melamar Pekerjaan</span></button>
       </div>
     </div>
   </main>
@@ -512,20 +193,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <div id="view-generator" class="view">
   <nav class="bg-white dark:bg-brand-dark border-b border-gray-200 dark:border-brand-border/50 flex-shrink-0">
     <div class="max-w-7xl mx-auto px-4 flex">
-      <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
-        <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
-      </button>
-      <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white/70 transition-colors">
-        <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
-      </button>
+      <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors"><i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)</button>
+      <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white/70 transition-colors"><i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan</button>
     </div>
   </nav>
-
   <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-12 relative">
     <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black min-h-0 fp-scroll mt-2 lg:mt-0">
-      <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
-        <i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template
-      </div>
+      <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0"><i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template</div>
       <div id="tpl-tabs" class="mb-4 pb-4 border-b border-gray-200 dark:border-brand-border"></div>
       <div id="form-content" class="space-y-3 fade-up"></div>
       <div class="flex gap-3 mt-6 mb-6">
@@ -536,9 +210,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
     <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-101 dark:bg-brand-dark/50 min-h-0 pv-scroll">
       <div class="flex items-center justify-between mb-2 flex-shrink-0">
-        <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
-          <i class="fa-solid fa-eye text-xs"></i>Preview A4
-        </div>
+        <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-eye text-xs"></i>Preview A4</div>
         <div class="flex items-center gap-1">
           <button onclick="zoomPreview(-0.1)" class="zoom-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
           <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-600 dark:text-gray-300">100%</span>
@@ -546,12 +218,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
         </div>
       </div>
-      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
-        <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
-      </div>
+      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0"><div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div></div>
     </div>
   </main>
-
   <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
     <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
@@ -563,11 +232,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
       </div>
     </div>
-    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
-      <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
-    </div>
+    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0"><div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div></div>
   </div>
-
   <div class="mob-bar lg:hidden">
     <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
     <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
@@ -584,18 +250,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, Pas Foto, atau file PDF lainnya. Sistem akan otomatis mengompresi dan menggabungkan semua file menjadi satu PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
     </div>
   </section>
-
   <main class="max-w-4xl mx-auto px-4 py-8 pb-20">
-    
     <div class="card mb-6 text-center">
       <div class="flex flex-col items-center gap-2 mb-4">
-        <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red">
-          <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
-        </div>
+        <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red"><i class="fa-solid fa-cloud-arrow-up text-xl"></i></div>
         <h2 class="font-bold text-gray-900 dark:text-white text-base text-center">Upload Salinan Dokumen</h2>
         <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar/PDF ke area di bawah ini</p>
       </div>
-      
       <div class="lampiran-upload-area" id="lampiran-drop">
         <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
         <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm text-center">Klik atau seret file ke sini</p>
@@ -603,7 +264,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg,application/pdf" multiple class="hidden">
       </div>
     </div>
-
     <div id="lampiran-list-wrapper" class="mb-6">
       <div id="lampiran-empty" class="lampiran-empty-state">
         <i class="fa-solid fa-folder-open"></i>
@@ -612,24 +272,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div id="lampiran-list"></div>
     </div>
-
     <div id="lampiran-summary" class="card mb-6 hidden">
       <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-database text-brand-red text-sm"></i>
-          <span class="font-bold text-sm text-gray-900 dark:text-white">Total Ukuran PDF</span>
-        </div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-database text-brand-red text-sm"></i><span class="font-bold text-sm text-gray-900 dark:text-white">Total Ukuran PDF</span></div>
         <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
       </div>
-      <div class="size-bar mb-2">
-        <div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div>
-      </div>
-      <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
-        <span id="lampiran-img-count">0 gambar</span>
-        <span>Target Maksimal: 1 MB (1.048.576 byte)</span>
-      </div>
+      <div class="size-bar mb-2"><div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div></div>
+      <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400"><span id="lampiran-img-count">0 gambar</span><span>Target Maksimal: 1 MB (1.048.576 byte)</span></div>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
       <div class="card text-center">
         <label class="fl text-center">Nama File PDF</label>
@@ -638,22 +288,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
       <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50 text-center">
         <label class="fl flex items-center gap-1.5 justify-center"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
-        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center">
-          <span class="font-bold">Otomatis (DPI 100)</span>
-        </div>
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center"><span class="font-bold">Otomatis (DPI 100)</span></div>
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI secara presisi (tanpa margin/border putih).</p>
       </div>
     </div>
-
     <div class="flex flex-col sm:flex-row gap-3">
-      <button onclick="clearLampiranImages()" id="btn-lampiran-clear" class="flex-1 py-4 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97] disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-        <i class="fa-solid fa-trash-can mr-1.5 text-xs"></i>Hapus Semua
-      </button>
-      <button onclick="generateLampiranPDF()" id="btn-lampiran-pdf" class="flex-[2] py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:animate-none" disabled>
-        <i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran
-      </button>
+      <button onclick="clearLampiranImages()" id="btn-lampiran-clear" class="flex-1 py-4 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97] disabled:opacity-50 disabled:cursor-not-allowed" disabled><i class="fa-solid fa-trash-can mr-1.5 text-xs"></i>Hapus Semua</button>
+      <button onclick="generateLampiranPDF()" id="btn-lampiran-pdf" class="flex-[2] py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:animate-none" disabled><i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran</button>
     </div>
-
     <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl text-center">
       <div class="flex flex-col items-center gap-3">
         <i class="fa-solid fa-circle-info text-blue-500 text-lg"></i>
@@ -674,199 +316,83 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Panduan Penggunaan Tool Generator</h1>
     <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai proses pembuatan dokumen lamaran Anda dengan cepat, tepat, dan tanpa biaya.</p>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 1: Pilih Jenis Dokumen</h2>
       <p>Pada bagian atas halaman Generator, Anda akan melihat dua tab utama yaitu CV (Curriculum Vitae) dan Surat Melamar Pekerjaan. Silakan klik tab sesuai dengan jenis dokumen yang ingin Anda buat untuk melanjutkan proses pengisian data diri Anda dengan lengkap, akurat, dan tepat.</p>
     </div>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 2: Pilih Template</h2>
       <p>Setelah memilih jenis dokumen, pilihlah template yang tersedia. Untuk CV, kami menyediakan 4 pilihan template yang dapat disesuaikan dengan kebutuhan Anda. Untuk Surat Lamaran, tersedia 6 pilihan format yang mencakup variasi Email, Umum, Posisi Spesifik, dan Surat untuk Semua PT. Klik pada tombol template untuk mengaktifkannya dan mulai mengisi data diri Anda dengan teliti.</p>
     </div>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 3: Panduan Pengisian Formulir CV</h2>
       <p>Pastikan Anda mengisi setiap kolom dengan informasi yang valid dan terkini. Berikut adalah penjelasan detail untuk setiap bagian pada formulir CV kami:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">Pengaturan Tampilan:</strong>
-          <p class="mt-1">Anda bisa memilih jenis font (Arial, Times New Roman, Calibri), mengatur ukuran font, dan menyesuaikan jarak baris agar dokumen terlihat rapi, profesional, indah, dan tidak melebihi 1 halaman.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Upload Pas Foto:</strong>
-          <p class="mt-1">Silakan klik area kotak di atas untuk mengunggah foto. Sistem akan otomatis memotong (crop) foto Anda menjadi rasio 3x4 (2.79 x 3.81 cm) secara presisi. Pastikan menggunakan foto formal terbaru dengan latar belakang polos berwarna terang.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Deskripsi Profil:</strong>
-          <p class="mt-1">Isi ringkasan singkat mengenai diri Anda, lulusan jurusan apa, dan apa keahlian utama Anda. Jika dikosongkan, sistem akan membuatkan teks profil otomatis yang menarik dan sesuai standar umum.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Data Pribadi:</strong>
-          <p class="mt-1">Isi nama lengkap sesuai dokumen resmi (KTP/Ijazah), tempat tanggal lahir, jenis kelamin, agama, kontak (No. HP dan Email yang aktif), dan alamat domisili saat ini dengan sangat jelas dan benar.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Pendidikan Formal & Non Formal:</strong>
-          <p class="mt-1">Masukkan riwayat pendidikan formal (SMA/SMK/Kuliah). Sertakan nama institusi dan tahun lulus. Untuk pendidikan non-formal, masukkan kursus, pelatihan, atau sertifikasi yang relevan dengan pekerjaan yang dilamar. Gunakan tombol [+] untuk menambah baris baru.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Pengalaman Kerja:</strong>
-          <p class="mt-1">Isi nama perusahaan, alamat, posisi/jabatan, serta masa kerja. Tuliskan deskripsi pekerjaan secara ringkas namun jelas, misalnya pencapaian atau tanggung jawab utama. Jika fresh graduate, Anda bisa mengisi dengan pengalaman magang, kepanitiaan, atau organisasi.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Keahlian (Skills):</strong>
-          <p class="mt-1">Anda bisa memilih mode "Hard Skill dan Soft Skill" atau cukup "Daftar Keahlian" saja sesuai kebutuhan. <strong>Hard Skill</strong> berisi kemampuan teknis (misal: Excel, Python, Desain Grafis), sedangkan <strong>Soft Skill</strong> berisi kemampuan personal (misal: Komunikasi, Kepemimpinan).</p>
-        </li>
+        <li><strong class="block text-center">Pengaturan Tampilan:</strong><p class="mt-1">Anda bisa memilih jenis font (Arial, Times New Roman, Calibri), mengatur ukuran font, dan menyesuaikan jarak baris agar dokumen terlihat rapi, profesional, indah, dan tidak melebihi 1 halaman.</p></li>
+        <li><strong class="block text-center">Upload Pas Foto:</strong><p class="mt-1">Silakan klik area kotak di atas untuk mengunggah foto. Sistem akan otomatis memotong (crop) foto Anda menjadi rasio 3x4 (2.79 x 3.81 cm) secara presisi. Pastikan menggunakan foto formal terbaru dengan latar belakang polos berwarna terang.</p></li>
+        <li><strong class="block text-center">Deskripsi Profil:</strong><p class="mt-1">Isi ringkasan singkat mengenai diri Anda, lulusan jurusan apa, dan apa keahlian utama Anda. Jika dikosongkan, sistem akan membuatkan teks profil otomatis yang menarik dan sesuai standar umum.</p></li>
+        <li><strong class="block text-center">Data Pribadi:</strong><p class="mt-1">Isi nama lengkap sesuai dokumen resmi (KTP/Ijazah), tempat tanggal lahir, jenis kelamin, agama, kontak (No. HP dan Email yang aktif), dan alamat domisili saat ini dengan sangat jelas dan benar.</p></li>
+        <li><strong class="block text-center">Pendidikan Formal & Non Formal:</strong><p class="mt-1">Masukkan riwayat pendidikan formal (SMA/SMK/Kuliah). Sertakan nama institusi dan tahun lulus. Untuk pendidikan non-formal, masukkan kursus, pelatihan, atau sertifikasi yang relevan dengan pekerjaan yang dilamar. Gunakan tombol [+] untuk menambah baris baru.</p></li>
+        <li><strong class="block text-center">Pengalaman Kerja:</strong><p class="mt-1">Isi nama perusahaan, alamat, posisi/jabatan, serta masa kerja. Tuliskan deskripsi pekerjaan secara ringkas namun jelas, misalnya pencapaian atau tanggung jawab utama. Jika fresh graduate, Anda bisa mengisi dengan pengalaman magang, kepanitiaan, atau organisasi.</p></li>
+        <li><strong class="block text-center">Keahlian (Skills):</strong><p class="mt-1">Anda bisa memilih mode "Hard Skill dan Soft Skill" atau cukup "Daftar Keahlian" saja sesuai kebutuhan. <strong>Hard Skill</strong> berisi kemampuan teknis (misal: Excel, Python, Desain Grafis), sedangkan <strong>Soft Skill</strong> berisi kemampuan personal (misal: Komunikasi, Kepemimpinan).</p></li>
       </ul>
     </div>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 4: Panduan Pengisian Formulir Surat Lamaran</h2>
       <p>Surat lamaran berfungsi sebagai pengantar CV Anda. Isi dengan bahasa yang sopan, formal, baik, dan struktur yang baku:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">Data Perusahaan Tujuan:</strong>
-          <p class="mt-1">Masukkan nama perusahaan dan email HRD (jika menggunakan format Email). Masukkan juga sumber informasi lowongan (misal: JobStreet, LinkedIn, Instagram, atau teman).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Posisi yang Dilamar:</strong>
-          <p class="mt-1">Jika memilih template "Posisi Spesifik", isi kolom posisi/jabatan yang Anda inginkan dengan tepat dan jelas (misal: Staff Accounting).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Data Diri:</strong>
-          <p class="mt-1">Tuliskan nama lengkap, TTL, jenis kelamin, agama, pendidikan terakhir, dan alamat domisili Anda dengan benar dan jelas.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Kalimat Pembuka & Penutup:</strong>
-          <p class="mt-1">Biarkan kosong jika Anda ingin sistem membuatkan kalimat pembuka dan penutup yang baku dan sopan secara otomatis dan cepat. Anda juga bisa mengetik kalimat Anda sendiri untuk kesan yang lebih personal.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Daftar Lampiran:</strong>
-          <p class="mt-1">Masukkan dokumen yang Anda lampirkan secara berurutan. Contoh: 1. CV, 2. Ijazah, 3. Transkrip Nilai, 4. Pas Foto, 5. Sertifikat. Gunakan tombol [+] untuk menambah baris lampiran baru dengan mudah.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Nama Tanda Tangan:</strong>
-          <p class="mt-1">Ketikkan nama lengkap Anda. Jika formatnya "Tulis Tangan", beri spasi kosong di atas nama Anda untuk membubuhkan tanda tangan basah di atas kertas setelah dicetak.</p>
-        </li>
+        <li><strong class="block text-center">Data Perusahaan Tujuan:</strong><p class="mt-1">Masukkan nama perusahaan dan email HRD (jika menggunakan format Email). Masukkan juga sumber informasi lowongan (misal: JobStreet, LinkedIn, Instagram, atau teman).</p></li>
+        <li><strong class="block text-center">Posisi yang Dilamar:</strong><p class="mt-1">Jika memilih template "Posisi Spesifik", isi kolom posisi/jabatan yang Anda inginkan dengan tepat dan jelas (misal: Staff Accounting).</p></li>
+        <li><strong class="block text-center">Data Diri:</strong><p class="mt-1">Tuliskan nama lengkap, TTL, jenis kelamin, agama, pendidikan terakhir, dan alamat domisili Anda dengan benar dan jelas.</p></li>
+        <li><strong class="block text-center">Kalimat Pembuka & Penutup:</strong><p class="mt-1">Biarkan kosong jika Anda ingin sistem membuatkan kalimat pembuka dan penutup yang baku dan sopan secara otomatis dan cepat. Anda juga bisa mengetik kalimat Anda sendiri untuk kesan yang lebih personal.</p></li>
+        <li><strong class="block text-center">Daftar Lampiran:</strong><p class="mt-1">Masukkan dokumen yang Anda lampirkan secara berurutan. Contoh: 1. CV, 2. Ijazah, 3. Transkrip Nilai, 4. Pas Foto, 5. Sertifikat. Gunakan tombol [+] untuk menambah baris lampiran baru dengan mudah.</p></li>
+        <li><strong class="block text-center">Nama Tanda Tangan:</strong><p class="mt-1">Ketikkan nama lengkap Anda. Jika formatnya "Tulis Tangan", beri spasi kosong di atas nama Anda untuk membubuhkan tanda tangan basah di atas kertas setelah dicetak.</p></li>
       </ul>
     </div>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 5: Cara Membuat Surat Lamaran Kerja yang Baik dan Benar</h2>
       <p>Surat lamaran kerja adalah dokumen formal yang sangat penting dan krusial. Pastikan Anda menggunakan bahasa yang sopan, struktur yang baku, dan tidak ada kesalahan ketik. Berikut adalah struktur standar surat lamaran di Indonesia:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">Tempat dan Tanggal:</strong>
-          <p class="mt-1">Ditulis dengan rapi di bagian kanan atas surat lamaran (misal: Jakarta, 24 Mei 2024).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Hal:</strong>
-          <p class="mt-1">Ditulis tepat di bawah tanggal (misal: Hal: Lamaran Pekerjaan).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Lampiran:</strong>
-          <p class="mt-1">Jumlah total dokumen yang dilampirkan (misal: Lampiran: 5 berkas).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Tujuan:</strong>
-          <p class="mt-1">Kepada Yth. HRD Manager [Nama Perusahaan] di Tempat yang tepat.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Pembuka:</strong>
-          <p class="mt-1">Salam hormat ("Dengan Hormat,") beserta sumber informasi lowongan kerja.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Isi:</strong>
-          <p class="mt-1">Data diri singkat (Nama, TTL, Pendidikan) beserta posisi yang dilamar.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Daftar Lampiran:</strong>
-          <p class="mt-1">Poin-poin dokumen pendukung yang dilampirkan (CV, Ijazah, Foto, dll).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Penutup:</strong>
-          <p class="mt-1">Harapan besar untuk mengikuti tes wawancara dan ucapan terima kasih yang tulus.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Tanda Tangan:</strong>
-          <p class="mt-1">Nama jelas beserta tanda tangan asli di bagian bawah kanan.</p>
-        </li>
+        <li><strong class="block text-center">Tempat dan Tanggal:</strong><p class="mt-1">Ditulis dengan rapi di bagian kanan atas surat lamaran (misal: Jakarta, 24 Mei 2024).</p></li>
+        <li><strong class="block text-center">Hal:</strong><p class="mt-1">Ditulis tepat di bawah tanggal (misal: Hal: Lamaran Pekerjaan).</p></li>
+        <li><strong class="block text-center">Lampiran:</strong><p class="mt-1">Jumlah total dokumen yang dilampirkan (misal: Lampiran: 5 berkas).</p></li>
+        <li><strong class="block text-center">Tujuan:</strong><p class="mt-1">Kepada Yth. HRD Manager [Nama Perusahaan] di Tempat yang tepat.</p></li>
+        <li><strong class="block text-center">Pembuka:</strong><p class="mt-1">Salam hormat ("Dengan Hormat,") beserta sumber informasi lowongan kerja.</p></li>
+        <li><strong class="block text-center">Isi:</strong><p class="mt-1">Data diri singkat (Nama, TTL, Pendidikan) beserta posisi yang dilamar.</p></li>
+        <li><strong class="block text-center">Daftar Lampiran:</strong><p class="mt-1">Poin-poin dokumen pendukung yang dilampirkan (CV, Ijazah, Foto, dll).</p></li>
+        <li><strong class="block text-center">Penutup:</strong><p class="mt-1">Harapan besar untuk mengikuti tes wawancara dan ucapan terima kasih yang tulus.</p></li>
+        <li><strong class="block text-center">Tanda Tangan:</strong><p class="mt-1">Nama jelas beserta tanda tangan asli di bagian bawah kanan.</p></li>
       </ul>
     </div>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 6: Pratinjau (Preview) & Download</h2>
       <p>Di panel kanan (atau dengan menekan tombol "Preview" di HP), Anda dapat melihat hasil dokumen secara real-time. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Anda bisa menggeser (drag) preview dan menggunakan tombol zoom (+/-) untuk melihat detail. Pastikan tidak ada teks yang terpotong sebelum diunduh. Jika sudah sesuai, klik tombol "PDF" atau "Word" untuk mengunduh dokumen lamaran Anda dengan mudah dan cepat.</p>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 7: Mengirim Lamaran via Email dengan Gmail Otomatis</h2>
       <p>Jika Anda menggunakan template Surat Lamaran via Email, kami menyediakan fitur praktis bernama <strong>"Buka & Isi Otomatis di Gmail"</strong>. Fitur ini memungkinkan Anda untuk langsung mengirim surat lamaran tanpa perlu melakukan copy-paste manual secara terpisah untuk kolom Kepada, Subjek, dan Isi Surat Email.</p>
       <p>Berikut adalah langkah-langkah cara menggunakan fitur ini secara detail dan lengkap:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">Pastikan Sudah Login Gmail:</strong>
-          <p class="mt-1">Fitur ini bekerja dengan membuka tab compose Gmail baru. Pastikan Anda sudah login ke akun Gmail Anda di browser (peramban) yang sama persis yang Anda gunakan untuk membuka Karya Abadi Jobs.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Pilih Template Email:</strong>
-          <p class="mt-1">Pilih salah satu template surat lamaran berformat Email (misalnya: Email Umum, Email Posisi Spesifik, atau Email Semua PT).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Isi Email Perusahaan:</strong>
-          <p class="mt-1">Pada bagian formulir "Data Perusahaan Tujuan", masukkan alamat email HRD perusahaan yang dituju pada kolom <strong>Email Perusahaan</strong> secara benar (misal: hrd@perusahaan.com).</p>
-        </li>
-        <li>
-          <strong class="block text-center">Lengkapi Semua Data:</strong>
-          <p class="mt-1">Isi semua data diri, posisi yang dilamar, sumber informasi, daftar lampiran, hingga nama tanda tangan agar teks email yang terbentuk menjadi lengkap dan tidak ada yang kosong.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Klik Tombol Hijau:</strong>
-          <p class="mt-1">Gulir terus ke bawah pada panel formulir, lalu klik tombol berwarna hijau bertuliskan <strong>"Buka & Isi Otomatis di Gmail"</strong>.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Tab Gmail Terbuka:</strong>
-          <p class="mt-1">Sistem akan secara otomatis membuka tab baru berisi halaman tulis email (compose) Gmail Anda. Alamat <strong>Kepada</strong> (penerima), <strong>Subjek</strong> email, dan <strong>Isi Surat</strong> (body) akan terisi secara terpisah, rapi, dan otomatis sesuai dengan data yang Anda masukkan sebelumnya.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Lampirkan File CV:</strong>
-          <p class="mt-1">Setelah halaman Gmail terbuka, Anda cukup melampirkan file PDF CV atau dokumen pendukung lainnya (yang sudah Anda unduh sebelumnya) ke dalam email tersebut dengan meng-klik tombol lampiran (ikon penanda klip) di Gmail.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Kirim Email:</strong>
-          <p class="mt-1">Lakukan pengecekan terakhir, pastikan semua sudah benar, lampiran sudah tercantum dengan benar, lalu klik tombol <strong>"Kirim"</strong> di Gmail.</p>
-        </li>
+        <li><strong class="block text-center">Pastikan Sudah Login Gmail:</strong><p class="mt-1">Fitur ini bekerja dengan membuka tab compose Gmail baru. Pastikan Anda sudah login ke akun Gmail Anda di browser (peramban) yang sama persis yang Anda gunakan untuk membuka Karya Abadi Jobs.</p></li>
+        <li><strong class="block text-center">Pilih Template Email:</strong><p class="mt-1">Pilih salah satu template surat lamaran berformat Email (misalnya: Email Umum, Email Posisi Spesifik, atau Email Semua PT).</p></li>
+        <li><strong class="block text-center">Isi Email Perusahaan:</strong><p class="mt-1">Pada bagian formulir "Data Perusahaan Tujuan", masukkan alamat email HRD perusahaan yang dituju pada kolom <strong>Email Perusahaan</strong> secara benar (misal: hrd@perusahaan.com).</p></li>
+        <li><strong class="block text-center">Lengkapi Semua Data:</strong><p class="mt-1">Isi semua data diri, posisi yang dilamar, sumber informasi, daftar lampiran, hingga nama tanda tangan agar teks email yang terbentuk menjadi lengkap dan tidak ada yang kosong.</p></li>
+        <li><strong class="block text-center">Klik Tombol Hijau:</strong><p class="mt-1">Gulir terus ke bawah pada panel formulir, lalu klik tombol berwarna hijau bertuliskan <strong>"Buka & Isi Otomatis di Gmail"</strong>.</p></li>
+        <li><strong class="block text-center">Tab Gmail Terbuka:</strong><p class="mt-1">Sistem akan secara otomatis membuka tab baru berisi halaman tulis email (compose) Gmail Anda. Alamat <strong>Kepada</strong> (penerima), <strong>Subjek</strong> email, dan <strong>Isi Surat</strong> (body) akan terisi secara terpisah, rapi, dan otomatis sesuai dengan data yang Anda masukkan sebelumnya.</p></li>
+        <li><strong class="block text-center">Lampirkan File CV:</strong><p class="mt-1">Setelah halaman Gmail terbuka, Anda cukup melampirkan file PDF CV atau dokumen pendukung lainnya (yang sudah Anda unduh sebelumnya) ke dalam email tersebut dengan meng-klik tombol lampiran (ikon penanda klip) di Gmail.</p></li>
+        <li><strong class="block text-center">Kirim Email:</strong><p class="mt-1">Lakukan pengecekan terakhir, pastikan semua sudah benar, lampiran sudah tercantum dengan benar, lalu klik tombol <strong>"Kirim"</strong> di Gmail.</p></li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>Langkah 8: Membuat PDF Lampiran dari Gambar atau Dokumen PDF</h2>
       <p>Karya Abadi Jobs juga menyediakan fitur <strong>"Lampiran PDF"</strong> yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) atau file PDF yang sudah ada menjadi satu file PDF yang siap dikirim ke HRD. Berikut panduan cara menggunakannya dengan mudah:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">Buka Halaman Lampiran PDF:</strong>
-          <p class="mt-1">Klik menu "Lampiran PDF" yang ada di navigasi atas halaman ini.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Upload Gambar/PDF:</strong>
-          <p class="mt-1">Klik area upload atau seret beberapa file gambar (JPG/PNG) atau file PDF sekaligus ke area tersebut.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Atur Urutan (Drag & Drop):</strong>
-          <p class="mt-1">Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item gambar yang diunggah.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Ukuran Halaman Otomatis (DPI 100):</strong>
-          <p class="mt-1">Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI (tanpa margin/border putih). Anda tidak perlu memilih orientasi landscape/portrait atau ukuran kertas secara manual.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Kompresi Otomatis:</strong>
-          <p class="mt-1">Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time secara akurat.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Download PDF:</strong>
-          <p class="mt-1">Klik tombol "Download PDF Lampiran" yang berwarna merah untuk mengunduh file PDF yang sudah jadi dan terkompresi dengan rapi.</p>
-        </li>
+        <li><strong class="block text-center">Buka Halaman Lampiran PDF:</strong><p class="mt-1">Klik menu "Lampiran PDF" yang ada di navigasi atas halaman ini.</p></li>
+        <li><strong class="block text-center">Upload Gambar/PDF:</strong><p class="mt-1">Klik area upload atau seret beberapa file gambar (JPG/PNG) atau file PDF sekaligus ke area tersebut.</p></li>
+        <li><strong class="block text-center">Atur Urutan (Drag & Drop):</strong><p class="mt-1">Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas/Bawah pada setiap item gambar yang diunggah.</p></li>
+        <li><strong class="block text-center">Ukuran Halaman Otomatis (DPI 100):</strong><p class="mt-1">Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI (tanpa margin/border putih). Anda tidak perlu memilih orientasi landscape/portrait atau ukuran kertas secara manual.</p></li>
+        <li><strong class="block text-center">Kompresi Otomatis:</strong><p class="mt-1">Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time secara akurat.</p></li>
+        <li><strong class="block text-center">Download PDF:</strong><p class="mt-1">Klik tombol "Download PDF Lampiran" yang berwarna merah untuk mengunduh file PDF yang sudah jadi dan terkompresi dengan rapi.</p></li>
       </ul>
     </div>
   </main>
@@ -876,7 +402,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Tips Karier & Contoh Dokumen Lamaran</h1>
     <p>Menyusun dokumen lamaran kerja yang baik adalah langkah pertama menuju karier impian Anda. Di halaman ini, kami menyediakan panduan lengkap mengenai cara membuat CV dan Surat Lamaran Kerja yang efektif, profesional, dan mampu menarik perhatian perekrut secara optimal sesuai standar industri saat ini.</p>
-    
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>1. Apa itu CV ATS Friendly?</h2>
       <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyaring ratusan hingga ribuan CV secara otomatis dan cepat. CV yang "ATS Friendly" berarti CV tersebut dapat dibaca dengan mudah oleh sistem robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS dan mudah dipindai oleh perangkat lunak perusahaan.</p>
@@ -888,54 +413,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <li>Gunakan kata kunci teknis yang paling relevan dengan deskripsi pekerjaan dari posisi pekerjaan yang sedang Anda dilamar.</li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>2. Rekomendasi Memilih Template CV</h2>
       <p>Kami menyediakan 4 pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Pilihlah yang paling tepat dan sesuai dengan karakteristik diri Anda serta budaya perusahaan yang Anda tuju nantinya:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">CV Template 1 (Klasik):</strong>
-          <p class="mt-1">Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional yang sangat kental mementingkan kelengkapan data pribadi kandidat.</p>
-        </li>
-        <li>
-          <strong class="block text-center">CV Template 2 (Modern Center):</strong>
-          <p class="mt-1">Desain modern dengan nama dan info kontak di tengah. Cocok untuk fresh graduate atau pelamar di industri kreatif, media, dan startup masa kini yang dinamis.</p>
-        </li>
-        <li>
-          <strong class="block text-center">CV Template 3 (Sidebar):</strong>
-          <p class="mt-1">Memanfaatkan layout dua kolom (sidebar kiri). Ideal untuk Anda yang memiliki banyak pengalaman kerja dan daftar keahlian panjang, sehingga CV terlihat lebih terstruktur, rapi, dan tidak terlalu padat.</p>
-        </li>
-        <li>
-          <strong class="block text-center">CV Template 4 (ATS Sederhana):</strong>
-          <p class="mt-1">Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maupun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p>
-        </li>
+        <li><strong class="block text-center">CV Template 1 (Klasik):</strong><p class="mt-1">Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional yang sangat kental mementingkan kelengkapan data pribadi kandidat.</p></li>
+        <li><strong class="block text-center">CV Template 2 (Modern Center):</strong><p class="mt-1">Desain modern dengan nama dan info kontak di tengah. Cocok untuk fresh graduate atau pelamar di industri kreatif, media, dan startup masa kini yang dinamis.</p></li>
+        <li><strong class="block text-center">CV Template 3 (Sidebar):</strong><p class="mt-1">Memanfaatkan layout dua kolom (sidebar kiri). Ideal untuk Anda yang memiliki banyak pengalaman kerja dan daftar keahlian panjang, sehingga CV terlihat lebih terstruktur, rapi, dan tidak terlalu padat.</p></li>
+        <li><strong class="block text-center">CV Template 4 (ATS Sederhana):</strong><p class="mt-1">Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maupun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p></li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>3. Rekomendasi Memilih Template Surat Lamaran</h2>
       <p>Template surat lamaran kami dibagi menjadi format Email dan Tulis Tangan, dengan variasi umum, posisi spesifik, dan semua PT. Berikut panduan memilihnya agar Anda bisa mendapatkan format surat yang paling tepat dan sesuai dengan kebutuhan melamar Anda:</p>
       <ul class="space-y-4 mt-4 no-bullet">
-        <li>
-          <strong class="block text-center">Email vs Tulis Tangan:</strong>
-          <p class="mt-1">Gunakan format <strong>Email</strong> jika perusahaan meminta mengirim lamaran via email (lebih efisien dan cepat). Gunakan format <strong>Tulis Tangan</strong> jika syarat lowongan secara eksplisit dan tegas menyebutkan "surat lamaran ditulis tangan" pada kertas HVS.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Umum vs Posisi Spesifik:</strong>
-          <p class="mt-1">Pilih varian <strong>Posisi Spesifik</strong> jika Anda melamar suatu jabatan yang sudah pasti (misal: Staff Accounting). Pilih <strong>Umum</strong> jika Anda berjaga-jaga ingin melamar ke berbagai perusahaan secara acak tanpa target jabatan khusus.</p>
-        </li>
-        <li>
-          <strong class="block text-center">Semua PT:</strong>
-          <p class="mt-1">Opsi ini digunakan jika Anda membuat satu surat lamaran bawaan yang akan diperbanyak dengan fotokopi dan dikirim ke beberapa perusahaan sekaligus (ditujukan kepada "Pimpinan Perusahaan di Tempat").</p>
-        </li>
+        <li><strong class="block text-center">Email vs Tulis Tangan:</strong><p class="mt-1">Gunakan format <strong>Email</strong> jika perusahaan meminta mengirim lamaran via email (lebih efisien dan cepat). Gunakan format <strong>Tulis Tangan</strong> jika syarat lowongan secara eksplisit dan tegas menyebutkan "surat lamaran ditulis tangan" pada kertas HVS.</p></li>
+        <li><strong class="block text-center">Umum vs Posisi Spesifik:</strong><p class="mt-1">Pilih varian <strong>Posisi Spesifik</strong> jika Anda melamar suatu jabatan yang sudah pasti (misal: Staff Accounting). Pilih <strong>Umum</strong> jika Anda berjaga-jaga ingin melamar ke berbagai perusahaan secara acak tanpa target jabatan khusus.</p></li>
+        <li><strong class="block text-center">Semua PT:</strong><p class="mt-1">Opsi ini digunakan jika Anda membuat satu surat lamaran bawaan yang akan diperbanyak dengan fotokopi dan dikirim ke beberapa perusahaan sekaligus (ditujukan kepada "Pimpinan Perusahaan di Tempat").</p></li>
       </ul>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
       <h2>4. Perbedaan CV dan Surat Lamaran Kerja</h2>
       <p>Banyak pelamar kerja pemula yang masih bingung membedakan fungsi CV dan surat lamaran. Surat Lamaran Kerja adalah surat pengantar utama yang berisi niat Anda untuk melamar posisi tertentu, sedangkan CV (Curriculum Vitae) adalah lampiran yang memuat rincian data diri, riwayat pendidikan, pengalaman kerja, dan keahlian. Keduanya harus dikirim bersamaan saat melamar pekerjaan agar dokumen Anda lengkap di mata perekrut HRD.</p>
     </div>
-
   </main>
 </div>
 
@@ -945,31 +445,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p class="text-center-justify">Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi&nbsp;utama:</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
       <a href="https://www.jobstreet.co.id/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="flex items-center gap-4 mb-3 justify-center">
-          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-solid fa-briefcase"></i></div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">JobStreet Indonesia</h3>
-        </div>
+        <div class="flex items-center gap-4 mb-3 justify-center"><div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-solid fa-briefcase"></i></div><h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">JobStreet Indonesia</h3></div>
         <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Situs lowongan kerja terbesar di Asia Tenggara. Menyediakan ribuan lowongan dari berbagai industri dengan fitur filtering yang sangat&nbsp;lengkap.</p>
       </a>
       <a href="https://id.linkedin.com/jobs" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="flex items-center gap-4 mb-3 justify-center">
-          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-brands fa-linkedin"></i></div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">LinkedIn Jobs</h3>
-        </div>
+        <div class="flex items-center gap-4 mb-3 justify-center"><div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-brands fa-linkedin"></i></div><h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">LinkedIn Jobs</h3></div>
         <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutama untuk posisi manajerial dan&nbsp;multinasional.</p>
       </a>
       <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="flex items-center gap-4 mb-3 justify-center">
-          <div class="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400 text-xl"><i class="fa-solid fa-laptop-code"></i></div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">Kalibrr</h3>
-        </div>
+        <div class="flex items-center gap-4 mb-3 justify-center"><div class="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-lg flex items-center justify-center text-teal-600 dark:text-teal-400 text-xl"><i class="fa-solid fa-laptop-code"></i></div><h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">Kalibrr</h3></div>
         <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Sangat populer untuk startup dan perusahaan teknologi. Memiliki sistem matching otomatis antara kandidat dan&nbsp;perusahaan.</p>
       </a>
       <a href="https://www.glints.com/id" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="flex items-center gap-4 mb-3 justify-center">
-          <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">Glints Indonesia</h3>
-        </div>
+        <div class="flex items-center gap-4 mb-3 justify-center"><div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl"><i class="fa-solid fa-rocket"></i></div><h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">Glints Indonesia</h3></div>
         <p class="text-sm text-gray-600 dark:text-gray-400 text-center-justify">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan&nbsp;skill.</p>
       </a>
     </div>
@@ -1069,61 +557,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
   <div class="ft-inner max-w-7xl mx-auto pt-10 pb-6 px-4 sm:px-6">
     <div class="ft-grid">
-      <div class="ft-col">
-        <h4>Layanan</h4>
-        <ul>
-          <li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li>
-          <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
-          <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar/PDF ke PDF)</a></li>
-          <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
-          <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4>Informasi</h4>
-        <ul>
-          <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
-          <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
-          <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
-          <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
-          <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
-          <li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li>
-        </ul>
-      </div>
+      <div class="ft-col"><h4>Layanan</h4><ul><li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li><li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li><li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar/PDF ke PDF)</a></li><li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li><li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li></ul></div>
+      <div class="ft-col"><h4>Informasi</h4><ul><li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li><li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li><li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li><li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li></ul></div>
+      <div class="ft-col"><h4>Legal</h4><ul><li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li><li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li><li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li></ul></div>
     </div>
-    <div class="border-t border-brand-border mt-8 pt-6">
-      <p class="ft-copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p>
-    </div>
+    <div class="border-t border-brand-border mt-8 pt-6"><p class="ft-copy">&copy; 2026 Karya Abadi Jobs. All Rights Reserved.</p></div>
   </div>
 </footer>
 
 <script>
 // ================= MOBILE MENU =================
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobile-menu');
-  const btn = document.getElementById('menu-btn');
-  const iconOpen = btn.querySelector('.menu-icon-open');
-  const iconClose = btn.querySelector('.menu-icon-close');
-  
-  menu.classList.toggle('hidden');
-  if (menu.classList.contains('hidden')) {
-    iconOpen.classList.remove('hidden');
-    iconClose.classList.add('hidden');
-  } else {
-    iconOpen.classList.add('hidden');
-    iconClose.classList.remove('hidden');
-  }
-}
-
-function toggleDark() {
-  document.documentElement.classList.toggle('dark');
-}
+function toggleMobileMenu() { const menu = document.getElementById('mobile-menu'); const btn = document.getElementById('menu-btn'); const iconOpen = btn.querySelector('.menu-icon-open'); const iconClose = btn.querySelector('.menu-icon-close'); menu.classList.toggle('hidden'); if (menu.classList.contains('hidden')) { iconOpen.classList.remove('hidden'); iconClose.classList.add('hidden'); } else { iconOpen.classList.add('hidden'); iconClose.classList.remove('hidden'); } }
+function toggleDark() { document.documentElement.classList.toggle('dark'); }
 
 // ================= VIEW ROUTER =================
 var generatorInitialized = false;
@@ -1135,86 +580,32 @@ function showPage(pageId) {
     window.scrollTo(0, 0);
     if (pageId === 'generator') {
       setTimeout(() => {
-        updateVH();
-        renderPreview();
-        if (!generatorInitialized) {
-          resetZoom();
-          generatorInitialized = true;
-        } else {
-          applyZoom();
-        }
+        updateVH(); renderPreview();
+        if (!generatorInitialized) { resetZoom(); generatorInitialized = true; } else { applyZoom(); }
       }, 50);
     }
-    if (pageId === 'lampiran') {
-      setTimeout(() => {
-        updateLampiranSummary();
-      }, 50);
-    }
+    if (pageId === 'lampiran') { setTimeout(() => { updateLampiranSummary(); }, 50); }
   }
 }
 
 // ================= CV SLIDER LOGIC =================
-var currentSlide = 0;
-var totalSlides = 4;
-var slideInterval;
-
+var currentSlide = 0; var totalSlides = 4; var slideInterval;
 function initSlider() {
-  var dotsContainer = document.getElementById('sliderDots');
-  if(!dotsContainer) return;
-  dotsContainer.innerHTML = '';
-  for(var i=0; i<totalSlides; i++) {
-    var dot = document.createElement('span');
-    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('onclick', 'goToSlide(' + i + ')');
-    dotsContainer.appendChild(dot);
-  }
+  var dotsContainer = document.getElementById('sliderDots'); if(!dotsContainer) return; dotsContainer.innerHTML = '';
+  for(var i=0; i<totalSlides; i++) { var dot = document.createElement('span'); dot.className = 'slider-dot' + (i === 0 ? ' active' : ''); dot.setAttribute('onclick', 'goToSlide(' + i + ')'); dotsContainer.appendChild(dot); }
   startAutoSlide();
-  
   var slider = document.getElementById('cvSlider');
-  if(slider) {
-    slider.addEventListener('mouseenter', function() { clearInterval(slideInterval); });
-    slider.addEventListener('mouseleave', function() { startAutoSlide(); });
-  }
+  if(slider) { slider.addEventListener('mouseenter', function() { clearInterval(slideInterval); }); slider.addEventListener('mouseleave', function() { startAutoSlide(); }); }
 }
-
-function goToSlide(index) {
-  currentSlide = (index + totalSlides) % totalSlides;
-  var wrapper = document.getElementById('cvSliderWrapper');
-  if(wrapper) {
-    wrapper.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-  }
-  var dots = document.querySelectorAll('.slider-dot');
-  dots.forEach(function(dot, idx){
-    if(idx === currentSlide) dot.classList.add('active');
-    else dot.classList.remove('active');
-  });
-}
-
-function changeSlide(direction) {
-  goToSlide(currentSlide + direction);
-  clearInterval(slideInterval);
-  startAutoSlide();
-}
-
-function startAutoSlide() {
-  clearInterval(slideInterval);
-  slideInterval = setInterval(function() {
-    goToSlide(currentSlide + 1);
-  }, 5000);
-}
+function goToSlide(index) { currentSlide = (index + totalSlides) % totalSlides; var wrapper = document.getElementById('cvSliderWrapper'); if(wrapper) { wrapper.style.transform = 'translateX(-' + (currentSlide * 100) + '%)'; } var dots = document.querySelectorAll('.slider-dot'); dots.forEach(function(dot, idx){ if(idx === currentSlide) dot.classList.add('active'); else dot.classList.remove('active'); }); }
+function changeSlide(direction) { goToSlide(currentSlide + direction); clearInterval(slideInterval); startAutoSlide(); }
+function startAutoSlide() { clearInterval(slideInterval); slideInterval = setInterval(function() { goToSlide(currentSlide + 1); }, 5000); }
 
 // ================= APP LOGIC =================
 var curCat='cv',curTpl='cv1',photoData=null,mobTab='form';
 var savedCV={},savedSurat={},selFont='Arial',selSize=10,selLH=1.4;
-var eduList=[{t:'',m:'y',p:'',y:''}];
-var eduNonList=[{t:'',k:'',d:'',j:''}];
-var expList=[{pt:'', jl:'', kt:'', posList:[{j:'', m:'',desc:''}]}];
-var hSkills=[''];
-var sSkills=[''];
-var kSkills=[''];
-var skillMode='hs';
-var lampList=[''];
-var _rpTimer=null;
+var eduList=[{t:'',m:'y',p:'',y:''}]; var eduNonList=[{t:'',k:'',d:'',j:''}]; var expList=[{pt:'', jl:'', kt:'', posList:[{j:'', m:'',desc:''}]}];
+var hSkills=['']; var sSkills=['']; var kSkills=['']; var skillMode='hs'; var lampList=['']; var _rpTimer=null;
 var CV_M=[{id:'cv1',name:'CV Template 1'},{id:'cv2',name:'CV Template 2'},{id:'cv3',name:'CV Template 3'},{id:'cv4',name:'CV Template 4'}];
 var ST_M=[
   {id:'s-ou',name:'Email (Umum)',pos:false,on:true,semua:false},
@@ -1226,16 +617,9 @@ var ST_M=[
 ];
 
 // === STATE LAMPIRAN PDF ===
-var lampiranImages = []; // {data, name, originalSize, compressedSize, width, height, originalWidth, originalHeight}
-var TARGET_PDF_SIZE = 1 * 1024 * 1024; // 1 MB dalam byte
-var MAX_LAMPIRAN_IMAGES = 15;
-var lampiranProcessing = false;
-var draggedItemIdx = null;
+var lampiranImages = []; var TARGET_PDF_SIZE = 1 * 1024 * 1024; var MAX_LAMPIRAN_IMAGES = 15; var lampiranProcessing = false; var draggedItemIdx = null;
 
 var _tw='width:100%;table-layout:fixed;border-collapse:collapse;border:none;';
-var _c1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
-var _c2='width:28%;vertical-align:top;padding-left:3mm;padding-right:2mm;word-break:break-word;';
-var _c3='width:22%;vertical-align:top;text-align:right;word-break:break-word;';
 var _r1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
 var _r2='width:50%;vertical-align:top;padding-left:3mm;word-break:break-word;';
 
@@ -1245,7 +629,6 @@ function toast(msg,type){type=type||'success';var d=document.createElement('div'
 function applyPageStyle(){var p=document.getElementById('a4-page');if(p)p.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH;var pm=document.getElementById('a4-page-mob');if(pm)pm.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH}
 function schedulePreview(){if(_rpTimer)clearTimeout(_rpTimer);_rpTimer=setTimeout(renderPreview,60)}
 function updateVH(){document.documentElement.style.setProperty('--avh',window.innerHeight+'px')}
-
 function L(key){return key}
 
 function saveStatic(){var d={};document.querySelectorAll('.fi-s').forEach(function(el){if(el.id)d[el.id]=el.value});if(curCat==='cv')savedCV=d;else{savedSurat=d;savedSurat._lamp=lampList.slice()}}
@@ -1256,7 +639,7 @@ function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-ou';u
 function selectTpl(id){saveStatic();curTpl=id;renderTplTabs();renderForm();renderPreview()}
 function updCatTabs(){document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('border-brand-red','text-brand-red');t.classList.add('border-transparent','text-gray-500')});var el=document.getElementById('cat-'+curCat);if(el){el.classList.add('border-brand-red','text-brand-red');el.classList.remove('border-transparent','text-gray-500')}}
 function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;var gridClass=curCat==='cv'?'grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200':'grid grid-cols-2 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200';var tabsContainer=document.getElementById('tpl-tabs');tabsContainer.className=gridClass;tabsContainer.innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-center '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-200 dark:border-brand-border')+'">'+t.name+'</button>'}).join('')}
-function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview'}}
+function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview()}}
 function openMobilePreview(){var pm=document.getElementById('preview-mobile');pm.classList.remove('hidden');setTimeout(function(){resetZoom()},60)}
 function closeMobilePreview(){document.getElementById('preview-mobile').classList.add('hidden')}
 function fldH(id,lb,ph){return'<div><label class="fl">'+lb+'</label><input id="'+id+'" class="fi fi-s" placeholder="'+(ph||'')+'" oninput="schedulePreview()"></div>'}
@@ -1285,13 +668,8 @@ function renderEduF(){var c=document.getElementById('edu-c');if(!c)return;c.inne
   h+='<div><label class="fl">Nama Sekolah</label><input class="fi" placeholder="....." value="'+esc(e.t)+'" oninput="eduList['+i+'].t=this.value;schedulePreview()"></div>';
   h+='<div class="grid grid-cols-2 gap-2 mt-2">';
   h+='<div><label class="fl">Pilihan Waktu</label><select class="fi" onchange="eduList['+i+'].m=this.value;renderEduF();schedulePreview()"><option value="y"'+(e.m==='y'?' selected':'')+'>Tahun Lulus</option><option value="p"'+(e.m==='p'?' selected':'')+'>Periode</option></select></div>';
-  if(e.m==='p'){
-    h+='<div><label class="fl">Periode</label><input class="fi" placeholder="0000-0000" value="'+esc(e.p)+'" oninput="eduList['+i+'].p=this.value;schedulePreview()"></div>';
-  } else {
-    h+='<div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div>';
-  }
-  h+='</div></div>';
-  return h;
+  if(e.m==='p'){ h+='<div><label class="fl">Periode</label><input class="fi" placeholder="0000-0000" value="'+esc(e.p)+'" oninput="eduList['+i+'].p=this.value;schedulePreview()"></div>'; } else { h+='<div><label class="fl">Tahun Lulus</label><input class="fi" placeholder="0000" value="'+esc(e.y)+'" oninput="eduList['+i+'].y=this.value;schedulePreview()"></div>'; }
+  h+='</div></div>'; return h;
 }).join('')}
 
 function renderEduNonF(){
@@ -1305,12 +683,8 @@ function renderEduNonF(){
     h+='<div></div>';
     h+='<div class="col-span-2"><label class="fl">Jenis Pendidikan</label><select class="fi" onchange="eduNonList['+i+'].j=this.value;schedulePreview()">';
     h+='<option value="">-- Pilih --</option>';
-    jenisOpts.forEach(function(opt){
-      h+='<option value="'+opt+'"'+(e.j===opt?' selected':'')+'>'+opt+'</option>';
-    });
-    h+='</select></div>';
-    h+='</div>';
-    return h;
+    jenisOpts.forEach(function(opt){ h+='<option value="'+opt+'"'+(e.j===opt?' selected':'')+'>'+opt+'</option>'; });
+    h+='</select></div>'; h+='</div>'; return h;
   }).join('');
 }
 function addEdu(){eduList.push({t:'',m:'y',p:'',y:''});renderEduF();renderPreview()}
@@ -1319,8 +693,7 @@ function addEduNon(){eduNonList.push({t:'',k:'',d:'',j:''});renderEduNonF();rend
 function rmEduNon(){if(eduNonList.length>1){eduNonList.pop();renderEduNonF();renderPreview()}}
 
 function renderExpF(){
-  var c=document.getElementById('exp-c');
-  if(!c)return;
+  var c=document.getElementById('exp-c'); if(!c)return;
   c.innerHTML=expList.map(function(e,i){
     var h='<div class="border dark:border-brand-border border-gray-200 rounded-lg p-3 mb-3 '+(i>0?'mt-2':'')+'">';
     h+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Nama Perusahaan</label><input class="fi" placeholder="....." value="'+esc(e.pt)+'" oninput="expList['+i+'].pt=this.value;schedulePreview()"></div><div><label class="fl">Alamat Perusahaan</label><input class="fi" placeholder="....." value="'+esc(e.jl)+'" oninput="expList['+i+'].jl=this.value;schedulePreview()"></div></div>';
@@ -1330,20 +703,15 @@ function renderExpF(){
     h+=e.posList.map(function(p,j){
       var ph='<div class="bg-gray-50 dark:bg-brand-black/50 p-2 rounded-md mb-2 '+(j>0?'mt-2':'')+'">';
       ph+='<div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-500">Posisi '+(j+1)+'</span>';
-      if(e.posList.length>1){
-        ph+='<button onclick="rmPos('+i+','+j+')" class="text-xs text-red-500 hover:text-red-700">Hapus Posisi</button>';
-      }
+      if(e.posList.length>1){ ph+='<button onclick="rmPos('+i+','+j+')" class="text-xs text-red-500 hover:text-red-700">Hapus Posisi</button>'; }
       ph+='</div>';
       ph+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(p.j)+'" oninput="expList['+i+'].posList['+j+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="....." value="'+esc(p.m)+'" oninput="expList['+i+'].posList['+j+'].m=this.value;schedulePreview()"></div></div>';
       ph+='<div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="2" placeholder="....." oninput="expList['+i+'].posList['+j+'].desc=this.value;schedulePreview()">'+esc(p.desc||'')+'</textarea></div>';
-      ph+='</div>';
-      return ph;
+      ph+='</div>'; return ph;
     }).join('');
     
     h+='<button onclick="addPos('+i+')" class="w-full mt-2 py-2 border border-dashed border-brand-red text-brand-red rounded-lg text-xs font-semibold hover:bg-brand-red/10 transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-plus text-xs"></i> Tambah Posisi</button>';
-    h+='</div>';
-    h+='</div>';
-    return h;
+    h+='</div>'; h+='</div>'; return h;
   }).join('');
 }
 function addPos(i){if(!expList[i].posList)expList[i].posList=[{j:'',m:'',desc:''}];expList[i].posList.push({j:'',m:'',desc:''});renderExpF();renderPreview()}
@@ -1371,8 +739,6 @@ function renderForm(){
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
     var h='';
     h+=settingsH();
-    
-    // Khusus Template Email
     if(m.on) {
       var ptInfo='';
       ptInfo+=fldH('sPt','Nama Perusahaan','.....');
@@ -1380,77 +746,48 @@ function renderForm(){
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}
       if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
       h+='<div class="card space-y-2">'+ptInfo+'</div>';
-      
       h+=secH('Data Diri & Kontak');
       h+='<div class="card space-y-2">';
       h+=fldH('nama','Nama Lengkap','.....');
       h+=fldH('nohp','No. Hp','.....');
       h+=fldH('email','Email','.....');
       h+='</div>';
-      
       h+=secH('Daftar Lampiran Email');
       h+='<div id="lamp-c"></div>';
-      
       h+=fldH('sTtd','Nama Tanda Tangan','.....');
-
-      // Tombol Khusus Email
       h+='<button onclick="openInGmail()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>Buka & Isi Otomatis di Gmail</button>';
-      
-      fc.innerHTML=h;
-      renderLampF();
-    } 
-    // Khusus Template Tulis Tangan
-    else {
+      fc.innerHTML=h; renderLampF();
+    } else {
       h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
-      
       var ptInfo='';
       if(!m.semua){ptInfo+=fldH('sPt','Nama Perusahaan','.....')+fldH('sJl','Alamat Perusahaan','.....')+fldH('sJl2','Alamat Lanjutan','.....')}
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}
       if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
       h+='<div class="card space-y-2">'+ptInfo+'</div>';
-      
       h+=secH('Kalimat Pembuka & Penutup');
       h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';
-      
       h+=secH('Data Pribadi');
       h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';
-      
       h+=secH('Daftar Lampiran');
       h+='<div id="lamp-c"></div>';
-      
       h+=fldH('sTtd','Nama Tanda Tangan','.....');
-      
-      fc.innerHTML=h;
-      renderLampF();
+      fc.innerHTML=h; renderLampF();
     }
   }
   restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')
 }
 
-function fotoImg(){
-  var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';
-  if(photoData){
-    return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;"></div>';
-  }
-  return '';
-}
+function fotoImg(){ var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;'; if(photoData){ return '<div style="'+wStyle+'"><img src="'+photoData+'" style="width:100%;height:100%;display:block;"></div>'; } return ''; }
 function getProfil(defText){var lu=v('lulusan'),ju=v('jurusan'),pr=v('profil');if(pr)return esc(pr);if(lu||ju){var l=lu||'…..',j=ju||'…..';return'Saya lulusan '+esc(l)+' dengan latar belakang jurusan '+esc(j)+'. Berbekal fondasi akademis dan semangat untuk terus belajar, saya siap memberikan kontribusi positif dalam lingkungan kerja serta antusias dalam mengembangkan keterampilan baru untuk mencapai tujuan Perusahaan.'}return esc(defText)}
 
 function _eduTbl(list,mode){
   var rows='';
   list.forEach(function(e){
     if((e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())){
-      var leftVal=esc(e.t);
-      var midVal = '';
-      var rightVal = '';
-      if(e.m==='p' && e.p && e.p.trim()){
-        rightVal = esc(e.p);
-      } else if(e.y && e.y.trim()){
-        midVal = 'Tahun Lulus';
-        rightVal = esc(e.y);
-      } else if(e.p && e.p.trim()){
-        rightVal = esc(e.p);
-      }
+      var leftVal=esc(e.t); var midVal = ''; var rightVal = '';
+      if(e.m==='p' && e.p && e.p.trim()){ rightVal = esc(e.p); } 
+      else if(e.y && e.y.trim()){ midVal = 'Tahun Lulus'; rightVal = esc(e.y); } 
+      else if(e.p && e.p.trim()){ rightVal = esc(e.p); }
       if(mode==='aligned'){
         rows+='<tr><td style="width:45%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal+'</td><td style="width:35%;vertical-align:top;text-align:center;word-break:break-word; border:none;">'+midVal+'</td><td style="width:20%;vertical-align:top;text-align:right;word-break:break-word; border:none;">'+rightVal+'</td></tr>';
       } else {
@@ -1466,32 +803,19 @@ function _eduTblNon(list,mode){
   list.forEach(function(e){
     var hasContent = (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());
     if(hasContent){
-      var leftVal1 = e.t ? esc(e.t) : '';
-      var rightVal1 = e.d ? esc(e.d) : '';
-      
-      var leftVal2 = e.k ? esc(e.k) : '';
-      var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
-      
+      var leftVal1 = e.t ? esc(e.t) : ''; var rightVal1 = e.d ? esc(e.d) : '';
+      var leftVal2 = e.k ? esc(e.k) : ''; var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
       if(leftVal1 || rightVal1) {
-        if(mode==='aligned'){
-          rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal1+'</td><td style="width:50%;vertical-align:top;text-align:right;word-break:break-word; border:none;">'+rightVal1+'</td></tr>';
-        } else {
-          rows+='<tr><td style="width:50%; border:none;">'+leftVal1+'</td><td style="width:50%;text-align:right; border:none;">'+rightVal1+'</td></tr>';
-        }
+        if(mode==='aligned'){ rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal1+'</td><td style="width:50%;vertical-align:top;text-align:right;word-break:break-word; border:none;">'+rightVal1+'</td></tr>'; } 
+        else { rows+='<tr><td style="width:50%; border:none;">'+leftVal1+'</td><td style="width:50%;text-align:right; border:none;">'+rightVal1+'</td></tr>'; }
       }
       if(leftVal2) {
-        if(mode==='aligned'){
-          rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal2+'</td><td style="width:50%; border:none;"></td></tr>';
-        } else {
-          rows+='<tr><td style="width:50%; border:none;">'+leftVal2+'</td><td style="width:50%; border:none;"></td></tr>';
-        }
+        if(mode==='aligned'){ rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal2+'</td><td style="width:50%; border:none;"></td></tr>'; } 
+        else { rows+='<tr><td style="width:50%; border:none;">'+leftVal2+'</td><td style="width:50%; border:none;"></td></tr>'; }
       }
       if(leftVal3) {
-        if(mode==='aligned'){
-          rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal3+'</td><td style="width:50%; border:none;"></td></tr>';
-        } else {
-          rows+='<tr><td style="width:50%; border:none;">'+leftVal3+'</td><td style="width:50%; border:none;"></td></tr>';
-        }
+        if(mode==='aligned'){ rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal3+'</td><td style="width:50%; border:none;"></td></tr>'; } 
+        else { rows+='<tr><td style="width:50%; border:none;">'+leftVal3+'</td><td style="width:50%; border:none;"></td></tr>'; }
       }
     }
   });
@@ -1501,23 +825,12 @@ function _eduTblNon(list,mode){
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
   var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
-
-  var hasNon = nonFormalCount > 0;
-  var hasFormal = formalCount > 0;
-  
-  var h='';
-  var formalTbl=_eduTbl(formalList,mode);
-  
-  if(hasNon && hasFormal) {
-    h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>';
-  }
+  var hasNon = nonFormalCount > 0; var hasFormal = formalCount > 0;
+  var h=''; var formalTbl=_eduTbl(formalList,mode);
+  if(hasNon && hasFormal) { h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>'; }
   h+=formalTbl;
-  
   var nonFormalTbl=_eduTblNon(nonFormalList,mode);
-  if(hasNon&&nonFormalTbl){
-    h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">'+L('Pendidikan Nonformal')+'</div>';
-    h+=nonFormalTbl;
-  }
+  if(hasNon&&nonFormalTbl){ h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">'+L('Pendidikan Nonformal')+'</div>'; h+=nonFormalTbl; }
   return h;
 }
 function expPH(list){if(!list||list.length===0)return'';var h='';list.forEach(function(e){var hasCompanyInfo=(e.pt&&e.pt.trim())||(e.jl&&e.jl.trim())||(e.kt&&e.kt.trim());var hasPosInfo=e.posList&&e.posList.some(function(p){return(p.j&&p.j.trim())||(p.m&&p.m.trim())||(p.desc&&p.desc.trim())});if(!hasCompanyInfo&&!hasPosInfo)return;var leftContent='';if(e.pt)leftContent+='<div style="font-weight:600">'+esc(e.pt)+'</div>';if(e.jl)leftContent+='<div>'+esc(e.jl)+'</div>';if(e.kt)leftContent+='<div>'+esc(e.kt)+'</div>';var rightContent='';if(e.posList&&e.posList.length>0){e.posList.forEach(function(p,idx){if(!p.j&&!p.m&&!p.desc)return;if(idx>0&&rightContent)rightContent+='<div style="margin-top:2mm;border-top:1px solid #eee;padding-top:2mm;"></div>';if(p.j)rightContent+='<div style="font-weight:600">'+esc(p.j)+'</div>';if(p.m)rightContent+='<div>'+esc(p.m)+'</div>';if(p.desc&&p.desc.trim()){rightContent+='<div style="font-weight:600;margin-top:1mm;">'+L('Deskripsi Pekerjaan:')+'</div>';rightContent+='<div style="text-align:justify;line-height:1.4;word-break:break-word;">'+esc(p.desc.trim())+'</div>'}})}if(leftContent||rightContent){h+='<div style="margin-bottom:3mm"><table style="'+_tw+'"><tr><td style="'+_r1+' border:none;">'+leftContent+'</td><td style="'+_r2+' border:none;">'+rightContent+'</td></tr></table></div>'}});return h}
@@ -1532,36 +845,22 @@ function renderCV1(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
-
 var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
 var fi=fotoImg();
-if(fi){
-  h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>';
-  h+='<td style="vertical-align:top; border:none;">';
-} else {
-  h+='<td colspan="2" style="vertical-align:top; border:none;">';
-}
+if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; border:none;">'; }
 if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}
 h+='</td></tr></table>';
-
 function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
 function renderCV2(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
-
 var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
 var fi=fotoImg();
-if(fi){
-  h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>';
-  h+='<td style="vertical-align:top; text-align:center; border:none;">';
-} else {
-  h+='<td colspan="2" style="vertical-align:top; text-align:center; border:none;">';
-}
+if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; text-align:center; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; text-align:center; border:none;">'; }
 if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
 h+='</td></tr></table>';
-
 if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
 function renderCV3(){var N=v('nama'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);
@@ -1573,7 +872,6 @@ function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(part
 function renderSkillsCV4(skillArr){
   var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
   if(!items.length) return '';
-  
   var h = '<table style="width:100%; border-collapse:collapse; border:none;">';
   items.forEach(function(s){
     var p = parseSkillCV4(s);
@@ -1596,169 +894,108 @@ function renderSkillsCV4(skillArr){
 function renderCV4(){
   var N=v('nama'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
-  
   var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
   var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
-  
   var eduH = '';
   if(formalCount > 0 || hasNonEdu) {
-      if(hasNonEdu && formalCount > 0) {
-          eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
-      }
-      
+      if(hasNonEdu && formalCount > 0) { eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'; }
       eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
       eduList.forEach(function(e){
           if(e.t || e.y || e.p){
-              var midVal = '';
-              var rightVal = '';
-              if(e.m==='p' && e.p && e.p.trim()){
-                rightVal = esc(e.p);
-              } else if(e.y && e.y.trim()){
-                midVal = 'Tahun Lulus';
-                rightVal = esc(e.y);
-              } else if(e.p && e.p.trim()){
-                rightVal = esc(e.p);
-              }
+              var midVal = ''; var rightVal = '';
+              if(e.m==='p' && e.p && e.p.trim()){ rightVal = esc(e.p); } 
+              else if(e.y && e.y.trim()){ midVal = 'Tahun Lulus'; rightVal = esc(e.y); } 
+              else if(e.p && e.p.trim()){ rightVal = esc(e.p); }
               eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%; border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%; border:none;">'+rightVal+'</td></tr>';
           }
       });
       eduH += '</table>';
-      
       if(hasNonEdu){
           eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
           eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
           eduNonList.forEach(function(e){
-              var leftVal1 = e.t ? esc(e.t) : '';
-              var rightVal1 = e.d ? esc(e.d) : '';
-              
-              var leftVal2 = e.k ? esc(e.k) : '';
-              var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
-              
-              if(leftVal1 || rightVal1) {
-                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>';
-              }
-              if(leftVal2) {
-                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>';
-              }
-              if(leftVal3) {
-                  eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>';
-              }
+              var leftVal1 = e.t ? esc(e.t) : ''; var rightVal1 = e.d ? esc(e.d) : '';
+              var leftVal2 = e.k ? esc(e.k) : ''; var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
+              if(leftVal1 || rightVal1) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>'; }
+              if(leftVal2) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>'; }
+              if(leftVal3) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>'; }
           });
           eduH += '</table>';
       }
   }
-
   var expH = expPH(expList);
   var skH = renderSkillsCV4(kSkills);
-
   var h = '';
   if(N) h += '<div style="text-align:center; font-size:18pt; font-weight:700; text-transform:uppercase; margin-bottom:1mm;">'+esc(N)+'</div>';
   if(SUB) h += '<div style="text-align:center; color:#333; margin-bottom:4mm;">'+esc(SUB)+'</div>';
-  
   var contactArr = [];
   if(TTL) contactArr.push(esc(TTL));
   if(AL) contactArr.push(esc(AL));
   if(HP) contactArr.push(esc(HP));
   if(EM) contactArr.push(esc(EM));
-  
   if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm;">'+contactArr.join(' | ')+'</div>';
-  
   if(PR) {
       h += '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>';
   }
-  
   if(eduH) {
       h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="margin-top:2mm;">'+eduH+'</div>';
   }
-  
   if(expH) {
       h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="margin-top:2mm;">'+expH+'</div>';
   }
-  
   if(skH) {
       h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="margin-top:2mm;">'+skH+'</div>';
   }
-  
   return h;
 }
 
-// Fungsi untuk membuka Gmail secara otomatis dengan isi terpisah
 function openInGmail() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
-    
     var N = v('nama') || '……………….';
     var TTD = v('sTtd') || N;
     var HP = v('nohp') || '……………….';
     var EM = v('email') || '……………….';
     var PT = v('sPt') || '……………….';
     var sEmailPerusahaan = v('sEmailPerusahaan') || '';
-    
     var subjek = 'Lamaran Pekerjaan';
     if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
     if (N !== '……………….') subjek += ' - ' + N;
-    
     var sumberStr;
-    if (m.semua) {
-      sumberStr = 'informasi lowongan pekerjaan yang ada';
-    } else {
-      sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….');
-    }
-    
+    if (m.semua) { sumberStr = 'informasi lowongan pekerjaan yang ada'; } 
+    else { sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….'); }
     var pembukaEmail;
     if (m.pos) {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + PT + ' sedang membuka lowongan untuk posisi ' + (v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + PT + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
-    
     var li = [];
     for (var i = 0; i < lampList.length; i++) {
       var val = lampList[i] && lampList[i].trim();
       if (!val) continue;
       li.push(val);
     }
-    
     var namaFile = (N !== '……………….') ? N : 'Nama Pelamar';
     if (m.pos && v('sPosisi')) namaFile += '_' + (v('sPosisi') || '');
-    
-    // Isi body email (teks biasa)
     var body = '';
-    body += 'Kepada Yth.\n';
-    body += 'Bapak/Ibu HRD\n';
-    body += PT + '\n';
-    body += 'di Tempat\n\n';
-    body += 'Dengan hormat,\n\n';
-    body += pembukaEmail + '\n\n';
+    body += 'Kepada Yth.\n'; body += 'Bapak/Ibu HRD\n'; body += PT + '\n'; body += 'di Tempat\n\n';
+    body += 'Dengan hormat,\n\n'; body += pembukaEmail + '\n\n';
     body += 'Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
-    
-    if(li.length) {
-      li.forEach(function(item, idx){
-        body += (idx + 1) + '. ' + item + '\n';
-      });
-    } else {
-      body += '1. ……………….\n2. ……………….\n3. ……………….\n';
-    }
-    body += '\n';
-    body += 'Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.\n\n';
+    if(li.length) { li.forEach(function(item, idx){ body += (idx + 1) + '. ' + item + '\n'; }); } 
+    else { body += '1. ……………….\n2. ……………….\n3. ……………….\n'; }
+    body += '\n'; body += 'Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.\n\n';
     body += 'Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\n';
-    body += 'Hormat saya,\n\n\n';
-    body += TTD + '\n';
-    body += HP + '\n';
-    body += EM;
-    
-    // Buat URL Gmail
+    body += 'Hormat saya,\n\n\n'; body += TTD + '\n'; body += HP + '\n'; body += EM;
     var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(sEmailPerusahaan) + '&su=' + encodeURIComponent(subjek) + '&body=' + encodeURIComponent(body);
-    
-    // Buka di tab baru
     window.open(gmailUrl, '_blank');
     toast('Membuka Gmail di tab baru...', 'info');
 }
@@ -1766,79 +1003,57 @@ function openInGmail() {
 function renderSuratP() {
   var m = ST_M.find(function(t){return t.id===curTpl});
   if(!m) return '';
-  
-  // Variabel Umum
   var N = v('nama') || '……………….';
   var TTD = v('sTtd') || N;
   var HP = v('nohp') || '……………….';
   var EM = v('email') || '……………….';
   var PT = v('sPt') || '……………….';
-  
-  // KHUSUS TEMPLATE EMAIL
   if (m.on) {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
     var subjek = 'Lamaran Pekerjaan';
     if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
     if (v('nama')) subjek += ' - ' + v('nama');
-
     var sumberStr;
-    if (m.semua) {
-      sumberStr = 'informasi lowongan pekerjaan yang ada';
-    } else {
-      sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….');
-    }
-    
+    if (m.semua) { sumberStr = 'informasi lowongan pekerjaan yang ada'; } 
+    else { sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….'); }
     var pembukaEmail;
     if (m.pos) {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka lowongan untuk posisi ' + esc(v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
-      pembukaEmail = 'Sehubungan với ' + sumberStr + ' di ' + esc(PT) + ', với ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
+      pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + esc(PT) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
-
-    // Dynamic Daftar Lampiran
-    var li = [];
-    var lc = 0;
+    var li = []; var lc = 0;
     for (var i = 0; i < lampList.length; i++) {
       var val = lampList[i] && lampList[i].trim();
       if (!val) continue;
-      li.push(val);
-      lc++;
+      li.push(val); lc++;
     }
     var lamps = li.length ? li.map(function(item, idx) {
       return '<div style="margin-bottom: 1mm;">' + (idx + 1) + '. ' + esc(item) + '</div>';
-    }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>'; // Default jika kosong
-
+    }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>';
     var namaFile = (N !== '……………….') ? esc(N) : 'Nama Pelamar';
     if (m.pos && v('sPosisi')) namaFile += '_' + esc(v('sPosisi'));
-
     var h = '';
     h += '<table style="width:100%; margin-bottom: 4mm; border:none; border-collapse:collapse;">';
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 1mm 0; vertical-align:top;">Kepada</td><td style="width:3mm; border:none; padding:0 0 1mm 0;">:</td><td style="border:none; padding:0 0 1mm 0;">' + esc(sEmailPerusahaan) + '</td></tr>';
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 0 0; vertical-align:top;">Subjek</td><td style="width:3mm; border:none; padding:0;">:</td><td style="border:none; padding:0;">' + esc(subjek) + '</td></tr>';
     h += '</table>';
-
     h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Kepada Yth.<br>Bapak/Ibu HRD<br>' + esc(PT) + '<br>di Tempat</div>';
-
     h += '<p style="margin: 0 0 4mm 0; line-height: 1.5;">Dengan hormat,</p>';
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>';
     h += '<p style="margin: 0 0 2mm 0; text-align: justify; line-height: 1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:</p>';
-    
     h += '<div style="margin: 0 0 4mm 8mm; line-height: 1.5;">' + lamps + '</div>';
-
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>';
     h += '<p style="margin: 0 0 8mm 0; text-align: justify; line-height: 1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>';
-
     h += '<div style="margin-top: 6mm; line-height: 1.6;">';
     h += 'Hormat saya,<br><br>';
     h += '<span style="font-weight: bold; text-decoration: underline;">' + esc(TTD) + '</span><br>';
     h += esc(HP) + '<br>';
     h += esc(EM);
     h += '</div>';
-
     return h;
   }
   
-  // KHUSUS TEMPLATE TULIS TANGAN
   var sK = v('sKota') || '……………….';
   var sT = v('sTgl') || '……………….';
   var sBT = v('sBlnThn') || '……………….';
@@ -1861,58 +1076,42 @@ function renderSuratP() {
   } else {
     autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin.';
   }
-  
   var customPembuka = v('sPembuka') && v('sPembuka').trim();
   var pembukaText = customPembuka ? customPembuka : autoPembuka;
-  
   var autoPenutup = 'Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';
   var customPenutup = v('sPenutup') && v('sPenutup').trim();
   var penutupText = customPenutup ? customPenutup : autoPenutup;
 
-  var li = [];
-  var lc = 0;
+  var li = []; var lc = 0;
   for (var i = 0; i < lampList.length; i++) {
     var val = lampList[i] && lampList[i].trim();
     if (!val) continue;
-    li.push(val);
-    lc++;
+    li.push(val); lc++;
   }
-
   var lamps = li.length ? li.map(function(item, idx) {
     return '<div>' + (idx + 1) + '. ' + esc(item) + '</div>';
   }).join('') : '<div>………………………..</div>';
-  
   var lampLabel = L('lembar');
   var lampCountText = lc > 0 ? (lc + ' ' + lampLabel) : ('….. ' + lampLabel);
-  
   var labelStyle = 'width:45mm;padding-right:2mm;white-space:nowrap;text-align:left;vertical-align:top;';
   var colonStyle = 'width:3mm;text-align:center;vertical-align:top;';
-  
   function dr(l, val) {
     return '<tr><td style="' + labelStyle + '">' + L(l) + '</td><td style="' + colonStyle + '">:</td><td style="text-align:left;vertical-align:top">' + val + '</td></tr>';
   }
-  
   var al2r = AL2 ? '<tr><td style="' + labelStyle + '">&nbsp;</td><td style="' + colonStyle + '">&nbsp;</td><td style="text-align:left;vertical-align:top">' + esc(AL2) + '</td></tr>' : '';
-  
   var tw = '<div style="text-align:right">' + esc(sK) + ', ' + esc(sT) + ' ' + esc(sBT) + '</div>';
   var hl = '<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">' + L('Hal') + '</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">' + L('Lampiran') + '</td><td style="padding-left:2mm">: ' + lampCountText + '</td></tr></table>';
   var at = '<div style="margin-top:2mm;text-align:left">' + L('Kepada Yth.') + '</div><div style="text-align:left">' + L('Bapak/Ibu HRD') + '</div>';
-  
   if (m.semua) {
     at += '<div style="text-align:left">' + L('di Tempat') + '</div>';
   } else {
     at += '<div style="text-align:left">' + esc(PT) + '</div><div style="text-align:left">' + esc(JL) + '</div>';
     if (JL2 && JL2.trim()) at += '<div style="text-align:left">' + esc(JL2) + '</div>';
   }
-  
   var body = '';
-  if (!m.on) {
-    body += '<div style="margin-top:4mm;text-align:left">' + L('Dengan Hormat,') + '</div>';
-  }
+  if (!m.on) { body += '<div style="margin-top:4mm;text-align:left">' + L('Dengan Hormat,') + '</div>'; }
   body += '<div style="margin-top:2mm;text-align:justify;text-indent:8mm">' + esc(pembukaText) + '</div>';
-  if (!m.semua) {
-    body += '<div style="margin-top:3mm;text-align:left">' + L('Bersama ini, saya yang bertanda tangan di bawah ini:') + '</div>';
-  }
+  if (!m.semua) { body += '<div style="margin-top:3mm;text-align:left">' + L('Bersama ini, saya yang bertanda tangan di bawah ini:') + '</div>'; }
   body += '<table style="width:100%;margin-top:2mm">';
   body += dr('Nama', esc(N));
   body += dr('Tempat dan Tanggal Lahir', esc(TTL));
@@ -1927,10 +1126,8 @@ function renderSuratP() {
   body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini turut saya lampirkan:</div>';
   body += '<div style="margin-left:8mm;margin-top:2mm">' + lamps + '</div>';
   body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">' + esc(penutupText) + '</div>';
-  
   var ttdN = esc(TTD) || '………………………..';
   var ttd = '<div style="margin-top:8mm;text-align:right"><div style="display:inline-block;text-align:center"><div>' + L('Hormat saya,') + '</div><div style="height:14mm"></div><div style="font-weight:600;text-decoration:underline">' + ttdN + '</div></div></div>';
-  
   return tw + hl + at + body + ttd;
 }
 
@@ -1945,57 +1142,29 @@ function renderPreview() {
   } else {
     html = renderSuratP();
   }
-  
   var p = document.getElementById('a4-page');
   var pm = document.getElementById('a4-page-mob');
   if(p) p.innerHTML = html;
   if(pm) pm.innerHTML = html;
 }
 
-// Canvas Cropping Logic for 3x4 Photo (Standard 2.79 x 3.81 cm)
 function handlePhoto(event) {
   var file = event.target.files[0];
   if(!file) return;
-  if(file.size > 5 * 1024 * 1024) { // Allow up to 5MB before crop
-    toast('Ukuran foto maksimal 5MB', 'error');
-    return;
-  }
-  
+  if(file.size > 5 * 1024 * 1024) { toast('Ukuran foto maksimal 5MB', 'error'); return; }
   var reader = new FileReader();
   reader.onload = function(e) {
     var img = new Image();
     img.onload = function() {
-      // Persis ke rasio 2.79 / 3.81
-      var targetRatio = 2.79 / 3.81;
-      var imgRatio = img.width / img.height;
-      
+      var targetRatio = 2.79 / 3.81; var imgRatio = img.width / img.height;
       var cropWidth, cropHeight, cropX, cropY;
-      
-      if (imgRatio > targetRatio) {
-        // Gambar lebih lebar dari target, crop lebar (kanan-kiri)
-        cropHeight = img.height;
-        cropWidth = cropHeight * targetRatio;
-        cropX = (img.width - cropWidth) / 2;
-        cropY = 0;
-      } else {
-        // Gambar lebih tinggi dari target, crop tinggi (atas-bawah)
-        cropWidth = img.width;
-        cropHeight = cropWidth / targetRatio;
-        cropX = 0;
-        cropY = (img.height - cropHeight) / 2;
-      }
-      
-      // Resolusi canvas yang setara dengan 300 DPI (perkiraan untuk kualitas cetak A4)
-      var canvas = document.createElement('canvas');
-      canvas.width = 330;  // ~2.79 cm
-      canvas.height = 451; // ~3.81 cm
-      
+      if (imgRatio > targetRatio) { cropHeight = img.height; cropWidth = cropHeight * targetRatio; cropX = (img.width - cropWidth) / 2; cropY = 0; } 
+      else { cropWidth = img.width; cropHeight = cropWidth / targetRatio; cropX = 0; cropY = (img.height - cropHeight) / 2; }
+      var canvas = document.createElement('canvas'); canvas.width = 330; canvas.height = 451;
       var ctx = canvas.getContext('2d');
       ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
-      
       photoData = canvas.toDataURL('image/jpeg', 0.9);
-      restorePhoto();
-      renderPreview();
+      restorePhoto(); renderPreview();
       toast('Foto berhasil dipotong otomatis (2.79x3.81 cm)', 'success');
     };
     img.src = e.target.result;
@@ -2006,116 +1175,48 @@ function handlePhoto(event) {
 function resetForm() {
   if(!confirm('Apakah Anda yakin ingin mereset semua data?')) return;
   document.querySelectorAll('.fi-s, .fi').forEach(function(el) {
-    if(el.tagName === 'SELECT') el.selectedIndex = 0;
-    else el.value = '';
+    if(el.tagName === 'SELECT') el.selectedIndex = 0; else el.value = '';
   });
-  eduList = [{t:'',m:'y',p:'',y:''}];
-  eduNonList = [{t:'',k:'',d:'',j:''}];
-  expList = [{pt:'', jl:'', kt:'', posList:[{j:'', m:'', desc:''}]}];
-  hSkills = [''];
-  sSkills = [''];
-  kSkills = [''];
-  lampList = [''];
-  photoData = null;
-  restorePhoto();
-  
-  renderForm();
-  renderPreview();
-  toast('Form telah direset', 'info');
+  eduList = [{t:'',m:'y',p:'',y:''}]; eduNonList = [{t:'',k:'',d:'',j:''}]; expList = [{pt:'', jl:'', kt:'', posList:[{j:'', m:'', desc:''}]}];
+  hSkills = ['']; sSkills = ['']; kSkills = ['']; lampList = ['']; photoData = null; restorePhoto();
+  renderForm(); renderPreview(); toast('Form telah direset', 'info');
 }
 
 // ================= PREVIEW PAN & ZOOM LOGIC =================
-var currentZoom = 1;
-var panState = {
-  dragging: false,
-  startX: 0,
-  startY: 0,
-  offsetX: 0,
-  offsetY: 0,
-  activeScaler: null,
-  activeWrap: null
-};
-
+var currentZoom = 1; var panState = { dragging: false, startX: 0, startY: 0, offsetX: 0, offsetY: 0, activeScaler: null, activeWrap: null };
 function initPanZoom() {
-  var wrap = document.getElementById('preview-wrap');
-  var mobWrap = document.getElementById('preview-wrap-mob');
-  
-  wrap.addEventListener('mousedown', startDrag);
-  wrap.addEventListener('touchstart', startDrag, {passive: false});
-  
-  mobWrap.addEventListener('mousedown', startDrag);
-  mobWrap.addEventListener('touchstart', startDrag, {passive: false});
-  
-  document.addEventListener('mousemove', drag);
-  document.addEventListener('touchmove', drag, {passive: false});
-  
-  document.addEventListener('mouseup', endDrag);
-  document.addEventListener('touchend', endDrag);
+  var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob');
+  wrap.addEventListener('mousedown', startDrag); wrap.addEventListener('touchstart', startDrag, {passive: false});
+  mobWrap.addEventListener('mousedown', startDrag); mobWrap.addEventListener('touchstart', startDrag, {passive: false});
+  document.addEventListener('mousemove', drag); document.addEventListener('touchmove', drag, {passive: false});
+  document.addEventListener('mouseup', endDrag); document.addEventListener('touchend', endDrag);
 }
-
 function startDrag(e) {
-  panState.dragging = true;
-  panState.activeWrap = e.currentTarget;
-  panState.activeScaler = e.currentTarget.querySelector('div[id^="a4-scaler"]');
-  if(!panState.activeScaler) return;
-  
-  var clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  var clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  
-  panState.startX = clientX - panState.offsetX;
-  panState.startY = clientY - panState.offsetY;
-  panState.activeWrap.style.cursor = 'grabbing';
-  e.preventDefault();
+  panState.dragging = true; panState.activeWrap = e.currentTarget; panState.activeScaler = e.currentTarget.querySelector('div[id^="a4-scaler"]'); if(!panState.activeScaler) return;
+  var clientX = e.touches ? e.touches[0].clientX : e.clientX; var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  panState.startX = clientX - panState.offsetX; panState.startY = clientY - panState.offsetY; panState.activeWrap.style.cursor = 'grabbing'; e.preventDefault();
 }
-
 function drag(e) {
   if(!panState.dragging || !panState.activeScaler) return;
-  var clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  var clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  
-  panState.offsetX = clientX - panState.startX;
-  panState.offsetY = clientY - panState.startY;
-  
+  var clientX = e.touches ? e.touches[0].clientX : e.clientX; var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  panState.offsetX = clientX - panState.startX; panState.offsetY = clientY - panState.startY;
   panState.activeScaler.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')';
 }
-
-function endDrag() {
-  if(!panState.dragging) return;
-  panState.dragging = false;
-  if(panState.activeWrap) panState.activeWrap.style.cursor = 'grab';
-}
-
-function zoomPreview(delta) {
-  currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta));
-  applyZoom();
-}
-
+function endDrag() { if(!panState.dragging) return; panState.dragging = false; if(panState.activeWrap) panState.activeWrap.style.cursor = 'grab'; }
+function zoomPreview(delta) { currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta)); applyZoom(); }
 function resetZoom() {
-  panState.offsetX = 0;
-  panState.offsetY = 0;
-  var wrap = document.getElementById('preview-wrap');
-  var mobWrap = document.getElementById('preview-wrap-mob');
+  panState.offsetX = 0; panState.offsetY = 0;
+  var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob');
   var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap;
-  
-  if(activeWrap && activeWrap.offsetWidth > 0) {
-    var containerWidth = activeWrap.offsetWidth - 24; 
-    var scalerWidth = 210 * 3.7795; 
-    currentZoom = Math.min(1, containerWidth / scalerWidth);
-  } else {
-    currentZoom = 0.6;
-  }
+  if(activeWrap && activeWrap.offsetWidth > 0) { var containerWidth = activeWrap.offsetWidth - 24; var scalerWidth = 210 * 3.7795; currentZoom = Math.min(1, containerWidth / scalerWidth); } 
+  else { currentZoom = 0.6; }
   applyZoom();
 }
-
 function applyZoom() {
   var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')];
-  scalers.forEach(function(s) {
-    if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')';
-  });
+  scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; });
   var levels = document.querySelectorAll('.zoom-level');
-  levels.forEach(function(l) {
-    l.textContent = Math.round(currentZoom * 100) + '%';
-  });
+  levels.forEach(function(l) { l.textContent = Math.round(currentZoom * 100) + '%'; });
 }
 
 // ================= DOWNLOAD LOGIC =================
@@ -2127,47 +1228,24 @@ function downloadPDF() {
     else if(curTpl === 'cv2') html = renderCV2();
     else if(curTpl === 'cv3') html = renderCV3();
     else if(curTpl === 'cv4') html = renderCV4();
-  } else {
-    html = renderSuratP();
-  }
-  
+  } else { html = renderSuratP(); }
   element.innerHTML = '<div class="a4-page" style="font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
-  
   toast('Membuat PDF, mohon tunggu...', 'info');
-  
   setTimeout(function() {
     var targetEl = element.querySelector('.a4-page');
     html2canvas(targetEl, {scale: 2, useCORS: true, backgroundColor: '#FFFFFF'}).then(function(canvas) {
       var imgData = canvas.toDataURL('image/jpeg', 0.95);
       var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-      var imgWidth = 210; 
-      var pageHeight = 297;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
-      var position = 0;
-
+      var imgWidth = 210; var pageHeight = 297; var imgHeight = canvas.height * imgWidth / canvas.width; var heightLeft = imgHeight; var position = 0;
       pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
-
-      while (heightLeft >= 1) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      
-      // Format nama file unduhan
+      while (heightLeft >= 1) { position = heightLeft - imgHeight; pdf.addPage(); pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); heightLeft -= pageHeight; }
       var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
-      
       element.innerHTML = '';
       toast('PDF berhasil diunduh!', 'success');
-    }).catch(function(err) {
-      console.error(err);
-      toast('Gagal membuat PDF', 'error');
-      element.innerHTML = '';
-    });
+    }).catch(function(err) { console.error(err); toast('Gagal membuat PDF', 'error'); element.innerHTML = ''; });
   }, 300);
 }
 
@@ -2178,44 +1256,20 @@ function downloadWord() {
     else if(curTpl === 'cv2') html = renderCV2();
     else if(curTpl === 'cv3') html = renderCV3();
     else if(curTpl === 'cv4') html = renderCV4();
-  } else {
-    html = renderSuratP();
-  }
-  
-  // Pre-process HTML for Word compatibility
+  } else { html = renderSuratP(); }
   html = html.replace(/object-fit:\s*cover;?/g, '');
-  
-  var style = '<style>'+
-  'body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }'+
-  'table { width: 100%; border-collapse: collapse; border: none; }'+
-  'td { vertical-align: top; border: none; }'+
-  '.st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm; margin-bottom: 4.5mm; margin-top: 5mm; }'+
-  '.dp-t td { padding: 0.6mm 0; }'+
-  '.dp-t .dl { width: 48mm; white-space: nowrap; }'+
-  '.dp-t .dc { width: 3mm; text-align: center; }'+
-  'p { margin: 0 0 5mm 0; }'+
-  '</style>';
-  
+  var style = '<style> body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; } table { width: 100%; border-collapse: collapse; border: none; } td { vertical-align: top; border: none; } .st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm; margin-bottom: 4.5mm; margin-top: 5mm; } .dp-t td { padding: 0.6mm 0; } .dp-t .dl { width: 48mm; white-space: nowrap; } .dp-t .dc { width: 3mm; text-align: center; } p { margin: 0 0 5mm 0; } </style>';
   var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
   var footer = "</body></html>";
   var sourceHTML = header + html + footer;
-  
-  var blob = new Blob(['\ufeff', sourceHTML], {
-    type: 'application/msword'
-  });
-  
+  var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
   var url = URL.createObjectURL(blob);
   var fileDownload = document.createElement("a");
   fileDownload.href = url;
-  
-  // Format nama file unduhan
   var safeName = (v('nama') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
-  
-  document.body.appendChild(fileDownload);
-  fileDownload.click();
-  document.body.removeChild(fileDownload);
+  document.body.appendChild(fileDownload); fileDownload.click(); document.body.removeChild(fileDownload);
   toast('File Word berhasil diunduh!', 'success');
 }
 
@@ -2229,76 +1283,37 @@ function formatBytes(bytes) {
   if(bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
   return (bytes / 1024 / 1024).toFixed(2) + ' MB';
 }
-
 function dataUrlSize(dataUrl) {
   if(!dataUrl) return 0;
-  var idx = dataUrl.indexOf(',');
-  if(idx < 0) return 0;
-  var base64Len = dataUrl.length - idx - 1;
-  // Approximate binary size from base64 length
+  var idx = dataUrl.indexOf(','); if(idx < 0) return 0; var base64Len = dataUrl.length - idx - 1;
   return Math.round(base64Len * 3 / 4);
 }
-
 function compressImageToSize(img, targetSize, callback) {
-  var maxDim = 2200;
-  var w = img.width, h = img.height;
-  if(w > maxDim || h > maxDim) {
-    if(w > h) { h = h * maxDim / w; w = maxDim; }
-    else { w = w * maxDim / h; h = maxDim; }
-  }
-  
+  var maxDim = 2200; var w = img.width, h = img.height;
+  if(w > maxDim || h > maxDim) { if(w > h) { h = h * maxDim / w; w = maxDim; } else { w = w * maxDim / h; h = maxDim; } }
   function attemptCompression(width, height) {
-    var canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, width, height);
-    ctx.drawImage(img, 0, 0, width, height);
-    
-    // Binary search for best quality within target
+    var canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+    var ctx = canvas.getContext('2d'); ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, width, height); ctx.drawImage(img, 0, 0, width, height);
     var low = 0.25, high = 0.92, best = null;
     for(var i = 0; i < 8; i++) {
-      var mid = (low + high) / 2;
-      var dataUrl = canvas.toDataURL('image/jpeg', mid);
-      var size = dataUrlSize(dataUrl);
-      if(size <= targetSize) {
-        best = {dataUrl: dataUrl, size: size, w: width, h: height};
-        low = mid;
-      } else {
-        high = mid;
-      }
+      var mid = (low + high) / 2; var dataUrl = canvas.toDataURL('image/jpeg', mid); var size = dataUrlSize(dataUrl);
+      if(size <= targetSize) { best = {dataUrl: dataUrl, size: size, w: width, h: height}; low = mid; } else { high = mid; }
     }
     return best;
   }
-  
-  var result = attemptCompression(w, h);
-  var scale = 0.85;
-  
-  // If still too big at lowest quality, reduce dimensions progressively
+  var result = attemptCompression(w, h); var scale = 0.85;
   while(!result && scale > 0.15) {
-    var newW = Math.round(w * scale);
-    var newH = Math.round(h * scale);
+    var newW = Math.round(w * scale); var newH = Math.round(h * scale);
     if(newW < 100 || newH < 100) break;
-    result = attemptCompression(newW, newH);
-    scale -= 0.1;
+    result = attemptCompression(newW, newH); scale -= 0.1;
   }
-  
-  // Last resort: use minimum quality available
   if(!result) {
-    var canvas = document.createElement('canvas');
-    var minW = Math.min(w, 800);
-    var minH = Math.round(h * minW / w);
-    canvas.width = minW;
-    canvas.height = minH;
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, minW, minH);
-    ctx.drawImage(img, 0, 0, minW, minH);
+    var canvas = document.createElement('canvas'); var minW = Math.min(w, 800); var minH = Math.round(h * minW / w);
+    canvas.width = minW; canvas.height = minH; var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, minW, minH); ctx.drawImage(img, 0, 0, minW, minH);
     var dataUrl = canvas.toDataURL('image/jpeg', 0.3);
     result = {dataUrl: dataUrl, size: dataUrlSize(dataUrl), w: minW, h: minH};
   }
-  
   callback(result.dataUrl, result.size, result.w, result.h);
 }
 
@@ -2309,8 +1324,12 @@ function handleLampiranUpload(event) {
   event.target.value = '';
 }
 
-// Fungsi khusus untuk membaca file PDF dan mengekstrak setiap halaman menjadi gambar
 function extractPdfPages(file, callback) {
+    if(!window.pdfjsLib) {
+        toast('Library PDF belum termuat, coba refresh halaman.', 'error');
+        callback([]);
+        return;
+    }
     var reader = new FileReader();
     reader.onload = function(e) {
         var typedarray = new Uint8Array(e.target.result);
@@ -2322,7 +1341,6 @@ function extractPdfPages(file, callback) {
             for (var i = 1; i <= totalPdfPages; i++) {
                 (function(pageNum) {
                     pdf.getPage(pageNum).then(function(page) {
-                        // Render di 2x scale untuk kualitas sebelum dikompresi
                         var viewport = page.getViewport({ scale: 2.0 }); 
                         var canvas = document.createElement('canvas');
                         canvas.width = viewport.width;
@@ -2335,7 +1353,7 @@ function extractPdfPages(file, callback) {
                                 data: dataUrl,
                                 name: file.name + ' - Hal. ' + pageNum,
                                 originalSize: dataUrlSize(dataUrl), 
-                                width: viewport.width / 2, // Kompensasi scale 2.0
+                                width: viewport.width / 2, 
                                 height: viewport.height / 2,
                                 originalWidth: viewport.width / 2,
                                 originalHeight: viewport.height / 2,
@@ -2344,11 +1362,24 @@ function extractPdfPages(file, callback) {
                             pagesProcessed++;
                             
                             if (pagesProcessed === totalPdfPages) {
-                                // Urutkan berdasarkan nomor halaman
+                                extractedImages.sort(function(a, b) { return a.pageNum - b.pageNum; });
+                                callback(extractedImages);
+                            }
+                        }).catch(function(err) {
+                            console.error("Error rendering page: ", err);
+                            pagesProcessed++;
+                            if (pagesProcessed === totalPdfPages) {
                                 extractedImages.sort(function(a, b) { return a.pageNum - b.pageNum; });
                                 callback(extractedImages);
                             }
                         });
+                    }).catch(function(err) {
+                        console.error("Error getting page: ", err);
+                        pagesProcessed++;
+                        if (pagesProcessed === totalPdfPages) {
+                            extractedImages.sort(function(a, b) { return a.pageNum - b.pageNum; });
+                            callback(extractedImages);
+                        }
                     });
                 })(i);
             }
@@ -2362,38 +1393,18 @@ function extractPdfPages(file, callback) {
 }
 
 function processLampiranFiles(files) {
-  if(lampiranProcessing) {
-    toast('Sedang memproses, mohon tunggu...', 'info');
-    return;
-  }
-  
-  // Filter gambar dan PDF
-  var validFiles = files.filter(function(f){ 
-    return f.type.startsWith('image/') || f.type === 'application/pdf'; 
-  });
-  
-  if(validFiles.length === 0) {
-    toast('Tidak ada file gambar atau PDF yang valid', 'error');
-    return;
-  }
-  
-  // Check max limit (15 file)
+  if(lampiranProcessing) { toast('Sedang memproses, mohon tunggu...', 'info'); return; }
+  var validFiles = files.filter(function(f){ return f.type.startsWith('image/') || f.type === 'application/pdf'; });
+  if(validFiles.length === 0) { toast('Tidak ada file gambar atau PDF yang valid', 'error'); return; }
   var available = MAX_LAMPIRAN_IMAGES - lampiranImages.length;
-  if(available <= 0) {
-    toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' file/halaman', 'error');
-    return;
-  }
-  if(validFiles.length > available) {
-    toast('Hanya ' + available + ' file lagi yang dapat ditambahkan', 'info');
-    validFiles = validFiles.slice(0, available);
-  }
+  if(available <= 0) { toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' file/halaman', 'error'); return; }
+  if(validFiles.length > available) { toast('Hanya ' + available + ' file lagi yang dapat ditambahkan', 'info'); validFiles = validFiles.slice(0, available); }
   
   lampiranProcessing = true;
   var btnPdf = document.getElementById('btn-lampiran-pdf');
   var btnClear = document.getElementById('btn-lampiran-clear');
   if(btnPdf) btnPdf.disabled = true;
   if(btnClear) btnClear.disabled = true;
-  
   toast('Memproses ' + validFiles.length + ' file...', 'info');
   
   var remaining = validFiles.length;
@@ -2401,24 +1412,19 @@ function processLampiranFiles(files) {
   
   validFiles.forEach(function(file) {
     if (file.type === 'application/pdf') {
-        // Ekstrak halaman PDF jadi gambar
         extractPdfPages(file, function(extracted) {
             newItems = newItems.concat(extracted);
             remaining--;
-            if(remaining === 0) {
-                finalizeProcessing(newItems);
-            }
+            if(remaining === 0) { finalizeProcessing(newItems); }
         });
     } else {
-        // Proses gambar biasa
         var reader = new FileReader();
         reader.onload = function(e) {
             var img = new Image();
             img.onload = function() {
-                var totalExpected = lampiranImages.length + validFiles.length; 
+                var totalExpected = lampiranImages.length + newItems.length + remaining;
                 var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
                 budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
-                
                 compressImageToSize(img, budget, function(dataUrl, size, w, h) {
                     newItems.push({
                         data: dataUrl,
@@ -2431,36 +1437,24 @@ function processLampiranFiles(files) {
                         originalHeight: img.height
                     });
                     remaining--;
-                    if(remaining === 0) {
-                        finalizeProcessing(newItems);
-                    }
+                    if(remaining === 0) { finalizeProcessing(newItems); }
                 });
             };
-            img.onerror = function() {
-                toast('Gagal memuat: ' + file.name, 'error');
-                remaining--;
-                if(remaining === 0) finalizeProcessing(newItems);
-            };
+            img.onerror = function() { toast('Gagal memuat: ' + file.name, 'error'); remaining--; if(remaining === 0) finalizeProcessing(newItems); };
             img.src = e.target.result;
         };
-        reader.onerror = function() {
-            toast('Gagal membaca: ' + file.name, 'error');
-            remaining--;
-            if(remaining === 0) finalizeProcessing(newItems);
-        };
+        reader.onerror = function() { toast('Gagal membaca: ' + file.name, 'error'); remaining--; if(remaining === 0) finalizeProcessing(newItems); };
         reader.readAsDataURL(file);
     }
   });
 }
 
 function finalizeProcessing(newItems) {
-    // Pastikan tidak melebihi batas maksimal setelah ekstraksi PDF
     if(lampiranImages.length + newItems.length > MAX_LAMPIRAN_IMAGES) {
         var allowed = MAX_LAMPIRAN_IMAGES - lampiranImages.length;
         newItems = newItems.slice(0, allowed);
         toast('Batas maksimal ' + MAX_LAMPIRAN_IMAGES + ' halaman tercapai.', 'info');
     }
-    
     lampiranImages = lampiranImages.concat(newItems);
     lampiranProcessing = false;
     finalizeLampiranUpload();
@@ -2469,7 +1463,6 @@ function finalizeProcessing(newItems) {
 function finalizeLampiranUpload() {
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
   var safeTarget = TARGET_PDF_SIZE - 30000; 
-  
   if(total > safeTarget) {
     toast('Mengompresi agar sesuai 1 MB...', 'info');
     setTimeout(function() { recompressAllToTarget(safeTarget); }, 100);
@@ -2481,363 +1474,50 @@ function finalizeLampiranUpload() {
 }
 
 function recompressAllToTarget(currentTarget, callback) {
-  if(lampiranImages.length === 0) {
-    renderLampiranList();
-    updateLampiranSummary();
-    if(callback) callback();
-    return;
-  }
-  
+  if(lampiranImages.length === 0) { renderLampiranList(); updateLampiranSummary(); if(callback) callback(); return; }
   var target = currentTarget || TARGET_PDF_SIZE;
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  if(total <= target) {
-    renderLampiranList();
-    updateLampiranSummary();
-    if(callback) callback();
-    return;
-  }
-  
+  if(total <= target) { renderLampiranList(); updateLampiranSummary(); if(callback) callback(); return; }
   var budget = Math.floor(target * 0.9 / lampiranImages.length);
   budget = Math.max(20 * 1024, budget);
-  
-  var index = 0;
-  var iteration = 0;
-  var MAX_ITER = 5;
-  
+  var index = 0; var iteration = 0; var MAX_ITER = 5;
   function processNext() {
     if(index >= lampiranImages.length) {
       var newTotal = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
       iteration++;
       if(newTotal > target && iteration < MAX_ITER) {
-        budget = Math.floor(budget * 0.65);
-        budget = Math.max(15 * 1024, budget);
-        index = 0;
-        setTimeout(processNext, 50);
+        budget = Math.floor(budget * 0.65); budget = Math.max(15 * 1024, budget); index = 0; setTimeout(processNext, 50);
       } else {
-        renderLampiranList();
-        updateLampiranSummary();
-        if(newTotal > target) {
-          toast('Kompresi maksimal tercapai: ' + formatBytes(newTotal), 'info');
-        } else {
-          toast('Kompresi selesai: ' + formatBytes(newTotal), 'success');
-        }
+        renderLampiranList(); updateLampiranSummary();
+        if(newTotal > target) { toast('Kompresi maksimal tercapai: ' + formatBytes(newTotal), 'info'); } 
+        else { toast('Kompresi selesai: ' + formatBytes(newTotal), 'success'); }
         if(callback) callback();
       }
       return;
     }
-    
     var item = lampiranImages[index];
     var img = new Image();
     img.onload = function() {
       compressImageToSize(img, budget, function(dataUrl, size, w, h) {
-        item.data = dataUrl;
-        item.compressedSize = size;
-        item.width = w;
-        item.height = h;
-        index++;
-        setTimeout(processNext, 10);
+        item.data = dataUrl; item.compressedSize = size; item.width = w; item.height = h;
+        index++; setTimeout(processNext, 10);
       });
     };
-    img.onerror = function() {
-      index++;
-      setTimeout(processNext, 10);
-    };
+    img.onerror = function() { index++; setTimeout(processNext, 10); };
     img.src = item.data;
   }
-  
   processNext();
 }
 
 function renderLampiranList() {
-  var c = document.getElementById('lampiran-list');
-  var empty = document.getElementById('lampiran-empty');
-  if(!c) return;
-  
-  if(lampiranImages.length === 0) {
-    c.innerHTML = '';
-    if(empty) empty.style.display = '';
-    return;
-  }
-  
+  var c = document.getElementById('lampiran-list'); var empty = document.getElementById('lampiran-empty'); if(!c) return;
+  if(lampiranImages.length === 0) { c.innerHTML = ''; if(empty) empty.style.display = ''; return; }
   if(empty) empty.style.display = 'none';
-  
   var h = '';
   lampiranImages.forEach(function(item, idx) {
-    var dispW = item.originalWidth || item.width;
-    var dispH = item.originalHeight || item.height;
-    var pageWIn = (dispW / 100).toFixed(1);
-    var pageHIn = (dispH / 100).toFixed(1);
-    
+    var dispW = item.originalWidth || item.width; var dispH = item.originalHeight || item.height;
+    var pageWIn = (dispW / 100).toFixed(1); var pageHIn = (dispH / 100).toFixed(1);
     h += '<div class="lampiran-item" draggable="true" ondragstart="handleDragStart(event, ' + idx + ')" ondragover="handleDragOver(event, ' + idx + ')" ondrop="handleDrop(event, ' + idx + ')" ondragend="handleDragEnd(event)" ondragleave="handleDragLeave(event, ' + idx + ')">';
     h += '<div class="lampiran-grip"><i class="fa-solid fa-grip-vertical text-lg"></i></div>';
     h += '<div class="flex flex-col gap-1">';
-    h += '<button onclick="moveLampiranImage(' + idx + ', -1)" class="lampiran-move-btn" ' + (idx === 0 ? 'disabled' : '') + ' title="Naik"><i class="fa-solid fa-chevron-up"></i></button>';
-    h += '<button onclick="moveLampiranImage(' + idx + ', 1)" class="lampiran-move-btn" ' + (idx === lampiranImages.length - 1 ? 'disabled' : '') + ' title="Turun"><i class="fa-solid fa-chevron-down"></i></button>';
-    h += '</div>';
-    h += '<img src="' + item.data + '" class="lampiran-thumb" alt="Thumb ' + (idx+1) + '">';
-    h += '<div class="flex-1 min-w-0">';
-    h += '<div class="font-semibold text-sm truncate text-gray-900 dark:text-white">' + esc(item.name) + '</div>';
-    h += '<div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">';
-    h += formatBytes(item.originalSize) + ' → <span class="font-bold text-brand-red">' + formatBytes(item.compressedSize) + '</span>';
-    h += '</div>';
-    h += '<div class="text-[11px] text-gray-400 mt-0.5">Halaman ' + (idx + 1) + ' • ' + dispW + '×' + dispH + 'px • ' + (dispW > dispH ? 'Landscape' : 'Potrait') + ' • ' + pageWIn + 'x' + pageHIn + ' inch</div>';
-    h += '</div>';
-    h += '<button onclick="removeLampiranImage(' + idx + ')" class="lampiran-remove-btn" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>';
-    h += '</div>';
-  });
-  
-  c.innerHTML = h;
-}
-
-// === DRAG & DROP REORDER LOGIC ===
-function handleDragStart(e, idx) {
-  draggedItemIdx = idx;
-  e.currentTarget.classList.add('dragging');
-  e.dataTransfer.effectAllowed = 'move';
-  try {
-    e.dataTransfer.setData('text/plain', String(idx));
-  } catch(err) {}
-}
-
-function handleDragOver(e, idx) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  if(draggedItemIdx !== null && draggedItemIdx !== idx) {
-    var target = e.currentTarget;
-    target.classList.add('drag-over');
-  }
-}
-
-function handleDragLeave(e, idx) {
-  e.currentTarget.classList.remove('drag-over');
-}
-
-function handleDrop(e, idx) {
-  e.preventDefault();
-  e.stopPropagation();
-  e.currentTarget.classList.remove('drag-over');
-  
-  if(draggedItemIdx === null || draggedItemIdx === idx) return;
-  
-  var item = lampiranImages.splice(draggedItemIdx, 1)[0];
-  lampiranImages.splice(idx, 0, item);
-  
-  draggedItemIdx = null;
-  renderLampiranList();
-  toast('Urutan gambar diperbarui', 'info');
-}
-
-function handleDragEnd(e) {
-  e.currentTarget.classList.remove('dragging');
-  document.querySelectorAll('.lampiran-item').forEach(function(el){ el.classList.remove('drag-over'); });
-  draggedItemIdx = null;
-}
-
-function moveLampiranImage(idx, dir) {
-  var newIdx = idx + dir;
-  if(newIdx < 0 || newIdx >= lampiranImages.length) return;
-  var temp = lampiranImages[idx];
-  lampiranImages[idx] = lampiranImages[newIdx];
-  lampiranImages[newIdx] = temp;
-  renderLampiranList();
-}
-
-function removeLampiranImage(idx) {
-  lampiranImages.splice(idx, 1);
-  renderLampiranList();
-  updateLampiranSummary();
-  toast('Gambar dihapus', 'info');
-}
-
-function clearLampiranImages() {
-  if(lampiranImages.length === 0) return;
-  if(!confirm('Hapus semua gambar?')) return;
-  lampiranImages = [];
-  renderLampiranList();
-  updateLampiranSummary();
-  toast('Semua gambar dihapus', 'info');
-}
-
-function updateLampiranSummary() {
-  var summary = document.getElementById('lampiran-summary');
-  var btn = document.getElementById('btn-lampiran-pdf');
-  var btnClear = document.getElementById('btn-lampiran-clear');
-  var empty = document.getElementById('lampiran-empty');
-  
-  if(!summary || !btn) return;
-  
-  if(lampiranImages.length === 0) {
-    summary.classList.add('hidden');
-    btn.disabled = true;
-    if(btnClear) btnClear.disabled = true;
-    if(empty) empty.style.display = '';
-    return;
-  }
-  
-  summary.classList.remove('hidden');
-  btn.disabled = false;
-  if(btnClear) btnClear.disabled = false;
-  if(empty) empty.style.display = 'none';
-  
-  var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  var percent = Math.min(100, (total / TARGET_PDF_SIZE) * 100);
-  
-  var totalSizeEl = document.getElementById('lampiran-total-size');
-  var sizeBarEl = document.getElementById('lampiran-size-bar');
-  var imgCountEl = document.getElementById('lampiran-img-count');
-  
-  if(totalSizeEl) {
-    var color = percent > 95 ? 'text-red-500' : (percent > 75 ? 'text-yellow-500' : 'text-brand-red');
-    totalSizeEl.className = 'text-sm font-bold ' + color;
-    totalSizeEl.textContent = formatBytes(total) + ' / 1 MB';
-  }
-  if(sizeBarEl) sizeBarEl.style.width = percent + '%';
-  if(imgCountEl) imgCountEl.textContent = lampiranImages.length + ' halaman • ' + percent.toFixed(1) + '% dari 1 MB';
-}
-
-function generateLampiranPDF() {
-  if(lampiranImages.length === 0) {
-    toast('Belum ada file', 'error');
-    return;
-  }
-  if(lampiranProcessing) {
-    toast('Sedang memproses gambar...', 'info');
-    return;
-  }
-  
-  var safeTarget = TARGET_PDF_SIZE - 30000;
-  var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  if(total > safeTarget) {
-    toast('Mengompresi ulang agar sesuai 1 MB...', 'info');
-    var btn = document.getElementById('btn-lampiran-pdf');
-    if(btn) {
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';
-    }
-    recompressAllToTarget(safeTarget, function() {
-      if(btn) {
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-      }
-      generateLampiranPDFNow();
-    });
-    return;
-  }
-  
-  generateLampiranPDFNow();
-}
-
-function generateLampiranPDFNow() {
-  var btn = document.getElementById('btn-lampiran-pdf');
-  if(btn) {
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';
-  }
-  
-  toast('Membuat PDF, mohon tunggu...', 'info');
-  
-  setTimeout(function() {
-    try {
-      var pdf = null;
-      var dpi = 100; 
-      var ptPerPx = 72 / dpi; 
-      
-      lampiranImages.forEach(function(item, idx) {
-        var origW = item.originalWidth || item.width;
-        var origH = item.originalHeight || item.height;
-        
-        var wPt = origW * ptPerPx;
-        var hPt = origH * ptPerPx;
-        
-        var orientation = wPt > hPt ? 'l' : 'p';
-        var formatArr = [wPt, hPt];
-        
-        if(idx === 0) {
-          pdf = new window.jspdf.jsPDF({
-            orientation: orientation,
-            unit: 'pt',
-            format: formatArr
-          });
-        } else {
-          pdf.addPage(formatArr, orientation);
-        }
-        
-        pdf.addImage(item.data, 'JPEG', 0, 0, wPt, hPt, undefined, 'FAST');
-      });
-      
-      var filenameInput = document.getElementById('lampiran-filename');
-      var filename = (filenameInput ? filenameInput.value : 'Lampiran_Lamaran').trim();
-      if(!filename) filename = 'Lampiran_Lamaran';
-      filename = filename.replace(/\s+/g, '_');
-      if(!filename.toLowerCase().endsWith('.pdf')) filename += '.pdf';
-      
-      pdf.save(filename);
-      
-      if(btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-      }
-      
-      var finalSize = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-      toast('PDF lampiran berhasil dibuat! (' + formatBytes(finalSize) + ')', 'success');
-    } catch(e) {
-      console.error(e);
-      toast('Gagal membuat PDF: ' + (e.message || 'Unknown error'), 'error');
-      if(btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-      }
-    }
-  }, 400);
-}
-
-function initLampiranDropZone() {
-  var drop = document.getElementById('lampiran-drop');
-  var input = document.getElementById('lampiran-input');
-  if(!drop || !input) return;
-  
-  drop.addEventListener('click', function(e) {
-    input.click();
-  });
-  
-  input.addEventListener('change', handleLampiranUpload);
-  
-  ['dragenter', 'dragover'].forEach(function(evt) {
-    drop.addEventListener(evt, function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      drop.classList.add('dragover');
-    });
-  });
-  
-  ['dragleave', 'drop'].forEach(function(evt) {
-    drop.addEventListener(evt, function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      drop.classList.remove('dragover');
-    });
-  });
-  
-  drop.addEventListener('drop', function(e) {
-    e.preventDefault();
-    drop.classList.remove('dragover');
-    var files = e.dataTransfer.files;
-    if(files && files.length) {
-      processLampiranFiles(Array.from(files));
-    }
-  });
-}
-
-// ================= INITIALIZATION =================
-window.addEventListener('load', function() {
-  updateVH();
-  initSlider();
-  renderForm();
-  renderPreview();
-  resetZoom();
-  initPanZoom();
-  initLampiranDropZone();
-});
-window.addEventListener('resize', updateVH);
-</script>
-</body>
-</html>
+    h += '<button onclick="moveLampiranImage(' + idx + ', -1)"
