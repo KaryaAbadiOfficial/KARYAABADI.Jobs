@@ -57,6 +57,8 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','syst
   text-align: justify !important;
   text-align-last: center !important;
   text-justify: inter-word !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* === TANPA BULET (UNTUK DAFTAR PANDUAN & TIPS) === */
@@ -779,7 +781,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
     
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 6: Pratinjau (Preview) & Download</h2>
+      <h2>Langkah 6: Pratinjau (Preview) & Download PDF</h2>
       <p class="text-center-justify">Di panel kanan (atau dengan menekan tombol "Preview" di HP), Anda dapat melihat hasil dokumen secara real-time. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Anda bisa menggeser (drag) preview dan menggunakan tombol zoom (+/-) untuk melihat detail. Pastikan tidak ada teks yang terpotong sebelum diunduh. Jika sudah sesuai, klik tombol "PDF" atau "Word" untuk mengunduh dokumen lamaran Anda dengan mudah dan cepat.</p>
     </div>
 
@@ -2693,4 +2695,70 @@ function generateLampiranPDFNow() {
       
       if(btn) {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
+      }
+      
+      var finalSize = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
+      toast('PDF lampiran berhasil dibuat! (' + formatBytes(finalSize) + ')', 'success');
+    } catch(e) {
+      console.error(e);
+      toast('Gagal membuat PDF: ' + (e.message || 'Unknown error'), 'error');
+      if(btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
+      }
+    }
+  }, 400);
+}
+
+function initLampiranDropZone() {
+  var drop = document.getElementById('lampiran-drop');
+  var input = document.getElementById('lampiran-input');
+  if(!drop || !input) return;
+  
+  drop.addEventListener('click', function(e) {
+    input.click();
+  });
+  
+  input.addEventListener('change', handleLampiranUpload);
+  
+  ['dragenter', 'dragover'].forEach(function(evt) {
+    drop.addEventListener(evt, function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      drop.classList.add('dragover');
+    });
+  });
+  
+  ['dragleave', 'drop'].forEach(function(evt) {
+    drop.addEventListener(evt, function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      drop.classList.remove('dragover');
+    });
+  });
+  
+  drop.addEventListener('drop', function(e) {
+    e.preventDefault();
+    drop.classList.remove('dragover');
+    var files = e.dataTransfer.files;
+    if(files && files.length) {
+      processLampiranFiles(Array.from(files));
+    }
+  });
+}
+
+// ================= INITIALIZATION =================
+window.addEventListener('load', function() {
+  updateVH();
+  initSlider();
+  renderForm();
+  renderPreview();
+  resetZoom();
+  initPanZoom();
+  initLampiranDropZone();
+});
+window.addEventListener('resize', updateVH);
+</script>
+</body>
+</html>
