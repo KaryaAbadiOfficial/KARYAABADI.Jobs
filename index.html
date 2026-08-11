@@ -994,6 +994,7 @@ function renderExpF(){
       ph+='</div>';
       ph+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(p.j)+'" oninput="expList['+i+'].posList['+j+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="....." value="'+esc(p.m)+'" oninput="expList['+i+'].posList['+j+'].m=this.value;schedulePreview()"></div></div>';
       ph+='<div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="2" placeholder="....." oninput="expList['+i+'].posList['+j+'].desc=this.value;schedulePreview()">'+esc(p.desc||'')+'</textarea></div>';
+ph+='<button type="button" onclick="aiJobDesc('+i+','+j+')" class="w-full py-2 mt-1 mb-2 bg-green-600 text-white rounded-lg text-xs font-bold hover:bg-green-700 transition"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Buat Deskripsi dengan AI</button>';
       ph+='</div>';
       return ph;
     }).join('');
@@ -1007,7 +1008,8 @@ function rmPos(i,j){if(expList[i].posList.length>1){expList[i].posList.splice(j,
 function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
-function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
+function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<div class="flex gap-2 mt-2"><button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';
+h+='<button onclick="aiSkills(\''+type+'\')" class="dyn-btn" title="Saran AI" style="background:#10b981; color:#fff; border:1px solid #10b981;"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i></button></div>';c.innerHTML=h}
 function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink-0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
 window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else if(t==='soft')sSkills[i]=val;else if(t==='k')kSkills[i]=val;schedulePreview()};
 window._rsk=function(t,i){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');if(a.length>0){a.splice(i,1);renderSkIF(a,cid,t);schedulePreview()}};
@@ -1466,7 +1468,69 @@ function updateLampiranSummary(){var s=document.getElementById('lampiran-summary
 function generateLampiranPDF(){if(!lampiranImages.length){toast('Belum ada gambar','error');return;}if(lampiranProcessing){toast('Sedang memproses...','info');return;}var st=TARGET_PDF_SIZE-30000;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);if(t>st){toast('Mengompresi ulang...','info');var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';}recompressAllToTarget(st,function(){if(b)b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';generateLampiranPDFNow();});return;}generateLampiranPDFNow();}
 function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';}toast('Membuat PDF...','info');setTimeout(function(){try{var pdf=null;var dpi=100;var ppp=72/dpi;lampiranImages.forEach(function(it,idx){var oW=it.originalWidth||it.width,oH=it.originalHeight||it.height;var wPt=oW*ppp,hPt=oH*ppp;var o=wPt>hPt?'l':'p';var fa=[wPt,hPt];if(idx===0){pdf=new window.jspdf.jsPDF({orientation:o,unit:'pt',format:fa});}else{pdf.addPage(fa,o);}pdf.addImage(it.data,'JPEG',0,0,wPt,hPt,undefined,'FAST');});var fi=document.getElementById('lampiran-filename');var fn=(fi?fi.value:'Lampiran_Lamaran').trim();if(!fn)fn='Lampiran_Lamaran';fn=fn.replace(/\s+/g,'_');if(!fn.toLowerCase().endsWith('.pdf'))fn+='.pdf';pdf.save(fn);if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}var fs=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);toast('PDF berhasil dibuat! ('+formatBytes(fs)+')','success');}catch(e){console.error(e);toast('Gagal membuat PDF: '+(e.message||'Error'),'error');if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}}},400);}
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
+// ================= GOOGLE GEMINI AI INTEGRATION =================
+// PENTING: Ganti teks di bawah ini dengan API Key Anda dari Google AI Studio
+const GEMINI_API_KEY = 'MASUKKAN_API_KEY_GEMINI_ANDA_DISINI'; 
 
+async function callGemini(prompt) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }]
+        })
+    });
+    if (!response.ok) throw new Error('API Error');
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text.trim();
+}
+
+async function aiJobDesc(expIdx, posIdx) {
+    var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
+    toast('AI sedang menulis deskripsi...', 'info');
+    
+    try {
+        let prompt = `Anda adalah asisten penulis CV profesional. Buatkan deskripsi pekerjaan untuk posisi "${jobTitle}". Buat dalam 2 poin singkat, padat, dan profesional dalam Bahasa Indonesia. Hanya jawab dengan teks deskripsinya saja tanpa kalimat pembuka.`;
+        let result = await callGemini(prompt);
+        
+        // Membersihkan format bintang (**) dari hasil AI jika ada
+        result = result.replace(/\*\*/g, ''); 
+        
+        expList[expIdx].posList[posIdx].desc = result;
+        renderExpF(); // Render ulang form
+        schedulePreview(); // Update preview
+        toast('Deskripsi berhasil dibuat AI!', 'success');
+    } catch (error) {
+        console.error('AI Error:', error);
+        toast('Gagal menghubungi AI. Cek API Key.', 'error');
+    }
+}
+
+async function aiSkills(type) {
+    var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
+    var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
+    var lulusan = v('lulusan') || '';
+    var jurusan = v('jurusan') || '';
+    var posisi = v('sPosisi') || v('subtitle') || '';
+    
+    toast('AI sedang mencari keahlian...', 'info');
+    
+    try {
+        let prompt = `Berikan 3 rekomendasi ${type === 'k' ? 'keahlian umum' : (type === 'hard' ? 'hard skill teknis' : 'soft skill personal')} yang relevan untuk posisi "${posisi}" dengan latar belakang pendidikan "${lulusan} ${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        let result = await callGemini(prompt);
+        
+        var newSkills = result.split(',').map(s => s.trim()).filter(s => s);
+        
+        newSkills.forEach(skill => targetArr.push(skill));
+        renderSkIF(targetArr, cid, type);
+        schedulePreview();
+        toast('Keahlian ditambahkan oleh AI!', 'success');
+    } catch (error) {
+        console.error('AI Error:', error);
+        toast('Gagal menghubungi AI. Cek API Key.', 'error');
+    }
+}
 // ================= INITIALIZATION =================
 window.addEventListener('load', function() {
   updateVH(); initSlider(); renderForm(); renderPreview(); resetZoom(); initPanZoom(); initLampiranDropZone();
