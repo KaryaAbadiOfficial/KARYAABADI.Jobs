@@ -33,7 +33,7 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','syst
 /* === TAMPILAN RAPIH & JUSTIFY RATA KIRI (PADAT, TANPA KATA TANGGUNG) === */
 .article-content p, .article-content li, 
 #view-home p, #view-home li, 
-#view-lampiran p, #view-lampiran li {
+#view-lampiran-section p, #view-lampiran-section li {
   text-align: justify;
   text-align-last: left;
   text-justify: inter-word;
@@ -47,8 +47,8 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','syst
 }
 
 /* === OVERRIDE KHUSUS: RATA TENGAH UNTUK TEKS DI LAMPIRAN PDF === */
-#view-lampiran p, 
-#view-lampiran li {
+#view-lampiran-section p, 
+#view-lampiran-section li {
   text-align: center !important;
   text-align-last: center !important;
   margin-left: auto;
@@ -156,7 +156,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .dark .card{background:#1A1A1A;border-color:#2a2a2a}
 
 .fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-@media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 150px)}}
+@media(min-width:1024px){.fp-scroll{max-height:600px}}
 .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
 
 .site-footer a{color:#fff;text-decoration:none;transition:color .15s;font-weight:700}
@@ -334,7 +334,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
-    <a href="#" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
+    <a href="#" onclick="scrollToTop(); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0">
       <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high">
       <div class="flex flex-col leading-none whitespace-nowrap">
         <div class="flex items-baseline gap-1">
@@ -344,10 +344,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </a>
     <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-300">
-      <a href="#" onclick="showPage('home'); return false;" class="hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;" class="hover:text-white">Buat CV</a>
-      <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;" class="hover:text-white">Surat Melamar Pekerjaan</a>
-      <a href="#" onclick="showPage('lampiran'); return false;" class="hover:text-white">Lampiran PDF</a>
+      <a href="#" onclick="scrollToTop(); return false;" class="hover:text-white">Beranda</a>
+      <a href="#" onclick="scrollToGenerator('cv'); return false;" class="hover:text-white">Buat CV</a>
+      <a href="#" onclick="scrollToGenerator('surat'); return false;" class="hover:text-white">Surat Melamar Pekerjaan</a>
+      <a href="#" onclick="scrollToSection('lampiran-section'); return false;" class="hover:text-white">Lampiran PDF</a>
       <a href="#" onclick="scrollToSection('panduan'); return false;" class="hover:text-white">Panduan</a>
       <a href="#" onclick="scrollToSection('tips'); return false;" class="hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="scrollToSection('loker'); return false;" class="hover:text-white">Info Lowongan</a>
@@ -367,10 +367,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
   <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
-      <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
-      <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
-      <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
+      <a href="#" onclick="scrollToTop(); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
+      <a href="#" onclick="scrollToGenerator('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
+      <a href="#" onclick="scrollToGenerator('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
+      <a href="#" onclick="scrollToSection('lampiran-section'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
       <a href="#" onclick="scrollToSection('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="scrollToSection('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="scrollToSection('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
@@ -380,7 +380,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </header>
 
-<!-- SEMUA KONTEN STATIS DIGABUNG KE DALAM BERANDA AGAR IKLAN OTOMATIS ADSENSE MUDAH TERPASANG -->
+<!-- SEMUA KONTEN DIGABUNGKAN KE DALAM BERANDA AGAR IKLAN OTOMATIS ADSENSE MUDAH TERPASANG -->
 <div id="view-home" class="view active">
   <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 py-10 md:py-14 text-center">
@@ -472,11 +472,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Siap Melamar Pekerjaan Impian?</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <div class="flex flex-col items-center gap-5">
-        <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
+        <button onclick="scrollToGenerator('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
           <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
           <span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span>
         </button>
-        <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
+        <button onclick="scrollToGenerator('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
           <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
           <span class="block text-base uppercase tracking-wide">Surat Melamar Pekerjaan</span>
         </button>
@@ -484,7 +484,156 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </main>
 
-  <!-- KONTEN PANDUAN (GABUNG) -->
+  <!-- === EMBEDDED GENERATOR SECTION === -->
+  <section id="generator-section" class="bg-gray-50 dark:bg-brand-black py-12 border-t border-gray-200 dark:border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Generator Dokumen Lamaran</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 text-sm md:text-base text-center">Isi formulir di bawah ini untuk membuat CV atau Surat Lamaran Anda secara real-time.</p>
+      
+      <div class="bg-white dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl overflow-hidden shadow-sm">
+        <nav class="bg-white dark:bg-brand-dark border-b border-gray-200 dark:border-brand-border/50 flex-shrink-0">
+          <div class="max-w-7xl mx-auto px-4 flex">
+            <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
+              <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
+            </button>
+            <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white/70 transition-colors">
+              <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
+            </button>
+          </div>
+        </nav>
+
+        <div class="flex flex-col lg:flex-row w-full min-h-0 pb-20 lg:pb-4 relative">
+          <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black min-h-0 fp-scroll mt-2 lg:mt-0">
+            <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
+              <i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template
+            </div>
+            <div id="tpl-tabs" class="mb-4 pb-4 border-b border-gray-200 dark:border-brand-border"></div>
+            <div id="form-content" class="space-y-3 fade-up"></div>
+            <div class="flex gap-3 mt-6 mb-6">
+              <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
+              <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>PDF</button>
+              <button onclick="downloadWord()" id="btn-word" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-blue-600 text-white hover:bg-blue-700 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-file-word mr-1.5 text-xs"></i>Word</button>
+            </div>
+          </div>
+          <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-101 dark:bg-brand-dark/50 min-h-0 pv-scroll">
+            <div class="flex items-center justify-between mb-2 flex-shrink-0">
+              <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-eye text-xs"></i>Preview A4
+              </div>
+              <div class="flex items-center gap-1">
+                <button onclick="zoomPreview(-0.1)" class="zoom-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-600 dark:text-gray-300">100%</span>
+                <button onclick="zoomPreview(0.1)" class="zoom-btn" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
+              </div>
+            </div>
+            <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
+              <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
+    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
+      <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
+      <div class="flex items-center gap-1">
+        <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
+        <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+        <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
+        <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
+      </div>
+    </div>
+    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
+      <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
+    </div>
+  </div>
+  <div class="mob-bar lg:hidden">
+    <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
+    <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
+  </div>
+  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+
+  <!-- === EMBEDDED LAMPIRAN PDF SECTION === -->
+  <section id="lampiran-section" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
+    <div class="text-center mb-10">
+      <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Ubah File JPG, JPEG, PNG Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
+      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
+    </div>
+    
+    <div class="card mb-6 text-center">
+      <div class="flex flex-col items-center gap-2 mb-4">
+        <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red">
+          <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+        </div>
+        <h2 class="font-bold text-gray-900 dark:text-white text-base text-center">Upload Salinan Dokumen</h2>
+        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar ke area di bawah ini</p>
+      </div>
+      
+      <div class="lampiran-upload-area" id="lampiran-drop">
+        <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
+        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret gambar ke sini</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG &nbsp;•&nbsp; Maksimal 20 gambar</p>
+        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
+      </div>
+    </div>
+
+    <div id="lampiran-list-wrapper" class="mb-6">
+      <div id="lampiran-empty" class="lampiran-empty-state">
+        <i class="fa-solid fa-folder-open"></i>
+        <p class="text-sm font-semibold">Belum ada gambar diunggah</p>
+        <p class="text-xs mt-1">Unggah salinan dokumen untuk membuat PDF lampiran Anda sekarang juga secara gratis.</p>
+      </div>
+      <div id="lampiran-list"></div>
+    </div>
+
+    <div id="lampiran-summary" class="card mb-6 hidden">
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-database text-brand-red text-sm"></i>
+          <span class="font-bold text-sm text-gray-900 dark:text-white">Total Ukuran PDF</span>
+        </div>
+        <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
+      </div>
+      <div class="size-bar mb-2">
+        <div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div>
+      </div>
+      <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
+        <span id="lampiran-img-count">0 gambar</span>
+        <span>Target Maksimal: 1 MB (1.048.576 byte)</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+      <div class="card text-center">
+        <label class="fl text-center">Nama File PDF</label>
+        <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan secara otomatis pada nama file yang Anda masukkan di kolom atas.</p>
+      </div>
+      <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50 text-center">
+        <label class="fl flex items-center gap-1.5 justify-center"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center">
+          <span class="font-bold">Otomatis (DPI 100)</span>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI secara presisi (tanpa margin/border putih).</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button onclick="clearLampiranImages()" id="btn-lampiran-clear" class="flex-1 py-4 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97] disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+        <i class="fa-solid fa-trash-can mr-1.5 text-xs"></i>Hapus Semua
+      </button>
+      <button onclick="generateLampiranPDF()" id="btn-lampiran-pdf" class="flex-[2] py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:animate-none" disabled>
+        <i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran
+      </button>
+    </div>
+  </section>
+
+  <!-- KONTEN PANDUAN -->
   <section id="panduan" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center"><i class="fa-solid fa-book text-brand-red mr-2"></i>Panduan Penggunaan Tool Generator</h1>
     <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai proses pembuatan dokumen lamaran Anda dengan cepat, tepat, dan tanpa biaya.</p>
@@ -685,7 +834,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </section>
 
-  <!-- KONTEN TIPS (GABUNG) -->
+  <!-- KONTEN TIPS -->
   <section id="tips" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center"><i class="fa-solid fa-lightbulb text-brand-red mr-2"></i>Tips Karier & Contoh Dokumen Lamaran</h1>
     <p>Menyusun dokumen lamaran kerja yang baik adalah langkah pertama menuju karier impian Anda. Di halaman ini, kami menyediakan panduan lengkap mengenai cara membuat CV dan Surat Lamaran Kerja yang efektif, profesional, dan mampu menarik perhatian perekrut secara optimal sesuai standar industri saat ini.</p>
@@ -748,10 +897,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <h2><i class="fa-solid fa-scale-balanced text-brand-red mr-2"></i>4. Perbedaan CV dan Surat Lamaran Kerja</h2>
       <p>Banyak pelamar kerja pemula yang masih bingung membedakan fungsi CV dan surat lamaran. Surat Lamaran Kerja adalah surat pengantar utama yang berisi niat Anda untuk melamar posisi tertentu, sedangkan CV (Curriculum Vitae) adalah lampiran yang memuat rincian data diri, riwayat pendidikan, pengalaman kerja, dan keahlian. Keduanya harus dikirim bersamaan saat melamar pekerjaan agar dokumen Anda lengkap di mata perekrut HRD.</p>
     </div>
-
   </section>
 
-  <!-- KONTEN LOKER (GABUNG) -->
+  <!-- KONTEN LOKER -->
   <section id="loker" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Info Lowongan Kerja Terpercaya di Indonesia</h1>
     <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi utama:</p>
@@ -787,7 +935,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </section>
 
-  <!-- KONTEN FAQ (GABUNG) -->
+  <!-- KONTEN FAQ -->
   <section id="faq" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Pertanyaan yang Sering Diajukan (FAQ)</h1>
     <p>Berikut adalah beberapa pertanyaan umum seputar penggunaan tool generator Karya Abadi Jobs beserta jawabannya. Simak informasi berikut untuk membantu Anda memaksimalkan layanan kami:</p>
@@ -811,7 +959,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </section>
 
-  <!-- KONTEN ABOUT (GABUNG) -->
+  <!-- KONTEN ABOUT -->
   <section id="about" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Tentang Karya Abadi Jobs</h1>
     <p>Karya Abadi Jobs bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami adalah sebuah platform website tool / generator gratis yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan mudah.</p>
@@ -820,7 +968,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p>Kami terus berupaya mengembangkan dan meningkatkan kualitas template serta fitur agar Karya Abadi Jobs dapat memberikan manfaat yang maksimal bagi seluruh masyarakat Indonesia yang sedang dalam pencarian pekerjaan.</p>
   </section>
 
-  <!-- KONTEN CONTACT (GABUNG) -->
+  <!-- KONTEN CONTACT -->
   <section id="contact" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Hubungi Kami</h1>
     <p>Jika Anda memiliki pertanyaan, saran, kritik, atau masukan terkait layanan tool generator Karya Abadi Jobs, jangan ragu untuk menghubungi kami. Tim kami akan berusaha merespons setiap pesan sesegera mungkin.</p>
@@ -829,7 +977,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p class="mt-4">Catatan: Karya Abadi Jobs adalah tool pembuatan dokumen. Kami tidak menyediakan lowongan kerja dan tidak dapat memberikan saran terkait proses rekrutmen di perusahaan tertentu. Untuk informasi terkait lowongan kerja, silakan hubungi langsung pihak perusahaan yang bersangkutan.</p>
   </section>
 
-  <!-- KONTEN PRIVACY (GABUNG) -->
+  <!-- KONTEN PRIVACY -->
   <section id="privacy" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Kebijakan Privasi</h1>
     <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
@@ -843,7 +991,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p>Kami berhak untuk mengubah atau memperbarui Kebijakan Privasi ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku sejak dipublikasikan di halaman ini. Pengguna disarankan untuk meninjau halaman ini secara berkala.</p>
   </section>
 
-  <!-- KONTEN TERMS (GABUNG) -->
+  <!-- KONTEN TERMS -->
   <section id="terms" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Ketentuan Layanan</h1>
     <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
@@ -857,7 +1005,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p>Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini adalah milik penuh dari pengguna masing-masing dan bebas digunakan untuk keperluan melamar pekerjaan.</p>
   </section>
 
-  <!-- KONTEN DISCLAIMER (GABUNG) -->
+  <!-- KONTEN DISCLAIMER -->
   <section id="disclaimer" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Disclaimer</h1>
     <p>Halaman Disclaimer ini menjelaskan batasan tanggung jawab yang melekat pada penggunaan tool generator Karya Abadi Jobs. Dengan menggunakan platform ini, Anda dianggap telah memahami batasan-batasan yang diuraikan di bawah ini.</p>
@@ -873,177 +1021,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 </div>
 
-<!-- VIEW GENERATOR DIPISAH KARENA MERUPAKAN TOOL INTERAKTIF -->
-<div id="view-generator" class="view">
-  <nav class="bg-white dark:bg-brand-dark border-b border-gray-200 dark:border-brand-border/50 flex-shrink-0">
-    <div class="max-w-7xl mx-auto px-4 flex">
-      <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
-        <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
-      </button>
-      <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white/70 transition-colors">
-        <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
-      </button>
-    </div>
-  </nav>
-
-  <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-12 relative">
-    <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black min-h-0 fp-scroll mt-2 lg:mt-0">
-      <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
-        <i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template
-      </div>
-      <div id="tpl-tabs" class="mb-4 pb-4 border-b border-gray-200 dark:border-brand-border"></div>
-      <div id="form-content" class="space-y-3 fade-up"></div>
-      <div class="flex gap-3 mt-6 mb-6">
-        <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
-        <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>PDF</button>
-        <button onclick="downloadWord()" id="btn-word" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-blue-600 text-white hover:bg-blue-700 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-file-word mr-1.5 text-xs"></i>Word</button>
-      </div>
-    </div>
-    <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-101 dark:bg-brand-dark/50 min-h-0 pv-scroll">
-      <div class="flex items-center justify-between mb-2 flex-shrink-0">
-        <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
-          <i class="fa-solid fa-eye text-xs"></i>Preview A4
-        </div>
-        <div class="flex items-center gap-1">
-          <button onclick="zoomPreview(-0.1)" class="zoom-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-          <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-600 dark:text-gray-300">100%</span>
-          <button onclick="zoomPreview(0.1)" class="zoom-btn" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-          <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
-        </div>
-      </div>
-      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
-        <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
-      </div>
-    </div>
-  </main>
-
-  <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
-    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
-      <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
-      <div class="flex items-center gap-1">
-        <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
-        <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-        <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
-        <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
-      </div>
-    </div>
-    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
-      <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
-    </div>
-  </div>
-
-  <div class="mob-bar lg:hidden">
-    <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
-    <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
-  </div>
-  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
-</div>
-
-<!-- === VIEW LAMPIRAN PDF: Ubah Gambar Menjadi PDF === -->
-<div id="view-lampiran" class="view">
-  <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
-    <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
-      <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Ubah File JPG, JPEG, PNG Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
-      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
-    </div>
-  </section>
-
-  <main class="max-w-4xl mx-auto px-4 py-8 pb-20">
-    
-    <div class="card mb-6 text-center">
-      <div class="flex flex-col items-center gap-2 mb-4">
-        <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red">
-          <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
-        </div>
-        <h2 class="font-bold text-gray-900 dark:text-white text-base text-center">Upload Salinan Dokumen</h2>
-        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar ke area di bawah ini</p>
-      </div>
-      
-      <div class="lampiran-upload-area" id="lampiran-drop">
-        <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
-        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret gambar ke sini</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG &nbsp;•&nbsp; Maksimal 20 gambar</p>
-        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
-      </div>
-    </div>
-
-    <div id="lampiran-list-wrapper" class="mb-6">
-      <div id="lampiran-empty" class="lampiran-empty-state">
-        <i class="fa-solid fa-folder-open"></i>
-        <p class="text-sm font-semibold">Belum ada gambar diunggah</p>
-        <p class="text-xs mt-1">Unggah salinan dokumen untuk membuat PDF lampiran Anda sekarang juga secara gratis.</p>
-      </div>
-      <div id="lampiran-list"></div>
-    </div>
-
-    <div id="lampiran-summary" class="card mb-6 hidden">
-      <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-database text-brand-red text-sm"></i>
-          <span class="font-bold text-sm text-gray-900 dark:text-white">Total Ukuran PDF</span>
-        </div>
-        <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
-      </div>
-      <div class="size-bar mb-2">
-        <div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div>
-      </div>
-      <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
-        <span id="lampiran-img-count">0 gambar</span>
-        <span>Target Maksimal: 1 MB (1.048.576 byte)</span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-      <div class="card text-center">
-        <label class="fl text-center">Nama File PDF</label>
-        <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan secara otomatis pada nama file yang Anda masukkan di kolom atas.</p>
-      </div>
-      <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50 text-center">
-        <label class="fl flex items-center gap-1.5 justify-center"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
-        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center">
-          <span class="font-bold">Otomatis (DPI 100)</span>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI secara presisi (tanpa margin/border putih).</p>
-      </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-3">
-      <button onclick="clearLampiranImages()" id="btn-lampiran-clear" class="flex-1 py-4 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97] disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-        <i class="fa-solid fa-trash-can mr-1.5 text-xs"></i>Hapus Semua
-      </button>
-      <button onclick="generateLampiranPDF()" id="btn-lampiran-pdf" class="flex-[2] py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:animate-none" disabled>
-        <i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran
-      </button>
-    </div>
-
-    <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl text-center">
-      <div class="flex flex-col items-center gap-3">
-        <i class="fa-solid fa-circle-info text-blue-500 text-lg"></i>
-        <p class="font-bold text-blue-700 dark:text-blue-300 text-sm">Tips Penggunaan:</p>
-        <ul class="text-xs text-blue-700 dark:text-blue-300 space-y-2 max-w-xl no-bullet text-center">
-          <li>Foto atau dokumen dengan resolusi tinggi akan otomatis dikompresi dengan baik tanpa mengurangi keterbacaan teks pada gambar tersebut.</li>
-          <li>Urutan halaman gambar dapat diatur dengan mudah menggunakan menyeret (drag & drop) item atau menggunakan tombol panah Atas dan Bawah.</li>
-          <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI tanpa margin sama sekali.</li>
-          <li>Setiap 1 gambar akan menjadi 1 halaman terpisah di dalam PDF, sehingga dokumen lampiran Anda akan terlihat sangat rapi dan profesional.</li>
-          <li>Pastikan dokumen asli terbaca jelas sebelum mengunggah untuk mendapatkan hasil kompresi yang paling optimal dan profesional.</li>
-        </ul>
-      </div>
-    </div>
-  </main>
-</div>
-
 <footer class="site-footer bg-brand-dark border-t border-brand-border/30 flex-shrink-0 mt-auto">
   <div class="ft-inner max-w-7xl mx-auto pt-10 pb-6 px-4 sm:px-6">
     <div class="ft-grid">
       <div class="ft-col">
         <h4>Layanan</h4>
         <ul>
-          <li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li>
-          <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
-          <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar ke PDF)</a></li>
+          <li><a href="#" onclick="scrollToGenerator('cv'); return false;">Buat CV Online</a></li>
+          <li><a href="#" onclick="scrollToGenerator('surat'); return false;">Surat Lamaran Kerja</a></li>
+          <li><a href="#" onclick="scrollToSection('lampiran-section'); return false;">Lampiran PDF (Gambar ke PDF)</a></li>
           <li><a href="#" onclick="scrollToSection('tips'); return false;">Tips & Artikel Karier</a></li>
           <li><a href="#" onclick="scrollToSection('loker'); return false;">Info Lowongan Kerja</a></li>
         </ul>
@@ -1073,13 +1059,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </footer>
 
 <script>
-// ================= MOBILE MENU =================
+// ================= MOBILE MENU & NAVIGATION =================
 function toggleMobileMenu() {
   const menu = document.getElementById('mobile-menu');
   const btn = document.getElementById('menu-btn');
   const iconOpen = btn.querySelector('.menu-icon-open');
   const iconClose = btn.querySelector('.menu-icon-close');
-  
   menu.classList.toggle('hidden');
   if (menu.classList.contains('hidden')) {
     iconOpen.classList.remove('hidden');
@@ -1094,46 +1079,23 @@ function toggleDark() {
   document.documentElement.classList.toggle('dark');
 }
 
-// ================= VIEW ROUTER =================
-var generatorInitialized = false;
-function showPage(pageId) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  const view = document.getElementById('view-' + pageId);
-  if (view) {
-    view.classList.add('active');
-    window.scrollTo(0, 0);
-    if (pageId === 'generator') {
-      setTimeout(() => {
-        updateVH();
-        renderPreview();
-        if (!generatorInitialized) {
-          resetZoom();
-          generatorInitialized = true;
-        } else {
-          applyZoom();
-        }
-      }, 50);
-    }
-    if (pageId === 'lampiran') {
-      setTimeout(() => {
-        updateLampiranSummary();
-      }, 50);
-    }
+function scrollToTop() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if(el) {
+    window.scrollTo({
+      top: el.offsetTop - 60,
+      behavior: 'smooth'
+    });
   }
 }
 
-// ================= SCROLL TO SECTION (Beranda) =================
-function scrollToSection(id) {
-  showPage('home');
-  setTimeout(function() {
-    var el = document.getElementById(id);
-    if(el) {
-      window.scrollTo({
-        top: el.offsetTop - 60, // Offset untuk sticky header
-        behavior: 'smooth'
-      });
-    }
-  }, 100);
+function scrollToGenerator(cat) {
+  selectCat(cat);
+  scrollToSection('generator-section');
 }
 
 // ================= CV SLIDER LOGIC =================
@@ -1152,7 +1114,6 @@ function initSlider() {
     dotsContainer.appendChild(dot);
   }
   startAutoSlide();
-  
   var slider = document.getElementById('cvSlider');
   if(slider) {
     slider.addEventListener('mouseenter', function() { clearInterval(slideInterval); });
@@ -1208,17 +1169,7 @@ var ST_M=[
   {id:'s-ts',name:'Tulis Tangan (Semua PT)',pos:false,on:false,semua:true}
 ];
 
-// === STATE LAMPIRAN PDF ===
-var lampiranImages = []; // {data, name, originalSize, compressedSize, width, height, originalWidth, originalHeight}
-var TARGET_PDF_SIZE = 1 * 1024 * 1024; // 1 MB dalam byte
-var MAX_LAMPIRAN_IMAGES = 20;
-var lampiranProcessing = false;
-var draggedItemIdx = null;
-
 var _tw='width:100%;table-layout:fixed;border-collapse:collapse;border:none;';
-var _c1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
-var _c2='width:28%;vertical-align:top;padding-left:3mm;padding-right:2mm;word-break:break-word;';
-var _c3='width:22%;vertical-align:top;text-align:right;word-break:break-word;';
 var _r1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
 var _r2='width:50%;vertical-align:top;padding-left:3mm;word-break:break-word;';
 
@@ -1228,15 +1179,43 @@ function toast(msg,type){type=type||'success';var d=document.createElement('div'
 function applyPageStyle(){var p=document.getElementById('a4-page');if(p)p.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH;var pm=document.getElementById('a4-page-mob');if(pm)pm.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH}
 function schedulePreview(){if(_rpTimer)clearTimeout(_rpTimer);_rpTimer=setTimeout(renderPreview,60)}
 function updateVH(){document.documentElement.style.setProperty('--avh',window.innerHeight+'px')}
-
 function L(key){return key}
 
 function saveStatic(){var d={};document.querySelectorAll('.fi-s').forEach(function(el){if(el.id)d[el.id]=el.value});if(curCat==='cv')savedCV=d;else{savedSurat=d;savedSurat._lamp=lampList.slice()}}
 function restoreStatic(){var d=curCat==='cv'?savedCV:savedSurat;if(!d||!Object.keys(d).length)return;Object.keys(d).forEach(function(id){if(id==='_lamp')return;var el=document.getElementById(id);if(el)el.value=d[id]});var sm=document.getElementById('skill-mode');if(sm){skillMode=sm.value;toggleSkillMode(skillMode)}if(curCat==='surat'&&d._lamp){lampList=d._lamp.slice();renderLampF()}}
 function restorePhoto(){if(!photoData)return;var img=document.getElementById('photo-thumb');if(img){img.src=photoData;img.classList.remove('hidden')}var ph=document.getElementById('photo-ph');if(ph)ph.classList.add('hidden')}
 function toggleSkillMode(mode){skillMode=mode;var whs=document.getElementById('wrap-hs');var wk=document.getElementById('wrap-k');if(whs)whs.style.display=mode==='k'?'none':'';if(wk)wk.style.display=mode==='hs'?'none':'';renderPreview()}
-function selectCat(cat){saveStatic();curCat=cat;curTpl=cat==='cv'?'cv1':'s-ou';updCatTabs();renderTplTabs();renderForm();renderPreview()}
-function selectTpl(id){saveStatic();curTpl=id;renderTplTabs();renderForm();renderPreview()}
+
+function selectCat(cat){
+  saveStatic();
+  curCat=cat;
+  curTpl=cat==='cv'?'cv1':'s-ou';
+  updCatTabs();
+  renderTplTabs();
+  renderForm();
+  
+  // Auto-fill dummy data if empty to prevent blank preview
+  if(curCat === 'cv' && !v('nombre')) {
+    populateDummyCV();
+  } else if(curCat === 'surat' && !v('nombre') && !v('sPt')) {
+    populateDummySurat();
+  }
+  renderPreview();
+}
+
+function selectTpl(id){
+  saveStatic();
+  curTpl=id;
+  renderTplTabs();
+  renderForm();
+  if(curCat === 'cv' && !v('nombre')) {
+    populateDummyCV();
+  } else if(curCat === 'surat' && !v('nombre') && !v('sPt')) {
+    populateDummySurat();
+  }
+  renderPreview();
+}
+
 function updCatTabs(){document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('border-brand-red','text-brand-red');t.classList.add('border-transparent','text-gray-500')});var el=document.getElementById('cat-'+curCat);if(el){el.classList.add('border-brand-red','text-brand-red');el.classList.remove('border-transparent','text-gray-500')}}
 function renderTplTabs(){var list=curCat==='cv'?CV_M:ST_M;var gridClass=curCat==='cv'?'grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200':'grid grid-cols-2 gap-2 mb-4 pb-4 border-b dark:border-brand-border border-gray-200';var tabsContainer=document.getElementById('tpl-tabs');tabsContainer.className=gridClass;tabsContainer.innerHTML=list.map(function(t){return'<button onclick="selectTpl(\''+t.id+'\')" class="tpl-tab w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-center '+(t.id===curTpl?'bg-brand-red text-white shadow-md shadow-red-900/20':'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-200 dark:border-brand-border')+'">'+t.name+'</button>'}).join('')}
 function switchMob(tab){mobTab=tab;var fp=document.getElementById('form-panel'),mf=document.getElementById('mob-form'),mp=document.getElementById('mob-preview');if(tab==='form'){fp.classList.remove('hidden');mf.classList.add('active');mp.classList.remove('active');closeMobilePreview()}else{fp.classList.add('hidden');mp.classList.add('active');mf.classList.remove('active');openMobilePreview()}}
@@ -1354,8 +1333,6 @@ function renderForm(){
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
     var h='';
     h+=settingsH();
-    
-    // Khusus Template Email
     if(m.on) {
       var ptInfo='';
       ptInfo+=fldH('sPt','Nama Perusahaan','.....');
@@ -1363,52 +1340,124 @@ function renderForm(){
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}
       if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
       h+='<div class="card space-y-2">'+ptInfo+'</div>';
-      
       h+=secH('Data Diri & Kontak');
       h+='<div class="card space-y-2">';
       h+=fldH('nombre','Nombre Lengkap','.....');
       h+=fldH('nohp','No. Hp','.....');
       h+=fldH('email','Email','.....');
       h+='</div>';
-      
       h+=secH('Daftar Lampiran Email');
       h+='<div id="lamp-c"></div>';
-      
       h+=fldH('sTtd','Nombre Tanda Tangan','.....');
-
-      // Tombol Khusus Email
       h+='<button onclick="openInGmail()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>Buka & Isi Otomatis di Gmail</button>';
-      
       fc.innerHTML=h;
       renderLampF();
-    } 
-    // Khusus Template Tulis Tangan
-    else {
+    } else {
       h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-brand-red text-xs"></i> Tempat dan Waktu</label><div class="grid grid-cols-3 gap-2 mt-2"><div><label class="fl-sub">Kota</label><input id="sKota" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Tanggal</label><input id="sTgl" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Bulan Tahun</label><input id="sBlnThn" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
-      
       var ptInfo='';
       if(!m.semua){ptInfo+=fldH('sPt','Nama Perusahaan','.....')+fldH('sJl','Alamat Perusahaan','.....')+fldH('sJl2','Alamat Lanjutan','.....')}
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')}
       if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
       h+='<div class="card space-y-2">'+ptInfo+'</div>';
-      
       h+=secH('Kalimat Pembuka & Penutup');
       h+='<div class="card space-y-3"><div class="fl-sub"><i class="fa-solid fa-circle-info mr-1"></i>Biarkan kosong untuk kalimat otomatis</div>'+taH('sPembuka','Kalimat Pembuka','(Otomatis)')+taH('sPenutup','Kalimat Penutup','(Otomatis)')+'</div>';
-      
       h+=secH('Data Pribadi');
       h+='<div class="card space-y-2">'+fldH('nombre','Nombre','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('agama','Agama','.....')+fldH('pendAkhir','Pendidikan Terakhir','.....')+fldH('alamat1','Alamat','.....')+fldH('alamat2','Alamat Lanjutan','.....')+fldH('email','Email','.....@gmail.com')+fldH('nohp','No. HP','.....')+'</div>';
-      
       h+=secH('Daftar Lampiran');
       h+='<div id="lamp-c"></div>';
-      
       h+=fldH('sTtd','Nombre Tanda Tangan','.....');
-      
       fc.innerHTML=h;
       renderLampF();
     }
   }
   restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up')
 }
+
+// === DUMMY DATA POPULATOR ===
+function populateDummyCV() {
+    var dummy = {
+        'nombre': 'Budi Santoro',
+        'ttl': 'Jakarta, 17 Agustus 1995',
+        'jk': 'Laki-laki',
+        'bangsa': 'Indonesia',
+        'agama': 'Islam',
+        'tb': '170',
+        'bb': '65',
+        'nohp': '081234567890',
+        'status': 'Belum menikah',
+        'email': 'budi.santoro@email.com',
+        'profil': 'Saya adalah lulusan S1 Teknik Informatika yang antusias dengan pengalaman 2 tahun di bidang web development.',
+        'lulusan': 'S1 Teknik Informatika',
+        'jurusan': 'Universitas Negeri Jakarta',
+        'alamat1': 'Jl. Merdeka No. 10, Kel. Sukajadi, Kec. Cimahi, Kota Bandung',
+        'alamat2': 'Kel. Sukajadi',
+        'alamat3': 'Kec. Cimahi',
+        'alamat4': 'Kota Bandung',
+        'subtitle': 'Web Developer'
+    };
+    for(var id in dummy) {
+        var el = document.getElementById(id);
+        if(el && !el.value) el.value = dummy[id];
+    }
+
+    if(eduList.length === 1 && !eduList[0].t) {
+        eduList[0] = {t:'Universitas Negeri Jakarta', m:'y', p:'', y:'2018'};
+        renderEduF();
+    }
+    if(eduNonList.length === 1 && !eduNonList[0].t) {
+        eduNonList[0] = {t:'PT Digital Nusantara', k:'Bootcamp Web Developer', d:'2020', j:'Bootcamp'};
+        renderEduNonF();
+    }
+    if(expList.length === 1 && !expList[0].pt) {
+        expList[0] = {pt:'PT Maju Bersama', jl:'Jl. Sudirman No. 45', kt:'Jakarta', posList:[{j:'Junior Developer', m:'2019-2021', desc:'Membangun dan memelihara aplikasi web perusahaan menggunakan React dan Node.js.'}]};
+        renderExpF();
+    }
+    if(kSkills.length === 1 && !kSkills[0]) {
+        kSkills = ['HTML & CSS', 'JavaScript: React, Node', 'Database: MySQL, MongoDB', 'Problem Solving'];
+        renderSkIF(kSkills, 'k-c', 'k');
+    }
+    if(hSkills.length === 1 && !hSkills[0]) {
+        hSkills = ['HTML & CSS', 'JavaScript', 'React', 'Node.js'];
+        sSkills = ['Komunikasi', 'Kerjasama Tim', 'Manajemen Waktu'];
+        renderSkIF(hSkills, 'hard-c', 'hard');
+        renderSkIF(sSkills, 'soft-c', 'soft');
+    }
+    saveStatic();
+}
+
+function populateDummySurat() {
+    var dummy = {
+        'sPt': 'PT Maju Bersama',
+        'sEmailPerusahaan': 'hrd@majubersama.com',
+        'sSumber': 'JobStreet',
+        'sPosisi': 'Web Developer',
+        'nombre': 'Budi Santoro',
+        'nohp': '081234567890',
+        'email': 'budi.santoro@email.com',
+        'sKota': 'Bandung',
+        'sTgl': '24',
+        'sBlnThn': 'Mei 2024',
+        'sJl': 'Jl. Sudirman No. 45',
+        'sJl2': 'Gedung A, Lantai 5',
+        'ttl': 'Jakarta, 17 Agustus 1995',
+        'jk': 'Laki-laki',
+        'agama': 'Islam',
+        'pendAkhir': 'S1 Teknik Informatika',
+        'alamat1': 'Jl. Merdeka No. 10, Kel. Sukajadi',
+        'alamat2': 'Kec. Cimahi, Kota Bandung',
+        'sTtd': 'Budi Santoro'
+    };
+    for(var id in dummy) {
+        var el = document.getElementById(id);
+        if(el && !el.value) el.value = dummy[id];
+    }
+    if(lampList.length === 1 && !lampList[0]) {
+        lampList = ['CV', 'Ijazah', 'Transkrip Nilai', 'Pas Foto'];
+        renderLampF();
+    }
+    saveStatic();
+}
+
 
 function fotoImg(){
   var wStyle='width:2.79cm;height:3.81cm;flex-shrink:0;overflow:hidden;margin:0;box-sizing:border-box;border:1px solid #ccc;';
@@ -1451,10 +1500,8 @@ function _eduTblNon(list,mode){
     if(hasContent){
       var leftVal1 = e.t ? esc(e.t) : '';
       var rightVal1 = e.d ? esc(e.d) : '';
-      
       var leftVal2 = e.k ? esc(e.k) : '';
       var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
-      
       if(leftVal1 || rightVal1) {
         if(mode==='aligned'){
           rows+='<tr><td style="width:50%;vertical-align:top;padding-right:3mm;word-break:break-word; border:none;">'+leftVal1+'</td><td style="width:50%;vertical-align:top;text-align:right;word-break:break-word; border:none;">'+rightVal1+'</td></tr>';
@@ -1484,18 +1531,14 @@ function _eduTblNon(list,mode){
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
   var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
-
   var hasNon = nonFormalCount > 0;
   var hasFormal = formalCount > 0;
-  
   var h='';
   var formalTbl=_eduTbl(formalList,mode);
-  
   if(hasNon && hasFormal) {
     h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>';
   }
   h+=formalTbl;
-  
   var nonFormalTbl=_eduTblNon(nonFormalList,mode);
   if(hasNon&&nonFormalTbl){
     h+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">'+L('Pendidikan Nonformal')+'</div>';
@@ -1556,7 +1599,6 @@ function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(part
 function renderSkillsCV4(skillArr){
   var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
   if(!items.length) return '';
-  
   var h = '<table style="width:100%; border-collapse:collapse; border:none;">';
   items.forEach(function(s){
     var p = parseSkillCV4(s);
@@ -1579,16 +1621,13 @@ function renderSkillsCV4(skillArr){
 function renderCV4(){
   var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
-  
   var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
   var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
-  
   var eduH = '';
   if(formalCount > 0 || hasNonEdu) {
       if(hasNonEdu && formalCount > 0) {
           eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';
       }
-      
       eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
       eduList.forEach(function(e){
           if(e.t || e.y || e.p){
@@ -1606,17 +1645,14 @@ function renderCV4(){
           }
       });
       eduH += '</table>';
-      
       if(hasNonEdu){
           eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
           eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
           eduNonList.forEach(function(e){
               var leftVal1 = e.t ? esc(e.t) : '';
               var rightVal1 = e.d ? esc(e.d) : '';
-              
               var leftVal2 = e.k ? esc(e.k) : '';
               var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
-              
               if(leftVal1 || rightVal1) {
                   eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>';
               }
@@ -1630,90 +1666,72 @@ function renderCV4(){
           eduH += '</table>';
       }
   }
-
   var expH = expPH(expList);
   var skH = renderSkillsCV4(kSkills);
-
   var h = '';
   if(N) h += '<div style="text-align:center; font-size:18pt; font-weight:700; text-transform:uppercase; margin-bottom:1mm;">'+esc(N)+'</div>';
   if(SUB) h += '<div style="text-align:center; color:#333; margin-bottom:4mm;">'+esc(SUB)+'</div>';
-  
   var contactArr = [];
   if(TTL) contactArr.push(esc(TTL));
   if(AL) contactArr.push(esc(AL));
   if(HP) contactArr.push(esc(HP));
   if(EM) contactArr.push(esc(EM));
-  
   if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm;">'+contactArr.join(' | ')+'</div>';
-  
   if(PR) {
       h += '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>';
   }
-  
   if(eduH) {
       h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="margin-top:2mm;">'+eduH+'</div>';
   }
-  
   if(expH) {
       h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="margin-top:2mm;">'+expH+'</div>';
   }
-  
   if(skH) {
       h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div>';
       h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
       h += '<div style="margin-top:2mm;">'+skH+'</div>';
   }
-  
   return h;
 }
 
-// Fungsi untuk membuka Gmail secara otomatis dengan isi terpisah
 function openInGmail() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
-    
     var N = v('nombre') || '……………….';
     var TTD = v('sTtd') || N;
     var HP = v('nohp') || '……………….';
     var EM = v('email') || '……………….';
     var PT = v('sPt') || '……………….';
     var sEmailPerusahaan = v('sEmailPerusahaan') || '';
-    
     var subjek = 'Lamaran Pekerjaan';
     if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
     if (N !== '……………….') subjek += ' - ' + N;
-    
     var sumberStr;
     if (m.semua) {
       sumberStr = 'informasi lowongan pekerjaan yang ada';
     } else {
       sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….');
     }
-    
     var pembukaEmail;
     if (m.pos) {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + PT + ' sedang membuka lowongan untuk posisi ' + (v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + PT + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
-    
     var li = [];
     for (var i = 0; i < lampList.length; i++) {
       var val = lampList[i] && lampList[i].trim();
       if (!val) continue;
       li.push(val);
     }
-    
     var namaFile = (N !== '……………….') ? N : 'Nombre Pelamar';
     if (m.pos && v('sPosisi')) namaFile += '_' + (v('sPosisi') || '');
-    
-    // Isi body email (teks biasa)
     var body = '';
     body += 'Kepada Yth.\n';
     body += 'Bapak/Ibu HRD\n';
@@ -1722,7 +1740,6 @@ function openInGmail() {
     body += 'Dengan hormat,\n\n';
     body += pembukaEmail + '\n\n';
     body += 'Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
-    
     if(li.length) {
       li.forEach(function(item, idx){
         body += (idx + 1) + '. ' + item + '\n';
@@ -1737,11 +1754,7 @@ function openInGmail() {
     body += TTD + '\n';
     body += HP + '\n';
     body += EM;
-    
-    // Buat URL Gmail
     var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(sEmailPerusahaan) + '&su=' + encodeURIComponent(subjek) + '&body=' + encodeURIComponent(body);
-    
-    // Buka di tab baru
     window.open(gmailUrl, '_blank');
     toast('Membuka Gmail di tab baru...', 'info');
 }
@@ -1749,36 +1762,28 @@ function openInGmail() {
 function renderSuratP() {
   var m = ST_M.find(function(t){return t.id===curTpl});
   if(!m) return '';
-  
-  // Variabel Umum
   var N = v('nombre') || '……………….';
   var TTD = v('sTtd') || N;
   var HP = v('nohp') || '……………….';
   var EM = v('email') || '……………….';
   var PT = v('sPt') || '……………….';
-  
-  // KHUSUS TEMPLATE EMAIL
   if (m.on) {
     var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
     var subjek = 'Lamaran Pekerjaan';
     if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
     if (v('nombre')) subjek += ' - ' + v('nombre');
-
     var sumberStr;
     if (m.semua) {
       sumberStr = 'informasi lowongan pekerjaan yang ada';
     } else {
       sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….');
     }
-    
     var pembukaEmail;
     if (m.pos) {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka lowongan untuk posisi ' + esc(v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     } else {
       pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + esc(PT) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';
     }
-
-    // Dynamic Daftar Lampiran
     var li = [];
     var lc = 0;
     for (var i = 0; i < lampList.length; i++) {
@@ -1789,39 +1794,29 @@ function renderSuratP() {
     }
     var lamps = li.length ? li.map(function(item, idx) {
       return '<div style="margin-bottom: 1mm;">' + (idx + 1) + '. ' + esc(item) + '</div>';
-    }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>'; // Default jika kosong
-
+    }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>';
     var namaFile = (N !== '……………….') ? esc(N) : 'Nombre Pelamar';
     if (m.pos && v('sPosisi')) namaFile += '_' + esc(v('sPosisi'));
-
     var h = '';
     h += '<table style="width:100%; margin-bottom: 4mm; border:none; border-collapse:collapse;">';
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 1mm 0; vertical-align:top;">Kepada</td><td style="width:3mm; border:none; padding:0 0 1mm 0;">:</td><td style="border:none; padding:0 0 1mm 0;">' + esc(sEmailPerusahaan) + '</td></tr>';
     h += '<tr><td style="width:20mm; border:none; padding:0 2mm 0 0; vertical-align:top;">Subjek</td><td style="width:3mm; border:none; padding:0;">:</td><td style="border:none; padding:0;">' + esc(subjek) + '</td></tr>';
     h += '</table>';
-
     h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Kepada Yth.<br>Bapak/Ibu HRD<br>' + esc(PT) + '<br>di Tempat</div>';
-
     h += '<p style="margin: 0 0 4mm 0; line-height: 1.5;">Dengan hormat,</p>';
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>';
     h += '<p style="margin: 0 0 2mm 0; text-align: justify; line-height: 1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:</p>';
-    
     h += '<div style="margin: 0 0 4mm 8mm; line-height: 1.5;">' + lamps + '</div>';
-
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>';
     h += '<p style="margin: 0 0 8mm 0; text-align: justify; line-height: 1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>';
-
     h += '<div style="margin-top: 6mm; line-height: 1.6;">';
     h += 'Hormat saya,<br><br>';
     h += '<span style="font-weight: bold; text-decoration: underline;">' + esc(TTD) + '</span><br>';
     h += esc(HP) + '<br>';
     h += esc(EM);
     h += '</div>';
-
     return h;
   }
-  
-  // KHUSUS TEMPLATE TULIS TANGAN
   var sK = v('sKota') || '……………….';
   var sT = v('sTgl') || '……………….';
   var sBT = v('sBlnThn') || '……………….';
@@ -1835,7 +1830,6 @@ function renderSuratP() {
   var PA = v('pendAkhir') || '……………….';
   var AL = v('alamat1') || '……………….';
   var AL2 = v('alamat2') || '';
-
   var autoPembuka = '';
   if (m.semua) {
     autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:';
@@ -1844,14 +1838,11 @@ function renderSuratP() {
   } else {
     autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan que Bapak/Ibu pimpin.';
   }
-  
   var customPembuka = v('sPembuka') && v('sPembuka').trim();
   var pembukaText = customPembuka ? customPembuka : autoPembuka;
-  
   var autoPenutup = 'Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';
   var customPenutup = v('sPenutup') && v('sPenutup').trim();
   var penutupText = customPenutup ? customPenutup : autoPenutup;
-
   var li = [];
   var lc = 0;
   for (var i = 0; i < lampList.length; i++) {
@@ -1860,34 +1851,26 @@ function renderSuratP() {
     li.push(val);
     lc++;
   }
-
   var lamps = li.length ? li.map(function(item, idx) {
     return '<div>' + (idx + 1) + '. ' + esc(item) + '</div>';
   }).join('') : '<div>………………………..</div>';
-  
   var lampLabel = L('lembar');
   var lampCountText = lc > 0 ? (lc + ' ' + lampLabel) : ('….. ' + lampLabel);
-  
   var labelStyle = 'width:45mm;padding-right:2mm;white-space:nowrap;text-align:left;vertical-align:top;';
   var colonStyle = 'width:3mm;text-align:center;vertical-align:top;';
-  
   function dr(l, val) {
     return '<tr><td style="' + labelStyle + '">' + L(l) + '</td><td style="' + colonStyle + '">:</td><td style="text-align:left;vertical-align:top">' + val + '</td></tr>';
   }
-  
   var al2r = AL2 ? '<tr><td style="' + labelStyle + '">&nbsp;</td><td style="' + colonStyle + '">&nbsp;</td><td style="text-align:left;vertical-align:top">' + esc(AL2) + '</td></tr>' : '';
-  
   var tw = '<div style="text-align:right">' + esc(sK) + ', ' + esc(sT) + ' ' + esc(sBT) + '</div>';
   var hl = '<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">' + L('Hal') + '</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">' + L('Lampiran') + '</td><td style="padding-left:2mm">: ' + lampCountText + '</td></tr></table>';
   var at = '<div style="margin-top:2mm;text-align:left">' + L('Kepada Yth.') + '</div><div style="text-align:left">' + L('Bapak/Ibu HRD') + '</div>';
-  
   if (m.semua) {
     at += '<div style="text-align:left">' + L('di Tempat') + '</div>';
   } else {
     at += '<div style="text-align:left">' + esc(PT) + '</div><div style="text-align:left">' + esc(JL) + '</div>';
     if (JL2 && JL2.trim()) at += '<div style="text-align:left">' + esc(JL2) + '</div>';
   }
-  
   var body = '';
   if (!m.on) {
     body += '<div style="margin-top:4mm;text-align:left">' + L('Dengan Hormat,') + '</div>';
@@ -1910,10 +1893,8 @@ function renderSuratP() {
   body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini turut saya lampirkan:</div>';
   body += '<div style="margin-left:8mm;margin-top:2mm">' + lamps + '</div>';
   body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">' + esc(penutupText) + '</div>';
-  
   var ttdN = esc(TTD) || '………………………..';
   var ttd = '<div style="margin-top:8mm;text-align:right"><div style="display:inline-block;text-align:center"><div>' + L('Hormat saya,') + '</div><div style="height:14mm"></div><div style="font-weight:600;text-decoration:underline">' + ttdN + '</div></div></div>';
-  
   return tw + hl + at + body + ttd;
 }
 
@@ -1928,54 +1909,42 @@ function renderPreview() {
   } else {
     html = renderSuratP();
   }
-  
   var p = document.getElementById('a4-page');
   var pm = document.getElementById('a4-page-mob');
   if(p) p.innerHTML = html;
   if(pm) pm.innerHTML = html;
 }
 
-// Canvas Cropping Logic for 3x4 Photo (Standard 2.79 x 3.81 cm)
 function handlePhoto(event) {
   var file = event.target.files[0];
   if(!file) return;
-  if(file.size > 5 * 1024 * 1024) { // Allow up to 5MB before crop
+  if(file.size > 5 * 1024 * 1024) {
     toast('Ukuran foto maksimal 5MB', 'error');
     return;
   }
-  
   var reader = new FileReader();
   reader.onload = function(e) {
     var img = new Image();
     img.onload = function() {
-      // Persis ke rasio 2.79 / 3.81
       var targetRatio = 2.79 / 3.81;
       var imgRatio = img.width / img.height;
-      
       var cropWidth, cropHeight, cropX, cropY;
-      
       if (imgRatio > targetRatio) {
-        // Gambar lebih lebar dari target, crop lebar (kanan-kiri)
         cropHeight = img.height;
         cropWidth = cropHeight * targetRatio;
         cropX = (img.width - cropWidth) / 2;
         cropY = 0;
       } else {
-        // Gambar lebih tinggi dari target, crop tinggi (atas-bawah)
         cropWidth = img.width;
         cropHeight = cropWidth / targetRatio;
         cropX = 0;
         cropY = (img.height - cropHeight) / 2;
       }
-      
-      // Resolusi canvas yang setara dengan 300 DPI (perkiraan untuk kualitas cetak A4)
       var canvas = document.createElement('canvas');
-      canvas.width = 330;  // ~2.79 cm
-      canvas.height = 451; // ~3.81 cm
-      
+      canvas.width = 330;
+      canvas.height = 451;
       var ctx = canvas.getContext('2d');
       ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
-      
       photoData = canvas.toDataURL('image/jpeg', 0.9);
       restorePhoto();
       renderPreview();
@@ -2001,85 +1970,58 @@ function resetForm() {
   lampList = [''];
   photoData = null;
   restorePhoto();
-  
   renderForm();
   renderPreview();
   toast('Form telah direset', 'info');
 }
 
-// ================= PREVIEW PAN & ZOOM LOGIC =================
 var currentZoom = 1;
-var panState = {
-  dragging: false,
-  startX: 0,
-  startY: 0,
-  offsetX: 0,
-  offsetY: 0,
-  activeScaler: null,
-  activeWrap: null
-};
+var panState = { dragging: false, startX: 0, startY: 0, offsetX: 0, offsetY: 0, activeScaler: null, activeWrap: null };
 
 function initPanZoom() {
   var wrap = document.getElementById('preview-wrap');
   var mobWrap = document.getElementById('preview-wrap-mob');
-  
   wrap.addEventListener('mousedown', startDrag);
   wrap.addEventListener('touchstart', startDrag, {passive: false});
-  
   mobWrap.addEventListener('mousedown', startDrag);
   mobWrap.addEventListener('touchstart', startDrag, {passive: false});
-  
   document.addEventListener('mousemove', drag);
   document.addEventListener('touchmove', drag, {passive: false});
-  
   document.addEventListener('mouseup', endDrag);
   document.addEventListener('touchend', endDrag);
 }
-
 function startDrag(e) {
   panState.dragging = true;
   panState.activeWrap = e.currentTarget;
   panState.activeScaler = e.currentTarget.querySelector('div[id^="a4-scaler"]');
   if(!panState.activeScaler) return;
-  
   var clientX = e.touches ? e.touches[0].clientX : e.clientX;
   var clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  
   panState.startX = clientX - panState.offsetX;
   panState.startY = clientY - panState.offsetY;
   panState.activeWrap.style.cursor = 'grabbing';
   e.preventDefault();
 }
-
 function drag(e) {
   if(!panState.dragging || !panState.activeScaler) return;
   var clientX = e.touches ? e.touches[0].clientX : e.clientX;
   var clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  
   panState.offsetX = clientX - panState.startX;
   panState.offsetY = clientY - panState.startY;
-  
   panState.activeScaler.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')';
 }
-
 function endDrag() {
   if(!panState.dragging) return;
   panState.dragging = false;
   if(panState.activeWrap) panState.activeWrap.style.cursor = 'grab';
 }
-
-function zoomPreview(delta) {
-  currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta));
-  applyZoom();
-}
-
+function zoomPreview(delta) { currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta)); applyZoom(); }
 function resetZoom() {
   panState.offsetX = 0;
   panState.offsetY = 0;
   var wrap = document.getElementById('preview-wrap');
   var mobWrap = document.getElementById('preview-wrap-mob');
   var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap;
-  
   if(activeWrap && activeWrap.offsetWidth > 0) {
     var containerWidth = activeWrap.offsetWidth - 24; 
     var scalerWidth = 210 * 3.7795; 
@@ -2089,7 +2031,6 @@ function resetZoom() {
   }
   applyZoom();
 }
-
 function applyZoom() {
   var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')];
   scalers.forEach(function(s) {
@@ -2101,7 +2042,6 @@ function applyZoom() {
   });
 }
 
-// ================= DOWNLOAD LOGIC =================
 function downloadPDF() {
   var element = document.getElementById('pdf-offscreen');
   var html = '';
@@ -2113,11 +2053,8 @@ function downloadPDF() {
   } else {
     html = renderSuratP();
   }
-  
   element.innerHTML = '<div class="a4-page" style="font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
-  
   toast('Membuat PDF, mohon tunggu...', 'info');
-  
   setTimeout(function() {
     var targetEl = element.querySelector('.a4-page');
     html2canvas(targetEl, {scale: 2, useCORS: true, backgroundColor: '#FFFFFF'}).then(function(canvas) {
@@ -2128,22 +2065,17 @@ function downloadPDF() {
       var imgHeight = canvas.height * imgWidth / canvas.width;
       var heightLeft = imgHeight;
       var position = 0;
-
       pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
-
       while (heightLeft >= 1) {
         position = heightLeft - imgHeight;
         pdf.addPage();
         pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      
-      // Format nama file unduhan
       var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
       var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
       pdf.save(fileNamePrefix + safeName + '.pdf');
-      
       element.innerHTML = '';
       toast('PDF berhasil diunduh!', 'success');
     }).catch(function(err) {
@@ -2164,10 +2096,7 @@ function downloadWord() {
   } else {
     html = renderSuratP();
   }
-  
-  // Pre-process HTML for Word compatibility
   html = html.replace(/object-fit:\s*cover;?/g, '');
-  
   var style = '<style>'+
   'body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }'+
   'table { width: 100%; border-collapse: collapse; border: none; }'+
@@ -2178,24 +2107,16 @@ function downloadWord() {
   '.dp-t .dc { width: 3mm; text-align: center; }'+
   'p { margin: 0 0 5mm 0; }'+
   '</style>';
-  
   var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
   var footer = "</body></html>";
   var sourceHTML = header + html + footer;
-  
-  var blob = new Blob(['\ufeff', sourceHTML], {
-    type: 'application/msword'
-  });
-  
+  var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
   var url = URL.createObjectURL(blob);
   var fileDownload = document.createElement("a");
   fileDownload.href = url;
-  
-  // Format nama file unduhan
   var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
   var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
   fileDownload.download = fileNamePrefix + safeName + '.doc';
-  
   document.body.appendChild(fileDownload);
   fileDownload.click();
   document.body.removeChild(fileDownload);
@@ -2212,16 +2133,13 @@ function formatBytes(bytes) {
   if(bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
   return (bytes / 1024 / 1024).toFixed(2) + ' MB';
 }
-
 function dataUrlSize(dataUrl) {
   if(!dataUrl) return 0;
   var idx = dataUrl.indexOf(',');
   if(idx < 0) return 0;
   var base64Len = dataUrl.length - idx - 1;
-  // Approximate binary size from base64 length
   return Math.round(base64Len * 3 / 4);
 }
-
 function compressImageToSize(img, targetSize, callback) {
   var maxDim = 2200;
   var w = img.width, h = img.height;
@@ -2229,7 +2147,6 @@ function compressImageToSize(img, targetSize, callback) {
     if(w > h) { h = h * maxDim / w; w = maxDim; }
     else { w = w * maxDim / h; h = maxDim; }
   }
-  
   function attemptCompression(width, height) {
     var canvas = document.createElement('canvas');
     canvas.width = width;
@@ -2238,8 +2155,6 @@ function compressImageToSize(img, targetSize, callback) {
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, width, height);
     ctx.drawImage(img, 0, 0, width, height);
-    
-    // Binary search for best quality within target
     var low = 0.25, high = 0.92, best = null;
     for(var i = 0; i < 8; i++) {
       var mid = (low + high) / 2;
@@ -2254,11 +2169,8 @@ function compressImageToSize(img, targetSize, callback) {
     }
     return best;
   }
-  
   var result = attemptCompression(w, h);
   var scale = 0.85;
-  
-  // If still too big at lowest quality, reduce dimensions progressively
   while(!result && scale > 0.15) {
     var newW = Math.round(w * scale);
     var newH = Math.round(h * scale);
@@ -2266,8 +2178,6 @@ function compressImageToSize(img, targetSize, callback) {
     result = attemptCompression(newW, newH);
     scale -= 0.1;
   }
-  
-  // Last resort: use minimum quality available
   if(!result) {
     var canvas = document.createElement('canvas');
     var minW = Math.min(w, 800);
@@ -2281,76 +2191,47 @@ function compressImageToSize(img, targetSize, callback) {
     var dataUrl = canvas.toDataURL('image/jpeg', 0.3);
     result = {dataUrl: dataUrl, size: dataUrlSize(dataUrl), w: minW, h: minH};
   }
-  
   callback(result.dataUrl, result.size, result.w, result.h);
 }
-
 function handleLampiranUpload(event) {
   var files = event.target.files;
   if(!files || !files.length) return;
   processLampiranFiles(Array.from(files));
   event.target.value = '';
 }
+var TARGET_PDF_SIZE = 1 * 1024 * 1024;
+var MAX_LAMPIRAN_IMAGES = 20;
+var lampiranProcessing = false;
+var draggedItemIdx = null;
+var lampiranImages = [];
 
 function processLampiranFiles(files) {
-  if(lampiranProcessing) {
-    toast('Sedang memproses, mohon tunggu...', 'info');
-    return;
-  }
-  
-  // Filter only images
+  if(lampiranProcessing) { toast('Sedang memproses, mohon tunggu...', 'info'); return; }
   var imageFiles = files.filter(function(f){ return f.type.startsWith('image/'); });
-  if(imageFiles.length === 0) {
-    toast('Tidak ada file gambar yang valid', 'error');
-    return;
-  }
-  
-  // Check max limit
+  if(imageFiles.length === 0) { toast('Tidak ada file gambar yang valid', 'error'); return; }
   var available = MAX_LAMPIRAN_IMAGES - lampiranImages.length;
-  if(available <= 0) {
-    toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' gambar', 'error');
-    return;
-  }
-  if(imageFiles.length > available) {
-    toast('Hanya ' + available + ' gambar lagi yang dapat ditambahkan', 'info');
-    imageFiles = imageFiles.slice(0, available);
-  }
-  
+  if(available <= 0) { toast('Maksimal ' + MAX_LAMPIRAN_IMAGES + ' gambar', 'error'); return; }
+  if(imageFiles.length > available) { toast('Hanya ' + available + ' gambar lagi yang dapat ditambahkan', 'info'); imageFiles = imageFiles.slice(0, available); }
   lampiranProcessing = true;
   var btnPdf = document.getElementById('btn-lampiran-pdf');
   var btnClear = document.getElementById('btn-lampiran-clear');
   if(btnPdf) btnPdf.disabled = true;
   if(btnClear) btnClear.disabled = true;
-  
   toast('Memproses ' + imageFiles.length + ' gambar...', 'info');
-  
   var remaining = imageFiles.length;
   var newItems = [];
-  
   imageFiles.forEach(function(file) {
     var reader = new FileReader();
     reader.onload = function(e) {
       var img = new Image();
       img.onload = function() {
-        // Initial budget: ~900KB / total expected images
         var totalExpected = lampiranImages.length + imageFiles.length;
         var budget = Math.floor(900 * 1024 / Math.max(1, totalExpected));
         budget = Math.max(40 * 1024, Math.min(budget, 800 * 1024));
-        
         compressImageToSize(img, budget, function(dataUrl, size, w, h) {
-          newItems.push({
-            data: dataUrl,
-            name: file.name,
-            originalSize: file.size,
-            compressedSize: size,
-            width: w,
-            height: h,
-            originalWidth: img.width,
-            originalHeight: img.height
-          });
+          newItems.push({ data: dataUrl, name: file.name, originalSize: file.size, compressedSize: size, width: w, height: h, originalWidth: img.width, originalHeight: img.height });
           remaining--;
           if(remaining === 0) {
-            // Sort new items by name for consistency
             newItems.sort(function(a,b){ return a.name.localeCompare(b.name); });
             lampiranImages = lampiranImages.concat(newItems);
             lampiranProcessing = false;
@@ -2358,134 +2239,69 @@ function processLampiranFiles(files) {
           }
         });
       };
-      img.onerror = function() {
-        toast('Gagal memuat: ' + file.name, 'error');
-        remaining--;
-        if(remaining === 0) {
-          lampiranImages = lampiranImages.concat(newItems);
-          lampiranProcessing = false;
-          finalizeLampiranUpload();
-        }
-      };
+      img.onerror = function() { toast('Gagal memuat: ' + file.name, 'error'); remaining--; if(remaining === 0) { lampiranImages = lampiranImages.concat(newItems); lampiranProcessing = false; finalizeLampiranUpload(); } };
       img.src = e.target.result;
     };
-    reader.onerror = function() {
-      toast('Gagal membaca: ' + file.name, 'error');
-      remaining--;
-      if(remaining === 0) {
-        lampiranImages = lampiranImages.concat(newItems);
-        lampiranProcessing = false;
-        finalizeLampiranUpload();
-      }
-    };
+    reader.onerror = function() { toast('Gagal membaca: ' + file.name, 'error'); remaining--; if(remaining === 0) { lampiranImages = lampiranImages.concat(newItems); lampiranProcessing = false; finalizeLampiranUpload(); } };
     reader.readAsDataURL(file);
   });
 }
-
 function finalizeLampiranUpload() {
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  var safeTarget = TARGET_PDF_SIZE - 30000; // Safe margin for PDF wrapper bytes
-  
-  if(total > safeTarget) {
-    toast('Mengompresi agar sesuai 1 MB...', 'info');
-    setTimeout(function() { recompressAllToTarget(safeTarget); }, 100);
-  } else {
-    renderLampiranList();
-    updateLampiranSummary();
-    toast(lampiranImages.length + ' gambar siap dijadikan PDF', 'success');
-  }
+  var safeTarget = TARGET_PDF_SIZE - 30000;
+  if(total > safeTarget) { toast('Mengompresi agar sesuai 1 MB...', 'info'); setTimeout(function() { recompressAllToTarget(safeTarget); }, 100); } 
+  else { renderLampiranList(); updateLampiranSummary(); toast(lampiranImages.length + ' gambar siap dijadikan PDF', 'success'); }
 }
-
 function recompressAllToTarget(currentTarget, callback) {
-  if(lampiranImages.length === 0) {
-    renderLampiranList();
-    updateLampiranSummary();
-    if(callback) callback();
-    return;
-  }
-  
+  if(lampiranImages.length === 0) { renderLampiranList(); updateLampiranSummary(); if(callback) callback(); return; }
   var target = currentTarget || TARGET_PDF_SIZE;
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
-  if(total <= target) {
-    renderLampiranList();
-    updateLampiranSummary();
-    if(callback) callback();
-    return;
-  }
-  
-  // Calculate budget per image with safety margin (90% of target)
+  if(total <= target) { renderLampiranList(); updateLampiranSummary(); if(callback) callback(); return; }
   var budget = Math.floor(target * 0.9 / lampiranImages.length);
   budget = Math.max(20 * 1024, budget);
-  
-  var index = 0;
-  var iteration = 0;
-  var MAX_ITER = 5;
-  
+  var index = 0; var iteration = 0; var MAX_ITER = 5;
   function processNext() {
     if(index >= lampiranImages.length) {
       var newTotal = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
       iteration++;
       if(newTotal > target && iteration < MAX_ITER) {
-        // Try again with smaller budget
         budget = Math.floor(budget * 0.65);
         budget = Math.max(15 * 1024, budget);
         index = 0;
         setTimeout(processNext, 50);
       } else {
-        renderLampiranList();
-        updateLampiranSummary();
-        if(newTotal > target) {
-          toast('Kompresi maksimal tercapai: ' + formatBytes(newTotal), 'info');
-        } else {
-          toast('Kompresi selesai: ' + formatBytes(newTotal), 'success');
-        }
+        renderLampiranList(); updateLampiranSummary();
+        if(newTotal > target) toast('Kompresi maksimal tercapai: ' + formatBytes(newTotal), 'info');
+        else toast('Kompresi selesai: ' + formatBytes(newTotal), 'success');
         if(callback) callback();
       }
       return;
     }
-    
     var item = lampiranImages[index];
     var img = new Image();
     img.onload = function() {
       compressImageToSize(img, budget, function(dataUrl, size, w, h) {
-        item.data = dataUrl;
-        item.compressedSize = size;
-        item.width = w;
-        item.height = h;
-        index++;
-        setTimeout(processNext, 10);
+        item.data = dataUrl; item.compressedSize = size; item.width = w; item.height = h;
+        index++; setTimeout(processNext, 10);
       });
     };
-    img.onerror = function() {
-      index++;
-      setTimeout(processNext, 10);
-    };
+    img.onerror = function() { index++; setTimeout(processNext, 10); };
     img.src = item.data;
   }
-  
   processNext();
 }
-
 function renderLampiranList() {
   var c = document.getElementById('lampiran-list');
   var empty = document.getElementById('lampiran-empty');
   if(!c) return;
-  
-  if(lampiranImages.length === 0) {
-    c.innerHTML = '';
-    if(empty) empty.style.display = '';
-    return;
-  }
-  
+  if(lampiranImages.length === 0) { c.innerHTML = ''; if(empty) empty.style.display = ''; return; }
   if(empty) empty.style.display = 'none';
-  
   var h = '';
   lampiranImages.forEach(function(item, idx) {
     var dispW = item.originalWidth || item.width;
     var dispH = item.originalHeight || item.height;
     var pageWIn = (dispW / 100).toFixed(1);
     var pageHIn = (dispH / 100).toFixed(1);
-    
     h += '<div class="lampiran-item" draggable="true" ondragstart="handleDragStart(event, ' + idx + ')" ondragover="handleDragOver(event, ' + idx + ')" ondrop="handleDrop(event, ' + idx + ')" ondragend="handleDragEnd(event)" ondragleave="handleDragLeave(event, ' + idx + ')">';
     h += '<div class="lampiran-grip"><i class="fa-solid fa-grip-vertical text-lg"></i></div>';
     h += '<div class="flex flex-col gap-1">';
@@ -2503,107 +2319,29 @@ function renderLampiranList() {
     h += '<button onclick="removeLampiranImage(' + idx + ')" class="lampiran-remove-btn" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>';
     h += '</div>';
   });
-  
   c.innerHTML = h;
 }
-
-// === DRAG & DROP REORDER LOGIC ===
-function handleDragStart(e, idx) {
-  draggedItemIdx = idx;
-  e.currentTarget.classList.add('dragging');
-  e.dataTransfer.effectAllowed = 'move';
-  try {
-    e.dataTransfer.setData('text/plain', String(idx));
-  } catch(err) {}
-}
-
-function handleDragOver(e, idx) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  if(draggedItemIdx !== null && draggedItemIdx !== idx) {
-    var target = e.currentTarget;
-    target.classList.add('drag-over');
-  }
-}
-
-function handleDragLeave(e, idx) {
-  e.currentTarget.classList.remove('drag-over');
-}
-
-function handleDrop(e, idx) {
-  e.preventDefault();
-  e.stopPropagation();
-  e.currentTarget.classList.remove('drag-over');
-  
-  if(draggedItemIdx === null || draggedItemIdx === idx) return;
-  
-  var item = lampiranImages.splice(draggedItemIdx, 1)[0];
-  lampiranImages.splice(idx, 0, item);
-  
-  draggedItemIdx = null;
-  renderLampiranList();
-  toast('Urutan gambar diperbarui', 'info');
-}
-
-function handleDragEnd(e) {
-  e.currentTarget.classList.remove('dragging');
-  document.querySelectorAll('.lampiran-item').forEach(function(el){ el.classList.remove('drag-over'); });
-  draggedItemIdx = null;
-}
-
-function moveLampiranImage(idx, dir) {
-  var newIdx = idx + dir;
-  if(newIdx < 0 || newIdx >= lampiranImages.length) return;
-  var temp = lampiranImages[idx];
-  lampiranImages[idx] = lampiranImages[newIdx];
-  lampiranImages[newIdx] = temp;
-  renderLampiranList();
-}
-
-function removeLampiranImage(idx) {
-  lampiranImages.splice(idx, 1);
-  renderLampiranList();
-  updateLampiranSummary();
-  toast('Gambar dihapus', 'info');
-}
-
-function clearLampiranImages() {
-  if(lampiranImages.length === 0) return;
-  if(!confirm('Hapus semua gambar?')) return;
-  lampiranImages = [];
-  renderLampiranList();
-  updateLampiranSummary();
-  toast('Semua gambar dihapus', 'info');
-}
-
+function handleDragStart(e, idx) { draggedItemIdx = idx; e.currentTarget.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', String(idx)); } catch(err) {} }
+function handleDragOver(e, idx) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; if(draggedItemIdx !== null && draggedItemIdx !== idx) { e.currentTarget.classList.add('drag-over'); } }
+function handleDragLeave(e, idx) { e.currentTarget.classList.remove('drag-over'); }
+function handleDrop(e, idx) { e.preventDefault(); e.stopPropagation(); e.currentTarget.classList.remove('drag-over'); if(draggedItemIdx === null || draggedItemIdx === idx) return; var item = lampiranImages.splice(draggedItemIdx, 1)[0]; lampiranImages.splice(idx, 0, item); draggedItemIdx = null; renderLampiranList(); toast('Urutan gambar diperbarui', 'info'); }
+function handleDragEnd(e) { e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.lampiran-item').forEach(function(el){ el.classList.remove('drag-over'); }); draggedItemIdx = null; }
+function moveLampiranImage(idx, dir) { var newIdx = idx + dir; if(newIdx < 0 || newIdx >= lampiranImages.length) return; var temp = lampiranImages[idx]; lampiranImages[idx] = lampiranImages[newIdx]; lampiranImages[newIdx] = temp; renderLampiranList(); }
+function removeLampiranImage(idx) { lampiranImages.splice(idx, 1); renderLampiranList(); updateLampiranSummary(); toast('Gambar dihapus', 'info'); }
+function clearLampiranImages() { if(lampiranImages.length === 0) return; if(!confirm('Hapus semua gambar?')) return; lampiranImages = []; renderLampiranList(); updateLampiranSummary(); toast('Semua gambar dihapus', 'info'); }
 function updateLampiranSummary() {
   var summary = document.getElementById('lampiran-summary');
   var btn = document.getElementById('btn-lampiran-pdf');
   var btnClear = document.getElementById('btn-lampiran-clear');
   var empty = document.getElementById('lampiran-empty');
-  
   if(!summary || !btn) return;
-  
-  if(lampiranImages.length === 0) {
-    summary.classList.add('hidden');
-    btn.disabled = true;
-    if(btnClear) btnClear.disabled = true;
-    if(empty) empty.style.display = '';
-    return;
-  }
-  
-  summary.classList.remove('hidden');
-  btn.disabled = false;
-  if(btnClear) btnClear.disabled = false;
-  if(empty) empty.style.display = 'none';
-  
+  if(lampiranImages.length === 0) { summary.classList.add('hidden'); btn.disabled = true; if(btnClear) btnClear.disabled = true; if(empty) empty.style.display = ''; return; }
+  summary.classList.remove('hidden'); btn.disabled = false; if(btnClear) btnClear.disabled = false; if(empty) empty.style.display = 'none';
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
   var percent = Math.min(100, (total / TARGET_PDF_SIZE) * 100);
-  
   var totalSizeEl = document.getElementById('lampiran-total-size');
   var sizeBarEl = document.getElementById('lampiran-size-bar');
   var imgCountEl = document.getElementById('lampiran-img-count');
-  
   if(totalSizeEl) {
     var color = percent > 95 ? 'text-red-500' : (percent > 75 ? 'text-yellow-500' : 'text-brand-red');
     totalSizeEl.className = 'text-sm font-bold ' + color;
@@ -2612,137 +2350,71 @@ function updateLampiranSummary() {
   if(sizeBarEl) sizeBarEl.style.width = percent + '%';
   if(imgCountEl) imgCountEl.textContent = lampiranImages.length + ' gambar • ' + percent.toFixed(1) + '% dari 1 MB';
 }
-
 function generateLampiranPDF() {
-  if(lampiranImages.length === 0) {
-    toast('Belum ada gambar', 'error');
-    return;
-  }
-  if(lampiranProcessing) {
-    toast('Sedang memproses gambar...', 'info');
-    return;
-  }
-  
+  if(lampiranImages.length === 0) { toast('Belum ada gambar', 'error'); return; }
+  if(lampiranProcessing) { toast('Sedang memproses gambar...', 'info'); return; }
   var safeTarget = TARGET_PDF_SIZE - 30000;
   var total = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
   if(total > safeTarget) {
     toast('Mengompresi ulang agar sesuai 1 MB...', 'info');
     var btn = document.getElementById('btn-lampiran-pdf');
-    if(btn) {
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';
-    }
+    if(btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...'; }
     recompressAllToTarget(safeTarget, function() {
-      if(btn) {
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-      }
+      if(btn) { btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran'; }
       generateLampiranPDFNow();
     });
     return;
   }
-  
   generateLampiranPDFNow();
 }
-
 function generateLampiranPDFNow() {
   var btn = document.getElementById('btn-lampiran-pdf');
-  if(btn) {
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';
-  }
-  
+  if(btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...'; }
   toast('Membuat PDF, mohon tunggu...', 'info');
-  
   setTimeout(function() {
     try {
       var pdf = null;
-      var dpi = 100; // Setting DPI sesuai PDF24
-      var ptPerPx = 72 / dpi; // 1 inch = 72 pt, 100 px = 1 inch, jadi 1 px = 0.72 pt
-      
+      var dpi = 100;
+      var ptPerPx = 72 / dpi;
       lampiranImages.forEach(function(item, idx) {
         var origW = item.originalWidth || item.width;
         var origH = item.originalHeight || item.height;
-        
         var wPt = origW * ptPerPx;
         var hPt = origH * ptPerPx;
-        
         var orientation = wPt > hPt ? 'l' : 'p';
         var formatArr = [wPt, hPt];
-        
         if(idx === 0) {
-          pdf = new window.jspdf.jsPDF({
-            orientation: orientation,
-            unit: 'pt',
-            format: formatArr
-          });
+          pdf = new window.jspdf.jsPDF({ orientation: orientation, unit: 'pt', format: formatArr });
         } else {
           pdf.addPage(formatArr, orientation);
         }
-        
         pdf.addImage(item.data, 'JPEG', 0, 0, wPt, hPt, undefined, 'FAST');
       });
-      
       var filenameInput = document.getElementById('lampiran-filename');
       var filename = (filenameInput ? filenameInput.value : 'Lampiran_Lamaran').trim();
       if(!filename) filename = 'Lampiran_Lamaran';
       filename = filename.replace(/\s+/g, '_');
       if(!filename.toLowerCase().endsWith('.pdf')) filename += '.pdf';
-      
       pdf.save(filename);
-      
-      if(btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-      }
-      
+      if(btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran'; }
       var finalSize = lampiranImages.reduce(function(s, i) { return s + i.compressedSize; }, 0);
       toast('PDF lampiran berhasil dibuat! (' + formatBytes(finalSize) + ')', 'success');
     } catch(e) {
       console.error(e);
       toast('Gagal membuat PDF: ' + (e.message || 'Unknown error'), 'error');
-      if(btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';
-      }
+      if(btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran'; }
     }
   }, 400);
 }
-
 function initLampiranDropZone() {
   var drop = document.getElementById('lampiran-drop');
   var input = document.getElementById('lampiran-input');
   if(!drop || !input) return;
-  
-  drop.addEventListener('click', function(e) {
-    input.click();
-  });
-  
+  drop.addEventListener('click', function(e) { input.click(); });
   input.addEventListener('change', handleLampiranUpload);
-  
-  ['dragenter', 'dragover'].forEach(function(evt) {
-    drop.addEventListener(evt, function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      drop.classList.add('dragover');
-    });
-  });
-  
-  ['dragleave', 'drop'].forEach(function(evt) {
-    drop.addEventListener(evt, function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      drop.classList.remove('dragover');
-    });
-  });
-  
-  drop.addEventListener('drop', function(e) {
-    e.preventDefault();
-    drop.classList.remove('dragover');
-    var files = e.dataTransfer.files;
-    if(files && files.length) {
-      processLampiranFiles(Array.from(files));
-    }
-  });
+  ['dragenter', 'dragover'].forEach(function(evt) { drop.addEventListener(evt, function(e) { e.preventDefault(); e.stopPropagation(); drop.classList.add('dragover'); }); });
+  ['dragleave', 'drop'].forEach(function(evt) { drop.addEventListener(evt, function(e) { e.preventDefault(); e.stopPropagation(); drop.classList.remove('dragover'); }); });
+  drop.addEventListener('drop', function(e) { e.preventDefault(); drop.classList.remove('dragover'); var files = e.dataTransfer.files; if(files && files.length) { processLampiranFiles(Array.from(files)); } });
 }
 
 // ================= INITIALIZATION =================
@@ -2750,6 +2422,7 @@ window.addEventListener('load', function() {
   updateVH();
   initSlider();
   renderForm();
+  populateDummyCV(); // Isi data contoh saat pertama kali load
   renderPreview();
   resetZoom();
   initPanZoom();
