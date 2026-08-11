@@ -200,11 +200,11 @@
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
-      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
+      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
       <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
-      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
+      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Tentang</a>
     </nav>
   </div>
 </header>
@@ -825,7 +825,7 @@
   </div>
 </footer>
 
-<!-- LIBRARY JS BERPATOKAN DIPINDAHKAN KE BAGIAN BAWAH AGAR TIDAK MENGGANGGU PIKSEL ADSENSE SAAT GOOGLE MERAYAPI -->
+<!-- LIBRARY JS BERPATOKAN DIPINDAHKAN KE BAGIAN BAWAH AGAR TIDAK MENGGANGGU PIKSEL ADSENSE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -841,7 +841,7 @@ function toggleMobileMenu() {
 }
 function toggleDark() { document.documentElement.classList.toggle('dark'); }
 
-// ================= VIEW ROUTER (DENGAN HISTORY PUSHSTATE UNTUK SEO ADSENSE) =================
+// ================= VIEW ROUTER =================
 var generatorInitialized = false;
 function showPage(pageId) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -900,7 +900,6 @@ var ST_M=[
   {id:'s-ts',name:'Tulis Tangan (Semua PT)',pos:false,on:false,semua:true}
 ];
 
-// === STATE LAMPIRAN PDF ===
 var lampiranImages = []; var TARGET_PDF_SIZE = 1 * 1024 * 1024; var MAX_LAMPIRAN_IMAGES = 20;
 var lampiranProcessing = false; var draggedItemIdx = null;
 var _tw='width:100%;table-layout:fixed;border-collapse:collapse;border:none;';
@@ -994,7 +993,8 @@ function renderExpF(){
       ph+='</div>';
       ph+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(p.j)+'" oninput="expList['+i+'].posList['+j+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="....." value="'+esc(p.m)+'" oninput="expList['+i+'].posList['+j+'].m=this.value;schedulePreview()"></div></div>';
       ph+='<div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="2" placeholder="....." oninput="expList['+i+'].posList['+j+'].desc=this.value;schedulePreview()">'+esc(p.desc||'')+'</textarea></div>';
-ph+='<button type="button" onclick="aiJobDesc('+i+','+j+')" class="w-full py-2 mt-1 mb-2 bg-green-600 text-white rounded-lg text-xs font-bold hover:bg-green-700 transition"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Buat Deskripsi dengan AI</button>';
+      // Tombol AI Deskripsi
+      ph+='<button type="button" onclick="aiJobDesc('+i+','+j+')" class="w-full py-2 mt-1 mb-2 bg-green-600 text-white rounded-lg text-xs font-bold hover:bg-green-700 transition"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Buat Deskripsi dengan AI</button>';
       ph+='</div>';
       return ph;
     }).join('');
@@ -1008,8 +1008,7 @@ function rmPos(i,j){if(expList[i].posList.length>1){expList[i].posList.splice(j,
 function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
-function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<div class="flex gap-2 mt-2"><button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';
-h+='<button onclick="aiSkills(\''+type+'\')" class="dyn-btn" title="Saran AI" style="background:#10b981; color:#fff; border:1px solid #10b981;"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i></button></div>';c.innerHTML=h}
+function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<div class="flex gap-2 mt-2"><button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';h+='<button onclick="aiSkills(\''+type+'\')" class="dyn-btn" title="Saran AI" style="background:#10b981; color:#fff; border:1px solid #10b981;"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i></button></div>';c.innerHTML=h}
 function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink-0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
 window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else if(t==='soft')sSkills[i]=val;else if(t==='k')kSkills[i]=val;schedulePreview()};
 window._rsk=function(t,i){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');if(a.length>0){a.splice(i,1);renderSkIF(a,cid,t);schedulePreview()}};
@@ -1124,12 +1123,7 @@ function renderCV3(){
   var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
   var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
   var eduHTML=eduPHDual(eduList,eduNonList,'right'); var expHTML=expPH3(expList);
-  
-  // CEK JIKA SEMUA KOSONG AGAR TIDAK MENGGAMBAR GARIS VERTIKAL KOSONG
-  if(!N && !SUB && !TTL && !JK && !BN && !AG && !TB && !BB && !HP && !ST && !EM && ap.length===0 && !PR && !eduHTML && !expHTML && !SK && !photoData) {
-    return ''; // Langsung kembalikan string kosong jika tidak ada data
-  }
-  
+  if(!N && !SUB && !TTL && !JK && !BN && !AG && !TB && !BB && !HP && !ST && !EM && ap.length===0 && !PR && !eduHTML && !expHTML && !SK && !photoData) { return ''; }
   function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}
   function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}
   var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';
@@ -1231,7 +1225,6 @@ function renderCV4(){
   return h;
 }
 
-// Fungsi untuk membuka Gmail secara otomatis dengan isi terpisah
 function openInGmail() {
     var m = ST_M.find(function(t){return t.id===curTpl});
     if(!m || !m.on) return;
@@ -1312,7 +1305,7 @@ function renderSuratP() {
   var AL = v('alamat1') || '……………….';
   var AL2 = v('alamat2') || '';
   var autoPembuka = '';
-  if (m.semua) { autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:'; } else if (m.pos) { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' que saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai ' + esc(POS) + '.'; } else { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' que saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan que Bapak/Ibu pimpin.'; }
+  if (m.semua) { autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:'; } else if (m.pos) { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai ' + esc(POS) + '.'; } else { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan que Bapak/Ibu pimpin.'; }
   var customPembuka = v('sPembuka') && v('sPembuka').trim();
   var pembukaText = customPembuka ? customPembuka : autoPembuka;
   var autoPenutup = 'Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';
@@ -1371,7 +1364,6 @@ function renderPreview() {
   if(pm) pm.innerHTML = html;
 }
 
-// Canvas Cropping Logic
 function handlePhoto(event) {
   var file = event.target.files[0]; if(!file) return;
   if(file.size > 5 * 1024 * 1024) { toast('Ukuran foto maksimal 5MB', 'error'); return; }
@@ -1468,12 +1460,12 @@ function updateLampiranSummary(){var s=document.getElementById('lampiran-summary
 function generateLampiranPDF(){if(!lampiranImages.length){toast('Belum ada gambar','error');return;}if(lampiranProcessing){toast('Sedang memproses...','info');return;}var st=TARGET_PDF_SIZE-30000;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);if(t>st){toast('Mengompresi ulang...','info');var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';}recompressAllToTarget(st,function(){if(b)b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';generateLampiranPDFNow();});return;}generateLampiranPDFNow();}
 function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';}toast('Membuat PDF...','info');setTimeout(function(){try{var pdf=null;var dpi=100;var ppp=72/dpi;lampiranImages.forEach(function(it,idx){var oW=it.originalWidth||it.width,oH=it.originalHeight||it.height;var wPt=oW*ppp,hPt=oH*ppp;var o=wPt>hPt?'l':'p';var fa=[wPt,hPt];if(idx===0){pdf=new window.jspdf.jsPDF({orientation:o,unit:'pt',format:fa});}else{pdf.addPage(fa,o);}pdf.addImage(it.data,'JPEG',0,0,wPt,hPt,undefined,'FAST');});var fi=document.getElementById('lampiran-filename');var fn=(fi?fi.value:'Lampiran_Lamaran').trim();if(!fn)fn='Lampiran_Lamaran';fn=fn.replace(/\s+/g,'_');if(!fn.toLowerCase().endsWith('.pdf'))fn+='.pdf';pdf.save(fn);if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}var fs=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);toast('PDF berhasil dibuat! ('+formatBytes(fs)+')','success');}catch(e){console.error(e);toast('Gagal membuat PDF: '+(e.message||'Error'),'error');if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}}},400);}
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
+
 // ================= GOOGLE GEMINI AI INTEGRATION =================
-// PENTING: Ganti teks di bawah ini dengan API Key Anda dari Google AI Studio
-const GEMINI_API_KEY = 'AQ.Ab8RN6K2xu3ZOsd8xOGhMiMM0WOOGcZ3pXbc-PSO-FODOY1PLw'; 
+const GEMINI_API_KEY = 'AQ.Ab8RN6IKRjANDAfTx8IITfNfK2wdCVT07cDezvcsP-ztTWohxw'; 
 
 async function callGemini(prompt) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
     const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1481,7 +1473,11 @@ async function callGemini(prompt) {
             contents: [{ parts: [{ text: prompt }] }]
         })
     });
-    if (!response.ok) throw new Error('API Error');
+    if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Detail Error dari Google:", errorData);
+        throw new Error(errorData.error.message || "Gagal mengakses API");
+    }
     const data = await response.json();
     return data.candidates[0].content.parts[0].text.trim();
 }
@@ -1489,21 +1485,17 @@ async function callGemini(prompt) {
 async function aiJobDesc(expIdx, posIdx) {
     var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
     toast('AI sedang menulis deskripsi...', 'info');
-    
     try {
         let prompt = `Anda adalah asisten penulis CV profesional. Buatkan deskripsi pekerjaan untuk posisi "${jobTitle}". Buat dalam 2 poin singkat, padat, dan profesional dalam Bahasa Indonesia. Hanya jawab dengan teks deskripsinya saja tanpa kalimat pembuka.`;
         let result = await callGemini(prompt);
-        
-        // Membersihkan format bintang (**) dari hasil AI jika ada
         result = result.replace(/\*\*/g, ''); 
-        
         expList[expIdx].posList[posIdx].desc = result;
-        renderExpF(); // Render ulang form
-        schedulePreview(); // Update preview
+        renderExpF(); 
+        schedulePreview(); 
         toast('Deskripsi berhasil dibuat AI!', 'success');
     } catch (error) {
         console.error('AI Error:', error);
-        toast('Gagal menghubungi AI. Cek API Key.', 'error');
+        toast('Gagal: ' + error.message, 'error'); 
     }
 }
 
@@ -1513,24 +1505,21 @@ async function aiSkills(type) {
     var lulusan = v('lulusan') || '';
     var jurusan = v('jurusan') || '';
     var posisi = v('sPosisi') || v('subtitle') || '';
-    
     toast('AI sedang mencari keahlian...', 'info');
-    
     try {
         let prompt = `Berikan 3 rekomendasi ${type === 'k' ? 'keahlian umum' : (type === 'hard' ? 'hard skill teknis' : 'soft skill personal')} yang relevan untuk posisi "${posisi}" dengan latar belakang pendidikan "${lulusan} ${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
         let result = await callGemini(prompt);
-        
         var newSkills = result.split(',').map(s => s.trim()).filter(s => s);
-        
         newSkills.forEach(skill => targetArr.push(skill));
         renderSkIF(targetArr, cid, type);
         schedulePreview();
         toast('Keahlian ditambahkan oleh AI!', 'success');
     } catch (error) {
         console.error('AI Error:', error);
-        toast('Gagal menghubungi AI. Cek API Key.', 'error');
+        toast('Gagal: ' + error.message, 'error'); 
     }
 }
+
 // ================= INITIALIZATION =================
 window.addEventListener('load', function() {
   updateVH(); initSlider(); renderForm(); renderPreview(); resetZoom(); initPanZoom(); initLampiranDropZone();
