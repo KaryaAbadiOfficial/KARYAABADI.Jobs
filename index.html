@@ -33,15 +33,6 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','syst
 /* === TAMPILAN RAPIH & JUSTIFY RATA KIRI (PADAT, TANPA KATA TANGGUNG) === */
 .article-content p, .article-content li, 
 #view-home p, #view-home li, 
-#view-panduan p, #view-panduan li, 
-#view-tips p, #view-tips li, 
-#view-loker p, #view-loker li, 
-#view-faq p, #view-faq li, 
-#view-about p, #view-about li, 
-#view-contact p, #view-contact li, 
-#view-privacy p, #view-privacy li, 
-#view-terms p, #view-terms li, 
-#view-disclaimer p, #view-disclaimer li, 
 #view-lampiran p, #view-lampiran li {
   text-align: justify;
   text-align-last: left;
@@ -357,11 +348,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;" class="hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;" class="hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); return false;" class="hover:text-white">Lampiran PDF</a>
-      <a href="#" onclick="showPage('panduan'); return false;" class="hover:text-white">Panduan</a>
-      <a href="#" onclick="showPage('tips'); return false;" class="hover:text-white">Tips & Contoh</a>
-      <a href="#" onclick="showPage('loker'); return false;" class="hover:text-white">Info Lowongan</a>
-      <a href="#" onclick="showPage('faq'); return false;" class="hover:text-white">FAQ</a>
-      <a href="#" onclick="showPage('about'); return false;" class="hover:text-white">Tentang</a>
+      <a href="#" onclick="scrollToSection('panduan'); return false;" class="hover:text-white">Panduan</a>
+      <a href="#" onclick="scrollToSection('tips'); return false;" class="hover:text-white">Tips & Contoh</a>
+      <a href="#" onclick="scrollToSection('loker'); return false;" class="hover:text-white">Info Lowongan</a>
+      <a href="#" onclick="scrollToSection('faq'); return false;" class="hover:text-white">FAQ</a>
+      <a href="#" onclick="scrollToSection('about'); return false;" class="hover:text-white">Tentang</a>
     </nav>
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
       <button onclick="toggleDark()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
@@ -380,15 +371,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
-      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
-      <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
-      <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
-      <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
-      <a href="#" onclick="showPage('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
+      <a href="#" onclick="scrollToSection('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
+      <a href="#" onclick="scrollToSection('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
+      <a href="#" onclick="scrollToSection('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
+      <a href="#" onclick="scrollToSection('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
+      <a href="#" onclick="scrollToSection('about'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tentang</a>
     </nav>
   </div>
 </header>
 
+<!-- SEMUA KONTEN STATIS DIGABUNG KE DALAM BERANDA AGAR IKLAN OTOMATIS ADSENSE MUDAH TERPASANG -->
 <div id="view-home" class="view active">
   <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 py-10 md:py-14 text-center">
@@ -491,171 +483,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </div>
   </main>
-</div>
 
-<div id="view-generator" class="view">
-  <nav class="bg-white dark:bg-brand-dark border-b border-gray-200 dark:border-brand-border/50 flex-shrink-0">
-    <div class="max-w-7xl mx-auto px-4 flex">
-      <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
-        <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
-      </button>
-      <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white/70 transition-colors">
-        <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
-      </button>
-    </div>
-  </nav>
-
-  <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-12 relative">
-    <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black min-h-0 fp-scroll mt-2 lg:mt-0">
-      <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
-        <i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template
-      </div>
-      <div id="tpl-tabs" class="mb-4 pb-4 border-b border-gray-200 dark:border-brand-border"></div>
-      <div id="form-content" class="space-y-3 fade-up"></div>
-      <div class="flex gap-3 mt-6 mb-6">
-        <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
-        <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>PDF</button>
-        <button onclick="downloadWord()" id="btn-word" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-blue-600 text-white hover:bg-blue-700 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-file-word mr-1.5 text-xs"></i>Word</button>
-      </div>
-    </div>
-    <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-101 dark:bg-brand-dark/50 min-h-0 pv-scroll">
-      <div class="flex items-center justify-between mb-2 flex-shrink-0">
-        <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
-          <i class="fa-solid fa-eye text-xs"></i>Preview A4
-        </div>
-        <div class="flex items-center gap-1">
-          <button onclick="zoomPreview(-0.1)" class="zoom-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-          <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-600 dark:text-gray-300">100%</span>
-          <button onclick="zoomPreview(0.1)" class="zoom-btn" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-          <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
-        </div>
-      </div>
-      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
-        <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
-      </div>
-    </div>
-  </main>
-
-  <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
-    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
-      <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
-      <div class="flex items-center gap-1">
-        <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
-        <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-        <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
-        <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
-      </div>
-    </div>
-    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
-      <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
-    </div>
-  </div>
-
-  <div class="mob-bar lg:hidden">
-    <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
-    <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
-  </div>
-  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
-</div>
-
-<!-- === VIEW LAMPIRAN PDF: Ubah Gambar Menjadi PDF === -->
-<div id="view-lampiran" class="view">
-  <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
-    <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
-      <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Ubah File JPG, JPEG, PNG Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
-      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
-    </div>
-  </section>
-
-  <main class="max-w-4xl mx-auto px-4 py-8 pb-20">
-    
-    <div class="card mb-6 text-center">
-      <div class="flex flex-col items-center gap-2 mb-4">
-        <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red">
-          <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
-        </div>
-        <h2 class="font-bold text-gray-900 dark:text-white text-base text-center">Upload Salinan Dokumen</h2>
-        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar ke area di bawah ini</p>
-      </div>
-      
-      <div class="lampiran-upload-area" id="lampiran-drop">
-        <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
-        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret gambar ke sini</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG &nbsp;•&nbsp; Maksimal 20 gambar</p>
-        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
-      </div>
-    </div>
-
-    <div id="lampiran-list-wrapper" class="mb-6">
-      <div id="lampiran-empty" class="lampiran-empty-state">
-        <i class="fa-solid fa-folder-open"></i>
-        <p class="text-sm font-semibold">Belum ada gambar diunggah</p>
-        <p class="text-xs mt-1">Unggah salinan dokumen untuk membuat PDF lampiran Anda sekarang juga secara gratis.</p>
-      </div>
-      <div id="lampiran-list"></div>
-    </div>
-
-    <div id="lampiran-summary" class="card mb-6 hidden">
-      <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-database text-brand-red text-sm"></i>
-          <span class="font-bold text-sm text-gray-900 dark:text-white">Total Ukuran PDF</span>
-        </div>
-        <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
-      </div>
-      <div class="size-bar mb-2">
-        <div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div>
-      </div>
-      <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
-        <span id="lampiran-img-count">0 gambar</span>
-        <span>Target Maksimal: 1 MB (1.048.576 byte)</span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-      <div class="card text-center">
-        <label class="fl text-center">Nama File PDF</label>
-        <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan secara otomatis pada nama file yang Anda masukkan di kolom atas.</p>
-      </div>
-      <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50 text-center">
-        <label class="fl flex items-center gap-1.5 justify-center"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
-        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center">
-          <span class="font-bold">Otomatis (DPI 100)</span>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI secara presisi (tanpa margin/border putih).</p>
-      </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-3">
-      <button onclick="clearLampiranImages()" id="btn-lampiran-clear" class="flex-1 py-4 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97] disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-        <i class="fa-solid fa-trash-can mr-1.5 text-xs"></i>Hapus Semua
-      </button>
-      <button onclick="generateLampiranPDF()" id="btn-lampiran-pdf" class="flex-[2] py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:animate-none" disabled>
-        <i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran
-      </button>
-    </div>
-
-    <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl text-center">
-      <div class="flex flex-col items-center gap-3">
-        <i class="fa-solid fa-circle-info text-blue-500 text-lg"></i>
-        <p class="font-bold text-blue-700 dark:text-blue-300 text-sm">Tips Penggunaan:</p>
-        <ul class="text-xs text-blue-700 dark:text-blue-300 space-y-2 max-w-xl no-bullet text-center">
-          <li>Foto atau dokumen dengan resolusi tinggi akan otomatis dikompresi dengan baik tanpa mengurangi keterbacaan teks pada gambar tersebut.</li>
-          <li>Urutan halaman gambar dapat diatur dengan mudah menggunakan menyeret (drag & drop) item atau menggunakan tombol panah Atas dan Bawah.</li>
-          <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI tanpa margin sama sekali.</li>
-          <li>Setiap 1 gambar akan menjadi 1 halaman terpisah di dalam PDF, sehingga dokumen lampiran Anda akan terlihat sangat rapi dan profesional.</li>
-          <li>Pastikan dokumen asli terbaca jelas sebelum mengunggah untuk mendapatkan hasil kompresi yang paling optimal dan profesional.</li>
-        </ul>
-      </div>
-    </div>
-  </main>
-</div>
-
-<div id="view-panduan" class="view">
-  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN PANDUAN (GABUNG) -->
+  <section id="panduan" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center"><i class="fa-solid fa-book text-brand-red mr-2"></i>Panduan Penggunaan Tool Generator</h1>
     <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai proses pembuatan dokumen lamaran Anda dengan cepat, tepat, dan tanpa biaya.</p>
     
@@ -853,11 +683,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         </li>
       </ul>
     </div>
-  </main>
-</div>
+  </section>
 
-<div id="view-tips" class="view">
-  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN TIPS (GABUNG) -->
+  <section id="tips" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center"><i class="fa-solid fa-lightbulb text-brand-red mr-2"></i>Tips Karier & Contoh Dokumen Lamaran</h1>
     <p>Menyusun dokumen lamaran kerja yang baik adalah langkah pertama menuju karier impian Anda. Di halaman ini, kami menyediakan panduan lengkap mengenai cara membuat CV dan Surat Lamaran Kerja yang efektif, profesional, dan mampu menarik perhatian perekrut secara optimal sesuai standar industri saat ini.</p>
     
@@ -920,11 +749,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <p>Banyak pelamar kerja pemula yang masih bingung membedakan fungsi CV dan surat lamaran. Surat Lamaran Kerja adalah surat pengantar utama yang berisi niat Anda untuk melamar posisi tertentu, sedangkan CV (Curriculum Vitae) adalah lampiran yang memuat rincian data diri, riwayat pendidikan, pengalaman kerja, dan keahlian. Keduanya harus dikirim bersamaan saat melamar pekerjaan agar dokumen Anda lengkap di mata perekrut HRD.</p>
     </div>
 
-  </main>
-</div>
+  </section>
 
-<div id="view-loker" class="view">
-  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN LOKER (GABUNG) -->
+  <section id="loker" class="max-w-4xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Info Lowongan Kerja Terpercaya di Indonesia</h1>
     <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi utama:</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -957,11 +785,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
       </a>
     </div>
-  </main>
-</div>
+  </section>
 
-<div id="view-faq" class="view">
-  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN FAQ (GABUNG) -->
+  <section id="faq" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Pertanyaan yang Sering Diajukan (FAQ)</h1>
     <p>Berikut adalah beberapa pertanyaan umum seputar penggunaan tool generator Karya Abadi Jobs beserta jawabannya. Simak informasi berikut untuk membantu Anda memaksimalkan layanan kami:</p>
     <div class="space-y-4 mt-8">
@@ -982,31 +809,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <p class="text-sm text-gray-600 dark:text-gray-400">Gunakan menu "Lampiran PDF" di navigasi atas. Upload gambar salinan dokumen Anda (Ijazah, Transkrip, Sertifikat, KTP, dll), atur urutan dengan drag & drop, lalu klik "Download PDF Lampiran". Sistem akan otomatis mengompresi total ukuran menjadi maksimal 1 MB. Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli gambar dengan resolusi 100 DPI tanpa border putih.</p>
       </div>
     </div>
-  </main>
-</div>
+  </section>
 
-<div id="view-about" class="view">
-  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN ABOUT (GABUNG) -->
+  <section id="about" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Tentang Karya Abadi Jobs</h1>
     <p>Karya Abadi Jobs bukanlah sebuah perusahaan rekrutmen atau agensi penempatan kerja. Kami adalah sebuah platform website tool / generator gratis yang dirancang khusus untuk membantu para pencari kerja di Indonesia dalam membuat dokumen lamaran kerja secara profesional, cepat, dan mudah.</p>
     <p>Misi kami adalah menyediakan alat yang dapat diakses oleh siapa saja, kapan saja, tanpa biaya, untuk membantu mereka melangkah ke jenjang karier berikutnya. Kami memahami bahwa menyusun CV (Curriculum Vitae) dan Surat Lamaran Kerja yang sesuai standar HRD bisa menjadi tantangan tersendiri, terutapi bagi fresh graduate. Oleh karena itu, tool ini dibuat dengan formulir yang sederhana dan template yang terstruktur rapi.</p>
     <p>Sebagai tool berbasis web, seluruh proses pembuatan dokumen dilakukan secara lokal di peramban (browser) pengguna. Ini artinya, data pribadi Anda tidak akan dikirim atau disimpan di server kami. Setelah selesai mengisi formulir, Anda dapat langsung mengunduh hasilnya dalam format PDF atau Word yang siap untuk dicetak atau dikirim secara digital.</p>
     <p>Kami terus berupaya mengembangkan dan meningkatkan kualitas template serta fitur agar Karya Abadi Jobs dapat memberikan manfaat yang maksimal bagi seluruh masyarakat Indonesia yang sedang dalam pencarian pekerjaan.</p>
-  </main>
-</div>
+  </section>
 
-<div id="view-contact" class="view">
-  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN CONTACT (GABUNG) -->
+  <section id="contact" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Hubungi Kami</h1>
     <p>Jika Anda memiliki pertanyaan, saran, kritik, atau masukan terkait layanan tool generator Karya Abadi Jobs, jangan ragu untuk menghubungi kami. Tim kami akan berusaha merespons setiap pesan sesegera mungkin.</p>
     <p class="text-center font-bold mt-4">Email: karyaabadi24434@gmail.com</p>
     <p class="mt-4">Kami sangat menghargai setiap masukan dari pengguna karena hal tersebut membantu kami dalam mengembangkan dan meningkatkan kualitas platform ini agar dapat memberikan manfaat yang lebih baik lagi bagi para pencari kerja di seluruh Indonesia.</p>
     <p class="mt-4">Catatan: Karya Abadi Jobs adalah tool pembuatan dokumen. Kami tidak menyediakan lowongan kerja dan tidak dapat memberikan saran terkait proses rekrutmen di perusahaan tertentu. Untuk informasi terkait lowongan kerja, silakan hubungi langsung pihak perusahaan yang bersangkutan.</p>
-  </main>
-</div>
+  </section>
 
-<div id="view-privacy" class="view">
-  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN PRIVACY (GABUNG) -->
+  <section id="privacy" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Kebijakan Privasi</h1>
     <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
@@ -1017,11 +841,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p>Platform ini tidak menggunakan cookies pihak ketiga untuk melacak aktivitas pribadi pengguna. Kami berkomitmen untuk menjaga privasi Anda sepenuhnya.</p>
     <h2>4. Perubahan Kebijakan</h2>
     <p>Kami berhak untuk mengubah atau memperbarui Kebijakan Privasi ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku sejak dipublikasikan di halaman ini. Pengguna disarankan untuk meninjau halaman ini secara berkala.</p>
-  </main>
-</div>
+  </section>
 
-<div id="view-terms" class="view">
-  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN TERMS (GABUNG) -->
+  <section id="terms" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Ketentuan Layanan</h1>
     <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
@@ -1032,11 +855,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
     <p>Seluruh desain template, struktur kode, logo, dan elemen visual pada platform ini merupakan hak kekayaan intelektual milik Karya Abadi Jobs. Dokumen PDF yang dihasilkan oleh pengguna melalui tool ini adalah milik penuh dari pengguna masing-masing dan bebas digunakan untuk keperluan melamar pekerjaan.</p>
-  </main>
-</div>
+  </section>
 
-<div id="view-disclaimer" class="view">
-  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
+  <!-- KONTEN DISCLAIMER (GABUNG) -->
+  <section id="disclaimer" class="max-w-3xl mx-auto px-4 py-12 article-content border-t border-gray-200 dark:border-brand-border">
     <h1 class="text-center">Disclaimer</h1>
     <p>Halaman Disclaimer ini menjelaskan batasan tanggung jawab yang melekat pada penggunaan tool generator Karya Abadi Jobs. Dengan menggunakan platform ini, Anda dianggap telah memahami batasan-batasan yang diuraikan di bawah ini.</p>
     <h2>1. Sifat Alat Bantu</h2>
@@ -1047,6 +869,169 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <p>Pengguna sangat disarankan untuk selalu memeriksa dan memverifikasi seluruh isi dokumen yang dihasilkan sebelum mengirimkannya. Pastikan tata bahasa, ephaan, dan format sudah sesuai. Kesalahan atau ketidaksesuaian informasi dalam dokumen adalah tanggung jawab sepenuhnya dari pengguna.</p>
     <h2>4. Tautan Eksternal</h2>
     <p>Platform ini mungkin mengandung tautan ke situs web pihak ketiga (misalnya sumber informasi). Kami tidak bertanggung jawab atas konten, kebijakan privasi, atau praktik situs web pihak ketiga tersebut.</p>
+  </section>
+
+</div>
+
+<!-- VIEW GENERATOR DIPISAH KARENA MERUPAKAN TOOL INTERAKTIF -->
+<div id="view-generator" class="view">
+  <nav class="bg-white dark:bg-brand-dark border-b border-gray-200 dark:border-brand-border/50 flex-shrink-0">
+    <div class="max-w-7xl mx-auto px-4 flex">
+      <button onclick="selectCat('cv')" id="cat-cv" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-brand-red text-brand-red transition-colors">
+        <i class="fa-solid fa-file-lines mr-1.5 text-xs"></i>CV (Curriculum Vitae)
+      </button>
+      <button onclick="selectCat('surat')" id="cat-surat" class="cat-tab flex-1 py-3 text-sm font-semibold text-center border-b-2 border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white/70 transition-colors">
+        <i class="fa-solid fa-envelope-open-text mr-1.5 text-xs"></i>Surat Melamar Pekerjaan
+      </button>
+    </div>
+  </nav>
+
+  <main class="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full min-h-0 pb-20 lg:pb-12 relative">
+    <div id="form-panel" class="w-full lg:w-[440px] xl:w-[470px] lg:flex-shrink-0 px-4 py-4 bg-gray-50 dark:bg-brand-black min-h-0 fp-scroll mt-2 lg:mt-0">
+      <div class="text-[11px] font-semibold mb-2 text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
+        <i class="fa-solid fa-pen-ruler text-xs"></i>Pilih Template
+      </div>
+      <div id="tpl-tabs" class="mb-4 pb-4 border-b border-gray-200 dark:border-brand-border"></div>
+      <div id="form-content" class="space-y-3 fade-up"></div>
+      <div class="flex gap-3 mt-6 mb-6">
+        <button onclick="resetForm()" class="flex-1 py-3 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97]"><i class="fa-solid fa-rotate-left mr-1.5 text-xs"></i>Reset</button>
+        <button onclick="downloadPDF()" id="btn-pdf" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-brand-red text-white hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20"><i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>PDF</button>
+        <button onclick="downloadWord()" id="btn-word" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-blue-600 text-white hover:bg-blue-700 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-file-word mr-1.5 text-xs"></i>Word</button>
+      </div>
+    </div>
+    <div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-101 dark:bg-brand-dark/50 min-h-0 pv-scroll">
+      <div class="flex items-center justify-between mb-2 flex-shrink-0">
+        <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
+          <i class="fa-solid fa-eye text-xs"></i>Preview A4
+        </div>
+        <div class="flex items-center gap-1">
+          <button onclick="zoomPreview(-0.1)" class="zoom-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+          <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-600 dark:text-gray-300">100%</span>
+          <button onclick="zoomPreview(0.1)" class="zoom-btn" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+          <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
+        </div>
+      </div>
+      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
+        <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
+    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
+      <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
+      <div class="flex items-center gap-1">
+        <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
+        <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+        <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
+        <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
+      </div>
+    </div>
+    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
+      <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
+    </div>
+  </div>
+
+  <div class="mob-bar lg:hidden">
+    <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
+    <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
+  </div>
+  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+</div>
+
+<!-- === VIEW LAMPIRAN PDF: Ubah Gambar Menjadi PDF === -->
+<div id="view-lampiran" class="view">
+  <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border">
+    <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
+      <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Ubah File JPG, JPEG, PNG Jadi PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
+      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
+    </div>
+  </section>
+
+  <main class="max-w-4xl mx-auto px-4 py-8 pb-20">
+    
+    <div class="card mb-6 text-center">
+      <div class="flex flex-col items-center gap-2 mb-4">
+        <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red">
+          <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+        </div>
+        <h2 class="font-bold text-gray-900 dark:text-white text-base text-center">Upload Salinan Dokumen</h2>
+        <p class="text-xs text-gray-500 dark:text-gray-400 text-center">Klik atau seret gambar ke area di bawah ini</p>
+      </div>
+      
+      <div class="lampiran-upload-area" id="lampiran-drop">
+        <i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i>
+        <p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret gambar ke sini</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG &nbsp;•&nbsp; Maksimal 20 gambar</p>
+        <input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden">
+      </div>
+    </div>
+
+    <div id="lampiran-list-wrapper" class="mb-6">
+      <div id="lampiran-empty" class="lampiran-empty-state">
+        <i class="fa-solid fa-folder-open"></i>
+        <p class="text-sm font-semibold">Belum ada gambar diunggah</p>
+        <p class="text-xs mt-1">Unggah salinan dokumen untuk membuat PDF lampiran Anda sekarang juga secara gratis.</p>
+      </div>
+      <div id="lampiran-list"></div>
+    </div>
+
+    <div id="lampiran-summary" class="card mb-6 hidden">
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-database text-brand-red text-sm"></i>
+          <span class="font-bold text-sm text-gray-900 dark:text-white">Total Ukuran PDF</span>
+        </div>
+        <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
+      </div>
+      <div class="size-bar mb-2">
+        <div id="lampiran-size-bar" class="size-bar-fill" style="width:0%"></div>
+      </div>
+      <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
+        <span id="lampiran-img-count">0 gambar</span>
+        <span>Target Maksimal: 1 MB (1.048.576 byte)</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+      <div class="card text-center">
+        <label class="fl text-center">Nama File PDF</label>
+        <input id="lampiran-filename" class="fi" placeholder="Lampiran_Lamaran" value="Lampiran_Lamaran">
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ekstensi .pdf akan ditambahkan secara otomatis pada nama file yang Anda masukkan di kolom atas.</p>
+      </div>
+      <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50 text-center">
+        <label class="fl flex items-center gap-1.5 justify-center"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center">
+          <span class="font-bold">Otomatis (DPI 100)</span>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI secara presisi (tanpa margin/border putih).</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button onclick="clearLampiranImages()" id="btn-lampiran-clear" class="flex-1 py-4 rounded-xl font-semibold text-sm border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-brand-red hover:text-brand-red transition active:scale-[.97] disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+        <i class="fa-solid fa-trash-can mr-1.5 text-xs"></i>Hapus Semua
+      </button>
+      <button onclick="generateLampiranPDF()" id="btn-lampiran-pdf" class="flex-[2] py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition active:scale-[.97] pulse-red shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:animate-none" disabled>
+        <i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran
+      </button>
+    </div>
+
+    <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl text-center">
+      <div class="flex flex-col items-center gap-3">
+        <i class="fa-solid fa-circle-info text-blue-500 text-lg"></i>
+        <p class="font-bold text-blue-700 dark:text-blue-300 text-sm">Tips Penggunaan:</p>
+        <ul class="text-xs text-blue-700 dark:text-blue-300 space-y-2 max-w-xl no-bullet text-center">
+          <li>Foto atau dokumen dengan resolusi tinggi akan otomatis dikompresi dengan baik tanpa mengurangi keterbacaan teks pada gambar tersebut.</li>
+          <li>Urutan halaman gambar dapat diatur dengan mudah menggunakan menyeret (drag & drop) item atau menggunakan tombol panah Atas dan Bawah.</li>
+          <li>Ukuran halaman PDF akan otomatis menyesuaikan ukuran asli masing-masing gambar dengan resolusi 100 DPI tanpa margin sama sekali.</li>
+          <li>Setiap 1 gambar akan menjadi 1 halaman terpisah di dalam PDF, sehingga dokumen lampiran Anda akan terlihat sangat rapi dan profesional.</li>
+          <li>Pastikan dokumen asli terbaca jelas sebelum mengunggah untuk mendapatkan hasil kompresi yang paling optimal dan profesional.</li>
+        </ul>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -1059,25 +1044,25 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <li><a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">Buat CV Online</a></li>
           <li><a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">Surat Lamaran Kerja</a></li>
           <li><a href="#" onclick="showPage('lampiran'); return false;">Lampiran PDF (Gambar ke PDF)</a></li>
-          <li><a href="#" onclick="showPage('tips'); return false;">Tips & Artikel Karier</a></li>
-          <li><a href="#" onclick="showPage('loker'); return false;">Info Lowongan Kerja</a></li>
+          <li><a href="#" onclick="scrollToSection('tips'); return false;">Tips & Artikel Karier</a></li>
+          <li><a href="#" onclick="scrollToSection('loker'); return false;">Info Lowongan Kerja</a></li>
         </ul>
       </div>
       <div class="ft-col">
         <h4>Informasi</h4>
         <ul>
-          <li><a href="#" onclick="showPage('panduan'); return false;">Panduan Penggunaan</a></li>
-          <li><a href="#" onclick="showPage('about'); return false;">Tentang Kami</a></li>
-          <li><a href="#" onclick="showPage('contact'); return false;">Kontak</a></li>
-          <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
+          <li><a href="#" onclick="scrollToSection('panduan'); return false;">Panduan Penggunaan</a></li>
+          <li><a href="#" onclick="scrollToSection('about'); return false;">Tentang Kami</a></li>
+          <li><a href="#" onclick="scrollToSection('contact'); return false;">Kontak</a></li>
+          <li><a href="#" onclick="scrollToSection('faq'); return false;">FAQ</a></li>
         </ul>
       </div>
       <div class="ft-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="#" onclick="showPage('privacy'); return false;">Kebijakan Privasi</a></li>
-          <li><a href="#" onclick="showPage('terms'); return false;">Ketentuan Layanan</a></li>
-          <li><a href="#" onclick="showPage('disclaimer'); return false;">Disclaimer</a></li>
+          <li><a href="#" onclick="scrollToSection('privacy'); return false;">Kebijakan Privasi</a></li>
+          <li><a href="#" onclick="scrollToSection('terms'); return false;">Ketentuan Layanan</a></li>
+          <li><a href="#" onclick="scrollToSection('disclaimer'); return false;">Disclaimer</a></li>
         </ul>
       </div>
     </div>
@@ -1135,6 +1120,20 @@ function showPage(pageId) {
       }, 50);
     }
   }
+}
+
+// ================= SCROLL TO SECTION (Beranda) =================
+function scrollToSection(id) {
+  showPage('home');
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if(el) {
+      window.scrollTo({
+        top: el.offsetTop - 60, // Offset untuk sticky header
+        behavior: 'smooth'
+      });
+    }
+  }, 100);
 }
 
 // ================= CV SLIDER LOGIC =================
@@ -1349,7 +1348,7 @@ function renderForm(){
     var h=settingsH();
     if(curTpl!=='cv4'){h+=photoH()}
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
-    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
+    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
     h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')
   } else {
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
