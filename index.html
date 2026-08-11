@@ -298,7 +298,7 @@
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
       <div class="flex items-center gap-1">
         <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
+        <span class="zoom-level text-[11px] font-bold w-10 text:center text-gray-300">100%</span>
         <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
         <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
         <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
@@ -719,7 +719,7 @@
 <div id="view-privacy" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Kebijakan Privasi</h1>
-    <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
+    <p>Kebijakan Privasi ini menjelaskan bagaimanya Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
     <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telefon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
@@ -981,7 +981,7 @@ function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
 function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
-function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink-0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
+function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink:0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
 window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else if(t==='soft')sSkills[i]=val;else if(t==='k')kSkills[i]=val;schedulePreview()};
 window._rsk=function(t,i){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');if(a.length>0){a.splice(i,1);renderSkIF(a,cid,t);schedulePreview()}};
 window._ask=function(t){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');a.push('');renderSkIF(a,cid,t);schedulePreview()};
@@ -1051,7 +1051,7 @@ function _eduTblNon(list,mode){
 }
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j and e.j.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
   var hasNon = nonFormalCount > 0; var hasFormal = formalCount > 0; var h=''; var formalTbl=_eduTbl(formalList,mode);
   if(hasNon && hasFormal) { h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>'; }
   h+=formalTbl; var nonFormalTbl=_eduTblNon(nonFormalList,mode);
@@ -1076,6 +1076,17 @@ if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; borde
 if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}
 h+='</td></tr></table>';
 function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nombre',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+
+function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
+var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
+var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
+var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
+var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
+var fi=fotoImg();
+if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; text-align:center; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; text-align:center; border:none;">'; }
+if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
+h+='</td></tr></table>';
+if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
 function renderCV3(){
   var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');
@@ -1105,13 +1116,225 @@ function renderCV3(){
   return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>';
 }
 
+function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
+function renderSkillsCV4(skillArr){
+  var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
+  if(!items.length) return '';
+  var h = '<table style="width:100%; border-collapse:collapse; border:none;">';
+  items.forEach(function(s){
+    var p = parseSkillCV4(s);
+    if(!p.title && !p.val) return;
+    h += '<tr>';
+    h += '<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; border:none;">•</td>';
+    h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600; border:none;">' + esc(p.title) + '</td>';
+    if (p.val) {
+      h += '<td style="width:1px; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 1mm; border:none;">:</td>';
+      h += '<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word; border:none;">' + esc(p.val) + '</td>';
+    } else {
+      h += '<td colspan="2" style="padding-bottom:2mm; border:none;"></td>';
+    }
+    h += '</tr>';
+  });
+  h += '</table>';
+  return h;
+}
+
+function renderCV4(){
+  var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
+  var PR=getProfil('');
+  var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
+  var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
+  var eduH = '';
+  if(formalCount > 0 || hasNonEdu) {
+      if(hasNonEdu && formalCount > 0) { eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'; }
+      eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
+      eduList.forEach(function(e){
+          if(e.t || e.y || e.p){
+              var midVal = ''; var rightVal = '';
+              if(e.m==='p' && e.p && e.p.trim()){ rightVal = esc(e.p); } else if(e.y && e.y.trim()){ midVal = 'Tahun Lulus'; rightVal = esc(e.y); } else if(e.p && e.p.trim()){ rightVal = esc(e.p); }
+              eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%; border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%; border:none;">'+rightVal+'</td></tr>';
+          }
+      });
+      eduH += '</table>';
+      if(hasNonEdu){
+          eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
+          eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
+          eduNonList.forEach(function(e){
+              var leftVal1 = e.t ? esc(e.t) : ''; var rightVal1 = e.d ? esc(e.d) : ''; var leftVal2 = e.k ? esc(e.k) : ''; var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
+              if(leftVal1 || rightVal1) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>'; }
+              if(leftVal2) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal2+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>'; }
+              if(leftVal3) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal3+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>'; }
+          });
+          eduH += '</table>';
+      }
+  }
+  var expH = expPH(expList);
+  var skH = renderSkillsCV4(kSkills);
+  var h = '';
+  if(N) h += '<div style="text-align:center; font-size:18pt; font-weight:700; text-transform:uppercase; margin-bottom:1mm;">'+esc(N)+'</div>';
+  if(SUB) h += '<div style="text-align:center; color:#333; margin-bottom:4mm;">'+esc(SUB)+'</div>';
+  var contactArr = [];
+  if(TTL) contactArr.push(esc(TTL));
+  if(AL) contactArr.push(esc(AL));
+  if(HP) contactArr.push(esc(HP));
+  if(EM) contactArr.push(esc(EM));
+  if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm;">'+contactArr.join(' | ')+'</div>';
+  if(PR) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>';
+  }
+  if(eduH) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="margin-top:2mm;">'+eduH+'</div>';
+  }
+  if(expH) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="margin-top:2mm;">'+expH+'</div>';
+  }
+  if(skH) {
+      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div>';
+      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
+      h += '<div style="margin-top:2mm;">'+skH+'</div>';
+  }
+  return h;
+}
+
+// Fungsi untuk membuka Gmail secara otomatis dengan isi terpisah
+function openInGmail() {
+    var m = ST_M.find(function(t){return t.id===curTpl});
+    if(!m || !m.on) return;
+    var N = v('nombre') || '……………….';
+    var TTD = v('sTtd') || N;
+    var HP = v('nohp') || '……………….';
+    var EM = v('email') || '……………….';
+    var PT = v('sPt') || '……………….';
+    var sEmailPerusahaan = v('sEmailPerusahaan') || '';
+    var subjek = 'Lamaran Pekerjaan';
+    if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
+    if (N !== '……………….') subjek += ' - ' + N;
+    var sumberStr;
+    if (m.semua) { sumberStr = 'informasi lowongan pekerjaan yang ada'; } else { sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + (v('sSumber') || '……………….'); }
+    var pembukaEmail;
+    if (m.pos) { pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + PT + ' sedang membuka lowongan untuk posisi ' + (v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.'; } else { pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + PT + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.'; }
+    var li = [];
+    for (var i = 0; i < lampList.length; i++) { var val = lampList[i] && lampList[i].trim(); if (!val) continue; li.push(val); }
+    var namaFile = (N !== '……………….') ? N : 'Nombre Pelamar';
+    if (m.pos && v('sPosisi')) namaFile += '_' + (v('sPosisi') || '');
+    var body = '';
+    body += 'Kepada Yth.\nBapak/Ibu HRD\n' + PT + '\ndi Tempat\n\nDengan hormat,\n\n' + pembukaEmail + '\n\nSebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:\n';
+    if(li.length) { li.forEach(function(item, idx){ body += (idx + 1) + '. ' + item + '\n'; }); } else { body += '1. ……………….\n2. ……………….\n3. ……………….\n'; }
+    body += '\nBesar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.\n\nDemikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\nHormat saya,\n\n\n' + TTD + '\n' + HP + '\n' + EM;
+    var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(sEmailPerusahaan) + '&su=' + encodeURIComponent(subjek) + '&body=' + encodeURIComponent(body);
+    window.open(gmailUrl, '_blank');
+    toast('Membuka Gmail di tab baru...', 'info');
+}
+
+function renderSuratP() {
+  var m = ST_M.find(function(t){return t.id===curTpl});
+  if(!m) return '';
+  var N = v('nombre') || '……………….';
+  var TTD = v('sTtd') || N;
+  var HP = v('nohp') || '……………….';
+  var EM = v('email') || '……………….';
+  var PT = v('sPt') || '……………….';
+  if (m.on) {
+    var sEmailPerusahaan = v('sEmailPerusahaan') || '……………….';
+    var subjek = 'Lamaran Pekerjaan';
+    if (m.pos && v('sPosisi')) subjek += ': ' + v('sPosisi');
+    if (v('nombre')) subjek += ' - ' + v('nombre');
+    var sumberStr;
+    if (m.semua) { sumberStr = 'informasi lowongan pekerjaan yang ada'; } else { sumberStr = 'informasi lowongan pekerjaan yang saya peroleh dari ' + esc(v('sSumber') || '……………….'); }
+    var pembukaEmail;
+    if (m.pos) { pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' bahwa ' + esc(PT) + ' sedang membuka lowongan untuk posisi ' + esc(v('sPosisi') || '……………….') + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.'; } else { pembukaEmail = 'Sehubungan dengan ' + sumberStr + ' di ' + esc(PT) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.'; }
+    var li = []; var lc = 0;
+    for (var i = 0; i < lampList.length; i++) { var val = lampList[i] && lampList[i].trim(); if (!val) continue; li.push(val); lc++; }
+    var lamps = li.length ? li.map(function(item, idx) { return '<div style="margin-bottom: 1mm;">' + (idx + 1) + '. ' + esc(item) + '</div>'; }).join('') : '<div>1. ……………….</div><div>2. ……………….</div><div>3. ……………….</div>';
+    var namaFile = (N !== '……………….') ? esc(N) : 'Nombre Pelamar';
+    if (m.pos && v('sPosisi')) namaFile += '_' + esc(v('sPosisi'));
+    var h = '';
+    h += '<table style="width:100%; margin-bottom: 4mm; border:none; border-collapse:collapse;">';
+    h += '<tr><td style="width:20mm; border:none; padding:0 2mm 1mm 0; vertical-align:top;">Kepada</td><td style="width:3mm; border:none; padding:0 0 1mm 0;">:</td><td style="border:none; padding:0 0 1mm 0;">' + esc(sEmailPerusahaan) + '</td></tr>';
+    h += '<tr><td style="width:20mm; border:none; padding:0 2mm 0 0; vertical-align:top;">Subjek</td><td style="width:3mm; border:none; padding:0;">:</td><td style="border:none; padding:0;">' + esc(subjek) + '</td></tr>';
+    h += '</table>';
+    h += '<div style="margin-bottom: 5mm; line-height: 1.5;">Kepada Yth.<br>Bapak/Ibu HRD<br>' + esc(PT) + '<br>di Tempat</div>';
+    h += '<p style="margin: 0 0 4mm 0; line-height: 1.5;">Dengan hormat,</p>';
+    h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>';
+    h += '<p style="margin: 0 0 2mm 0; text-align: justify; line-height: 1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:</p>';
+    h += '<div style="margin: 0 0 4mm 8mm; line-height: 1.5;">' + lamps + '</div>';
+    h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>';
+    h += '<p style="margin: 0 0 8mm 0; text-align: justify; line-height: 1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>';
+    h += '<div style="margin-top: 6mm; line-height: 1.6;">Hormat saya,<br><br><span style="font-weight: bold; text-decoration: underline;">' + esc(TTD) + '</span><br>' + esc(HP) + '<br>' + esc(EM) + '</div>';
+    return h;
+  }
+  var sK = v('sKota') || '……………….';
+  var sT = v('sTgl') || '……………….';
+  var sBT = v('sBlnThn') || '……………….';
+  var JL = v('sJl') || '……………….';
+  var JL2 = v('sJl2') || '';
+  var SUM = v('sSumber') || '……………….';
+  var POS = v('sPosisi') || '……………….';
+  var TTL = v('ttl') || '……………….';
+  var JK = v('jk') || '………………………..';
+  var AG = v('agama') || '………………………..';
+  var PA = v('pendAkhir') || '……………….';
+  var AL = v('alamat1') || '……………….';
+  var AL2 = v('alamat2') || '';
+  var autoPembuka = '';
+  if (m.semua) { autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:'; } else if (m.pos) { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai ' + esc(POS) + '.'; } else { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan que Bapak/Ibu pimpin.'; }
+  var customPembuka = v('sPembuka') && v('sPembuka').trim();
+  var pembukaText = customPembuka ? customPembuka : autoPembuka;
+  var autoPenutup = 'Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';
+  var customPenutup = v('sPenutup') && v('sPenutup').trim();
+  var penutupText = customPenutup ? customPenutup : autoPenutup;
+  var li = []; var lc = 0;
+  for (var i = 0; i < lampList.length; i++) { var val = lampList[i] && lampList[i].trim(); if (!val) continue; li.push(val); lc++; }
+  var lamps = li.length ? li.map(function(item, idx) { return '<div>' + (idx + 1) + '. ' + esc(item) + '</div>'; }).join('') : '<div>………………………..</div>';
+  var lampLabel = L('lembar');
+  var lampCountText = lc > 0 ? (lc + ' ' + lampLabel) : ('….. ' + lampLabel);
+  var labelStyle = 'width:45mm;padding-right:2mm;white-space:nowrap;text-align:left;vertical-align:top;';
+  var colonStyle = 'width:3mm;text-align:center;vertical-align:top;';
+  function dr(l, val) { return '<tr><td style="' + labelStyle + '">' + L(l) + '</td><td style="' + colonStyle + '">:</td><td style="text-align:left;vertical-align:top">' + val + '</td></tr>'; }
+  var al2r = AL2 ? '<tr><td style="' + labelStyle + '">&nbsp;</td><td style="' + colonStyle + '">&nbsp;</td><td style="text-align:left;vertical-align:top">' + esc(AL2) + '</td></tr>' : '';
+  var tw = '<div style="text-align:right">' + esc(sK) + ', ' + esc(sT) + ' ' + esc(sBT) + '</div>';
+  var hl = '<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">' + L('Hal') + '</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">' + L('Lampiran') + '</td><td style="padding-left:2mm">: ' + lampCountText + '</td></tr></table>';
+  var at = '<div style="margin-top:2mm;text-align:left">' + L('Kepada Yth.') + '</div><div style="text-align:left">' + L('Bapak/Ibu HRD') + '</div>';
+  if (m.semua) { at += '<div style="text-align:left">' + L('di Tempat') + '</div>'; } else { at += '<div style="text-align:left">' + esc(PT) + '</div><div style="text-align:left">' + esc(JL) + '</div>'; if (JL2 && JL2.trim()) at += '<div style="text-align:left">' + esc(JL2) + '</div>'; }
+  var body = '';
+  if (!m.on) { body += '<div style="margin-top:4mm;text-align:left">' + L('Dengan Hormat,') + '</div>'; }
+  body += '<div style="margin-top:2mm;text-align:justify;text-indent:8mm">' + esc(pembukaText) + '</div>';
+  if (!m.semua) { body += '<div style="margin-top:3mm;text-align:left">' + L('Bersama ini, saya yang bertanda tangan di bawah ini:') + '</div>'; }
+  body += '<table style="width:100%;margin-top:2mm">';
+  body += dr('Nombre', esc(N));
+  body += dr('Tempat dan Tanggal Lahir', esc(TTL));
+  body += dr('Jenis Kelamin', esc(JK));
+  body += dr('Agama', esc(AG));
+  body += dr('Pendidikan Terakhir', esc(PA));
+  body += dr('Alamat', esc(AL));
+  body += al2r;
+  body += dr('Email', esc(EM));
+  body += dr('No HP', esc(HP));
+  body += '</table>';
+  body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini turut saya lampirkan:</div>';
+  body += '<div style="margin-left:8mm;margin-top:2mm">' + lamps + '</div>';
+  body += '<div style="margin-top:3mm;text-align:justify;text-indent:8mm">' + esc(penutupText) + '</div>';
+  var ttdN = esc(TTD) || '………………………..';
+  var ttd = '<div style="margin-top:8mm;text-align:right"><div style="display:inline-block;text-align:center"><div>' + L('Hormat saya,') + '</div><div style="height:14mm"></div><div style="font-weight:600;text-decoration:underline">' + ttdN + '</div></div></div>';
+  return tw + hl + at + body + ttd;
+}
+
 function renderPreview() {
   applyPageStyle();
   var html = '';
   if(curCat === 'cv') {
     if(curTpl === 'cv1') html = renderCV1();
+    else if(curTpl === 'cv2') html = renderCV2();
     else if(curTpl === 'cv3') html = renderCV3();
-    // Logika CV lainnya disingkat untuk efisiensi, gunakan kode Anda jika perlu
+    else if(curTpl === 'cv4') html = renderCV4();
+  } else {
+    html = renderSuratP();
   }
   var p = document.getElementById('a4-page');
   var pm = document.getElementById('a4-page-mob');
@@ -1161,6 +1384,45 @@ function endDrag() { if(!panState.dragging) return; panState.dragging = false; i
 function zoomPreview(delta) { currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta)); applyZoom(); }
 function resetZoom() { panState.offsetX = 0; panState.offsetY = 0; var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob'); var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap; if(activeWrap && activeWrap.offsetWidth > 0) { var containerWidth = activeWrap.offsetWidth - 24; var scalerWidth = 210 * 3.7795; currentZoom = Math.min(1, containerWidth / scalerWidth); } else { currentZoom = 0.6; } applyZoom(); }
 function applyZoom() { var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }); var levels = document.querySelectorAll('.zoom-level'); levels.forEach(function(l) { l.textContent = Math.round(currentZoom * 100) + '%'; }); }
+
+// ================= DOWNLOAD LOGIC =================
+function downloadPDF() {
+  var element = document.getElementById('pdf-offscreen'); var html = '';
+  if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
+  element.innerHTML = '<div class="a4-page" style="font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
+  toast('Membuat PDF, mohon tunggu...', 'info');
+  setTimeout(function() {
+    var targetEl = element.querySelector('.a4-page');
+    html2canvas(targetEl, {scale: 2, useCORS: true, backgroundColor: '#FFFFFF'}).then(function(canvas) {
+      var imgData = canvas.toDataURL('image/jpeg', 0.95);
+      var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+      var imgWidth = 210; var pageHeight = 297; var imgHeight = canvas.height * imgWidth / canvas.width; var heightLeft = imgHeight; var position = 0;
+      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); heightLeft -= pageHeight;
+      while (heightLeft >= 1) { position = heightLeft - imgHeight; pdf.addPage(); pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); heightLeft -= pageHeight; }
+      var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
+      var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
+      pdf.save(fileNamePrefix + safeName + '.pdf');
+      element.innerHTML = ''; toast('PDF berhasil diunduh!', 'success');
+    }).catch(function(err) { console.error(err); toast('Gagal membuat PDF', 'error'); element.innerHTML = ''; });
+  }, 300);
+}
+function downloadWord() {
+  var html = '';
+  if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
+  html = html.replace(/object-fit:\s*cover;?/g, '');
+  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm; margin-bottom: 4.5mm; margin-top: 5mm; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
+  var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
+  var footer = "</body></html>";
+  var sourceHTML = header + html + footer;
+  var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
+  var url = URL.createObjectURL(blob);
+  var fileDownload = document.createElement("a"); fileDownload.href = url;
+  var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
+  var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
+  fileDownload.download = fileNamePrefix + safeName + '.doc';
+  document.body.appendChild(fileDownload); fileDownload.click(); document.body.removeChild(fileDownload);
+  toast('File Word berhasil diunduh!', 'success');
+}
 
 // ================= LAMPIRAN PDF LOGIC =================
 function formatBytes(b){if(!b||b<=0)return'0 B';if(b<1024)return b+' B';if(b<1024*1024)return(b/1024).toFixed(1)+' KB';return(b/1024/1024).toFixed(2)+' MB';}
