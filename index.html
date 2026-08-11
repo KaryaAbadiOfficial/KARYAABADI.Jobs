@@ -1465,39 +1465,40 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 const GEMINI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; 
 
 async function callGemini(prompt) {
-    // Menggunakan model gemini-1.5-flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }]
-        })
-    });
-    
-    // Jika model flash tidak ditemukan, otomatis fallback ke gemini-pro
-    if (!response.ok) {
-        const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
-        const fallbackResponse = await fetch(fallbackUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
-        });
+    // Daftar model yang akan dicoba secara berurutan (dari yang tercepat sampai alternatif)
+    const models = [
+        'gemini-1.5-flash-latest', // Versi flash terbaru
+        'gemini-1.5-flash-8b',     // Flash-Lite (paling cepat)
+        'gemini-1.5-flash',        // Flash standar
+        'gemini-pro'               // Cadangan jika semua flash gagal
+    ];
+
+    for (let i = 0; i < models.length; i++) {
+        const model = models[i];
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
         
-        if (!fallbackResponse.ok) {
-            const errorData = await fallbackResponse.json();
-            console.error("Detail Error dari Google:", errorData);
-            throw new Error(errorData.error.message || "Gagal mengakses API");
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }]
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.candidates && data.candidates[0]) {
+                    return data.candidates[0].content.parts[0].text.trim();
+                }
+            }
+        } catch (e) {
+            // Jika ada error jaringan, lanjut ke model berikutnya
+            console.error(`Gagal dengan model ${model}:`, e);
         }
-        
-        const fallbackData = await fallbackResponse.json();
-        return fallbackData.candidates[0].content.parts[0].text.trim();
     }
     
-    const data = await response.json();
-    return data.candidates[0].content.parts[0].text.trim();
+    throw new Error("Semua model AI gagal merespons. Cek kuota API Key Anda.");
 }
 
 // ================= INITIALIZATION =================
