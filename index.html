@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
 <head>
-<meta charset="UTF-8">
-<!-- Kode Iklan Otomatis Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2272135901889807"
-     crossorigin="anonymous"></script>
+<!-- 1. KODE IKLAN OTOMATIS GOOGLE ADSENSE (WAJIB DI POSISI PALING ATAS) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2272135901889807" crossorigin="anonymous"></script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0W6GP10X59"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-0W6GP10X59');
-</script>
+<!-- 2. PENCEGAH ERROR ADSENSE (Mencegah error 'adsbygoogle is undefined') -->
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KARYA ABADI JOBS - Generator CV & Surat Lamaran Kerja Gratis</title>
 <meta name="description" content="Karya Abadi Jobs adalah tool online gratis untuk membuat CV ATS dan Surat Lamaran Kerja. Template profesional, mudah diunduh PDF, tanpa registrasi.">
@@ -21,9 +15,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- 3. GOOGLE ANALYTICS (Diletakkan setelah AdSense agar tidak mengganggu render iklan) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0W6GP10X59"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0W6GP10X59');
+</script>
+
+<!-- 4. LIBRARY UI & LOGIC WEBSITE -->
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
@@ -49,13 +52,13 @@ tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','syst
   text-align: justify;
   text-align-last: left;
   text-justify: inter-word;
-  text-wrap: pretty; /* Mencegah 1 kata tanggung di baris terakhir */
+  text-wrap: pretty;
   word-break: normal;
   overflow-wrap: break-word;
   -webkit-hyphens: manual;
   -ms-hyphens: manual;
   hyphens: manual;
-  line-height: 1.6; /* Jarak baris lebih padat */
+  line-height: 1.6;
 }
 
 /* === OVERRIDE KHUSUS: RATA TENGAH UNTUK TEKS DI LAMPIRAN PDF === */
@@ -943,7 +946,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl"><i class="fa-brands fa-linkedin"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">LinkedIn Jobs</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutama untuk posisi manajerial dan multinasional.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutakan untuk posisi manajerial dan multinasional.</p>
       </a>
       <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
         <div class="flex items-center gap-4 mb-3 justify-center">
@@ -1090,6 +1093,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
 </footer>
 
+<!-- LIBRARY JS BERPATOKAN DIPINDAHKAN KE BAGIAN BAWAH AGAR TIDAK MENGGANGGU PIKSEL ADSENSE SAAT GOOGLE MERAYAPI -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 // ================= MOBILE MENU =================
 function toggleMobileMenu() {
