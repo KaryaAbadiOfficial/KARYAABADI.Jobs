@@ -128,7 +128,7 @@
         .article-content p, .article-content li { text-align: justify; text-align-last: left; text-justify: inter-word; text-wrap: pretty; word-break: normal; overflow-wrap: break-word; -webkit-hyphens: manual; -ms-hyphens: manual; hyphens: manual; line-height: 1.6; }
         .article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
         .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
-        .article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; text-align: center; }
+        .article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 0; margin-bottom: 1rem; color: #111827; text-align: center; }
         .dark .article-content h2 { color: #fff; }
         .article-content p { margin-bottom: 1rem; color: #4b5563; text-align: justify; text-align-last: left; text-wrap: pretty; line-height: 1.6; }
         .dark .article-content p { color: #cbd5e1; }
@@ -147,10 +147,11 @@
         .dark .lampiran-upload-area { background: #151515; border-color: #2a2a2a; }
         .lampiran-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 8px; background: #fff; transition: all .2s; cursor: grab; }
         
-        /* Custom Icon Box 1 Kolom untuk Panduan & Tips */
+        /* Custom Icon Box 1 Kolom */
         .icon-box-1col { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; margin-bottom: 2.5rem; }
         .icon-box-1col .icon-circle { width: 64px; height: 64px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; margin-bottom: 4px; }
-        .icon-box-1col h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin: 0; }
+        .icon-box-1col .kicker { display: block; font-size: 0.875rem; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .icon-box-1col h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin: 0; text-align: center; }
         .dark .icon-box-1col h3 { color: #fff; }
         .icon-box-1col p { font-size: 0.9rem; color: #4b5563; text-align: justify; text-align-last: center; line-height: 1.6; margin: 0; max-width: 650px; }
         .dark .icon-box-1col p { color: #cbd5e1; }
@@ -294,11 +295,11 @@
     </div>
   </main>
   <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
-    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
+    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink:0">
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
       <div class="flex items-center gap-1">
         <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
+        <span class="zoom-level text-[11px] font-bold w-10 text:center text-gray-300">100%</span>
         <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
         <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
         <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
@@ -355,7 +356,7 @@
         </div>
         <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
       </div>
-      <div class="h-2 bg-gray-200 dark:bg-gray-800 rounded-full mb-2 overflow-hidden">
+      <div class="h-2 bg-gray-200 dark:bg-gray-800 rounded-full mb-2 overflow:hidden">
         <div id="lampiran-size-bar" class="h-full bg-gradient-to-r from-green-500 to-red-500 transition-all duration-300" style="width:0%"></div>
       </div>
       <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
@@ -397,7 +398,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-list-check"></i></div>
-        <h2>Langkah 1 Pilih Jenis Dokumen</h2>
+        <span class="kicker">Langkah 1</span>
+        <h2>Pilih Jenis Dokumen</h2>
       </div>
       <p>Pada bagian atas halaman Generator, Anda akan melihat dua tab utama yaitu CV (Curriculum Vitae) dan Surat Melamar Pekerjaan. Silakan klik tab sesuai dengan jenis dokumen yang ingin Anda buat untuk melanjutkan proses pengisian data diri Anda dengan lengkap, akurat, dan tepat sesuai kebutuhan melamar pekerjaan Anda saat ini.</p>
     </div>
@@ -405,7 +407,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-palette"></i></div>
-        <h2>Langkah 2 Pilih Template</h2>
+        <span class="kicker">Langkah 2</span>
+        <h2>Pilih Template</h2>
       </div>
       <p>Setelah memilih jenis dokumen, pilihlah template yang tersedia. Untuk CV, kami menyediakan 4 pilihan template yang dapat disesuaikan dengan kebutuhan Anda. Untuk Surat Lamaran, tersedia 6 pilihan format yang mencakup variasi Email, Umum, Posisi Spesifik, dan Surat untuk Semua PT. Klik pada tombol template untuk mengaktifkannya dan mulai mengisi data diri Anda dengan teliti.</p>
     </div>
@@ -413,7 +416,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-user-pen"></i></div>
-        <h2>Langkah 3 Pengisian Formulir CV</h2>
+        <span class="kicker">Langkah 3</span>
+        <h2>Pengisian Formulir CV</h2>
       </div>
       <p class="text-center mb-8">Pastikan Anda mengisi setiap kolom dengan informasi yang valid dan terkini. Berikut adalah penjelasan detail untuk setiap bagian pada formulir CV kami.</p>
       
@@ -459,7 +463,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-envelope-open-text"></i></div>
-        <h2>Langkah 4 Pengisian Formulir Surat Lamaran</h2>
+        <span class="kicker">Langkah 4</span>
+        <h2>Pengisian Formulir Surat Lamaran</h2>
       </div>
       <p class="text-center mb-8">Surat lamaran berfungsi sebagai pengantar CV Anda. Isi dengan bahasa yang sopan, formal, baik, dan struktur yang baku.</p>
       
@@ -495,7 +500,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
-        <h2>Langkah 5 Pratinjau Preview dan Download PDF</h2>
+        <span class="kicker">Langkah 5</span>
+        <h2>Pratinjau Preview dan Download PDF</h2>
       </div>
       <p>Di panel kanan (atau dengan menekan tombol Preview di HP), Anda dapat melihat hasil dokumen secara real-time. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Anda bisa menggeser (drag) preview dan menggunakan tombol zoom (+/-) untuk melihat detail. Pastikan tidak ada teks yang terpotong sebelum diunduh. Jika sudah sesuai, klik tombol PDF atau Word untuk mengunduh dokumen lamaran Anda dengan mudah dan cepat.</p>
     </div>
@@ -503,7 +509,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-paper-plane"></i></div>
-        <h2>Langkah 6 Mengirim Lamaran via Email dengan Gmail Otomatis</h2>
+        <span class="kicker">Langkah 6</span>
+        <h2>Mengirim Lamaran via Email dengan Gmail Otomatis</h2>
       </div>
       <p class="text-center mb-8">Jika Anda menggunakan template Surat Lamaran via Email, kami menyediakan fitur praktis bernama Buka & Isi Otomatis di Gmail. Fitur ini memungkinkan Anda untuk langsung mengirim surat lamaran tanpa perlu melakukan copy-paste manual secara terpisah untuk kolom Kepada, Subjek, dan Isi Surat Email.</p>
       
@@ -534,7 +541,8 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-file-zipper"></i></div>
-        <h2>Langkah 7 Membuat PDF Lampiran dari Gambar Dokumen</h2>
+        <span class="kicker">Langkah 7</span>
+        <h2>Membuat PDF Lampiran dari Gambar Dokumen</h2>
       </div>
       <p class="text-center mb-8">Karya Abadi Jobs juga menyediakan fitur Lampiran PDF yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) menjadi satu file PDF yang siap dikirim ke HRD. Berikut panduan cara menggunakannya dengan mudah.</p>
       
@@ -568,7 +576,7 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-robot"></i></div>
-        <h2>1 Apa itu CV ATS Friendly</h2>
+        <h2>1. Apa itu CV ATS Friendly</h2>
       </div>
       <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyaring ratusan hingga ribuan CV secara otomatis dan cepat. CV yang ATS Friendly berarti CV tersebut dapat dibaca dengan mudah oleh sistem robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS dan mudah dipindai oleh perangkat lunak perusahaan.</p>
       
@@ -584,7 +592,7 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-palette"></i></div>
-        <h2>2 Rekomendasi Memilih Template CV</h2>
+        <h2>2. Rekomendasi Memilih Template CV</h2>
       </div>
       <p class="text-center mb-8">Kami menyediakan 4 pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Pilihlah yang paling tepat dan sesuai dengan karakteristik diri Anda serta budaya perusahaan yang Anda tuju nantinya.</p>
       
@@ -615,7 +623,7 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-envelope"></i></div>
-        <h2>3 Rekomendasi Memilih Template Surat Lamaran</h2>
+        <h2>3. Rekomendasi Memilih Template Surat Lamaran</h2>
       </div>
       <p class="text-center mb-8">Template surat lamaran kami dibagi menjadi format Email dan Tulis Tangan, dengan variasi umum, posisi spesifik, dan semua PT. Berikut panduan memilihnya agar Anda bisa mendapatkan format surat yang paling tepat dan sesuai dengan kebutuhan melamar Anda.</p>
       
@@ -641,7 +649,7 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
-        <h2>4 Perbedaan CV dan Surat Lamaran Kerja</h2>
+        <h2>4. Perbedaan CV dan Surat Lamaran Kerja</h2>
       </div>
       <p>Banyak pelamar kerja pemula yang masih bingung membedakan fungsi CV dan surat lamaran. Surat Lamaran Kerja adalah surat pengantar utama yang berisi niat Anda untuk melamar posisi tertentu, sedangkan CV (Curriculum Vitae) adalah lampiran yang memuat rincian data diri, riwayat pendidikan, pengalaman kerja, dan keahlian. Keduanya harus dikirim bersamaan saat melamar pekerjaan agar dokumen Anda lengkap di mata perekrut HRD.</p>
     </div>
@@ -1013,7 +1021,7 @@ function renderForm(){
     var h=settingsH();
     if(curTpl!=='cv4'){h+=photoH()}
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
-    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
+    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nama','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
     h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')
   } else {
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
@@ -1302,7 +1310,7 @@ function renderSuratP() {
   var AL = v('alamat1') || '……………….';
   var AL2 = v('alamat2') || '';
   var autoPembuka = '';
-  if (m.semua) { autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:'; } else if (m.pos) { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai ' + esc(POS) + '.'; } else { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' yang saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan que Bapak/Ibu pimpin.'; }
+  if (m.semua) { autoPembuka = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:'; } else if (m.pos) { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' que saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai ' + esc(POS) + '.'; } else { autoPembuka = 'Berdasarkan informasi lowongan pekerjaan di ' + esc(PT) + ' que saya peroleh dari ' + esc(SUM) + ', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan que Bapak/Ibu pimpin.'; }
   var customPembuka = v('sPembuka') && v('sPembuka').trim();
   var pembukaText = customPembuka ? customPembuka : autoPembuka;
   var autoPenutup = 'Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';
