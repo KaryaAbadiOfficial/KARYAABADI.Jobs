@@ -124,7 +124,7 @@
         @media(min-width:640px){.ft-copy{font-size:12px}}
         @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
         
-        /* CSS ARTIKEL Khusus Panduan, Tips, Loker */
+        /* CSS ARTIKEL Khusus Panduan, Tips, Loker (1 Kolom, Justify Padat) */
         .article-content p, .article-content li { text-align: justify; text-align-last: left; text-justify: inter-word; text-wrap: pretty; word-break: normal; overflow-wrap: break-word; -webkit-hyphens: manual; -ms-hyphens: manual; hyphens: manual; line-height: 1.6; }
         .article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
         .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
@@ -147,13 +147,13 @@
         .dark .lampiran-upload-area { background: #151515; border-color: #2a2a2a; }
         .lampiran-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 8px; background: #fff; transition: all .2s; cursor: grab; }
         
-        /* Custom Icon Box untuk Panduan & Tips */
-        .icon-box { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
-        .icon-box .icon-circle { width: 56px; height: 56px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-        .icon-box h3 { font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0; }
-        .dark .icon-box h3 { color: #fff; }
-        .icon-box p { font-size: 0.875rem; color: #4b5563; text-align: center; line-height: 1.5; margin: 0; }
-        .dark .icon-box p { color: #cbd5e1; }
+        /* Custom Icon Box 1 Kolom untuk Panduan & Tips */
+        .icon-box-1col { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; margin-bottom: 2.5rem; }
+        .icon-box-1col .icon-circle { width: 64px; height: 64px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; margin-bottom: 4px; }
+        .icon-box-1col h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin: 0; }
+        .dark .icon-box-1col h3 { color: #fff; }
+        .icon-box-1col p { font-size: 0.9rem; color: #4b5563; text-align: justify; text-align-last: center; line-height: 1.6; margin: 0; max-width: 650px; }
+        .dark .icon-box-1col p { color: #cbd5e1; }
     </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen flex flex-col">
@@ -199,7 +199,7 @@
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
-      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
+      <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Panduan</a>
       <a href="#" onclick="showPage('tips'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Tips & Contoh</a>
       <a href="#" onclick="showPage('loker'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Info Lowongan</a>
       <a href="#" onclick="showPage('faq'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">FAQ</a>
@@ -298,7 +298,7 @@
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
       <div class="flex items-center gap-1">
         <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text:center text-gray-300">100%</span>
+        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
         <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
         <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
         <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
@@ -388,65 +388,67 @@
   </main>
 </div>
 
-<!-- ================= VIEW PANDUAN ( LENGKAP & PADAT ) ================= -->
+<!-- ================= VIEW PANDUAN ( 1 KOLOM, JUSTIFY PADAT ) ================= -->
 <div id="view-panduan" class="view">
-  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center"><i class="fa-solid fa-book text-brand-red mr-2"></i>Panduan Penggunaan Tool Generator</h1>
     <p>Tool Generator Karya Abadi Jobs dirancang agar siapa pun dapat membuat CV dan Surat Lamaran Kerja secara profesional dalam hitungan menit. Ikuti langkah-langkah mudah di bawah ini untuk memulai proses pembuatan dokumen lamaran Anda dengan cepat, tepat, dan tanpa biaya. Setiap fitur disusun sedemikian rupa agar tampilan akhir dokumen Anda terlihat rapi, modern, dan disesuaikan dengan standar sumber daya manusia (HRD) saat ini.</p>
     
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 1 Pilih Jenis Dokumen</h2>
-      <div class="icon-box mb-4 mt-4">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-list-check"></i></div>
-        <h3>Tentukan Kebutuhan Lamaran Anda</h3>
+        <h2>Langkah 1 Pilih Jenis Dokumen</h2>
       </div>
       <p>Pada bagian atas halaman Generator, Anda akan melihat dua tab utama yaitu CV (Curriculum Vitae) dan Surat Melamar Pekerjaan. Silakan klik tab sesuai dengan jenis dokumen yang ingin Anda buat untuk melanjutkan proses pengisian data diri Anda dengan lengkap, akurat, dan tepat sesuai kebutuhan melamar pekerjaan Anda saat ini.</p>
     </div>
     
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 2 Pilih Template</h2>
-      <div class="icon-box mb-4 mt-4">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-palette"></i></div>
-        <h3>Tentukan Desain yang Tepat</h3>
+        <h2>Langkah 2 Pilih Template</h2>
       </div>
       <p>Setelah memilih jenis dokumen, pilihlah template yang tersedia. Untuk CV, kami menyediakan 4 pilihan template yang dapat disesuaikan dengan kebutuhan Anda. Untuk Surat Lamaran, tersedia 6 pilihan format yang mencakup variasi Email, Umum, Posisi Spesifik, dan Surat untuk Semua PT. Klik pada tombol template untuk mengaktifkannya dan mulai mengisi data diri Anda dengan teliti.</p>
     </div>
     
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 3 Pengisian Formulir CV</h2>
-      <p>Pastikan Anda mengisi setiap kolom dengan informasi yang valid dan terkini. Berikut adalah penjelasan detail untuk setiap bagian pada formulir CV kami.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-left">
-        <div class="icon-box">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
+        <div class="icon-circle"><i class="fa-solid fa-user-pen"></i></div>
+        <h2>Langkah 3 Pengisian Formulir CV</h2>
+      </div>
+      <p class="text-center mb-8">Pastikan Anda mengisi setiap kolom dengan informasi yang valid dan terkini. Berikut adalah penjelasan detail untuk setiap bagian pada formulir CV kami.</p>
+      
+      <div class="space-y-10">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-sliders"></i></div>
           <h3>Pengaturan Tampilan</h3>
           <p>Anda bisa memilih jenis font (Arial, Times New Roman, Calibri), mengatur ukuran font, dan menyesuaikan jarak baris agar dokumen terlihat rapi, profesional, indah, dan tidak melebihi 1 halaman.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-camera"></i></div>
           <h3>Unggah Pas Foto</h3>
           <p>Klik area kotak untuk mengunggah foto. Sistem akan otomatis memotong (crop) foto Anda menjadi rasio 3x4 (2.79 x 3.81 cm) secara presisi. Pastikan menggunakan foto formal terbaru dengan latar belakang polos berwarna terang.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-user-tie"></i></div>
           <h3>Deskripsi Profil</h3>
           <p>Isi ringkasan singkat mengenai diri Anda, lulusan jurusan apa, dan apa keahlian utama Anda. Jika dikosongkan, sistem akan membuatkan teks profil otomatis yang menarik dan sesuai standar umum.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-circle-user"></i></div>
           <h3>Data Pribadi</h3>
           <p>Isi nama lengkap sesuai dokumen resmi (KTP/Ijazah), tempat tanggal lahir, jenis kelamin, agama, kontak (No. HP dan Email yang aktif), dan alamat domisili saat ini dengan sangat jelas dan benar.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-graduation-cap"></i></div>
           <h3>Pendidikan Formal dan Non Formal</h3>
           <p>Masukkan riwayat pendidikan formal (SMA/SMK/Kuliah). Sertakan nama institusi dan tahun lulus. Untuk pendidikan non-formal, masukkan kursus, pelatihan, atau sertifikasi yang relevan dengan pekerjaan yang dilamar. Gunakan tombol tambah untuk menambah baris baru.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-briefcase"></i></div>
           <h3>Pengalaman Kerja</h3>
           <p>Isi nama perusahaan, alamat, posisi/jabatan, serta masa kerja. Tuliskan deskripsi pekerjaan secara ringkas namun jelas, misalnya pencapaian atau tanggung jawab utama. Jika fresh graduate, Anda bisa mengisi dengan pengalaman magang, kepanitiaan, atau organisasi.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-list-check"></i></div>
           <h3>Keahlian Skills</h3>
           <p>Anda bisa memilih mode Hard Skill dan Soft Skill atau cukup Daftar Keahlian saja sesuai kebutuhan. Hard Skill berisi kemampuan teknis (misal Excel, Python, Desain Grafis), sedangkan Soft Skill berisi kemampuan personal (misal Komunikasi, Kepemimpinan).</p>
@@ -454,31 +456,35 @@
       </div>
     </div>
     
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 4 Pengisian Formulir Surat Lamaran</h2>
-      <p>Surat lamaran berfungsi sebagai pengantar CV Anda. Isi dengan bahasa yang sopan, formal, baik, dan struktur yang baku.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-left">
-        <div class="icon-box">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
+        <div class="icon-circle"><i class="fa-solid fa-envelope-open-text"></i></div>
+        <h2>Langkah 4 Pengisian Formulir Surat Lamaran</h2>
+      </div>
+      <p class="text-center mb-8">Surat lamaran berfungsi sebagai pengantar CV Anda. Isi dengan bahasa yang sopan, formal, baik, dan struktur yang baku.</p>
+      
+      <div class="space-y-10">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-building"></i></div>
           <h3>Data Perusahaan Tujuan</h3>
           <p>Masukkan nama perusahaan dan email HRD (jika menggunakan format Email). Masukkan juga sumber informasi lowongan (misal JobStreet, LinkedIn, Instagram, atau teman).</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-bullseye"></i></div>
           <h3>Posisi yang Dilamar</h3>
           <p>Jika memilih template Posisi Spesifik, isi kolom posisi/jabatan yang Anda inginkan dengan tepat dan jelas (misal Staff Accounting).</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-quote-left"></i></div>
           <h3>Kalimat Pembuka dan Penutup</h3>
           <p>Biarkan kosong jika Anda ingin sistem membuatkan kalimat pembuka dan penutup yang baku dan sopan secara otomatis dan cepat. Anda juga bisa mengetik kalimat Anda sendiri untuk kesan yang lebih personal.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-paperclip"></i></div>
           <h3>Daftar Lampiran</h3>
           <p>Masukkan dokumen yang Anda lampirkan secara berurutan. Contoh 1. CV, 2. Ijazah, 3. Transkrip Nilai, 4. Pas Foto, 5. Sertifikat. Gunakan tombol tambah untuk menambah baris lampiran baru dengan mudah.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-signature"></i></div>
           <h3>Nama Tanda Tangan</h3>
           <p>Ketikkan nama lengkap Anda. Jika formatnya Tulis Tangan, beri spasi kosong di atas nama Anda untuk membubuhkan tanda tangan basah di atas kertas setelah dicetak.</p>
@@ -486,35 +492,38 @@
       </div>
     </div>
     
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 5 Pratinjau Preview dan Download PDF</h2>
-      <div class="icon-box mb-4 mt-4">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-file-pdf"></i></div>
-        <h3>Unduh Dokumen Lamaran Anda</h3>
+        <h2>Langkah 5 Pratinjau Preview dan Download PDF</h2>
       </div>
       <p>Di panel kanan (atau dengan menekan tombol Preview di HP), Anda dapat melihat hasil dokumen secara real-time. Setiap kali Anda mengetik, pratinjau akan langsung berubah. Anda bisa menggeser (drag) preview dan menggunakan tombol zoom (+/-) untuk melihat detail. Pastikan tidak ada teks yang terpotong sebelum diunduh. Jika sudah sesuai, klik tombol PDF atau Word untuk mengunduh dokumen lamaran Anda dengan mudah dan cepat.</p>
     </div>
 
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 6 Mengirim Lamaran via Email dengan Gmail Otomatis</h2>
-      <p>Jika Anda menggunakan template Surat Lamaran via Email, kami menyediakan fitur praktis bernama Buka & Isi Otomatis di Gmail. Fitur ini memungkinkan Anda untuk langsung mengirim surat lamaran tanpa perlu melakukan copy-paste manual secara terpisah untuk kolom Kepada, Subjek, dan Isi Surat Email.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-left">
-        <div class="icon-box">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
+        <div class="icon-circle"><i class="fa-solid fa-paper-plane"></i></div>
+        <h2>Langkah 6 Mengirim Lamaran via Email dengan Gmail Otomatis</h2>
+      </div>
+      <p class="text-center mb-8">Jika Anda menggunakan template Surat Lamaran via Email, kami menyediakan fitur praktis bernama Buka & Isi Otomatis di Gmail. Fitur ini memungkinkan Anda untuk langsung mengirim surat lamaran tanpa perlu melakukan copy-paste manual secara terpisah untuk kolom Kepada, Subjek, dan Isi Surat Email.</p>
+      
+      <div class="space-y-10">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-right-to-bracket"></i></div>
           <h3>Pastikan Sudah Login Gmail</h3>
           <p>Fitur ini bekerja dengan membuka tab compose Gmail baru. Pastikan Anda sudah login ke akun Gmail Anda di browser (peramban) yang sama persis yang Anda gunakan untuk membuka Karya Abadi Jobs.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-envelope-open"></i></div>
           <h3>Pilih Template Email</h3>
           <p>Pilih salah satu template surat lamaran berformat Email (misalnya Email Umum, Email Posisi Spesifik, atau Email Semua PT).</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-building"></i></div>
           <h3>Isi Email Perusahaan</h3>
           <p>Pada bagian formulir Data Perusahaan Tujuan, masukkan alamat email HRD perusahaan yang dituju pada kolom Email Perusahaan secara benar (misal hrd@perusahaan.com).</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-paper-plane"></i></div>
           <h3>Klik Tombol Hijau</h3>
           <p>Gulir terus ke bawah pada panel formulir, lalu klik tombol berwarna hijau bertuliskan Buka & Isi Otomatis di Gmail. Sistem akan langsung membuka tab baru berisi halaman tulis email (compose) Gmail Anda dengan format yang sudah terisi rapi.</p>
@@ -522,21 +531,25 @@
       </div>
     </div>
 
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>Langkah 7 Membuat PDF Lampiran dari Gambar Dokumen</h2>
-      <p>Karya Abadi Jobs juga menyediakan fitur Lampiran PDF yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) menjadi satu file PDF yang siap dikirim ke HRD. Berikut panduan cara menggunakannya dengan mudah.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-left">
-        <div class="icon-box">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
+        <div class="icon-circle"><i class="fa-solid fa-file-zipper"></i></div>
+        <h2>Langkah 7 Membuat PDF Lampiran dari Gambar Dokumen</h2>
+      </div>
+      <p class="text-center mb-8">Karya Abadi Jobs juga menyediakan fitur Lampiran PDF yang memungkinkan Anda menggabungkan beberapa foto salinan dokumen (Ijazah, Transkrip, Sertifikat, KTP, dll) menjadi satu file PDF yang siap dikirim ke HRD. Berikut panduan cara menggunakannya dengan mudah.</p>
+      
+      <div class="space-y-10">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-cloud-arrow-up"></i></div>
           <h3>Unggah Gambar</h3>
           <p>Klik menu Lampiran PDF di navigasi atas. Klik area upload atau seret beberapa file gambar sekaligus ke area tersebut. Format gambar yang didukung adalah JPG dan PNG.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-arrows-up-down"></i></div>
           <h3>Atur Urutan Drag & Drop</h3>
           <p>Anda dapat mengatur urutan halaman PDF dengan cara menyeret gambar ke posisi yang diinginkan, atau menggunakan tombol panah Atas dan Bawah pada setiap item gambar yang diunggah.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-file-zipper"></i></div>
           <h3>Kompresi Otomatis</h3>
           <p>Sistem akan otomatis mengompresi setiap gambar sehingga total ukuran PDF tidak melebihi 1 MB. Indikator ukuran akan menampilkan progres real-time secara akurat. Klik tombol Download PDF Lampiran untuk mengunduh file PDF yang sudah jadi dan terkompresi rapi.</p>
@@ -546,22 +559,21 @@
   </main>
 </div>
 
-<!-- ================= VIEW TIPS ( LENGKAP & PADAT ) ================= -->
+<!-- ================= VIEW TIPS ( 1 KOLOM, JUSTIFY PADAT ) ================= -->
 <div id="view-tips" class="view">
-  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center"><i class="fa-solid fa-lightbulb text-brand-red mr-2"></i>Tips Karier dan Contoh Dokumen Lamaran</h1>
     <p>Menyusun dokumen lamaran kerja yang baik adalah langkah pertama menuju karier impian Anda. Di halaman ini, kami menyediakan panduan lengkap mengenai cara membuat CV dan Surat Lamaran Kerja yang efektif, profesional, dan mampu menarik perhatian perekrut secara optimal sesuai standar industri saat ini.</p>
     
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>1 Apa itu CV ATS Friendly</h2>
-      <div class="icon-box mb-4 mt-4">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-robot"></i></div>
-        <h3>Memahami Sistem Pelacak Pelamar (ATS)</h3>
+        <h2>1 Apa itu CV ATS Friendly</h2>
       </div>
       <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyaring ratusan hingga ribuan CV secara otomatis dan cepat. CV yang ATS Friendly berarti CV tersebut dapat dibaca dengan mudah oleh sistem robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS dan mudah dipindai oleh perangkat lunak perusahaan.</p>
       
-      <h3 class="text-left mt-6 mb-3">Tips Agar Lolos ATS</h3>
-      <ul class="space-y-2 mt-2 text-left">
+      <h3 class="text-left mt-8 mb-4 text-lg font-bold text-gray-900 dark:text-white">Tips Agar Lolos ATS</h3>
+      <ul class="space-y-3 mt-2 text-left">
         <li>Hindari menggunakan kolom atau desain yang terlalu rumit dengan banyak elemen grafis yang berlebihan dan dapat mengganggu sistem pembacaan ATS.</li>
         <li>Gunakan font standar seperti Arial, Calibri, atau Times New Roman yang semua pilihannya tersedia secara gratis di generator kami.</li>
         <li>Jangan menyertakan pas foto pada CV kecuali memang diminta secara khusus dan wajib oleh lowongan pekerjaan tersebut.</li>
@@ -569,26 +581,30 @@
       </ul>
     </div>
 
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>2 Rekomendasi Memilih Template CV</h2>
-      <p>Kami menyediakan 4 pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Pilihlah yang paling tepat dan sesuai dengan karakteristik diri Anda serta budaya perusahaan yang Anda tuju nantinya.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-left">
-        <div class="icon-box">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
+        <div class="icon-circle"><i class="fa-solid fa-palette"></i></div>
+        <h2>2 Rekomendasi Memilih Template CV</h2>
+      </div>
+      <p class="text-center mb-8">Kami menyediakan 4 pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Pilihlah yang paling tepat dan sesuai dengan karakteristik diri Anda serta budaya perusahaan yang Anda tuju nantinya.</p>
+      
+      <div class="space-y-10">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-file-lines"></i></div>
           <h3>CV Template 1 Klasik</h3>
           <p>Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional yang sangat kental mementingkan kelengkapan data pribadi kandidat.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-file-circle-half-stroke"></i></div>
           <h3>CV Template 2 Modern Center</h3>
           <p>Desain modern dengan nama dan info kontak di tengah. Cocok untuk fresh graduate atau pelamar di industri kreatif, media, dan startup masa kini yang dinamis.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-table-columns"></i></div>
           <h3>CV Template 3 Sidebar</h3>
           <p>Memanfaatkan layout dua kolom (sidebar kiri). Ideal untuk Anda yang memiliki banyak pengalaman kerja dan daftar keahlian panjang, sehingga CV terlihat lebih terstruktur, rapi, dan tidak terlalu padat.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-file"></i></div>
           <h3>CV Template 4 ATS Sederhana</h3>
           <p>Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maupun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p>
@@ -596,21 +612,25 @@
       </div>
     </div>
 
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>3 Rekomendasi Memilih Template Surat Lamaran</h2>
-      <p>Template surat lamaran kami dibagi menjadi format Email dan Tulis Tangan, dengan variasi umum, posisi spesifik, dan semua PT. Berikut panduan memilihnya agar Anda bisa mendapatkan format surat yang paling tepat dan sesuai dengan kebutuhan melamar Anda.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-left">
-        <div class="icon-box">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
+        <div class="icon-circle"><i class="fa-solid fa-envelope"></i></div>
+        <h2>3 Rekomendasi Memilih Template Surat Lamaran</h2>
+      </div>
+      <p class="text-center mb-8">Template surat lamaran kami dibagi menjadi format Email dan Tulis Tangan, dengan variasi umum, posisi spesifik, dan semua PT. Berikut panduan memilihnya agar Anda bisa mendapatkan format surat yang paling tepat dan sesuai dengan kebutuhan melamar Anda.</p>
+      
+      <div class="space-y-10">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-envelope"></i></div>
           <h3>Email vs Tulis Tangan</h3>
           <p>Gunakan format Email jika perusahaan meminta mengirim lamaran via email (lebih efisien dan cepat). Gunakan format Tulis Tangan jika syarat lowongan secara eksplisit dan tegas menyebutkan surat lamaran ditulis tangan pada kertas HVS.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-bullseye"></i></div>
           <h3>Umum vs Posisi Spesifik</h3>
           <p>Pilih varian Posisi Spesifik jika Anda melamar suatu jabatan yang sudah pasti (misal Staff Accounting). Pilih Umum jika Anda berjaga-jaga ingin melamar ke berbagai perusahaan secara acak tanpa target jabatan khusus.</p>
         </div>
-        <div class="icon-box">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-building"></i></div>
           <h3>Semua PT</h3>
           <p>Opsi ini digunakan jika Anda membuat satu surat lamaran bawaan yang akan diperbanyak dengan fotokopi dan dikirim ke beberapa perusahaan sekaligus (ditujukan kepada Pimpinan Perusahaan di Tempat).</p>
@@ -618,54 +638,53 @@
       </div>
     </div>
 
-    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 text-center">
-      <h2>4 Perbedaan CV dan Surat Lamaran Kerja</h2>
-      <div class="icon-box mb-4 mt-4">
+    <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
+      <div class="icon-box-1col">
         <div class="icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
-        <h3>Fungsi CV dan Surat Lamaran</h3>
+        <h2>4 Perbedaan CV dan Surat Lamaran Kerja</h2>
       </div>
       <p>Banyak pelamar kerja pemula yang masih bingung membedakan fungsi CV dan surat lamaran. Surat Lamaran Kerja adalah surat pengantar utama yang berisi niat Anda untuk melamar posisi tertentu, sedangkan CV (Curriculum Vitae) adalah lampiran yang memuat rincian data diri, riwayat pendidikan, pengalaman kerja, dan keahlian. Keduanya harus dikirim bersamaan saat melamar pekerjaan agar dokumen Anda lengkap di mata perekrut HRD.</p>
     </div>
   </main>
 </div>
 
-<!-- ================= VIEW LOKER ( LENGKAP & PADAT ) ================= -->
+<!-- ================= VIEW LOKER ( 1 KOLOM, JUSTIFY PADAT ) ================= -->
 <div id="view-loker" class="view">
-  <main class="max-w-4xl mx-auto px-4 py-10 article-content">
+  <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Info Lowongan Kerja Terpercaya di Indonesia</h1>
     <p>Mencari pekerjaan memerlukan strategi yang tepat. Salah satunya adalah mencari sumber lowongan kerja dari platform yang terpercaya dan selalu terupdate. Berikut adalah daftar situs pencarian kerja populer di Indonesia yang bisa Anda gunakan sebagai referensi utama.</p>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 text-left">
-      <a href="https://www.jobstreet.co.id/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="icon-box mb-3">
+    <div class="space-y-8 mt-10 text-left">
+      <a href="https://www.jobstreet.co.id/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-briefcase"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">JobStreet Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Situs lowongan kerja terbesar di Asia Tenggara. Menyediakan ribuan lowongan dari berbagai industri dengan fitur filtering yang sangat lengkap.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Situs lowongan kerja terbesar di Asia Tenggara. Menyediakan ribuan lowongan dari berbagai industri dengan fitur filtering yang sangat lengkap.</p>
       </a>
       
-      <a href="https://id.linkedin.com/jobs" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="icon-box mb-3">
+      <a href="https://id.linkedin.com/jobs" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-brands fa-linkedin"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">LinkedIn Jobs</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutakan untuk posisi manajerial dan multinasional.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Platform profesional terbaik untuk membangun jaringan dan mencari pekerjaan, terutakan untuk posisi manajerial dan multinasional.</p>
       </a>
       
-      <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="icon-box mb-3">
+      <a href="https://www.kalibrr.com/" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-laptop-code"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">Kalibrr</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Sangat populer untuk startup dan perusahaan teknologi. Memiliki sistem matching otomatis antara kandidat dan perusahaan.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Sangat populer untuk startup dan perusahaan teknologi. Memiliki sistem matching otomatis antara kandidat dan perusahaan.</p>
       </a>
       
-      <a href="https://www.glints.com/id" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group text-center">
-        <div class="icon-box mb-3">
+      <a href="https://www.glints.com/id" target="_blank" class="block bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:border-brand-red transition group">
+        <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-rocket"></i></div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-brand-red text-center">Glints Indonesia</h3>
         </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">Fokus pada talenta muda, startup, and karir remote. Menyediakan juga pelatihan dan kelas untuk meningkatkan skill.</p>
       </a>
     </div>
   </main>
@@ -719,7 +738,7 @@
 <div id="view-privacy" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Kebijakan Privasi</h1>
-    <p>Kebijakan Privasi ini menjelaskan bagaimanya Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
+    <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
     <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telefon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
@@ -981,7 +1000,7 @@ function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
 function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
-function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink:0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
+function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink-0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
 window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else if(t==='soft')sSkills[i]=val;else if(t==='k')kSkills[i]=val;schedulePreview()};
 window._rsk=function(t,i){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');if(a.length>0){a.splice(i,1);renderSkIF(a,cid,t);schedulePreview()}};
 window._ask=function(t){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');a.push('');renderSkIF(a,cid,t);schedulePreview()};
