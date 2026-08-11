@@ -1462,10 +1462,11 @@ function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pd
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
 
 // ================= GOOGLE GEMINI AI INTEGRATION =================
-const GEMINI_API_KEY = 'AQ.Ab8RN6KEwHR4XqJ4QUFNAevZkuIFpsCsoeCOd7IBFPXsRVaVow'; 
+// API Key Anda yang benar (berawalan AIza...)
+const GEMINI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; 
 
 async function callGemini(prompt) {
-    // Daftar model yang akan dicoba secara berurutan (dari yang tercepat sampai alternatif)
+    // Daftar model yang akan dicoba secara berurutan agar tidak error
     const models = [
         'gemini-1.5-flash-latest', // Versi flash terbaru
         'gemini-1.5-flash-8b',     // Flash-Lite (paling cepat)
@@ -1493,14 +1494,58 @@ async function callGemini(prompt) {
                 }
             }
         } catch (e) {
-            // Jika ada error jaringan, lanjut ke model berikutnya
             console.error(`Gagal dengan model ${model}:`, e);
         }
     }
     
-    throw new Error("Semua model AI gagal merespons. Cek kuota API Key Anda.");
+    throw new Error("AI gagal merespons. Cek kuota API Key Anda.");
 }
 
+async function aiJobDesc(expIdx, posIdx) {
+    var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
+    toast('AI sedang menulis deskripsi...', 'info');
+    
+    try {
+        let prompt = `Anda adalah asisten penulis CV profesional. Buatkan deskripsi pekerjaan untuk posisi "${jobTitle}". Buat dalam 2 poin singkat, padat, dan profesional dalam Bahasa Indonesia. Hanya jawab dengan teks deskripsinya saja tanpa kalimat pembuka.`;
+        let result = await callGemini(prompt);
+        
+        // Membersihkan format bintang (**) dari hasil AI jika ada
+        result = result.replace(/\*\*/g, ''); 
+        
+        expList[expIdx].posList[posIdx].desc = result;
+        renderExpF(); // Render ulang form
+        schedulePreview(); // Update preview
+        toast('Deskripsi berhasil dibuat AI!', 'success');
+    } catch (error) {
+        console.error('AI Error:', error);
+        toast('Gagal: ' + error.message, 'error'); 
+    }
+}
+
+async function aiSkills(type) {
+    var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
+    var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
+    var lulusan = v('lulusan') || '';
+    var jurusan = v('jurusan') || '';
+    var posisi = v('sPosisi') || v('subtitle') || '';
+    
+    toast('AI sedang mencari keahlian...', 'info');
+    
+    try {
+        let prompt = `Berikan 3 rekomendasi ${type === 'k' ? 'keahlian umum' : (type === 'hard' ? 'hard skill teknis' : 'soft skill personal')} yang relevan untuk posisi "${posisi}" dengan latar belakang pendidikan "${lulusan} ${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        let result = await callGemini(prompt);
+        
+        var newSkills = result.split(',').map(s => s.trim()).filter(s => s);
+        
+        newSkills.forEach(skill => targetArr.push(skill));
+        renderSkIF(targetArr, cid, type);
+        schedulePreview();
+        toast('Keahlian ditambahkan oleh AI!', 'success');
+    } catch (error) {
+        console.error('AI Error:', error);
+        toast('Gagal: ' + error.message, 'error'); 
+    }
+}
 // ================= INITIALIZATION =================
 window.addEventListener('load', function() {
   updateVH(); initSlider(); renderForm(); renderPreview(); resetZoom(); initPanZoom(); initLampiranDropZone();
