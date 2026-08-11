@@ -1470,7 +1470,7 @@ function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pd
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
 // ================= GOOGLE GEMINI AI INTEGRATION =================
 // PENTING: Ganti teks di bawah ini dengan API Key Anda dari Google AI Studio
-const GEMINI_API_KEY = 'MASUKKAN_API_KEY_GEMINI_ANDA_DISINI'; 
+const GEMINI_API_KEY = 'AQ.Ab8RN6JtiAl2SuuvuYm7Sr4-d_IaZ8hpHdr_4-Ncv4FOf_yWqg'; 
 
 async function callGemini(prompt) {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
