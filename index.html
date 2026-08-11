@@ -1465,7 +1465,8 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 const GEMINI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; 
 
 async function callGemini(prompt) {
-   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+    // Menggunakan model gemini-1.5-flash
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
     const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1473,51 +1474,30 @@ async function callGemini(prompt) {
             contents: [{ parts: [{ text: prompt }] }]
         })
     });
+    
+    // Jika model flash tidak ditemukan, otomatis fallback ke gemini-pro
     if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Detail Error dari Google:", errorData);
-        throw new Error(errorData.error.message || "Gagal mengakses API");
+        const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+        const fallbackResponse = await fetch(fallbackUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }]
+            })
+        });
+        
+        if (!fallbackResponse.ok) {
+            const errorData = await fallbackResponse.json();
+            console.error("Detail Error dari Google:", errorData);
+            throw new Error(errorData.error.message || "Gagal mengakses API");
+        }
+        
+        const fallbackData = await fallbackResponse.json();
+        return fallbackData.candidates[0].content.parts[0].text.trim();
     }
+    
     const data = await response.json();
     return data.candidates[0].content.parts[0].text.trim();
-}
-
-async function aiJobDesc(expIdx, posIdx) {
-    var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
-    toast('AI sedang menulis deskripsi...', 'info');
-    try {
-        let prompt = `Anda adalah asisten penulis CV profesional. Buatkan deskripsi pekerjaan untuk posisi "${jobTitle}". Buat dalam 2 poin singkat, padat, dan profesional dalam Bahasa Indonesia. Hanya jawab dengan teks deskripsinya saja tanpa kalimat pembuka.`;
-        let result = await callGemini(prompt);
-        result = result.replace(/\*\*/g, ''); 
-        expList[expIdx].posList[posIdx].desc = result;
-        renderExpF(); 
-        schedulePreview(); 
-        toast('Deskripsi berhasil dibuat AI!', 'success');
-    } catch (error) {
-        console.error('AI Error:', error);
-        toast('Gagal: ' + error.message, 'error'); 
-    }
-}
-
-async function aiSkills(type) {
-    var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
-    var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
-    var lulusan = v('lulusan') || '';
-    var jurusan = v('jurusan') || '';
-    var posisi = v('sPosisi') || v('subtitle') || '';
-    toast('AI sedang mencari keahlian...', 'info');
-    try {
-        let prompt = `Berikan 3 rekomendasi ${type === 'k' ? 'keahlian umum' : (type === 'hard' ? 'hard skill teknis' : 'soft skill personal')} yang relevan untuk posisi "${posisi}" dengan latar belakang pendidikan "${lulusan} ${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
-        let result = await callGemini(prompt);
-        var newSkills = result.split(',').map(s => s.trim()).filter(s => s);
-        newSkills.forEach(skill => targetArr.push(skill));
-        renderSkIF(targetArr, cid, type);
-        schedulePreview();
-        toast('Keahlian ditambahkan oleh AI!', 'success');
-    } catch (error) {
-        console.error('AI Error:', error);
-        toast('Gagal: ' + error.message, 'error'); 
-    }
 }
 
 // ================= INITIALIZATION =================
