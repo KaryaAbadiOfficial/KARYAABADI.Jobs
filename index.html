@@ -1187,7 +1187,7 @@ function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(part
 function renderSkillsCV4(skillArr){
   var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
   if(!items.length) return '';
-  var h = '<table style="width:100%; border-collapse:collapse; border:none;">';
+  var h = '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';
   items.forEach(function(s){
     var p = parseSkillCV4(s);
     if(!p.title && !p.val) return;
@@ -1214,7 +1214,7 @@ function renderCV4(){
   var eduH = '';
   if(formalCount > 0 || hasNonEdu) {
       if(hasNonEdu && formalCount > 0) { eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'; }
-      eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
+      eduH += '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';
       eduList.forEach(function(e){
           if(e.t || e.y || e.p){
               var midVal = ''; var rightVal = '';
@@ -1225,7 +1225,7 @@ function renderCV4(){
       eduH += '</table>';
       if(hasNonEdu){
           eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';
-          eduH += '<table style="width:100%; border-collapse:collapse; border:none;">';
+          eduH += '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';
           eduNonList.forEach(function(e){
               var leftVal1 = e.t ? esc(e.t) : ''; var rightVal1 = e.d ? esc(e.d) : ''; var leftVal2 = e.k ? esc(e.k) : ''; var leftVal3 = e.j ? '(' + esc(e.j) + ')' : '';
               if(leftVal1 || rightVal1) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>'; }
@@ -1454,7 +1454,8 @@ function applyZoom() { var scalers = [document.getElementById('a4-scaler'), docu
 function downloadPDF() {
   var element = document.getElementById('pdf-offscreen'); var html = '';
   if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
-  element.innerHTML = '<div class="a4-page" style="font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
+  // PERBAIKAN: Tambah overflow:visible agar html2canvas tidak memotong konten yang lebih dari 1 halaman (multi-page)
+  element.innerHTML = '<div class="a4-page" style="overflow:visible;font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
   toast('Membuat PDF, mohon tunggu...', 'info');
   setTimeout(function() {
     var targetEl = element.querySelector('.a4-page');
@@ -1496,8 +1497,6 @@ function compressImageToSize(img,t,cb){var m=2200,w=img.width,h=img.height;if(w>
 function handleLampiranUpload(e){var f=e.target.files;if(!f||!f.length)return;processLampiranFiles(Array.from(f));e.target.value='';}
 function processLampiranFiles(f){if(lampiranProcessing){toast('Sedang memproses...','info');return;}var img=f.filter(function(x){return x.type.startsWith('image/');});if(!img.length){toast('Tidak ada file gambar valid','error');return;}var av=MAX_LAMPIRAN_IMAGES-lampiranImages.length;if(av<=0){toast('Maksimal 20 gambar','error');return;}if(img.length>av){toast('Hanya '+av+' gambar lagi','info');img=img.slice(0,av);}lampiranProcessing=true;document.getElementById('btn-lampiran-pdf').disabled=true;document.getElementById('btn-lampiran-clear').disabled=true;toast('Memproses '+img.length+' gambar...','info');var rem=img.length;var ni=[];img.forEach(function(fl){var r=new FileReader();r.onload=function(e){var im=new Image();im.onload=function(){var tb=Math.floor(900*1024/Math.max(1,lampiranImages.length+img.length));tb=Math.max(40*1024,Math.min(tb,800*1024));compressImageToSize(im,tb,function(u,s,w,h){ni.push({data:u,name:fl.name,originalSize:fl.size,compressedSize:s,width:w,height:h,originalWidth:im.width,originalHeight:im.height});rem--;if(rem===0){ni.sort(function(a,b){return a.name.localeCompare(b.name);});lampiranImages=lampiranImages.concat(ni);lampiranProcessing=false;finalizeLampiranUpload();}});};im.onerror=function(){rem--;if(rem===0){lampiranImages=lampiranImages.concat(ni);lampiranProcessing=false;finalizeLampiranUpload();}};im.src=e.target.result;};r.readAsDataURL(fl);});}
 function finalizeLampiranUpload(){var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);var st=TARGET_PDF_SIZE-30000;if(t>st){toast('Mengompresi...','info');setTimeout(function(){recompressAllToTarget(st);},100);}else{renderLampiranList();updateLampiranSummary();toast(lampiranImages.length+' gambar siap','success');}}
-
-// PERBAIKAN FATAL: Mengganti nama variabel 'it' menjadi 'loopCount' dan 'currentItem' untuk menghindari Variable Shadowing
 function recompressAllToTarget(ct,cb){
   if(!lampiranImages.length){renderLampiranList();updateLampiranSummary();if(cb)cb();return;}
   var t=ct||TARGET_PDF_SIZE;
@@ -1540,7 +1539,6 @@ function recompressAllToTarget(ct,cb){
   }
   pn();
 }
-
 function renderLampiranList(){var c=document.getElementById('lampiran-list');if(!c)return;if(!lampiranImages.length){c.innerHTML='';return;}var h='';lampiranImages.forEach(function(it,idx){var dW=it.originalWidth||it.width,dH=it.originalHeight||it.height;h+='<div class="lampiran-item" style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:8px;background:#fff;display:flex;align-items:center;gap:12px;"><div style="flex-shrink:0;"><i class="fa-solid fa-grip-vertical text-lg" style="color:#9ca3af;cursor:grab;"></i></div><img src="'+it.data+'" style="width:56px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;flex-shrink:0;background:#f3f4f6;" alt="Thumb '+(idx+1)+'"><div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;">'+esc(it.name)+'</div><div style="font-size:12px;color:#6b7280;margin-top:2px;">'+formatBytes(it.originalSize)+' → <span style="font-weight:bold;color:#DC2626;">'+formatBytes(it.compressedSize)+'</span></div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">Halaman '+(idx+1)+' • '+dW+'×'+dH+'px</div></div><button onclick="removeLampiranImage('+idx+')" style="width:36px;height:36px;border-radius:8px;background:rgba(220,38,38,0.1);color:#DC2626;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-trash text-xs"></i></button></div>';});c.innerHTML=h;}
 function removeLampiranImage(i){lampiranImages.splice(i,1);renderLampiranList();updateLampiranSummary();toast('Gambar dihapus','info');}
 function clearLampiranImages(){if(!lampiranImages.length)return;if(!confirm('Hapus semua gambar?'))return;lampiranImages=[];renderLampiranList();updateLampiranSummary();toast('Semua gambar dihapus','info');}
