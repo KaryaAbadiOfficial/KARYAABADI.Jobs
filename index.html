@@ -1462,172 +1462,64 @@ function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pd
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
 
 // ================= GOOGLE GEMINI AI INTEGRATION =================
-// URL Cloudflare Worker Anda (wajib pakai https://)
 const WORKER_URL = "https://karyaabadi-jobs.karyaabadi24434.workers.dev";
 
-async function callWorkerAPI(jurusan, jabatan, masaKerja) {
+async function callWorkerAPI(type, jurusan, jabatan) {
     const response = await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ jurusan, jabatan, masaKerja })
+        body: JSON.stringify({ type, jurusan, jabatan })
     });
-
     const data = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-        console.error("Detail Error dari Worker:", data);
-        throw new Error(data.error || "Gagal menghubungi Worker Gemini.");
-    }
+    if (!response.ok) throw new Error(data.error || "Gagal menghubungi Worker Gemini.");
     return data;
 }
 
+// 1. Fungsi untuk tombol AI di kolom Deskripsi Pekerjaan
 async function aiJobDesc(expIdx, posIdx) {
     var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
-    var masaKerja = expList[expIdx].posList[posIdx].m || '';
     var jurusan = v('jurusan') || '';
     
-    if (!jobTitle) {
-        toast('Jabatan/Posisi belum diisi.', 'error');
-        return;
-    }
-    if (!jurusan) {
-        toast('Mohon isi kolom Jurusan di bagian Profil terlebih dahulu.', 'error');
-        return;
-    }
+    if (!jobTitle) { toast('Jabatan/Posisi belum diisi.', 'error'); return; }
+    if (!jurusan) { toast('Mohon isi kolom Jurusan di Profil dulu.', 'error'); return; }
 
-    bukaModalAI('loading');
-    
+    toast('AI sedang membuat deskripsi...', 'info');
     try {
-        let hasil = await callWorkerAPI(jurusan, jobTitle, masaKerja);
-        tampilkanPilihanAI(hasil, expIdx, posIdx);
-    } catch (error) {
-        console.error('AI Error:', error);
-        tutupModalAI();
-        toast('Gagal: ' + error.message, 'error'); 
-    }
+        let hasil = await callWorkerAPI('deskripsi', jurusan, jobTitle);
+        if(hasil.deskripsi) {
+            expList[expIdx].posList[posIdx].desc = hasil.deskripsi;
+            renderExpF(); // Render ulang form pengalaman kerja
+            schedulePreview(); // Update preview CV
+            toast('Deskripsi berhasil dibuat AI!', 'success');
+        } else {
+            toast('AI tidak memberikan jawaban.', 'error');
+        }
+    } catch (error) { toast('Gagal: ' + error.message, 'error'); }
 }
 
+// 2. Fungsi untuk tombol AI di kolom Hard Skill, Soft Skill, dan Daftar Keahlian
 async function aiSkills(type) {
     var jurusan = v('jurusan') || '';
-    if (!jurusan) {
-        toast('Mohon isi kolom Jurusan di bagian Profil terlebih dahulu.', 'error');
-        return;
-    }
+    if (!jurusan) { toast('Mohon isi kolom Jurusan di Profil dulu.', 'error'); return; }
     
-    toast('AI sedang mencari keahlian...', 'info');
-    
+    toast('AI sedang membuat keahlian...', 'info');
     try {
-        // Kita panggil Worker dengan jabatan dummy untuk memancing AI memberikan skill
-        let hasil = await callWorkerAPI(jurusan, 'Staff Umum', '');
-        let rekomendasi = hasil.rekomendasi || [];
-        
-        if(rekomendasi.length > 0) {
-            var item = rekomendasi[0]; // Ambil rekomendasi pertama
-            var skillsText = type === 'hard' ? item.hard_skill : (type === 'soft' ? item.soft_skill : item.keahlian);
+        let hasil = await callWorkerAPI(type, jurusan, '');
+        if(hasil.skill) {
+            var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
+            var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
             
-            if(skillsText) {
-                var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
-                var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
-                
-                var newSkills = skillsText.split(',').map(s => s.trim()).filter(s => s);
-                newSkills.forEach(skill => targetArr.push(skill));
-                renderSkIF(targetArr, cid, type);
-                schedulePreview();
-                toast('Keahlian ditambahkan oleh AI!', 'success');
-            } else {
-                toast('AI tidak memberikan keahlian untuk jurusan ini.', 'error');
-            }
+            // Pecah jawaban AI menjadi array, lalu tambahkan ke list
+            var newSkills = hasil.skill.split(',').map(s => s.trim()).filter(s => s);
+            newSkills.forEach(skill => targetArr.push(skill));
+            
+            renderSkIF(targetArr, cid, type); // Render ulang form skill
+            schedulePreview(); // Update preview CV
+            toast('Keahlian ditambahkan oleh AI!', 'success');
+        } else {
+            toast('AI tidak memberikan jawaban.', 'error');
         }
-    } catch (error) {
-        console.error('AI Error:', error);
-        toast('Gagal: ' + error.message, 'error'); 
-    }
-}
-
-// ================= AI MODAL UI LOGIC =================
-function bukaModalAI(mode) {
-    let modal = document.getElementById('geminiAI_modal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'geminiAI_modal';
-        modal.innerHTML = `
-            <div id="geminiAI_overlay" style="position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px;">
-                <div style="width:100%;max-width:850px;max-height:90vh;overflow:auto;background:#1c1c1c;color:#fff;border:1px solid #333;border-radius:14px;padding:20px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
-                        <h2 style="margin:0;color:#fff;font-size:18px;">✨ Rekomendasi Gemini AI</h2>
-                        <button id="geminiAI_close" style="background:#333;color:#fff;font-size:20px;border:none;border-radius:6px;width:30px;height:30px;cursor:pointer;">×</button>
-                    </div>
-                    <div id="geminiAI_content"></div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        document.getElementById('geminiAI_close').onclick = tutupModalAI;
-    }
-    modal.style.display = 'block';
-    if (mode === 'loading') {
-        document.getElementById('geminiAI_content').innerHTML = `
-            <div style="padding:40px;text-align:center;">
-                <i class="fa-solid fa-spinner fa-spin" style="font-size:30px;margin-bottom:15px;color:#16b364;"></i>
-                <div>Gemini sedang membuat 3 rekomendasi...</div>
-            </div>
-        `;
-    }
-}
-
-function tutupModalAI() {
-    const modal = document.getElementById('geminiAI_modal');
-    if (modal) modal.style.display = 'none';
-}
-
-function tampilkanPilihanAI(data, expIdx, posIdx) {
-    const content = document.getElementById('geminiAI_content');
-    content.innerHTML = '';
-    
-    const list = data.rekomendasi || [];
-    if(list.length === 0) {
-        content.innerHTML = '<p style="text-align:center;color:#aaa;">Tidak ada rekomendasi yang ditemukan.</p>';
-        return;
-    }
-
-    list.forEach(function(item, index) {
-        const card = document.createElement('div');
-        card.style.cssText = 'border:1px solid #333;border-radius:10px;padding:16px;margin-bottom:14px;background:#151515;';
-        
-        card.innerHTML = `
-            <h3 style="margin-top:0;color:#16b364;font-size:16px;margin-bottom:10px;">${item.gaya || 'Rekomendasi ' + (index+1)}</h3>
-            <div style="margin-bottom:10px"><b style="color:#aaa;font-size:12px;">Deskripsi Pekerjaan</b><p style="margin:4px 0 0 0;font-size:14px;line-height:1.5;">${item.deskripsi_pekerjaan || ''}</p></div>
-            <div style="margin-bottom:10px"><b style="color:#aaa;font-size:12px;">Hard Skill</b><p style="margin:4px 0 0 0;font-size:14px;line-height:1.5;">${item.hard_skill || ''}</p></div>
-            <div style="margin-bottom:15px"><b style="color:#aaa;font-size:12px;">Soft Skill</b><p style="margin:4px 0 0 0;font-size:14px;line-height:1.5;">${item.soft_skill || ''}</p></div>
-            <button class="gemini-pakai" style="width:100%;background:#16b364;color:#fff;border:none;padding:10px;border-radius:8px;font-weight:bold;cursor:pointer;">✓ Gunakan Rekomendasi Ini</button>
-        `;
-        
-        card.querySelector('.gemini-pakai').onclick = function() {
-            gunakanRekomendasiAI(item, expIdx, posIdx);
-        };
-        
-        content.appendChild(card);
-    });
-}
-
-function gunakanRekomendasiAI(item, expIdx, posIdx) {
-    expList[expIdx].posList[posIdx].desc = item.deskripsi_pekerjaan || '';
-    renderExpF();
-    
-    if (item.hard_skill) {
-        var hArr = item.hard_skill.split(',').map(s => s.trim()).filter(s => s);
-        hArr.forEach(s => hSkills.push(s));
-        renderSkIF(hSkills, 'hard-c', 'hard');
-    }
-    if (item.soft_skill) {
-        var sArr = item.soft_skill.split(',').map(s => s.trim()).filter(s => s);
-        sArr.forEach(s => sSkills.push(s));
-        renderSkIF(sSkills, 'soft-c', 'soft');
-    }
-    
-    schedulePreview();
-    tutupModalAI();
-    toast('✓ Rekomendasi berhasil digunakan.', 'success');
+    } catch (error) { toast('Gagal: ' + error.message, 'error'); }
 }
 
 // ================= INITIALIZATION =================
