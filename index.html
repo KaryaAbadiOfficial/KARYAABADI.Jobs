@@ -1463,7 +1463,7 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 
 // ================= GOOGLE GEMINI AI INTEGRATION (DENGAN UI MODAL 3 PILIHAN) =================
 const GEMINI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; 
-const GEMINI_MODEL = 'gemini-1.5-flash'; // Menggunakan model yang stabil dan pasti tersedia
+const GEMINI_MODEL = 'gemini-pro'; // Menggunakan model gemini-pro yang dijamin tersedia di semua akun
 
 async function callGeminiJSON(prompt) {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
