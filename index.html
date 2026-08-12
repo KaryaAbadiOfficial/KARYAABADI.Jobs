@@ -761,7 +761,7 @@
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujuai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujuai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyeturujui untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maipun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangruan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -1461,42 +1461,29 @@ function generateLampiranPDF(){if(!lampiranImages.length){toast('Belum ada gamba
 function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';}toast('Membuat PDF...','info');setTimeout(function(){try{var pdf=null;var dpi=100;var ppp=72/dpi;lampiranImages.forEach(function(it,idx){var oW=it.originalWidth||it.width,oH=it.originalHeight||it.height;var wPt=oW*ppp,hPt=oH*ppp;var o=wPt>hPt?'l':'p';var fa=[wPt,hPt];if(idx===0){pdf=new window.jspdf.jsPDF({orientation:o,unit:'pt',format:fa});}else{pdf.addPage(fa,o);}pdf.addImage(it.data,'JPEG',0,0,wPt,hPt,undefined,'FAST');});var fi=document.getElementById('lampiran-filename');var fn=(fi?fi.value:'Lampiran_Lamaran').trim();if(!fn)fn='Lampiran_Lamaran';fn=fn.replace(/\s+/g,'_');if(!fn.toLowerCase().endsWith('.pdf'))fn+='.pdf';pdf.save(fn);if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}var fs=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);toast('PDF berhasil dibuat! ('+formatBytes(fs)+')','success');}catch(e){console.error(e);toast('Gagal membuat PDF: '+(e.message||'Error'),'error');if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}}},400);}
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
 
-// ================= GOOGLE GEMINI AI INTEGRATION (DENGAN UI MODAL 3 PILIHAN) =================
-const GEMINI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; 
-const GEMINI_MODEL = 'gemini-pro'; // Menggunakan model gemini-pro yang dijamin tersedia di semua akun
+// ================= GOOGLE GEMINI AI INTEGRATION =================
+// URL Cloudflare Worker Anda (wajib pakai https://)
+const WORKER_URL = "https://karyaabadi-jobs.karyaabadi24434.workers.dev";
 
-async function callGeminiJSON(prompt) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-    
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: {
-                responseMimeType: "application/json" // Memaksa AI membalas dalam format JSON
-            }
-        })
+async function callWorkerAPI(jurusan, jabatan, masaKerja) {
+    const response = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jurusan, jabatan, masaKerja })
     });
 
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        const errMsg = errorData?.error?.message || `HTTP Error ${response.status}`;
-        console.error("Detail Error dari Google:", errorData);
-        throw new Error(errMsg);
-    }
+    const data = await response.json().catch(() => ({}));
 
-    const data = await response.json();
-    if (!data.candidates || !data.candidates[0]) {
-        throw new Error("AI tidak memberikan jawaban (Empty response).");
+    if (!response.ok) {
+        console.error("Detail Error dari Worker:", data);
+        throw new Error(data.error || "Gagal menghubungi Worker Gemini.");
     }
-    
-    const text = data.candidates[0].content.parts[0].text.trim();
-    return JSON.parse(text); // Langsung parse JSON karena responseMimeType di set JSON
+    return data;
 }
 
 async function aiJobDesc(expIdx, posIdx) {
     var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
+    var masaKerja = expList[expIdx].posList[posIdx].m || '';
     var jurusan = v('jurusan') || '';
     
     if (!jobTitle) {
@@ -1508,39 +1495,10 @@ async function aiJobDesc(expIdx, posIdx) {
         return;
     }
 
-    // Tampilkan modal loading
     bukaModalAI('loading');
     
     try {
-        let prompt = `Anda adalah AI ahli CV. Buatkan 3 rekomendasi untuk lamaran kerja.
-Data:
-- Jabatan: ${jobTitle}
-- Jurusan: ${jurusan}
-
-Kembalikan HANYA JSON valid dengan format ini:
-{
-  "rekomendasi": [
-    {
-      "gaya": "Formal",
-      "deskripsi_pekerjaan": "Teks deskripsi 1-2 kalimat",
-      "hard_skill": "Skill1, Skill2, Skill3",
-      "soft_skill": "Skill1, Skill2, Skill3"
-    },
-    {
-      "gaya": "Sederhana",
-      "deskripsi_pekerjaan": "Teks deskripsi 1-2 kalimat",
-      "hard_skill": "Skill1, Skill2, Skill3",
-      "soft_skill": "Skill1, Skill2, Skill3"
-    },
-    {
-      "gaya": "Profesional",
-      "deskripsi_pekerjaan": "Teks deskripsi 1-2 kalimat",
-      "hard_skill": "Skill1, Skill2, Skill3",
-      "soft_skill": "Skill1, Skill2, Skill3"
-    }
-  ]
-}`;
-        let hasil = await callGeminiJSON(prompt);
+        let hasil = await callWorkerAPI(jurusan, jobTitle, masaKerja);
         tampilkanPilihanAI(hasil, expIdx, posIdx);
     } catch (error) {
         console.error('AI Error:', error);
@@ -1550,47 +1508,36 @@ Kembalikan HANYA JSON valid dengan format ini:
 }
 
 async function aiSkills(type) {
-    var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
-    var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
     var jurusan = v('jurusan') || '';
-    
     if (!jurusan) {
         toast('Mohon isi kolom Jurusan di bagian Profil terlebih dahulu.', 'error');
         return;
     }
     
-    toast('AI sedang mencari keahlian dasar...', 'info');
+    toast('AI sedang mencari keahlian...', 'info');
     
     try {
-        let prompt = `Berikan 3 rekomendasi ${type === 'k' ? 'keahlian umum' : (type === 'hard' ? 'hard skill teknis' : 'soft skill personal')} dasar yang relevan untuk jurusan "${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        // Kita panggil Worker dengan jabatan dummy untuk memancing AI memberikan skill
+        let hasil = await callWorkerAPI(jurusan, 'Staff Umum', '');
+        let rekomendasi = hasil.rekomendasi || [];
         
-        // Untuk skills, kita pakai callGemini biasa karena tidak butuh JSON
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => null);
-            throw new Error(errorData?.error?.message || `HTTP Error ${response.status}`);
+        if(rekomendasi.length > 0) {
+            var item = rekomendasi[0]; // Ambil rekomendasi pertama
+            var skillsText = type === 'hard' ? item.hard_skill : (type === 'soft' ? item.soft_skill : item.keahlian);
+            
+            if(skillsText) {
+                var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
+                var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
+                
+                var newSkills = skillsText.split(',').map(s => s.trim()).filter(s => s);
+                newSkills.forEach(skill => targetArr.push(skill));
+                renderSkIF(targetArr, cid, type);
+                schedulePreview();
+                toast('Keahlian ditambahkan oleh AI!', 'success');
+            } else {
+                toast('AI tidak memberikan keahlian untuk jurusan ini.', 'error');
+            }
         }
-
-        const data = await response.json();
-        if (!data.candidates || !data.candidates[0]) {
-            throw new Error("AI tidak memberikan jawaban (Empty response).");
-        }
-        
-        let result = data.candidates[0].content.parts[0].text.trim();
-        var newSkills = result.split(',').map(s => s.trim()).filter(s => s);
-        
-        newSkills.forEach(skill => targetArr.push(skill));
-        renderSkIF(targetArr, cid, type);
-        schedulePreview();
-        toast('Keahlian dasar ditambahkan oleh AI!', 'success');
     } catch (error) {
         console.error('AI Error:', error);
         toast('Gagal: ' + error.message, 'error'); 
@@ -1664,11 +1611,9 @@ function tampilkanPilihanAI(data, expIdx, posIdx) {
 }
 
 function gunakanRekomendasiAI(item, expIdx, posIdx) {
-    // 1. Isi Deskripsi
     expList[expIdx].posList[posIdx].desc = item.deskripsi_pekerjaan || '';
     renderExpF();
     
-    // 2. Tambahkan Skills
     if (item.hard_skill) {
         var hArr = item.hard_skill.split(',').map(s => s.trim()).filter(s => s);
         hArr.forEach(s => hSkills.push(s));
@@ -1693,6 +1638,5 @@ window.addEventListener('load', function() {
 });
 window.addEventListener('resize', updateVH);
 </script>
-<script src="/gemini.js"></script>
 </body>
 </html>
