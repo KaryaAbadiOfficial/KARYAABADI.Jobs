@@ -574,7 +574,7 @@
         <div class="icon-circle"><i class="fa-solid fa-robot"></i></div>
         <h2>1. Apa itu CV ATS Friendly</h2>
       </div>
-      <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyaring ratusan hingga ribuan CV secara otomatis dan cepat. CV yang ATS Friendly berarti CV tersebut dapat dibaca dengan mudah oleh sistem robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS dan mudah dipindai oleh perangkat lunak perusahaan.</p>
+      <p>ATS (Applicant Tracking System) adalah perangkat lunak yang digunakan perusahaan besar untuk menyaring ratusan hingga ribuan CV secara otomatis dan cepat. CV yang ATS Friendly berarti CV tersebut dapat dibaca dengan ease oleh sistem robot ini. Generator CV Karya Abadi Jobs dirancang dengan struktur tabel dan teks murni yang bersih, sehingga sangat ramah ATS dan mudah dipindai oleh perangkat lunak perusahaan.</p>
       
       <h3 class="text-left mt-8 mb-4 text-lg font-bold text-gray-900 dark:text-white">Tips Agar Lolos ATS</h3>
       <ul class="space-y-3 mt-2 text-left">
@@ -1454,7 +1454,6 @@ function applyZoom() { var scalers = [document.getElementById('a4-scaler'), docu
 function downloadPDF() {
   var element = document.getElementById('pdf-offscreen'); var html = '';
   if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
-  // PERBAIKAN: Tambah overflow:visible agar html2canvas tidak memotong konten yang lebih dari 1 halaman (multi-page)
   element.innerHTML = '<div class="a4-page" style="overflow:visible;font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
   toast('Membuat PDF, mohon tunggu...', 'info');
   setTimeout(function() {
@@ -1539,7 +1538,48 @@ function recompressAllToTarget(ct,cb){
   }
   pn();
 }
-function renderLampiranList(){var c=document.getElementById('lampiran-list');if(!c)return;if(!lampiranImages.length){c.innerHTML='';return;}var h='';lampiranImages.forEach(function(it,idx){var dW=it.originalWidth||it.width,dH=it.originalHeight||it.height;h+='<div class="lampiran-item" style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:8px;background:#fff;display:flex;align-items:center;gap:12px;"><div style="flex-shrink:0;"><i class="fa-solid fa-grip-vertical text-lg" style="color:#9ca3af;cursor:grab;"></i></div><img src="'+it.data+'" style="width:56px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;flex-shrink:0;background:#f3f4f6;" alt="Thumb '+(idx+1)+'"><div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;">'+esc(it.name)+'</div><div style="font-size:12px;color:#6b7280;margin-top:2px;">'+formatBytes(it.originalSize)+' → <span style="font-weight:bold;color:#DC2626;">'+formatBytes(it.compressedSize)+'</span></div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">Halaman '+(idx+1)+' • '+dW+'×'+dH+'px</div></div><button onclick="removeLampiranImage('+idx+')" style="width:36px;height:36px;border-radius:8px;background:rgba(220,38,38,0.1);color:#DC2626;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-trash text-xs"></i></button></div>';});c.innerHTML=h;}
+
+// FUNGSI BARU UNTUK SORTIR URUTAN LAMPIRAN
+function moveLampiranImage(idx, direction) {
+  var newIndex = idx + direction;
+  if (newIndex < 0 || newIndex >= lampiranImages.length) return;
+  var temp = lampiranImages[idx];
+  lampiranImages[idx] = lampiranImages[newIndex];
+  lampiranImages[newIndex] = temp;
+  renderLampiranList();
+  updateLampiranSummary();
+}
+
+function renderLampiranList(){
+  var c=document.getElementById('lampiran-list');
+  if(!c)return;
+  if(!lampiranImages.length){c.innerHTML='';return;}
+  var h='';
+  lampiranImages.forEach(function(it,idx){
+    var dW=it.originalWidth||it.width,dH=it.originalHeight||it.height;
+    var isTop = idx === 0;
+    var isBottom = idx === lampiranImages.length - 1;
+    h+='<div class="lampiran-item" style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:8px;background:#fff;display:flex;align-items:center;gap:12px;">';
+    h+='<div style="flex-shrink:0;"><i class="fa-solid fa-grip-vertical text-lg" style="color:#9ca3af;cursor:grab;"></i></div>';
+    h+='<img src="'+it.data+'" style="width:56px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;flex-shrink:0;background:#f3f4f6;" alt="Thumb '+(idx+1)+'">';
+    h+='<div style="flex:1;min-width:0;">';
+    h+='<div style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;">'+esc(it.name)+'</div>';
+    h+='<div style="font-size:12px;color:#6b7280;margin-top:2px;">'+formatBytes(it.originalSize)+' → <span style="font-weight:bold;color:#DC2626;">'+formatBytes(it.compressedSize)+'</span></div>';
+    h+='<div style="font-size:11px;color:#9ca3af;margin-top:2px;">Halaman '+(idx+1)+' • '+dW+'×'+dH+'px</div>';
+    h+='</div>';
+    
+    // Tombol Panah Atas & Bawah (Sortir Urutan)
+    h+='<div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;">';
+    h+='<button onclick="moveLampiranImage('+idx+',-1)" style="width:28px;height:28px;border-radius:6px;background:#f3f4f6;color:'+(isTop?'#d1d5db':'#6b7280')+';border:1px solid #e5e7eb;cursor:'+(isTop?'not-allowed':'pointer')+';display:flex;align-items:center;justify-content:center;" '+(isTop?'disabled':'')+'><i class="fa-solid fa-chevron-up text-xs"></i></button>';
+    h+='<button onclick="moveLampiranImage('+idx+',1)" style="width:28px;height:28px;border-radius:6px;background:#f3f4f6;color:'+(isBottom?'#d1d5db':'#6b7280')+';border:1px solid #e5e7eb;cursor:'+(isBottom?'not-allowed':'pointer')+';display:flex;align-items:center;justify-content:center;" '+(isBottom?'disabled':'')+'><i class="fa-solid fa-chevron-down text-xs"></i></button>';
+    h+='</div>';
+    
+    h+='<button onclick="removeLampiranImage('+idx+')" style="width:36px;height:36px;border-radius:8px;background:rgba(220,38,38,0.1);color:#DC2626;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-trash text-xs"></i></button>';
+    h+='</div>';
+  });
+  c.innerHTML=h;
+}
+
 function removeLampiranImage(i){lampiranImages.splice(i,1);renderLampiranList();updateLampiranSummary();toast('Gambar dihapus','info');}
 function clearLampiranImages(){if(!lampiranImages.length)return;if(!confirm('Hapus semua gambar?'))return;lampiranImages=[];renderLampiranList();updateLampiranSummary();toast('Semua gambar dihapus','info');}
 function updateLampiranSummary(){var s=document.getElementById('lampiran-summary'),b=document.getElementById('btn-lampiran-pdf'),bc=document.getElementById('btn-lampiran-clear');if(!s||!b)return;if(!lampiranImages.length){s.classList.add('hidden');b.disabled=true;if(bc)bc.disabled=true;return;}s.classList.remove('hidden');b.disabled=false;if(bc)bc.disabled=false;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);var p=Math.min(100,(t/TARGET_PDF_SIZE)*100);var ts=document.getElementById('lampiran-total-size'),sb=document.getElementById('lampiran-size-bar'),ic=document.getElementById('lampiran-img-count');if(ts){ts.className='text-sm font-bold '+(p>95?'text-red-500':(p>75?'text-yellow-500':'text-brand-red'));ts.textContent=formatBytes(t)+' / 1 MB';}if(sb)sb.style.width=p+'%';if(ic)ic.textContent=lampiranImages.length+' gambar • '+p.toFixed(1)+'% dari 1 MB';}
