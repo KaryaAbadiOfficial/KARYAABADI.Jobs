@@ -194,7 +194,7 @@
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
@@ -615,7 +615,7 @@
         <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-file"></i></div>
           <h3>CV Template 4 ATS Sederhana</h3>
-          <p>Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maupun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p>
+          <p>Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maipun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p>
         </div>
       </div>
     </div>
@@ -1079,7 +1079,7 @@ function _eduTblNon(list,mode){
 }
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d and e.d.trim()) || (e.k and e.k.trim()) || (e.j and e.j.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
   var hasNon = nonFormalCount > 0; var hasFormal = formalCount > 0; var h=''; var formalTbl=_eduTbl(formalList,mode);
   if(hasNon && hasFormal) { h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>'; }
   h+=formalTbl; var nonFormalTbl=_eduTblNon(nonFormalList,mode);
@@ -1114,7 +1114,7 @@ var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; text-align:center; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; text-align:center; border:none;">'; }
 if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
 h+='</td></tr></table>';
-if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style:text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
 function renderCV3(){
   var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');
