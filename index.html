@@ -194,10 +194,10 @@
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300">
       <a href="#" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
-      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text:white">Buat CV</a>
+      <a href="#" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
       <a href="#" onclick="showPage('generator'); selectCat('surat'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Surat Melamar Pekerjaan</a>
       <a href="#" onclick="showPage('lampiran'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Lampiran PDF</a>
       <a href="#" onclick="showPage('panduan'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Panduan</a>
@@ -241,7 +241,7 @@
       <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <div class="flex flex-col items-center gap-5">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
-          <span class="block text-xs uppercase tracking-wider opacity:80">Buat</span>
+          <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
           <span class="block text-base uppercase tracking-wide">CV (Curriculum Vitae)</span>
         </button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
@@ -295,11 +295,11 @@
     </div>
   </main>
   <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
-    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink:0">
+    <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
       <div class="flex items-center gap-1">
         <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text:center text-gray-300">100%</span>
+        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
         <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
         <button onclick="resetZoom()" class="zoom-btn-mob ml-1" title="Reset Zoom"><i class="fa-solid fa-expand"></i></button>
         <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
@@ -356,7 +356,7 @@
         </div>
         <span id="lampiran-total-size" class="text-sm font-bold text-brand-red">0 KB / 1 MB</span>
       </div>
-      <div class="h-2 bg-gray-200 dark:bg-gray-800 rounded-full mb-2 overflow:hidden">
+      <div class="h-2 bg-gray-200 dark:bg-gray-800 rounded-full mb-2 overflow-hidden">
         <div id="lampiran-size-bar" class="h-full bg-gradient-to-r from-green-500 to-red-500 transition-all duration-300" style="width:0%"></div>
       </div>
       <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
@@ -373,7 +373,7 @@
       <div class="card flex flex-col justify-center bg-gray-50 dark:bg-brand-black/50 text-center">
         <label class="fl flex items-center gap-1.5 justify-center"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i> Ukuran & Orientasi</label>
         <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1 justify-center">
-          <span class="font:bold">Otomatis (DPI 100)</span>
+          <span class="font-bold">Otomatis (DPI 100)</span>
         </div>
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Halaman PDF akan menyesuaikan ukuran asli tiap gambar dengan resolusi 100 DPI secara presisi (tanpa margin/border putih).</p>
       </div>
@@ -615,7 +615,7 @@
         <div class="icon-box-1col">
           <div class="icon-circle"><i class="fa-solid fa-file"></i></div>
           <h3>CV Template 4 ATS Sederhana</h3>
-          <p>Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maipun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p>
+          <p>Tanpa foto, tanpa desain rumit, dan berfokus pada teks murni. Ini adalah template wajib jika Anda melamar di perusahaan besar multinasional asing maupun lokal yang menggunakan sistem ATS (Applicant Tracking System).</p>
         </div>
       </div>
     </div>
@@ -825,7 +825,7 @@
   </div>
 </footer>
 
-<!-- LIBRARY JS BERPATOKAN DIPINDAHKAN KE BAGIAN BAWAH AGAR TIDAK MENGGANGGU PIKSEL ADSENSE SAAT GOOGLE MERAYAPI -->
+<!-- LIBRARY JS BERPATOKAN DIPINDAHKAN KE BAGIAN BAWAH AGAR TIDAK MENGGANGGU PIKSEL ADSENSE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -1009,7 +1009,7 @@ function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
 function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<div class="flex gap-2 mt-2"><button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';h+='<button onclick="aiSkills(\''+type+'\')" class="dyn-btn" title="Saran AI" style="background:#10b981; color:#fff; border:1px solid #10b981;"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i></button></div>';c.innerHTML=h}
-function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink-0 w-6 text-xs text-gray-400 dark:text-gray-500 font:bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
+function renderLampF(){var c=document.getElementById('lamp-c');if(!c)return;if(lampList.length===0)lampList.push('');var h='';for(var i=0;i<lampList.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'">';h+='<div class="flex items-center justify-center flex-shrink-0 w-6 text-xs text-gray-400 dark:text-gray-500 font-bold">'+(i+1)+'.</div>';h+='<input class="fi flex-1 fi-s" placeholder="....." value="'+esc(lampList[i])+'" oninput="lampList['+i+']=this.value;schedulePreview()">';if(lampList.length>1){h+='<button onclick="window._rlamp('+i+')" class="sk-rm" title="Hapus"><i class="fa-solid fa-times text-xs"></i></button>'}h+='</div>'}h+='<button onclick="addLamp()" class="dyn-btn dyn-add mt-2" title="Tambah"><i class="fa-solid fa-plus text-xs"></i></button>';c.innerHTML=h}
 window._usk=function(t,i,val){if(t==='hard')hSkills[i]=val;else if(t==='soft')sSkills[i]=val;else if(t==='k')kSkills[i]=val;schedulePreview()};
 window._rsk=function(t,i){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');if(a.length>0){a.splice(i,1);renderSkIF(a,cid,t);schedulePreview()}};
 window._ask=function(t){var a=t==='hard'?hSkills:(t==='soft'?sSkills:kSkills);var cid=t==='hard'?'hard-c':(t==='soft'?'soft-c':'k-c');a.push('');renderSkIF(a,cid,t);schedulePreview()};
@@ -1079,7 +1079,7 @@ function _eduTblNon(list,mode){
 }
 function eduPHDual(formalList,nonFormalList,mode){
   var formalCount = formalList.filter(function(e){return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim());}).length;
-  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim());}).length;
+  var nonFormalCount = nonFormalList.filter(function(e){return (e.t && e.t.trim()) || (e.d and e.d.trim()) || (e.k and e.k.trim()) || (e.j and e.j.trim());}).length;
   var hasNon = nonFormalCount > 0; var hasFormal = formalCount > 0; var h=''; var formalTbl=_eduTbl(formalList,mode);
   if(hasNon && hasFormal) { h+='<div style="font-weight:600;margin-bottom:2mm">'+L('Pendidikan Formal')+'</div>'; }
   h+=formalTbl; var nonFormalTbl=_eduTblNon(nonFormalList,mode);
@@ -1114,7 +1114,7 @@ var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; text-align:center; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; text-align:center; border:none;">'; }
 if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
 h+='</td></tr></table>';
-if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
+if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style:text-align:justify">'+PR+'</div>'}if(eduHTML){h+='<div class="st">'+eduTitle+'</div>'+eduHTML}if(expHTML){h+='<div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML}if(SK){h+='<div class="st">'+L('KEAHLIAN')+'</div>'+SK}return h}
 
 function renderCV3(){
   var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');
@@ -1456,7 +1456,7 @@ function recompressAllToTarget(ct,cb){if(!lampiranImages.length){renderLampiranL
 function renderLampiranList(){var c=document.getElementById('lampiran-list');if(!c)return;if(!lampiranImages.length){c.innerHTML='';return;}var h='';lampiranImages.forEach(function(it,idx){var dW=it.originalWidth||it.width,dH=it.originalHeight||it.height;h+='<div class="lampiran-item" style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:8px;background:#fff;display:flex;align-items:center;gap:12px;"><div style="flex-shrink:0;"><i class="fa-solid fa-grip-vertical text-lg" style="color:#9ca3af;cursor:grab;"></i></div><img src="'+it.data+'" style="width:56px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;flex-shrink:0;background:#f3f4f6;" alt="Thumb '+(idx+1)+'"><div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;">'+esc(it.name)+'</div><div style="font-size:12px;color:#6b7280;margin-top:2px;">'+formatBytes(it.originalSize)+' → <span style="font-weight:bold;color:#DC2626;">'+formatBytes(it.compressedSize)+'</span></div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">Halaman '+(idx+1)+' • '+dW+'×'+dH+'px</div></div><button onclick="removeLampiranImage('+idx+')" style="width:36px;height:36px;border-radius:8px;background:rgba(220,38,38,0.1);color:#DC2626;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-trash text-xs"></i></button></div>';});c.innerHTML=h;}
 function removeLampiranImage(i){lampiranImages.splice(i,1);renderLampiranList();updateLampiranSummary();toast('Gambar dihapus','info');}
 function clearLampiranImages(){if(!lampiranImages.length)return;if(!confirm('Hapus semua gambar?'))return;lampiranImages=[];renderLampiranList();updateLampiranSummary();toast('Semua gambar dihapus','info');}
-function updateLampiranSummary(){var s=document.getElementById('lampiran-summary'),b=document.getElementById('btn-lampiran-pdf'),bc=document.getElementById('btn-lampiran-clear');if(!s||!b)return;if(!lampiranImages.length){s.classList.add('hidden');b.disabled=true;if(bc)bc.disabled=true;return;}s.classList.remove('hidden');b.disabled=false;if(bc)bc.disabled=false;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);var p=Math.min(100,(t/TARGET_PDF_SIZE)*100);var ts=document.getElementById('lampiran-total-size'),sb=document.getElementById('lampiran-size-bar'),ic=document.getElementById('lampiran-img-count');if(ts){ts.className='text-sm font-bold '+(p>95?'text-red-500':(p>75?'text-yellow-500':'text-brand-red'));ts.textContent=formatBytes(t)+' / 1 MB';}if(sb)sb.style.width=p+'%';if(ic)ic.textContent=lampiranImages.length+' gambar • '+p.toFixed(1)+'% dari 1 MB';}
+function updateLampiranSummary(){var s=document.getElementById('lampiran-summary'),b=document.getElementById('btn-lampiran-pdf'),bc=document.getElementById('btn-lampiran-clear');if(!s||!b)return;if(!lampiranImages.length){s.classList.add('hidden');b.disabled=true;if(bc)bc.disabled=true;return;}s.classList.remove('hidden');b.disabled=false;if(bc)bc.disabled=false;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);var p=Math.min(100,(t/TARGET_PDF_SIZE)*100);var ts=document.getElementById('lampiran-total-size'),sb=document.getElementById('lampiran-size-bar'),ic=document.getElementById('lampiran-img-count');if(ts){ts.className='text-sm font-bold '+(p>95?'text-red-500':(p>75?'text-yellow-500':'text-brand-red'));ts.textContent=formatBytes(t)+' / 1 MB';;}if(sb)sb.style.width=p+'%';if(ic)ic.textContent=lampiranImages.length+' gambar • '+p.toFixed(1)+'% dari 1 MB';}
 function generateLampiranPDF(){if(!lampiranImages.length){toast('Belum ada gambar','error');return;}if(lampiranProcessing){toast('Sedang memproses...','info');return;}var st=TARGET_PDF_SIZE-30000;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);if(t>st){toast('Mengompresi ulang...','info');var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';}recompressAllToTarget(st,function(){if(b)b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';generateLampiranPDFNow();});return;}generateLampiranPDFNow();}
 function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';}toast('Membuat PDF...','info');setTimeout(function(){try{var pdf=null;var dpi=100;var ppp=72/dpi;lampiranImages.forEach(function(it,idx){var oW=it.originalWidth||it.width,oH=it.originalHeight||it.height;var wPt=oW*ppp,hPt=oH*ppp;var o=wPt>hPt?'l':'p';var fa=[wPt,hPt];if(idx===0){pdf=new window.jspdf.jsPDF({orientation:o,unit:'pt',format:fa});}else{pdf.addPage(fa,o);}pdf.addImage(it.data,'JPEG',0,0,wPt,hPt,undefined,'FAST');});var fi=document.getElementById('lampiran-filename');var fn=(fi?fi.value:'Lampiran_Lamaran').trim();if(!fn)fn='Lampiran_Lamaran';fn=fn.replace(/\s+/g,'_');if(!fn.toLowerCase().endsWith('.pdf'))fn+='.pdf';pdf.save(fn);if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}var fs=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);toast('PDF berhasil dibuat! ('+formatBytes(fs)+')','success');}catch(e){console.error(e);toast('Gagal membuat PDF: '+(e.message||'Error'),'error');if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}}},400);}
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
@@ -1465,7 +1465,7 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 const GEMINI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; 
 
 async function callGemini(prompt) {
-    // Hanya menggunakan 1 model ini agar pasti berfungsi
+    // Hanya menggunakan 1 model ini agar pasti berfungsi tanpa error "model not found"
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
     
     const response = await fetch(url, {
@@ -1476,6 +1476,7 @@ async function callGemini(prompt) {
         })
     });
 
+    // Tangkap error dengan sangat detail
     if (!response.ok) {
         const errorData = await response.json().catch(() => null);
         const errMsg = errorData?.error?.message || `HTTP Error ${response.status}`;
@@ -1493,17 +1494,29 @@ async function callGemini(prompt) {
 
 async function aiJobDesc(expIdx, posIdx) {
     var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
+    var currentDesc = expList[expIdx].posList[posIdx].desc.trim();
+    
+    // Logika 1: Jika kolom deskripsi sudah terisi, tanyakan konfirmasi
+    if (currentDesc !== '') {
+        var replaceConfirm = confirm('Kolom deskripsi sudah berisi teks.\nApakah Anda ingin menggantinya dengan saran AI?');
+        if (!replaceConfirm) {
+            toast('Dibatalkan. Teks lama dipertahankan.', 'info');
+            return; // Berhenti jika user memilih "Cancel"
+        }
+    }
+    
     toast('AI sedang menulis deskripsi...', 'info');
     
     try {
         let prompt = `Anda adalah asisten penulis CV profesional. Buatkan deskripsi pekerjaan untuk posisi "${jobTitle}". Buat dalam 2 poin singkat, padat, dan profesional dalam Bahasa Indonesia. Hanya jawab dengan teks deskripsinya saja tanpa kalimat pembuka.`;
         let result = await callGemini(prompt);
         
+        // Membersihkan format bintang (**) dari hasil AI jika ada
         result = result.replace(/\*\*/g, ''); 
         
         expList[expIdx].posList[posIdx].desc = result;
-        renderExpF(); 
-        schedulePreview(); 
+        renderExpF(); // Render ulang form
+        schedulePreview(); // Update preview
         toast('Deskripsi berhasil dibuat AI!', 'success');
     } catch (error) {
         console.error('AI Error:', error);
@@ -1514,14 +1527,28 @@ async function aiJobDesc(expIdx, posIdx) {
 async function aiSkills(type) {
     var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
     var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
-    var lulusan = v('lulusan') || '';
     var jurusan = v('jurusan') || '';
-    var posisi = v('sPosisi') || v('subtitle') || '';
     
-    toast('AI sedang mencari keahlian...', 'info');
+    // Logika 2: AI akan bertanya berdasarkan Jurusan
+    if (!jurusan) {
+        toast('Mohon isi kolom Jurusan di bagian Profil terlebih dahulu.', 'error');
+        return;
+    }
+    
+    toast('AI sedang mencari keahlian dasar...', 'info');
     
     try {
-        let prompt = `Berikan 3 rekomendasi ${type === 'k' ? 'keahlian umum' : (type === 'hard' ? 'hard skill teknis' : 'soft skill personal')} yang relevan untuk posisi "${posisi}" dengan latar belakang pendidikan "${lulusan} ${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        let prompt = '';
+        
+        // Sesuaikan prompt berdasarkan jenis skill yang diminta
+        if (type === 'k') {
+            prompt = `Berikan 3 rekomendasi keahlian dasar (basic skills) yang wajib dimiliki oleh lulusan jurusan "${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        } else if (type === 'hard') {
+            prompt = `Berikan 3 rekomendasi hard skill dasar (basic technical skills) yang umum dipelajari di jurusan "${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        } else {
+            prompt = `Berikan 3 rekomendasi soft skill dasar (basic personal skills) yang biasanya dimiliki oleh lulusan jurusan "${jurusan}". Jawab HANYA dengan kata kunci yang dipisahkan oleh koma, tanpa penjelasan tambahan.`;
+        }
+        
         let result = await callGemini(prompt);
         
         var newSkills = result.split(',').map(s => s.trim()).filter(s => s);
@@ -1529,12 +1556,13 @@ async function aiSkills(type) {
         newSkills.forEach(skill => targetArr.push(skill));
         renderSkIF(targetArr, cid, type);
         schedulePreview();
-        toast('Keahlian ditambahkan oleh AI!', 'success');
+        toast('Keahlian dasar ditambahkan oleh AI!', 'success');
     } catch (error) {
         console.error('AI Error:', error);
         toast('Gagal: ' + error.message, 'error'); 
     }
 }
+
 // ================= INITIALIZATION =================
 window.addEventListener('load', function() {
   updateVH(); initSlider(); renderForm(); renderPreview(); resetZoom(); initPanZoom(); initLampiranDropZone();
