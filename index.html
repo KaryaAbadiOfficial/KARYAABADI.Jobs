@@ -1475,7 +1475,7 @@ async function callWorkerAPI(type, jurusan, jabatan) {
     return data;
 }
 
-// 1. Fungsi untuk tombol AI di kolom Deskripsi Pekerjaan
+// Fungsi tombol AI di kolom Deskripsi Pekerjaan
 async function aiJobDesc(expIdx, posIdx) {
     var jobTitle = expList[expIdx].posList[posIdx].j || expList[expIdx].pt || 'Staff';
     var jurusan = v('jurusan') || '';
@@ -1488,16 +1488,16 @@ async function aiJobDesc(expIdx, posIdx) {
         let hasil = await callWorkerAPI('deskripsi', jurusan, jobTitle);
         if(hasil.deskripsi) {
             expList[expIdx].posList[posIdx].desc = hasil.deskripsi;
-            renderExpF(); // Render ulang form pengalaman kerja
+            renderExpF(); // Update tampilan form
             schedulePreview(); // Update preview CV
-            toast('Deskripsi berhasil dibuat AI!', 'success');
+            toast('Deskripsi otomatis terisi!', 'success');
         } else {
             toast('AI tidak memberikan jawaban.', 'error');
         }
     } catch (error) { toast('Gagal: ' + error.message, 'error'); }
 }
 
-// 2. Fungsi untuk tombol AI di kolom Hard Skill, Soft Skill, dan Daftar Keahlian
+// Fungsi tombol AI di kolom Hard Skill, Soft Skill, dan Keahlian
 async function aiSkills(type) {
     var jurusan = v('jurusan') || '';
     if (!jurusan) { toast('Mohon isi kolom Jurusan di Profil dulu.', 'error'); return; }
@@ -1509,13 +1509,14 @@ async function aiSkills(type) {
             var targetArr = type === 'hard' ? hSkills : (type === 'soft' ? sSkills : kSkills);
             var cid = type === 'hard' ? 'hard-c' : (type === 'soft' ? 'soft-c' : 'k-c');
             
-            // Pecah jawaban AI menjadi array, lalu tambahkan ke list
+            // Memecah 1 jawaban AI menjadi beberapa item kolom
             var newSkills = hasil.skill.split(',').map(s => s.trim()).filter(s => s);
+            targetArr.length = 0; // Mengosongkan array lama (opsional, agar hanya 1 set jawaban AI)
             newSkills.forEach(skill => targetArr.push(skill));
             
-            renderSkIF(targetArr, cid, type); // Render ulang form skill
+            renderSkIF(targetArr, cid, type); // Update tampilan form
             schedulePreview(); // Update preview CV
-            toast('Keahlian ditambahkan oleh AI!', 'success');
+            toast('Keahlian otomatis terisi!', 'success');
         } else {
             toast('AI tidak memberikan jawaban.', 'error');
         }
