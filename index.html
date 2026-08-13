@@ -234,7 +234,7 @@
     </div>
     <div class="mb-16">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Siap Melamar Pekerjaan Impian?</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meninggikan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-3xl mx-auto px-4 text-sm md:text-base">Dengan mengikuti panduan ini, Anda dapat memaksimalkan peluang untuk menarik perhatian perekrut dan meningkatkan peluang lolos tahap seleksi awal. Segera buat dokumen lamaran kerja Anda sekarang juga secara gratis di Karya Abadi Jobs.</p>
       <div class="flex flex-col items-center gap-5">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-10 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20">
           <span class="block text-xs uppercase tracking-wider opacity-80">Buat</span>
@@ -742,7 +742,7 @@
 <div id="view-privacy" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Kebijakan Privasi</h1>
-    <p>Kebijakan Privasi ini menjelaskan bagaimana Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
+    <p>Kebijakan Privasi ini menjelaskan bagaimanya Karya Abadi Jobs menangani data dan informasi pengguna saat menggunakan platform ini. Kami berkomitmen penuh untuk melindungi privasi setiap pengguna dan memastikan bahwa seluruh data yang dimasukkan tetap aman serta tidak disalahgunakan.</p>
     <h2>1. Data yang Dikumpulkan</h2>
     <p>Karya Abadi Jobs tidak mengumpulkan, menyimpan, atau mengirimkan data pribadi pengguna ke server manapun. Seluruh informasi yang Anda masukkan ke dalam formulir generator (seperti nama, alamat, nomor telefon, riwayat pendidikan, dan foto) sepenuhnya diproses secara lokal di peramban (browser) perangkat Anda. Data tersebut hanya digunakan untuk merender dokumen PDF secara real-time dan hilang begitu Anda menutup halaman website.</p>
     <h2>2. Penggunaan Foto dan File</h2>
@@ -1586,7 +1586,7 @@ function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pd
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
 
 // ================= KONFIGURASI AI (GRATIS DENGAN GOOGLE GEMINI) =================
-const AI_API_KEY = 'AQ.Ab8RN6LPDgod_zVJxZvmls6DDpi6drJ-GPR9QAC5dibOXDXDOg'; // API Key Anda
+const AI_API_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg'; // API Key Anda yang valid
 const AI_MODEL = 'gemini-1.5-flash'; // Model gratis dan cepat dari Google
 
 async function callOpenAI(prompt) {
