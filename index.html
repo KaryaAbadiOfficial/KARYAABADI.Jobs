@@ -150,14 +150,6 @@
         .dark .icon-box-1col h3 { color: #fff; }
         .icon-box-1col p { font-size: 0.9rem; color: #4b5563; text-align: justify; text-align-last: center; line-height: 1.6; margin: 0; max-width: 650px; }
         .dark .icon-box-1col p { color: #cbd5e1; }
-
-        /* Tombol AI Generate */
-        .ai-gen-btn{width:36px;height:36px;border-radius:8px;font-weight:600;cursor:pointer;transition:all .15s;border:1.5px solid #7C3AED;background:transparent;color:#7C3AED;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-        .ai-gen-btn:hover{background:#7C3AED;color:#fff}
-        .ai-gen-btn:active{transform:scale(.9)}
-        .ai-gen-btn:disabled{opacity:.5;cursor:not-allowed}
-        .dark .ai-gen-btn{border-color:#7C3AED;color:#a78bfa}
-        .dark .ai-gen-btn:hover{background:#7C3AED;color:#fff}
     </style>
 </head>
 <body class="dark:bg-brand-black bg-gray-50 dark:text-gray-100 text-gray-800 min-h-screen flex flex-col">
@@ -765,11 +757,11 @@
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujui untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
-    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakurasi informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
+    <p>Pengguna bertanggung jawab penuh atas keakurasi, kelengkapan, dan kebenaran dari seluruh informasi yang dimasukkan ke dalam formulir generator. Karya Abadi Jobs tidak bertanggung jawab atas kerugian yang timbul akibat penyalahgunaan data atau ketidakakuratan informasi pada dokumen yang dihasilkan. Pengguna wajib memeriksa kembali seluruh isi dokumen sebelum mengirimkannya kepada pihak perusahaan.</p>
     <h2>3. Penggunaan yang Dilarang</h2>
     <p>Anda dilarang menggunakan platform ini untuk tujuan komersial (seperti menjual ulang template), melakukan tindakan yang dapat merusak sistem, atau meng-upayakan rekayasa balik (reverse engineering) terhadap kode sumber website.</p>
     <h2>4. Hak Kekayaan Intelektual</h2>
@@ -782,7 +774,7 @@
     <h1 class="text-center">Disclaimer</h1>
     <p>Halaman Disclaimer ini menjelaskan batasan tanggung jawab yang melekat pada penggunaan tool generator Karya Abadi Jobs. Dengan menggunakan platform ini, Anda dianggap telah memahami batasan-batasan yang diuraikan di bawah ini.</p>
     <h2>1. Sifat Alat Bantu</h2>
-    <p>Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Kerja secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang dituju.</p>
+    <p>Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Pekerjaan secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang dituju.</p>
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
     <p>Penggunaan template dari platform ini tidak menjamin bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
@@ -832,10 +824,6 @@
 <!-- LIBRARY JS BERPATOKAN DIPINDAHKAN KE BAGIAN BAWAH AGAR TIDAK MENGGANGGU PIKSEL ADSENSE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<!-- FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
 
 <script>
 // ================= MOBILE MENU =================
@@ -977,8 +965,8 @@ function renderExpF(){
       ph+='<div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-500">Posisi '+(j+1)+'</span>';
       if(e.posList.length>1){ ph+='<button onclick="rmPos('+i+','+j+')" class="text-xs text-red-500 hover:text-red-700">Hapus Posisi</button>'; }
       ph+='</div>';
-      ph+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><div class="flex gap-1.5"><input class="fi flex-1" id="pos-'+i+'-'+j+'" placeholder="....." value="'+esc(p.j)+'" oninput="expList['+i+'].posList['+j+'].j=this.value;schedulePreview()" onblur="autoGenDesc('+i+','+j+')"><button type="button" onclick="genDesc('+i+','+j+')" class="ai-gen-btn" title="Generate Deskripsi dengan AI"><i class="fa-solid fa-wand-magic-sparkles text-xs"></i></button></div></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="....." value="'+esc(p.m)+'" oninput="expList['+i+'].posList['+j+'].m=this.value;schedulePreview()"></div></div>';
-      ph+='<div><label class="fl flex items-center gap-1.5">Deskripsi Pekerjaan <span id="desc-status-'+i+'-'+j+'" class="text-[10px] font-normal text-brand-red"></span></label><textarea id="desc-'+i+'-'+j+'" class="fi" rows="2" placeholder="Ketik manual atau klik tombol ✨ di samping jabatan..." oninput="expList['+i+'].posList['+j+'].desc=this.value;schedulePreview()">'+esc(p.desc||'')+'</textarea></div>';
+      ph+='<div class="grid grid-cols-2 gap-2"><div><label class="fl">Jabatan/Posisi</label><input class="fi" placeholder="....." value="'+esc(p.j)+'" oninput="expList['+i+'].posList['+j+'].j=this.value;schedulePreview()"></div><div><label class="fl">Masa Kerja</label><input class="fi" placeholder="....." value="'+esc(p.m)+'" oninput="expList['+i+'].posList['+j+'].m=this.value;schedulePreview()"></div></div>';
+      ph+='<div><label class="fl">Deskripsi Pekerjaan</label><textarea class="fi" rows="2" placeholder="....." oninput="expList['+i+'].posList['+j+'].desc=this.value;schedulePreview()">'+esc(p.desc||'')+'</textarea></div>';
       ph+='</div>';
       return ph;
     }).join('');
@@ -1598,122 +1586,6 @@ function updateLampiranSummary(){var s=document.getElementById('lampiran-summary
 function generateLampiranPDF(){if(!lampiranImages.length){toast('Belum ada gambar','error');return;}if(lampiranProcessing){toast('Sedang memproses...','info');return;}var st=TARGET_PDF_SIZE-30000;var t=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);if(t>st){toast('Mengompresi ulang...','info');var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengompresi...';}recompressAllToTarget(st,function(){if(b)b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';generateLampiranPDFNow();});return;}generateLampiranPDFNow();}
 function generateLampiranPDFNow(){var b=document.getElementById('btn-lampiran-pdf');if(b){b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin mr-2"></i>Membuat PDF...';}toast('Membuat PDF...','info');setTimeout(function(){try{var pdf=null;var dpi=100;var ppp=72/dpi;lampiranImages.forEach(function(it,idx){var oW=it.originalWidth||it.width,oH=it.originalHeight||it.height;var wPt=oW*ppp,hPt=oH*ppp;var o=wPt>hPt?'l':'p';var fa=[wPt,hPt];if(idx===0){pdf=new window.jspdf.jsPDF({orientation:o,unit:'pt',format:fa});}else{pdf.addPage(fa,o);}pdf.addImage(it.data,'JPEG',0,0,wPt,hPt,undefined,'FAST');});var fi=document.getElementById('lampiran-filename');var fn=(fi?fi.value:'Lampiran_Lamaran').trim();if(!fn)fn='Lampiran_Lamaran';fn=fn.replace(/\s+/g,'_');if(!fn.toLowerCase().endsWith('.pdf'))fn+='.pdf';pdf.save(fn);if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}var fs=lampiranImages.reduce(function(s,i){return s+i.compressedSize;},0);toast('PDF berhasil dibuat! ('+formatBytes(fs)+')','success');}catch(e){console.error(e);toast('Gagal membuat PDF: '+(e.message||'Error'),'error');if(b){b.disabled=false;b.innerHTML='<i class="fa-solid fa-file-pdf mr-2"></i>Download PDF Lampiran';}}},400);}
 function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i=document.getElementById('lampiran-input');if(!d||!i)return;d.addEventListener('click',function(){i.click();});i.addEventListener('change',handleLampiranUpload);['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.add('dragover');});});['dragleave','drop'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();d.classList.remove('dragover');});});d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('dragover');var f=e.dataTransfer.files;if(f&&f.length){processLampiranFiles(Array.from(f));}});}
-
-// ================= FIREBASE & AI GENERATOR =================
-var fbInitialized = false;
-var USE_FIREBASE = false; // false=langsung pakai Gemini API
-
-function initFirebase() {
-  if (fbInitialized) return true;
-  try {
-    var firebaseConfig = {
-      apiKey: "AIzaSyDqFG9tn_cBzuCK-QquG3uOBAHW0XOYId0",
-      authDomain: "karya-abadi-ai.firebaseapp.com",
-      databaseURL: "https://karya-abadi-ai-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "karya-abadi-ai",
-      storageBucket: "karya-abadi-ai.firebasestorage.app",
-      messagingSenderId: "244850288004",
-      appId: "1:244850288004:web:e39ee16075a25f1096a9d1",
-      measurementId: "G-XEWFC2ZEGW"
-    };
-    firebase.initializeApp(firebaseConfig);
-    fbInitialized = true;
-    return true;
-  } catch(e) {
-    console.error('Firebase init error:', e);
-    return false;
-  }
-}
-
-var _genDescLock = {};
-
-async function genDesc(expIdx, posIdx) {
-  var lockKey = expIdx + '-' + posIdx;
-  if (_genDescLock[lockKey]) return;
-  _genDescLock[lockKey] = true;
-
-  var pos = expList[expIdx].posList[posIdx].j;
-  if (!pos || pos.trim().length < 2) {
-    _genDescLock[lockKey] = false;
-    toast('Isi jabatan/posisi minimal 2 karakter dulu', 'error');
-    return;
-  }
-
-  var statusEl = document.getElementById('desc-status-' + expIdx + '-' + posIdx);
-  var descEl = document.getElementById('desc-' + expIdx + '-' + posIdx);
-  var posEl = document.getElementById('pos-' + expIdx + '-' + posIdx);
-  var aiBtn = posEl ? posEl.nextElementSibling : null;
-
-  if (statusEl) statusEl.textContent = '⏳ Membuat dengan AI...';
-  if (descEl) { descEl.disabled = true; descEl.style.opacity = '0.5'; }
-  if (aiBtn) { aiBtn.disabled = true; aiBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i>'; }
-
-  try {
-    var description = '';
-
-    if (USE_FIREBASE) {
-      if (!initFirebase()) {
-        toast('Firebase gagal dimuat. Cek koneksi internet.', 'error');
-        return;
-      }
-      
-      var generateFn = firebase.app().functions('asia-southeast1').httpsCallable('generateJobDescription');
-      
-      var result = await generateFn({ position: pos.trim() });
-      
-      description = (result.data && result.data.description) || '';
-      
-    } else {
-      var GEMINI_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg';
-      var apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_KEY;
-      var prompt = 'Anda adalah asisten HRD profesional Indonesia. Buatkan deskripsi pekerjaan singkat (2-4 kalimat, maksimal 500 karakter) untuk posisi "' + pos + '" dalam bahasa Indonesia. Deskripsikan tanggung jawab utama dan tugas-tugas harian. Tulis langsung tanpa pembuka, tanpa format markdown. Gunakan kata "saya". Bahasa formal dan profesional.';
-      
-      var resp = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-      });
-      var data = await resp.json();
-      if (data.candidates && data.candidates[0]) {
-        description = data.candidates[0].content.parts[0].text.trim();
-      }
-    }
-
-    if (description) {
-      expList[expIdx].posList[posIdx].desc = description;
-      if (descEl) descEl.value = description;
-      schedulePreview();
-      toast('Deskripsi pekerjaan berhasil dibuat dengan AI ✨', 'success');
-    } else {
-      toast('Gagal membuat deskripsi. Coba lagi.', 'error');
-    }
-  } catch (error) {
-    console.error('genDesc error:', error);
-    
-    var msg = 'Gagal terhubung ke server';
-    if (error.code === 'not-found') {
-      msg = 'Server AI belum siap atau region salah. Hubungi admin.';
-    } else if (error.code === 'deadline-exceeded') {
-      msg = 'Server timeout, coba lagi nanti.';
-    } else if (error.message) {
-      msg = error.message;
-    }
-    toast(msg, 'error');
-  } finally {
-    _genDescLock[lockKey] = false;
-    if (statusEl) statusEl.textContent = '';
-    if (descEl) { descEl.disabled = false; descEl.style.opacity = '1'; }
-    if (aiBtn) { aiBtn.disabled = false; aiBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-xs"></i>'; }
-  }
-}
-
-function autoGenDesc(expIdx, posIdx) {
-  var pos = expList[expIdx].posList[posIdx].j;
-  var desc = expList[expIdx].posList[posIdx].desc;
-  if (pos && pos.trim().length >= 2 && (!desc || !desc.trim())) {
-    genDesc(expIdx, posIdx);
-  }
-}
 
 // ================= INITIALIZATION =================
 window.addEventListener('load', function() {
