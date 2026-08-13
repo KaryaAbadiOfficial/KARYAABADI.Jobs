@@ -765,7 +765,7 @@
 <div id="view-terms" class="view">
   <main class="max-w-3xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Ketentuan Layanan</h1>
-    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujui ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
+    <p>Dengan mengakses dan menggunakan platform Karya Abadi Jobs, Anda secara otomatis menyatakan bahwa Anda telah membaca, memahami, dan menyetujai untuk terikat oleh Ketentuan Layanan berikut ini. Jika Anda tidak menyetujai ketentuan-ketentuan ini, mohon untuk tidak menggunakan platform ini.</p>
     <h2>1. Sifat Layanan</h2>
     <p>Karya Abadi Jobs disediakan secara gratis dan "sebagaimana adanya" (as-is) tanpa jaminan dalam bentuk apapun, baik tersurat maupun tersirat. Kami tidak memberikan jaminan bahwa platform ini akan selalu tersedia tanpa gangguan atau bebas dari kesalahan teknis.</p>
     <h2>2. Tanggung Jawab Pengguna</h2>
@@ -782,7 +782,7 @@
     <h1 class="text-center">Disclaimer</h1>
     <p>Halaman Disclaimer ini menjelaskan batasan tanggung jawab yang melekat pada penggunaan tool generator Karya Abadi Jobs. Dengan menggunakan platform ini, Anda dianggap telah memahami batasan-batasan yang diuraikan di bawah ini.</p>
     <h2>1. Sifat Alat Bantu</h2>
-    <p>Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Pekerjaan secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang dituju.</p>
+    <p>Karya Abadi Jobs merupakan alat bantu pembuatan dokumen CV dan Surat Lamaran Kerja secara otomatis berdasarkan data yang diinput oleh pengguna. Hasil dokumen merupakan template standar yang telah dirancang secara umum dan mungkin tidak sepenuhnya sesuai dengan persyaratan spesifik dari setiap perusahaan atau instansi yang dituju.</p>
     <h2>2. Tidak Ada Jaminan Diterima Kerja</h2>
     <p>Penggunaan template dari platform ini tidak menjamin bahwa pengguna akan diterima pada proses rekrutmen atau lamaran kerja di manapun. Keberhasilan dalam proses melamar pekerjaan bergantung pada banyak faktor di luar kendali kami, termasuk kualifikasi pengguna, kebutuhan perusahaan, tes wawancara, dan tingkat persaingan dengan pelamar lainnya.</p>
     <h2>3. Verifikasi Dokumen</h2>
@@ -1601,23 +1601,21 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 
 // ================= FIREBASE & AI GENERATOR =================
 var fbInitialized = false;
-var USE_FIREBASE = true; // true=pakai Firebase Cloud Function (AMAN), false=langsung Gemini API (KURANG AMAN)
-var GEMINI_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg';
+var USE_FIREBASE = true; // true=pakai Firebase Cloud Function (AMAN)
 
 function initFirebase() {
   if (fbInitialized) return true;
   try {
-    // ⚠️ GANTI DENGAN CONFIG FIREBASE PROJECT ANDA
-   var firebaseConfig = {
-  apiKey: "AIzaSyDqFG9tn_cBzuCK-QquG3uOBAHW0XOYId0",
-  authDomain: "karya-abadi-ai.firebaseapp.com",
-  databaseURL: "https://karya-abadi-ai-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "karya-abadi-ai",
-  storageBucket: "karya-abadi-ai.firebasestorage.app",
-  messagingSenderId: "244850288004",
-  appId: "1:244850288004:web:e39ee16075a25f1096a9d1",
-  measurementId: "G-XEWFC2ZEGW"
-};
+    var firebaseConfig = {
+      apiKey: "AIzaSyDqFG9tn_cBzuCK-QquG3uOBAHW0XOYId0",
+      authDomain: "karya-abadi-ai.firebaseapp.com",
+      databaseURL: "https://karya-abadi-ai-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "karya-abadi-ai",
+      storageBucket: "karya-abadi-ai.firebasestorage.app",
+      messagingSenderId: "244850288004",
+      appId: "1:244850288004:web:e39ee16075a25f1096a9d1",
+      measurementId: "G-XEWFC2ZEGW"
+    };
     firebase.initializeApp(firebaseConfig);
     fbInitialized = true;
     return true;
@@ -1630,7 +1628,6 @@ function initFirebase() {
 var _genDescLock = {};
 
 async function genDesc(expIdx, posIdx) {
-  // Cegah panggilan ganda
   var lockKey = expIdx + '-' + posIdx;
   if (_genDescLock[lockKey]) return;
   _genDescLock[lockKey] = true;
@@ -1642,13 +1639,11 @@ async function genDesc(expIdx, posIdx) {
     return;
   }
 
-  // Elemen UI
   var statusEl = document.getElementById('desc-status-' + expIdx + '-' + posIdx);
   var descEl = document.getElementById('desc-' + expIdx + '-' + posIdx);
   var posEl = document.getElementById('pos-' + expIdx + '-' + posIdx);
   var aiBtn = posEl ? posEl.nextElementSibling : null;
 
-  // Loading state
   if (statusEl) statusEl.textContent = '⏳ Membuat dengan AI...';
   if (descEl) { descEl.disabled = true; descEl.style.opacity = '0.5'; }
   if (aiBtn) { aiBtn.disabled = true; aiBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i>'; }
@@ -1657,20 +1652,19 @@ async function genDesc(expIdx, posIdx) {
     var description = '';
 
     if (USE_FIREBASE) {
-      // ===== MODE FIREBASE CLOUD FUNCTION (AMAN) =====
       if (!initFirebase()) {
-        toast('Firebase belum dikonfigurasi. Set USE_FIREBASE=false untuk test langsung.', 'error');
+        toast('Firebase gagal dimuat. Cek koneksi internet.', 'error');
         return;
       }
-      var generateFn = firebase.functions().httpsCallable('generateJobDescription');
+      
+      var generateFn = firebase.app().functions('asia-southeast1').httpsCallable('generateJobDescription');
+      
       var result = await generateFn({ position: pos.trim() });
+      
       description = (result.data && result.data.description) || '';
-      if (result.data && result.data.error && !description) {
-        toast('Server: ' + result.data.error, 'error');
-        return;
-      }
+      
     } else {
-      // ===== MODE LANGSUNG GEMINI API (FALLBACK / TESTING) =====
+      var GEMINI_KEY = 'AIzaSyCaQb13Xmihr4qz_WxxSlZp9F7QskYzlqg';
       var apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_KEY;
       var prompt = 'Anda adalah asisten HRD profesional Indonesia. Buatkan deskripsi pekerjaan singkat (2-4 kalimat, maksimal 500 karakter) untuk posisi "' + pos + '" dalam bahasa Indonesia. Deskripsikan tanggung jawab utama dan tugas-tugas harian. Tulis langsung tanpa pembuka, tanpa format markdown. Gunakan kata "saya". Bahasa formal dan profesional.';
       
@@ -1686,11 +1680,8 @@ async function genDesc(expIdx, posIdx) {
     }
 
     if (description) {
-      // Simpan ke model data
       expList[expIdx].posList[posIdx].desc = description;
-      // Update textarea
       if (descEl) descEl.value = description;
-      // Re-render preview
       schedulePreview();
       toast('Deskripsi pekerjaan berhasil dibuat dengan AI ✨', 'success');
     } else {
@@ -1698,7 +1689,16 @@ async function genDesc(expIdx, posIdx) {
     }
   } catch (error) {
     console.error('genDesc error:', error);
-    toast('Error: ' + (error.message || 'Gagal terhubung ke server'), 'error');
+    
+    var msg = 'Gagal terhubung ke server';
+    if (error.code === 'not-found') {
+      msg = 'Server AI belum siap atau region salah. Hubungi admin.';
+    } else if (error.code === 'deadline-exceeded') {
+      msg = 'Server timeout, coba lagi nanti.';
+    } else if (error.message) {
+      msg = error.message;
+    }
+    toast(msg, 'error');
   } finally {
     _genDescLock[lockKey] = false;
     if (statusEl) statusEl.textContent = '';
@@ -1707,7 +1707,6 @@ async function genDesc(expIdx, posIdx) {
   }
 }
 
-// Auto-generate saat field jabatan kehilangan fokus (jika deskripsi masih kosong)
 function autoGenDesc(expIdx, posIdx) {
   var pos = expList[expIdx].posList[posIdx].j;
   var desc = expList[expIdx].posList[posIdx].desc;
