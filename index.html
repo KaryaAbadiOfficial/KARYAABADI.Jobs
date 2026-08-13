@@ -1608,14 +1608,16 @@ function initFirebase() {
   if (fbInitialized) return true;
   try {
     // ⚠️ GANTI DENGAN CONFIG FIREBASE PROJECT ANDA
-    var firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_WEB_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+   const firebaseConfig = {
+  apiKey: "AIzaSyDqFG9tn_cBzuCK-QquG3uOBAHW0XOYId0",
+  authDomain: "karya-abadi-ai.firebaseapp.com",
+  databaseURL: "https://karya-abadi-ai-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "karya-abadi-ai",
+  storageBucket: "karya-abadi-ai.firebasestorage.app",
+  messagingSenderId: "244850288004",
+  appId: "1:244850288004:web:e39ee16075a25f1096a9d1",
+  measurementId: "G-XEWFC2ZEGW"
+};
     firebase.initializeApp(firebaseConfig);
     fbInitialized = true;
     return true;
