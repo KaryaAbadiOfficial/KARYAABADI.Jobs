@@ -1601,7 +1601,7 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 
 // ================= FIREBASE & AI GENERATOR =================
 var fbInitialized = false;
-var USE_FIREBASE = true; // true=pakai Firebase Cloud Function (AMAN)
+var USE_FIREBASE = false; // false=langsung pakai Gemini API
 
 function initFirebase() {
   if (fbInitialized) return true;
