@@ -1238,18 +1238,16 @@ function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(part
 function renderSkillsCV4(skillArr){
   var items = (skillArr || []).filter(function(s){ return s && s.trim(); });
   if(!items.length) return '';
-  var h = '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';
+  var h = '<table style="width:100%;border-collapse:collapse;border:none;">';
   items.forEach(function(s){
     var p = parseSkillCV4(s);
     if(!p.title && !p.val) return;
     h += '<tr>';
-    h += '<td style="width:5mm; white-space:nowrap; vertical-align:top; padding:0 1mm 2mm 0; border:none;">•</td>';
-    h += '<td style="width:1px; vertical-align:top; padding:0 1mm 2mm 0; font-weight:600; border:none; word-break:break-word;">' + esc(p.title) + '</td>';
+    h += '<td style="width:5mm; vertical-align:top; padding:0 1mm 2mm 0; border:none;">\u2022</td>';
     if (p.val) {
-      h += '<td style="width:1px; vertical-align:top; padding:0 1mm 2mm 1mm; border:none;">:</td>';
-      h += '<td style="vertical-align:top; padding:0 0 2mm 0; word-break:break-word; border:none;">' + esc(p.val) + '</td>';
+      h += '<td style="vertical-align:top; padding:0 1mm 2mm 0; border:none;"><span style="font-weight:700;">' + esc(p.title) + '</span> &mdash; ' + esc(p.val) + '</td>';
     } else {
-      h += '<td colspan="2" style="padding-bottom:2mm; border:none;"></td>';
+      h += '<td style="vertical-align:top; padding:0 1mm 2mm 0; border:none;">' + esc(p.title) + '</td>';
     }
     h += '</tr>';
   });
