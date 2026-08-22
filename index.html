@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <!-- META DASAR -->
     <meta charset="UTF-8">
@@ -69,10 +69,11 @@
         .view { display: none; }
         .view.active { display: block; }
         .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
-        .a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:5mm;letter-spacing:.3px}
+        .a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:5mm;letter-spacing:.3px;page-break-inside:avoid;break-inside:avoid}
         .a4-page .st:first-child{margin-top:0}
         .a4-page table{width:100%;border-collapse:collapse}
         .a4-page table td{padding:.4mm 0;vertical-align:top}
+        .a4-page table tr{page-break-inside:avoid;break-inside:avoid}
         .a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; }
         .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
         #preview-wrap, #preview-wrap-mob { position: relative; overflow: hidden; touch-action: none; cursor: grab; }
