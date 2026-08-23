@@ -135,8 +135,6 @@
         .dark .zoom-btn{border-color:#2a2a2a;color:#9ca3af}
         .zoom-btn:hover{border-color:#DC2626;color:#DC2626}
         .zoom-btn:active{transform:scale(.90)}
-        .zoom-btn-mob{padding:5px 8px;background:rgba(255,255,255,0.05);border:none;border-radius:6px;color:#fff;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;width:28px;height:28px}
-        .zoom-btn-mob:active{transform:scale(.90)}
         .mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:6px env(safe-area-inset-bottom,6px)}
         .dark .mob-bar{background:rgba(17,17,17,.95);border-top-color:#2a2a2a}
         .mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
@@ -166,19 +164,30 @@
         @media(min-width:640px){.ft-copy{font-size:12px}}
         @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
         
-        /* CSS ARTIKEL */
-        .article-content p, .article-content li { text-align: justify; text-align-last: left; text-justify: inter-word; text-wrap: pretty; word-break: normal; overflow-wrap: break-word; -webkit-hyphens: manual; -ms-hyphens: manual; hyphens: manual; line-height: 1.6; }
+        /* CSS ARTIKEL - JUSTIFY PADAT */
+        .article-content p, .article-content li, .text-justify-padat {
+            text-align: justify;
+            text-align-last: left;
+            text-justify: inter-word;
+            text-wrap: pretty;
+            word-break: normal;
+            overflow-wrap: break-word;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
+            line-height: 1.6;
+        }
         .article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
         .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
         .article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #111827; text-align: left; }
         .dark .article-content h2 { color: #fff; }
         .article-content h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #111827; text-align: left; }
         .dark .article-content h3 { color: #f1f5f9; }
-        .article-content p { margin-bottom: 1rem; color: #4b5563; text-align: justify; text-align-last: left; text-wrap: pretty; line-height: 1.6; }
+        .article-content p { margin-bottom: 1rem; color: #4b5563; }
         .dark .article-content p { color: #cbd5e1; }
         .article-content ul { list-style: none; margin-left: 0; margin-bottom: 1rem; }
         .article-content ol { list-style: decimal; margin-left: 1.5rem; margin-bottom: 1rem; }
-        .article-content li { margin-bottom: 0.5rem; color: #4b5563; text-align: justify; text-align-last: left; text-wrap: pretty; position: relative; padding-left: 1.5rem; line-height: 1.6; }
+        .article-content li { margin-bottom: 0.5rem; color: #4b5563; position: relative; padding-left: 1.5rem; line-height: 1.6; }
         .dark .article-content li { color: #cbd5e1; }
         .article-content ul li::before { content: '•'; position: absolute; left: 0.5rem; color: #DC2626; font-weight: bold; }
         .article-content a { color: #DC2626; text-decoration: underline; font-weight: 600; }
@@ -264,7 +273,7 @@
     <div class="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-6">PUSAT INFORMASI DAN ALAT BANTU PENCARI KERJA INDONESIA</span>
       <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Alat dan Panduan Gratis untuk Membantu Anda Mempersiapkan Lamaran Kerja</h1>
-      <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal"><strong>Karya Abadi Jobs</strong> adalah platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja sekaligus memahami cara membuat CV, surat lamaran, dan dokumen pendukung yang lebih baik. Pengguna dapat membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen menjadi PDF, serta membaca berbagai panduan karier yang dapat digunakan sebagai referensi sebelum mengirim lamaran.</p>
+      <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal text-justify-padat"><strong>Karya Abadi Jobs</strong> adalah platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja sekaligus memahami cara membuat CV, surat lamaran, dan dokumen pendukung yang lebih baik. Pengguna dapat membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen menjadi PDF, serta membaca berbagai panduan karier yang dapat digunakan sebagai referensi sebelum mengirim lamaran.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none">
           <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
@@ -285,30 +294,30 @@
   <main class="max-w-7xl mx-auto px-4 pt-10 pb-12">
     <section class="text-center mb-16" aria-label="Fitur Utama">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">Alat Bantu Persiapan Lamaran Kerja</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-sm md:text-base">Berbagai alat bantu yang dapat Anda gunakan secara gratis untuk mempersiapkan dokumen lamaran kerja.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Berbagai alat bantu yang dapat Anda gunakan secara gratis untuk mempersiapkan dokumen lamaran kerja agar lebih maksimal, terstruktur, dan profesional sebelum dikirimkan kepada perekrut HRD.</p>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-file-lines text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Buat CV</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Membuat CV dengan struktur yang rapi dan dapat disesuaikan dengan kebutuhan pekerjaan. Tersedia beberapa template profesional yang dapat dipilih.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Membuat CV dengan struktur yang rapi dan dapat disesuaikan dengan kebutuhan pekerjaan. Tersedia beberapa template profesional yang dapat dipilih.</p>
           <button onclick="showPage('generator'); selectCat('cv');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Buat CV Sekarang <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-envelope-open-text text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Buat Surat Lamaran</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Menyusun surat lamaran kerja berdasarkan posisi serta perusahaan yang dituju. Tersedia format email dan tulis tangan yang dapat disesuaikan.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Menyusun surat lamaran kerja berdasarkan posisi serta perusahaan yang dituju. Tersedia format email dan tulis tangan yang dapat disesuaikan.</p>
           <button onclick="showPage('generator'); selectCat('surat');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Buat Surat Sekarang <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-file-zipper text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Gabungkan Dokumen PDF</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Menggabungkan beberapa gambar dokumen seperti ijazah, transkrip, dan sertifikat menjadi satu file PDF lampiran yang siap dikirim.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Menggabungkan beberapa gambar dokumen seperti ijazah, transkrip, dan sertifikat menjadi satu file PDF lampiran yang siap dikirim.</p>
           <button onclick="showPage('lampiran');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Gabungkan PDF <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-book-open text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Panduan Pencari Kerja</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center">Berbagai artikel dan panduan mengenai CV, surat lamaran, email lamaran, interview, pencarian kerja, dan keamanan saat mencari lowongan.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Berbagai artikel dan panduan mengenai CV, surat lamaran, email lamaran, interview, pencarian kerja, dan keamanan saat mencari lowongan.</p>
           <button onclick="showPage('panduan-karier');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Baca Panduan <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
       </div>
@@ -317,8 +326,8 @@
     <section class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-2xl p-8 md:p-12 mb-16" aria-label="Mengapa Karya Abadi Jobs Dibuat">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Mengapa Karya Abadi Jobs Dibuat?</h2>
-        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">Banyak pencari kerja, terutama lulusan baru, mengalami kesulitan ketika harus membuat CV dan surat lamaran dari awal. Karya Abadi Jobs dibuat untuk menyediakan alat yang sederhana sekaligus informasi yang mudah dipahami sehingga pengguna dapat mempersiapkan dokumen lamaran dengan lebih mandiri.</p>
-        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed mt-4">Kami berkomitmen untuk menyediakan platform yang transparan, aman, dan berfokus pada kebutuhan pengguna di Indonesia. Semua proses pembuatan dokumen dilakukan secara lokal di browser Anda tanpa biaya dan tanpa registrasi.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed text-justify-padat">Banyak pencari kerja, terutama lulusan baru, mengalami kesulitan ketika harus membuat CV dan surat lamaran dari awal. Karya Abadi Jobs dibuat untuk menyediakan alat yang sederhana sekaligus informasi yang mudah dipahami sehingga pengguna dapat mempersiapkan dokumen lamaran dengan lebih mandiri.</p>
+        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed mt-4 text-justify-padat">Kami berkomitmen untuk menyediakan platform yang transparan, aman, dan berfokus pada kebutuhan pengguna di Indonesia. Semua proses pembuatan dokumen dilakukan secara lokal di browser Anda tanpa biaya dan tanpa registrasi.</p>
         <div class="mt-8">
           <button onclick="showPage('about');" class="px-6 py-3 bg-brand-dark dark:bg-white text-white dark:text-brand-dark font-semibold rounded-xl hover:bg-brand-black dark:hover:bg-gray-200 transition text-sm">Pelajari Lebih Lanjut</button>
         </div>
@@ -327,7 +336,7 @@
 
     <section class="text-center" aria-label="Navigasi Cepat">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">Jelajahi Fitur dan Halaman Penting</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-sm md:text-base">Akses berbagai alat bantu dan informasi yang kami sediakan untuk membantu persiapan lamaran kerja Anda.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Akses berbagai alat bantu dan informasi yang kami sediakan untuk membantu persiapan lamaran kerja Anda agar lebih maksimal dan terarah sesuai dengan kebutuhan industri saat ini.</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('cv'); return false;" class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-5 hover:border-brand-red hover:shadow-md transition group">
           <i class="fa-solid fa-file-lines text-2xl text-brand-red mb-2 block"></i>
@@ -366,7 +375,7 @@
 
     <section class="mt-16 text-center bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-2xl p-8 md:p-12" aria-label="Ajakan Bertindak">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Mulai Persiapan Lamaran Kerja Anda Hari Ini</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang penting.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang penting.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
           Buat CV Gratis
@@ -413,12 +422,7 @@
         <div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
           <i class="fa-solid fa-eye text-xs"></i>Preview A4
         </div>
-        <div class="flex items-center gap-1">
-          <button onclick="zoomPreview(-0.1)" class="zoom-btn" title="Zoom Out" aria-label="Perkecil tampilan"><i class="fa-solid fa-minus"></i></button>
-          <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-600 dark:text-gray-300">100%</span>
-          <button onclick="zoomPreview(0.1)" class="zoom-btn" title="Zoom In" aria-label="Perbesar tampilan"><i class="fa-solid fa-plus"></i></button>
-          <button onclick="resetZoom()" class="zoom-btn ml-1" title="Reset Zoom" aria-label="Reset tampilan"><i class="fa-solid fa-expand"></i></button>
-        </div>
+        <button onclick="resetZoom()" class="text-[11px] font-bold text-brand-red hover:underline">Reset Tampilan</button>
       </div>
       <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
         <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
@@ -428,14 +432,9 @@
   <div id="preview-mobile" class="hidden fixed inset-0 z-[90] bg-brand-black flex flex-col">
     <div class="flex items-center justify-between px-4 h-12 border-b border-brand-border/50 flex-shrink-0">
       <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">Preview A4</span>
-      <div class="flex items-center gap-1">
-        <button onclick="zoomPreview(-0.1)" class="zoom-btn-mob" title="Zoom Out" aria-label="Perkecil tampilan"><i class="fa-solid fa-minus"></i></button>
-        <span class="zoom-level text-[11px] font-bold w-10 text-center text-gray-300">100%</span>
-        <button onclick="zoomPreview(0.1)" class="zoom-btn-mob" title="Zoom In" aria-label="Perbesar tampilan"><i class="fa-solid fa-plus"></i></button>
-        <button onclick="resetZoom()" class="zoom-btn-mob" title="Reset Zoom" aria-label="Reset tampilan"><i class="fa-solid fa-expand"></i></button>
-        <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center" aria-label="Tutup preview"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
-      </div>
+      <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center" aria-label="Tutup preview"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
     </div>
+    <div class="px-4 py-1 text-center text-[10px] text-gray-400 border-b border-brand-border/50">Cubit untuk Zoom • Geser untuk Pindah</div>
     <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
       <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
     </div>
@@ -457,7 +456,7 @@
     <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
       <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 text-center">Gabungkan Dokumen PDF <span class="text-brand-red">Lampiran Lamaran</span></h1>
-      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
+      <p class="max-w-2xl mx-auto text-gray-300 px-4 text-sm md:text-base text-justify-padat">Unggah salinan dokumen lamaran pekerjaan Anda seperti Ijazah, Transkrip Nilai, Sertifikat, KTP, KK, atau Pas Foto. Sistem akan otomatis mengompresi dan menggabungkan semua gambar menjadi satu file PDF berukuran maksimal 1 MB, siap dikirim ke HRD perusahaan tujuan Anda dengan cepat dan mudah.</p>
     </div>
   </section>
   <main class="max-w-4xl mx-auto px-4 py-8 pb-20">
@@ -529,7 +528,7 @@
 <div id="view-panduan-karier" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Panduan Karier untuk Pencari Kerja</h1>
-    <p class="text-center">Karya Abadi Jobs menyediakan berbagai artikel dan panduan untuk membantu Anda memahami cara membuat dokumen lamaran yang baik, persiapan interview, hingga cara menghindari lowongan pekerjaan palsu.</p>
+    <p class="text-center text-justify-padat">Karya Abadi Jobs menyediakan berbagai artikel dan panduan untuk membantu Anda memahami cara membuat dokumen lamaran yang baik, persiapan interview, hingga cara menghindari lowongan pekerjaan palsu.</p>
     <div id="panduan-list" class="grid md:grid-cols-2 gap-6 mt-10"></div>
   </main>
 </div>
@@ -537,7 +536,7 @@
 <div id="view-tips-kerja" class="view">
   <main class="max-w-4xl mx-auto px-4 py-10 article-content">
     <h1 class="text-center">Tips Kerja dan Pencarian Lowongan</h1>
-    <p class="text-center">Kumpulan artikel dan tips untuk membantu Anda dalam proses pencarian kerja agar lebih aman, efektif, dan strategis.</p>
+    <p class="text-center text-justify-padat">Kumpulan artikel dan tips untuk membantu Anda dalam proses pencarian kerja agar lebih aman, efektif, dan strategis.</p>
     <div id="tips-list" class="grid md:grid-cols-2 gap-6 mt-10"></div>
   </main>
 </div>
@@ -763,48 +762,48 @@
 // ================= ARTICLES DATA & RENDERER =================
 const NEW_ARTICLES = [
   // Panduan Karier
-  { id: 'panduan-memulai-karier-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Memulai Karier untuk Fresh Graduate dan Pemula', date: '5 Januari 2025', time: '4 mnt baca', icon: 'fa-rocket', html: `<p>Memulai karier sebagai fresh graduate membutuhkan strategi yang matang. Langkah pertama adalah mengenali potensi diri dan mempersiapkan dokumen lamaran yang representatif.</p><ul><li><strong>Kenali Diri Sendiri:</strong> Pahami kelebihan dan minat Anda.</li><li><strong>Persiapan Dokumen:</strong> Buat CV dan surat lamaran yang rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</li><li><strong>Mulai dari Kecil:</strong> Jangan ragu menerima magang atau pekerjaan entry-level.</li></ul><p>Dengan persiapan yang matang, langkah pertama menuju karier impian akan terasa lebih mudah.</p>` },
-  { id: 'cara-memilih-karier-minat-keahlian', cat: 'Panduan Karier', title: 'Cara Memilih Karier yang Sesuai dengan Minat dan Keahlian', date: '8 Januari 2025', time: '4 mnt baca', icon: 'fa-compass', html: `<p>Memilih karier yang tepat adalah kunci kepuasan kerja jangka panjang. Jangan hanya tergiur gaji, sesuaikan dengan minat dan keahlian Anda.</p><ol><li>Identifikasi hal-hal yang Anda sukai.</li><li>Latih keahlian yang Anda kuasai.</li><li>Cari industri yang relevan dengan minat tersebut.</li></ol><p>Setelah menemukan arah, buat CV profesional menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'panduan-tujuan-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Menentukan Tujuan Karier untuk Masa Depan', date: '12 Januari 2025', time: '5 mnt baca', icon: 'fa-bullseye', html: `<p>Tujuan karier yang jelas akan membuat Anda lebih fokus dalam mencari pekerjaan dan mengembangkan diri.</p><ul><li><strong>Jangka Pendek:</strong> Mendapatkan pekerjaan pertama dalam 6 bulan.</li><li><strong>Jangka Menengah:</strong> Menjadi supervisor dalam 3 tahun.</li><li><strong>Jangka Panjang:</strong> Menjadi manajer atau ahli di bidang Anda.</li></ul><p>Susun CV yang menunjukkan potensi Anda untuk mencapai tujuan tersebut.</p>` },
-  { id: 'cara-merencanakan-karier-sukses', cat: 'Panduan Karier', title: 'Cara Merencanakan Karier agar Lebih Terarah dan Sukses', date: '15 Januari 2025', time: '4 mnt baca', icon: 'fa-chart-line', html: `<p>Perencanaan karier bukan sekadar mimpi, tapi butuh action plan. Tuliskan langkah-langkah yang harus dicapai setiap tahun.</p><p>Mulailah dengan memastikan dokumen lamaran Anda prima. Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> untuk membuat CV yang menarik bagi HRD.</p>` },
-  { id: 'panduan-mengembangkan-karier-pemula-profesional', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier dari Pemula hingga Profesional', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-stairs', html: `<p>Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan baru.</p><p>Bangun jaringan profesional dan perbarui CV Anda secara berkala menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'skill-wajib-mengembangkan-karier', cat: 'Panduan Karier', title: 'Skill yang Wajib Dimiliki untuk Mengembangkan Karier', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-toolbox', html: `<p>Selain hard skill, soft skill sangat penting. Komunikasi, problem-solving, dan adaptabilitas adalah kunci.</p><p>Pastikan skill Anda terdokumentasi dengan baik di CV. Buat CV profesional sekarang.</p>` },
-  { id: 'cara-membangun-personal-branding-karier', cat: 'Panduan Karier', title: 'Cara Membangun Personal Branding untuk Mendukung Karier', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-fingerprint', html: `<p>Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.</p><p>Buat CV yang merepresentasikan brand Anda dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'panduan-pekerjaan-pertama-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Mendapatkan Pekerjaan Pertama bagi Fresh Graduate', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-briefcase', html: `<p>Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.</p><p>Pastikan surat lamaran Anda dibuat dengan baik menggunakan <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">generator surat lamaran</a>.</p>` },
-  { id: 'cara-menentukan-jalur-karier-potensi-diri', cat: 'Panduan Karier', title: 'Cara Menentukan Jalur Karier yang Tepat Sesuai Potensi Diri', date: '1 Februari 2025', time: '5 mnt baca', icon: 'fa-route', html: `<p>Potensi diri adalah kombinasi minat, bakat, dan kepribadian. Kenali diri Anda untuk menemukan jalur karier yang tepat.</p><p>Tuliskan potensi tersebut secara menarik di CV menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'panduan-skill-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Meningkatkan Skill untuk Persiapan Karier Masa Depan', date: '5 Februari 2025', time: '4 mnt baca', icon: 'fa-laptop-code', html: `<p>Dunia kerja terus berubah. Skill digital seperti data analysis dan digital marketing akan sangat dibutuhkan.</p><p>Sertakan sertifikat digital Anda di CV. Buat CV sekarang menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'cara-cv-profesional-memulai-karier', cat: 'Panduan Karier', title: 'Cara Membuat CV Profesional untuk Memulai Karier', date: '8 Februari 2025', time: '4 mnt baca', icon: 'fa-file-word', html: `<p>CV profesional bukan sekadar daftar riwayat hidup, tapi dokumen pemasaran diri. Gunakan bahasa yang formal dan tata letak yang rapi.</p><p>Anda bisa langsung membuatnya menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV profesional kami</a> secara gratis.</p>` },
-  { id: 'panduan-perubahan-karier-tantangan', cat: 'Panduan Karier', title: 'Panduan Menghadapi Perubahan Karier dan Tantangan Dunia Kerja', date: '12 Februari 2025', time: '5 mnt baca', icon: 'fa-shuffle', html: `<p>Pindah jalur karier (career change) membutuhkan keberanian dan persiapan dokumen yang matang. Sesuaikan CV Anda dengan industri baru.</p><p>Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> untuk menyesuaikan fokus dokumen Anda.</p>` },
-  { id: 'cara-membangun-pengalaman-kerja-karier', cat: 'Panduan Karier', title: 'Cara Membangun Pengalaman Kerja untuk Mengembangkan Karier', date: '15 Februari 2025', time: '4 mnt baca', icon: 'fa-building-columns', html: `<p>Jika belum punya pengalaman, mulailah dengan proyek freelance atau volunteer. Ini sangat berharga di mata HRD.</p><p>Dokumentasikan pengalaman tersebut dengan rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'panduan-persiapan-karier-dunia-kerja', cat: 'Panduan Karier', title: 'Panduan Persiapan Karier Sebelum Masuk Dunia Kerja', date: '18 Februari 2025', time: '5 mnt baca', icon: 'fa-clipboard-check', html: `<p>Persiapan mental dan dokumen adalah kunci sebelum terjun ke dunia kerja. Siapkan CV, surat lamaran, dan mental interview.</p><p>Buat dokumen lamaran Anda sekarang menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator dokumen kami</a>.</p>` },
-  { id: 'cara-mengembangkan-jaringan-profesional', cat: 'Panduan Karier', title: 'Cara Mengembangkan Jaringan Profesional untuk Kemajuan Karier', date: '22 Februari 2025', time: '4 mnt baca', icon: 'fa-network-wired', html: `<p>Networking membuka peluang kerja yang tidak dipublikasikan. Hadiri seminar dan aktif di LinkedIn.</p><p>Pastikan profil Anda didukung oleh CV yang kuat. Buat CV <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'panduan-karier-pemula-tanpa-pengalaman', cat: 'Panduan Karier', title: 'Panduan Karier bagi Pemula yang Belum Memiliki Pengalaman Kerja', date: '25 Februari 2025', time: '5 mnt baca', icon: 'fa-seedling', html: `<p>Tidak punya pengalaman bukan akhir segalanya. Fokus pada pendidikan, organisasi, dan kemauan belajar.</p><p>Susun CV yang menonjolkan potensi Anda menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
-  { id: 'cara-prioritas-gaji-karier', cat: 'Panduan Karier', title: 'Cara Menentukan Prioritas antara Gaji, Karier, dan Pengembangan Diri', date: '1 Maret 2025', time: '4 mnt baca', icon: 'fa-scale-balanced', html: `<p>Memilih antara gaji besar atau jalur karier yang menjanjikan? Sesuaikan dengan tujuan jangka panjang Anda.</p><p>Apapun pilihan Anda, awali dengan CV yang profesional. Buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'panduan-mempersiapkan-naik-jabatan', cat: 'Panduan Karier', title: 'Panduan Mempersiapkan Diri untuk Naik Jabatan', date: '5 Maret 2025', time: '5 mnt baca', icon: 'fa-ladder', html: `<p>Naik jabatan butuh bukti kontribusi. Kumpulkan pencapaian Anda dan presentasikan kepada atasan.</p><p>Perbarui CV Anda dengan pencapaian terbaru menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
-  { id: 'cara-mengatasi-kebingungan-pilihan-karier', cat: 'Panduan Karier', title: 'Cara Mengatasi Kebingungan dalam Menentukan Pilihan Karier', date: '8 Maret 2025', time: '4 mnt baca', icon: 'fa-circle-question', html: `<p>Kebingungan memilih karier adalah hal wajar. Coba tes kepribadian dan diskusi dengan mentor.</p><p>Setelah yakin, buat CV yang fokus pada bidang tersebut <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'panduan-karier-era-digital', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier di Era Digital', date: '12 Maret 2025', time: '5 mnt baca', icon: 'fa-globe', html: `<p>Era digital menuntut adaptasi cepat. Kuasai tool digital dan bangun portofolio online.</p><p>Dokumentasikan skill digital Anda secara rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-memulai-karier-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Memulai Karier untuk Fresh Graduate dan Pemula', date: '5 Januari 2025', time: '4 mnt baca', icon: 'fa-rocket', desc: 'Persiapan matang untuk lulusan baru memulai karier, mencakup riset industri, penulisan CV, hingga strategi mencari peluang magang dan pekerjaan.', html: `<p>Memulai karier sebagai fresh graduate membutuhkan strategi yang matang. Langkah pertama adalah mengenali potensi diri dan mempersiapkan dokumen lamaran yang representatif.</p><ul><li><strong>Kenali Diri Sendiri:</strong> Pahami kelebihan dan minat Anda.</li><li><strong>Persiapan Dokumen:</strong> Buat CV dan surat lamaran yang rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</li><li><strong>Mulai dari Kecil:</strong> Jangan ragu menerima magang atau pekerjaan entry-level.</li></ul><p>Dengan persiapan yang matang, langkah pertama menuju karier impian akan terasa lebih mudah.</p>` },
+  { id: 'cara-memilih-karier-minat-keahlian', cat: 'Panduan Karier', title: 'Cara Memilih Karier yang Sesuai dengan Minat dan Keahlian', date: '8 Januari 2025', time: '4 mnt baca', icon: 'fa-compass', desc: 'Tips jitu mengenali potensi diri agar tidak salah pilih jalur karier, dengan menyesuaikan minat pribadi dan keahlian teknis yang dimiliki.', html: `<p>Memilih karier yang tepat adalah kunci kepuasan kerja jangka panjang. Jangan hanya tergiur gaji, sesuaikan dengan minat dan keahlian Anda.</p><ol><li>Identifikasi hal-hal yang Anda sukai.</li><li>Latih keahlian yang Anda kuasai.</li><li>Cari industri yang relevan dengan minat tersebut.</li></ol><p>Setelah menemukan arah, buat CV profesional menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-tujuan-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Menentukan Tujuan Karier untuk Masa Depan', date: '12 Januari 2025', time: '5 mnt baca', icon: 'fa-bullseye', desc: 'Panduan praktis menetapkan target jangka pendek, menengah, dan panjang agar perjalanan karier Anda lebih terarah dan terukur keberhasilannya.', html: `<p>Tujuan karier yang jelas akan membuat Anda lebih fokus dalam mencari pekerjaan dan mengembangkan diri.</p><ul><li><strong>Jangka Pendek:</strong> Mendapatkan pekerjaan pertama dalam 6 bulan.</li><li><strong>Jangka Menengah:</strong> Menjadi supervisor dalam 3 tahun.</li><li><strong>Jangka Panjang:</strong> Menjadi manajer atau ahli di bidang Anda.</li></ul><p>Susun CV yang menunjukkan potensi Anda untuk mencapai tujuan tersebut.</p>` },
+  { id: 'cara-merencanakan-karier-sukses', cat: 'Panduan Karier', title: 'Cara Merencanakan Karier agar Lebih Terarah dan Sukses', date: '15 Januari 2025', time: '4 mnt baca', icon: 'fa-chart-line', desc: 'Perencanaan karier bukan sekadar mimpi, tapi butuh action plan. Tuliskan langkah-langkah yang harus dicapai setiap tahun.', html: `<p>Perencanaan karier bukan sekadar mimpi, tapi butuh action plan. Tuliskan langkah-langkah yang harus dicapai setiap tahun.</p><p>Mulailah dengan memastikan dokumen lamaran Anda prima. Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> untuk membuat CV yang menarik bagi HRD.</p>` },
+  { id: 'panduan-mengembangkan-karier-pemula-profesional', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier dari Pemula hingga Profesional', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-stairs', desc: 'Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan baru.', html: `<p>Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan baru.</p><p>Bangun jaringan profesional dan perbarui CV Anda secara berkala menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'skill-wajib-mengembangkan-karier', cat: 'Panduan Karier', title: 'Skill yang Wajib Dimiliki untuk Mengembangkan Karier', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-toolbox', desc: 'Selain hard skill, soft skill sangat penting. Komunikasi, problem-solving, dan adaptabilitas adalah kunci.', html: `<p>Selain hard skill, soft skill sangat penting. Komunikasi, problem-solving, dan adaptabilitas adalah kunci.</p><p>Pastikan skill Anda terdokumentasi dengan baik di CV. Buat CV profesional sekarang.</p>` },
+  { id: 'cara-membangun-personal-branding-karier', cat: 'Panduan Karier', title: 'Cara Membangun Personal Branding untuk Mendukung Karier', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-fingerprint', desc: 'Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.', html: `<p>Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.</p><p>Buat CV yang merepresentasikan brand Anda dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-pekerjaan-pertama-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Mendapatkan Pekerjaan Pertama bagi Fresh Graduate', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-briefcase', desc: 'Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.', html: `<p>Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.</p><p>Pastikan surat lamaran Anda dibuat dengan baik menggunakan <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">generator surat lamaran</a>.</p>` },
+  { id: 'cara-menentukan-jalur-karier-potensi-diri', cat: 'Panduan Karier', title: 'Cara Menentukan Jalur Karier yang Tepat Sesuai Potensi Diri', date: '1 Februari 2025', time: '5 mnt baca', icon: 'fa-route', desc: 'Potensi diri adalah kombinasi minat, bakat, dan kepribadian. Kenali diri Anda untuk menemukan jalur karier yang tepat.', html: `<p>Potensi diri adalah kombinasi minat, bakat, dan kepribadian. Kenali diri Anda untuk menemukan jalur karier yang tepat.</p><p>Tuliskan potensi tersebut secara menarik di CV menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-skill-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Meningkatkan Skill untuk Persiapan Karier Masa Depan', date: '5 Februari 2025', time: '4 mnt baca', icon: 'fa-laptop-code', desc: 'Dunia kerja terus berubah. Skill digital seperti data analysis dan digital marketing akan sangat dibutuhkan.', html: `<p>Dunia kerja terus berubah. Skill digital seperti data analysis dan digital marketing akan sangat dibutuhkan.</p><p>Sertakan sertifikat digital Anda di CV. Buat CV sekarang menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'cara-cv-profesional-memulai-karier', cat: 'Panduan Karier', title: 'Cara Membuat CV Profesional untuk Memulai Karier', date: '8 Februari 2025', time: '4 mnt baca', icon: 'fa-file-word', desc: 'CV profesional bukan sekadar daftar riwayat hidup, tapi dokumen pemasaran diri. Gunakan bahasa yang formal dan tata letak yang rapi.', html: `<p>CV profesional bukan sekadar daftar riwayat hidup, tapi dokumen pemasaran diri. Gunakan bahasa yang formal dan tata letak yang rapi.</p><p>Anda bisa langsung membuatnya menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV profesional kami</a> secara gratis.</p>` },
+  { id: 'panduan-perubahan-karier-tantangan', cat: 'Panduan Karier', title: 'Panduan Menghadapi Perubahan Karier dan Tantangan Dunia Kerja', date: '12 Februari 2025', time: '5 mnt baca', icon: 'fa-shuffle', desc: 'Pindah jalur karier (career change) membutuhkan keberanian dan persiapan dokumen yang matang. Sesuaikan CV Anda dengan industri baru.', html: `<p>Pindah jalur karier (career change) membutuhkan keberanian dan persiapan dokumen yang matang. Sesuaikan CV Anda dengan industri baru.</p><p>Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> untuk menyesuaikan fokus dokumen Anda.</p>` },
+  { id: 'cara-membangun-pengalaman-kerja-karier', cat: 'Panduan Karier', title: 'Cara Membangun Pengalaman Kerja untuk Mengembangkan Karier', date: '15 Februari 2025', time: '4 mnt baca', icon: 'fa-building-columns', desc: 'Jika belum punya pengalaman, mulailah dengan proyek freelance atau volunteer. Ini sangat berharga di mata HRD.', html: `<p>Jika belum punya pengalaman, mulailah dengan proyek freelance atau volunteer. Ini sangat berharga di mata HRD.</p><p>Dokumentasikan pengalaman tersebut dengan rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-persiapan-karier-dunia-kerja', cat: 'Panduan Karier', title: 'Panduan Persiapan Karier Sebelum Masuk Dunia Kerja', date: '18 Februari 2025', time: '5 mnt baca', icon: 'fa-clipboard-check', desc: 'Persiapan mental dan dokumen adalah kunci sebelum terjun ke dunia kerja. Siapkan CV, surat lamaran, dan mental interview.', html: `<p>Persiapan mental dan dokumen adalah kunci sebelum terjun ke dunia kerja. Siapkan CV, surat lamaran, dan mental interview.</p><p>Buat dokumen lamaran Anda sekarang menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator dokumen kami</a>.</p>` },
+  { id: 'cara-mengembangkan-jaringan-profesional', cat: 'Panduan Karier', title: 'Cara Mengembangkan Jaringan Profesional untuk Kemajuan Karier', date: '22 Februari 2025', time: '4 mnt baca', icon: 'fa-network-wired', desc: 'Networking membuka peluang kerja yang tidak dipublikasikan. Hadiri seminar dan aktif di LinkedIn.', html: `<p>Networking membuka peluang kerja yang tidak dipublikasikan. Hadiri seminar dan aktif di LinkedIn.</p><p>Pastikan profil Anda didukung oleh CV yang kuat. Buat CV <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'panduan-karier-pemula-tanpa-pengalaman', cat: 'Panduan Karier', title: 'Panduan Karier bagi Pemula yang Belum Memiliki Pengalaman Kerja', date: '25 Februari 2025', time: '5 mnt baca', icon: 'fa-seedling', desc: 'Tidak punya pengalaman bukan akhir segalanya. Fokus pada pendidikan, organisasi, dan kemauan belajar.', html: `<p>Tidak punya pengalaman bukan akhir segalanya. Fokus pada pendidikan, organisasi, dan kemauan belajar.</p><p>Susun CV yang menonjolkan potensi Anda menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
+  { id: 'cara-prioritas-gaji-karier', cat: 'Panduan Karier', title: 'Cara Menentukan Prioritas antara Gaji, Karier, dan Pengembangan Diri', date: '1 Maret 2025', time: '4 mnt baca', icon: 'fa-scale-balanced', desc: 'Memilih antara gaji besar atau jalur karier yang menjanjikan? Sesuaikan dengan tujuan jangka panjang Anda.', html: `<p>Memilih antara gaji besar atau jalur karier yang menjanjikan? Sesuaikan dengan tujuan jangka panjang Anda.</p><p>Apapun pilihan Anda, awali dengan CV yang profesional. Buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'panduan-mempersiapkan-naik-jabatan', cat: 'Panduan Karier', title: 'Panduan Mempersiapkan Diri untuk Naik Jabatan', date: '5 Maret 2025', time: '5 mnt baca', icon: 'fa-ladder', desc: 'Naik jabatan butuh bukti kontribusi. Kumpulkan pencapaian Anda dan presentasikan kepada atusan.', html: `<p>Naik jabatan butuh bukti kontribusi. Kumpulkan pencapaian Anda dan presentasikan kepada atusan.</p><p>Perbarui CV Anda dengan pencapaian terbaru menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
+  { id: 'cara-mengatasi-kebingungan-pilihan-karier', cat: 'Panduan Karier', title: 'Cara Mengatasi Kebingungan dalam Menentukan Pilihan Karier', date: '8 Maret 2025', time: '4 mnt baca', icon: 'fa-circle-question', desc: 'Kebingungan memilih karier adalah hal wajar. Coba tes kepribadian dan diskusi dengan mentor.', html: `<p>Kebingungan memilih karier adalah hal wajar. Coba tes kepribadian dan diskusi dengan mentor.</p><p>Setelah yakin, buat CV yang fokus pada bidang tersebut <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'panduan-karier-era-digital', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier di Era Digital', date: '12 Maret 2025', time: '5 mnt baca', icon: 'fa-globe', desc: 'Era digital menuntut adaptasi cepat. Kuasai tool digital dan bangun portofolio online.', html: `<p>Era digital menuntut adaptasi cepat. Kuasai tool digital dan bangun portofolio online.</p><p>Dokumentasikan skill digital Anda secara rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
   
   // Tips Kerja
-  { id: 'tips-cepat-panggilan-interview', cat: 'Tips Kerja', title: 'Tips Mencari Kerja agar Cepat Mendapatkan Panggilan Interview', date: '5 Januari 2025', time: '4 mnt baca', icon: 'fa-phone-volume', html: `<p>Agar cepat dipanggil interview, pastikan CV Anda sesuai dengan kualifikasi lowongan dan kirim lamaran tepat waktu.</p><p>Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> dan <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">surat lamaran</a> kami.</p>` },
-  { id: 'tips-lolos-interview-fresh-graduate', cat: 'Tips Kerja', title: '10 Tips Lolos Interview Kerja untuk Fresh Graduate', date: '8 Januari 2025', time: '5 mnt baca', icon: 'fa-handshake-simple', html: `<p>Pelajari tentang perusahaan, berpakaian rapi, dan jawab pertanyaan dengan percaya diri. Bawa juga salinan CV Anda.</p><p>Cetak CV hasil dari <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a> saat wawancara.</p>` },
-  { id: 'cara-menjawab-pertanyaan-interview', cat: 'Tips Kerja', title: 'Cara Menjawab Pertanyaan Interview Kerja dengan Baik dan Percaya Diri', date: '12 Januari 2025', time: '4 mnt baca', icon: 'fa-comments', html: `<p>Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario.</p><p>Pastikan pengalaman yang Anda ceritakan tertulis di CV, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'tips-cv-menarik-hrd', cat: 'Tips Kerja', title: 'Tips Membuat CV yang Menarik Perhatian HRD', date: '15 Januari 2025', time: '4 mnt baca', icon: 'fa-file-circle-plus', html: `<p>HRD hanya butuh 6 detik untuk menilai CV. Gunakan desain bersih, font standar, dan poin-poin singkat.</p><p>Pilih template CV menarik dari <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator kami</a>.</p>` },
-  { id: 'tips-lamaran-tidak-ditolak', cat: 'Tips Kerja', title: 'Tips Agar Lamaran Kerja Tidak Ditolak dan Lebih Berpeluang Diterima', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-circle-check', html: `<p>Jangan kirim CV yang sama untuk semua posisi. Sesuaikan dengan job description. Lampirkan dokumen pendukung dalam satu PDF.</p><p>Gabungkan dokumen Anda menggunakan <a href="#" onclick="showPage('lampiran'); return false;">fitur gabung PDF</a>.</p>` },
-  { id: 'cara-beradaptasi-lingkungan-kerja', cat: 'Tips Kerja', title: 'Cara Beradaptasi di Lingkungan Kerja Baru', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-users', html: `<p>Observasi budaya kerja, perkenalkan diri dengan ramah, dan jangan ragu bertanya jika bingung.</p><p>Pastikan Anda sudah melamar dengan CV yang baik, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'tips-karyawan-profesional', cat: 'Tips Kerja', title: 'Tips Menjadi Karyawan yang Profesional di Tempat Kerja', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-user-tie', html: `<p>Junjung tinggi etika kerja, tepat waktu, dan bertanggung jawab atas tugas yang diberikan.</p><p>Dokumen lamaran yang profesional mencerminkan pribadi profesional. Buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'cara-produktivitas-kerja', cat: 'Tips Kerja', title: 'Cara Meningkatkan Produktivitas Kerja Setiap Hari', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-chart-simple', html: `<p>Gunakan teknik Pomodoro, minimalkan distraksi, dan prioritaskan tugas yang paling sulit di pagi hari.</p><p>Produktivitas dimulai dari persiapan. Siapkan lamaran kerja <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'tips-mengatur-waktu-kerja', cat: 'Tips Kerja', title: 'Tips Mengatur Waktu agar Lebih Efektif di Tempat Kerja', date: '1 Februari 2025', time: '4 mnt baca', icon: 'fa-clock', html: `<p>Buat to-do list harian dan blok waktu (time blocking) untuk fokus pada satu pekerjaan.</p><p>Atur waktu lamaran kerja Anda dengan efisien menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
-  { id: 'cara-mengatasi-stres-kerja', cat: 'Tips Kerja', title: 'Cara Mengatasi Stres dan Tekanan di Tempat Kerja', date: '5 Februari 2025', time: '5 mnt baca', icon: 'fa-spa', html: `<p>Ambil jeda pendek, bernapas dalam, dan jangan bawa pekerjaan pulang jika bisa.</p><p>Jika mencari kerja membuat stres, permudah prosesnya dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'tips-hubungan-rekan-kerja', cat: 'Tips Kerja', title: 'Tips Membangun Hubungan Baik dengan Rekan Kerja', date: '8 Februari 2025', time: '4 mnt baca', icon: 'fa-people-arrows', html: `<p>Saling membantu, menghargai pendapat, dan menjaga komunikasi yang positif.</p><p>Hubungan baik dimulai dari kesan pertama, buat CV yang baik <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'cara-komunikasi-atasan', cat: 'Tips Kerja', title: 'Cara Berkomunikasi dengan Atasan secara Profesional', date: '12 Februari 2025', time: '4 mnt baca', icon: 'fa-comment-dots', html: `<p>Sampaikan laporan secara ringkas, jelas, dan tanyakan feedback secara berkala.</p><p>Komunikasi yang baik dimulai dari CV yang jelas, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'tips-rekan-kerja-sulit', cat: 'Tips Kerja', title: 'Tips Menghadapi Rekan Kerja yang Sulit dan Menjaga Profesionalitas', date: '15 Februari 2025', time: '5 mnt baca', icon: 'fa-shield-halved', html: `<p>Tetap tenang, fokus pada pekerjaan, dan hindari pertikaian pribadi. Gunakan jalur formal jika perlu.</p><p>Jaga profesionalitas Anda sejak melamar, gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
-  { id: 'cara-menghindari-kesalahan-karyawan-baru', cat: 'Tips Kerja', title: 'Cara Menghindari Kesalahan yang Sering Dilakukan Karyawan Baru', date: '18 Februari 2025', time: '4 mnt baca', icon: 'fa-triangle-exclamation', html: `<p>Jangan mengira tahu segalanya, catat instruksi, dan minta bantuan jika bingung.</p><p>Hindari kesalahan di CV dengan menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'tips-budaya-kerja-perusahaan', cat: 'Tips Kerja', title: 'Tips Agar Cepat Beradaptasi dengan Budaya Kerja Perusahaan', date: '22 Februari 2025', time: '4 mnt baca', icon: 'fa-culture', html: `<p>Amati cara berpakaian, jam kerja, dan gaya komunikasi tim. Ikuti aturan main yang ada.</p><p>CV yang rapi menunjukkan kesesuaian budaya, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'cara-produktif-wfh', cat: 'Tips Kerja', title: 'Cara Tetap Produktif Saat Bekerja dari Rumah', date: '25 Februari 2025', time: '5 mnt baca', icon: 'fa-house-laptop', html: `<p>Pisahkan area kerja dan istirahat, gunakan pakaian rapi agar mood kerja tetap terjaga.</p><p>WFH memudahkan Anda mengirim lamaran, gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
-  { id: 'tips-motivasi-kerja', cat: 'Tips Kerja', title: 'Tips Menjaga Motivasi dan Semangat Kerja', date: '1 Maret 2025', time: '4 mnt baca', icon: 'fa-fire-flame-curved', html: `<p>Ingat tujuan awal Anda bekerja, beri reward pada diri sendiri saat target tercapai.</p><p>Jika butuh pekerjaan baru, buat CV yang menarik <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'cara-beban-kerja-banyak', cat: 'Tips Kerja', title: 'Cara Menghadapi Beban Kerja yang Terlalu Banyak', date: '5 Maret 2025', time: '4 mnt baca', icon: 'fa-weight-hanging', html: `<p>Pelajari delegasi tugas, komunikasikan kapasitas Anda pada atasan, dan prioritaskan kualitas.</p><p>Kurangi beban mencari kerja dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'tips-keseimbangan-kerja', cat: 'Tips Kerja', title: 'Tips Menjaga Keseimbangan antara Kehidupan dan Pekerjaan', date: '8 Maret 2025', time: '5 mnt baca', icon: 'fa-scale-balanced', html: `<p>Tinggalkan pekerjaan di kantor, luangkan waktu untuk keluarga dan hobi.</p><p>Siapkan CV lamaran baru dengan cepat agar tidak mengganggu waktu istirahat, <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
-  { id: 'cara-disukai-atasan', cat: 'Tips Kerja', title: 'Cara Menjadi Karyawan yang Lebih Disukai dan Dipercaya Atasan', date: '12 Maret 2025', time: '4 mnt baca', icon: 'fa-thumbs-up', html: `<p>Tunjukkan inisiatif, selesaikan tugas tepat waktu, dan jangan takut mengambil tanggung jawab.</p><p>Awali karier dengan dokumen yang dipercaya HRD, gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` }
+  { id: 'tips-cepat-panggilan-interview', cat: 'Tips Kerja', title: 'Tips Mencari Kerja agar Cepat Mendapatkan Panggilan Interview', date: '5 Januari 2025', time: '4 mnt baca', icon: 'fa-phone-volume', desc: 'Agar cepat dipanggil interview, pastikan CV Anda sesuai dengan kualifikasi lowongan dan kirim lamaran tepat waktu.', html: `<p>Agar cepat dipanggil interview, pastikan CV Anda sesuai dengan kualifikasi lowongan dan kirim lamaran tepat waktu.</p><p>Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> dan <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">surat lamaran</a> kami.</p>` },
+  { id: 'tips-lolos-interview-fresh-graduate', cat: 'Tips Kerja', title: '10 Tips Lolos Interview Kerja untuk Fresh Graduate', date: '8 Januari 2025', time: '5 mnt baca', icon: 'fa-handshake-simple', desc: 'Pelajari tentang perusahaan, berpakaian rapi, dan jawab pertanyaan dengan percaya diri. Bawa juga salinan CV Anda.', html: `<p>Pelajari tentang perusahaan, berpakaian rapi, dan jawab pertanyaan dengan percaya diri. Bawa juga salinan CV Anda.</p><p>Cetak CV hasil dari <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a> saat wawancara.</p>` },
+  { id: 'cara-menjawab-pertanyaan-interview', cat: 'Tips Kerja', title: 'Cara Menjawab Pertanyaan Interview Kerja dengan Baik dan Percaya Diri', date: '12 Januari 2025', time: '4 mnt baca', icon: 'fa-comments', desc: 'Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario.', html: `<p>Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario.</p><p>Pastikan pengalaman yang Anda ceritakan tertulis di CV, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'tips-cv-menarik-hrd', cat: 'Tips Kerja', title: 'Tips Membuat CV yang Menarik Perhatian HRD', date: '15 Januari 2025', time: '4 mnt baca', icon: 'fa-file-circle-plus', desc: 'HRD hanya butuh 6 detik untuk menilai CV. Gunakan desain bersih, font standar, dan poin-poin singkat.', html: `<p>HRD hanya butuh 6 detik untuk menilai CV. Gunakan desain bersih, font standar, dan poin-poin singkat.</p><p>Pilih template CV menarik dari <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator kami</a>.</p>` },
+  { id: 'tips-lamaran-tidak-ditolak', cat: 'Tips Kerja', title: 'Tips Agar Lamaran Kerja Tidak Ditolak dan Lebih Berpeluang Diterima', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-circle-check', desc: 'Jangan kirim CV yang sama untuk semua posisi. Sesuaikan dengan job description. Lampirkan dokumen pendukung dalam satu PDF.', html: `<p>Jangan kirim CV yang sama untuk semua posisi. Sesuaikan dengan job description. Lampirkan dokumen pendukung dalam satu PDF.</p><p>Gabungkan dokumen Anda menggunakan <a href="#" onclick="showPage('lampiran'); return false;">fitur gabung PDF</a>.</p>` },
+  { id: 'cara-beradaptasi-lingkungan-kerja', cat: 'Tips Kerja', title: 'Cara Beradaptasi di Lingkungan Kerja Baru', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-users', desc: 'Observasi budaya kerja, perkenalkan diri dengan ramah, dan jangan ragu bertanya jika bingung.', html: `<p>Observasi budaya kerja, perkenalkan diri dengan ramah, dan jangan ragu bertanya jika bingung.</p><p>Pastikan Anda sudah melamar dengan CV yang baik, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'tips-karyawan-profesional', cat: 'Tips Kerja', title: 'Tips Menjadi Karyawan yang Profesional di Tempat Kerja', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-user-tie', desc: 'Junjung tinggi etika kerja, tepat waktu, dan bertanggung jawab atas tugas yang diberikan.', html: `<p>Junjung tinggi etika kerja, tepat waktu, dan bertanggung jawab atas tugas yang diberikan.</p><p>Dokumen lamaran yang profesional mencerminkan pribadi profesional. Buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'cara-produktivitas-kerja', cat: 'Tips Kerja', title: 'Cara Meningkatkan Produktivitas Kerja Setiap Hari', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-chart-simple', desc: 'Gunakan teknik Pomodoro, minimalkan distraksi, dan prioritaskan tugas yang paling sulit di pagi hari.', html: `<p>Gunakan teknik Pomodoro, minimalkan distraksi, dan prioritaskan tugas yang paling sulit di pagi hari.</p><p>Produktivitas dimulai dari persiapan. Siapkan lamaran kerja <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'tips-mengatur-waktu-kerja', cat: 'Tips Kerja', title: 'Tips Mengatur Waktu agar Lebih Efektif di Tempat Kerja', date: '1 Februari 2025', time: '4 mnt baca', icon: 'fa-clock', desc: 'Buat to-do list harian dan blok waktu (time blocking) untuk fokus pada satu pekerjaan.', html: `<p>Buat to-do list harian dan blok waktu (time blocking) untuk fokus pada satu pekerjaan.</p><p>Atur waktu lamaran kerja Anda dengan efisien menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
+  { id: 'cara-mengatasi-stres-kerja', cat: 'Tips Kerja', title: 'Cara Mengatasi Stres dan Tekanan di Tempat Kerja', date: '5 Februari 2025', time: '5 mnt baca', icon: 'fa-spa', desc: 'Ambil jeda pendek, bernapas dalam, dan jangan bawa pekerjaan pulang jika bisa.', html: `<p>Ambil jeda pendek, bernapas dalam, dan jangan bawa pekerjaan pulang jika bisa.</p><p>Jika mencari kerja membuat stres, permudah prosesnya dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'tips-hubungan-rekan-kerja', cat: 'Tips Kerja', title: 'Tips Membangun Hubungan Baik dengan Rekan Kerja', date: '8 Februari 2025', time: '4 mnt baca', icon: 'fa-people-arrows', desc: 'Saling membantu, menghargai pendapat, dan menjaga komunikasi yang positif.', html: `<p>Saling membantu, menghargai pendapat, dan menjaga komunikasi yang positif.</p><p>Hubungan baik dimulai dari kesan pertama, buat CV yang baik <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'cara-komunikasi-atasan', cat: 'Tips Kerja', title: 'Cara Berkomunikasi dengan Atasan secara Profesional', date: '12 Februari 2025', time: '4 mnt baca', icon: 'fa-comment-dots', desc: 'Sampaikan laporan secara ringkas, jelas, dan tanyakan feedback secara berkala.', html: `<p>Sampaikan laporan secara ringkas, jelas, dan tanyakan feedback secara berkala.</p><p>Komunikasi yang baik dimulai dari CV yang jelas, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'tips-rekan-kerja-sulit', cat: 'Tips Kerja', title: 'Tips Menghadapi Rekan Kerja yang Sulit dan Menjaga Profesionalitas', date: '15 Februari 2025', time: '5 mnt baca', icon: 'fa-shield-halved', desc: 'Tetap tenang, fokus pada pekerjaan, dan hindari pertikaian pribadi. Gunakan jalur formal jika perlu.', html: `<p>Tetap tenang, fokus pada pekerjaan, dan hindari pertikaian pribadi. Gunakan jalur formal jika perlu.</p><p>Jaga profesionalitas Anda sejak melamar, gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
+  { id: 'cara-menghindari-kesalahan-karyawan-baru', cat: 'Tips Kerja', title: 'Cara Menghindari Kesalahan yang Sering Dilakukan Karyawan Baru', date: '18 Februari 2025', time: '4 mnt baca', icon: 'fa-triangle-exclamation', desc: 'Jangan mengira tahu segalanya, catat instruksi, dan minta bantuan jika bingung.', html: `<p>Jangan mengira tahu segalanya, catat instruksi, dan minta bantuan jika bingung.</p><p>Hindari kesalahan di CV dengan menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'tips-budaya-kerja-perusahaan', cat: 'Tips Kerja', title: 'Tips Agar Cepat Beradaptasi dengan Budaya Kerja Perusahaan', date: '22 Februari 2025', time: '4 mnt baca', icon: 'fa-culture', desc: 'Amati cara berpakaian, jam kerja, dan gaya komunikasi tim. Ikuti aturan main yang ada.', html: `<p>Amati cara berpakaian, jam kerja, dan gaya komunikasi tim. Ikuti aturan main yang ada.</p><p>CV yang rapi menunjukkan kesesuaian budaya, buat <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'cara-produktif-wfh', cat: 'Tips Kerja', title: 'Cara Tetap Produktif Saat Bekerja dari Rumah', date: '25 Februari 2025', time: '5 mnt baca', icon: 'fa-house-laptop', desc: 'Pisahkan area kerja dan istirahat, gunakan pakaian rapi agar mood kerja tetap terjaga.', html: `<p>Pisahkan area kerja dan istirahat, gunakan pakaian rapi agar mood kerja tetap terjaga.</p><p>WFH memudahkan Anda mengirim lamaran, gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` },
+  { id: 'tips-motivasi-kerja', cat: 'Tips Kerja', title: 'Tips Menjaga Motivasi dan Semangat Kerja', date: '1 Maret 2025', time: '4 mnt baca', icon: 'fa-fire-flame-curved', desc: 'Ingat tujuan awal Anda bekerja, beri reward pada diri sendiri saat target tercapai.', html: `<p>Ingat tujuan awal Anda bekerja, beri reward pada diri sendiri saat target tercapai.</p><p>Jika butuh pekerjaan baru, buat CV yang menarik <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'cara-beban-kerja-banyak', cat: 'Tips Kerja', title: 'Cara Menghadapi Beban Kerja yang Terlalu Banyak', date: '5 Maret 2025', time: '4 mnt baca', icon: 'fa-weight-hanging', desc: 'Pelajari delegasi tugas, komunikasikan kapasitas Anda pada atusan, dan prioritaskan kualitas.', html: `<p>Pelajari delegasi tugas, komunikasikan kapasitas Anda pada atusan, dan prioritaskan kualitas.</p><p>Kurangi beban mencari kerja dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'tips-keseimbangan-kerja', cat: 'Tips Kerja', title: 'Tips Menjaga Keseimbangan antara Kehidupan dan Pekerjaan', date: '8 Maret 2025', time: '5 mnt baca', icon: 'fa-scale-balanced', desc: 'Tinggalkan pekerjaan di kantor, luangkan waktu untuk keluarga dan hobi.', html: `<p>Tinggalkan pekerjaan di kantor, luangkan waktu untuk keluarga dan hobi.</p><p>Siapkan CV lamaran baru dengan cepat agar tidak mengganggu waktu istirahat, <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">disini</a>.</p>` },
+  { id: 'cara-disukai-atasan', cat: 'Tips Kerja', title: 'Cara Menjadi Karyawan yang Lebih Disukai dan Dipercaya Atasan', date: '12 Maret 2025', time: '4 mnt baca', icon: 'fa-thumbs-up', desc: 'Tunjukkan inisiatif, selesaikan tugas tepat waktu, dan jangan takut mengambil tanggung jawab.', html: `<p>Tunjukkan inisiatif, selesaikan tugas tepat waktu, dan jangan takut mengambil tanggung jawab.</p><p>Awali karier dengan dokumen yang dipercaya HRD, gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a>.</p>` }
 ];
 
 function renderArticleLists() {
@@ -815,7 +814,7 @@ function renderArticleLists() {
       <a href="https://karyaabadijobs.my.id/#${a.id}" onclick="showArticle('${a.id}'); return false;" class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:shadow-lg transition group">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid ${a.icon} text-xl"></i></div>
         <h2 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-red">${a.title}</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Baca panduan lengkap mengenai ${a.title.toLowerCase()}.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-justify-padat">${a.desc}</p>
       </a>
     `).join('');
   }
@@ -824,7 +823,7 @@ function renderArticleLists() {
       <a href="https://karyaabadijobs.my.id/#${a.id}" onclick="showArticle('${a.id}'); return false;" class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 hover:shadow-lg transition group">
         <div class="w-12 h-12 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid ${a.icon} text-xl"></i></div>
         <h2 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-brand-red">${a.title}</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Temukan ${a.title.toLowerCase()} disini.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-justify-padat">${a.desc}</p>
       </a>
     `).join('');
   }
@@ -1017,16 +1016,17 @@ function addLamp(){lampList.push('');renderLampF();schedulePreview()}
 
 function renderForm(){
   var fc=document.getElementById('form-content');
+  var guide = '<details class="card mb-4"><summary class="fl cursor-pointer flex items-center gap-2"><i class="fa-solid fa-circle-info text-brand-red"></i> Panduan Pengisian Cepat</summary><div class="text-xs text-gray-600 dark:text-gray-400 mt-3 space-y-2 text-justify-padat"><p><strong>Profil:</strong> Ceritakan singkat tentang diri Anda, lulusan apa, dan tujuan karier.</p><p><strong>Data Pribadi:</strong> Isi sesuai dokumen resmi (KTP/KK). Pastikan email dan no HP aktif.</p><p><strong>Pendidikan:</strong> Mulai dari SMA/SMK. Jika punya gelar D3/S1, letakkan di paling atas.</p><p><strong>Pengalaman:</strong> Gunakan poin-poin untuk deskripsi pekerjaan agar mudah dibaca HRD.</p><p><strong>Keahlian:</strong> Tulis skill yang relevan dengan posisi yang dilamar.</p></div></details>';
+  
   if(curCat==='cv'){
-    var h=settingsH();
+    var h=guide + settingsH();
     if(curTpl!=='cv4'){h+=photoH()}
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
     if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldH('bangsa','Bangsa','.....')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
     h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl" for="skill-mode">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')
   } else {
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
-    var h='';
-    h+=settingsH();
+    var h=guide + settingsH();
     if(m.on) {
       var ptInfo=''; ptInfo+=fldH('sPt','Nama Perusahaan','.....'); ptInfo+=fldH('sEmailPerusahaan','Email Perusahaan','.....');
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')} if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
@@ -1466,22 +1466,71 @@ function resetForm() {
   renderForm(); renderPreview(); toast('Form telah direset', 'info');
 }
 
-// ================= PREVIEW PAN & ZOOM LOGIC =================
+// ================= PREVIEW FREE PAN & ZOOM LOGIC =================
 var currentZoom = 1; var panState = { dragging: false, startX: 0, startY: 0, offsetX: 0, offsetY: 0, activeScaler: null, activeWrap: null };
+var initialDistance = 0; var initialZoom = 1;
+
+function getDistance(touches) {
+    var dx = touches[0].clientX - touches[1].clientX;
+    var dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
 function initPanZoom() {
-  var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob');
-  if(!wrap || !mobWrap) return;
-  wrap.addEventListener('mousedown', startDrag); wrap.addEventListener('touchstart', startDrag, {passive: false});
-  mobWrap.addEventListener('mousedown', startDrag); mobWrap.addEventListener('touchstart', startDrag, {passive: false});
-  document.addEventListener('mousemove', drag); document.addEventListener('touchmove', drag, {passive: false});
-  document.addEventListener('mouseup', endDrag); document.addEventListener('touchend', endDrag);
+  var wraps = [document.getElementById('preview-wrap'), document.getElementById('preview-wrap-mob')];
+  wraps.forEach(function(wrap){
+    if(!wrap) return;
+    
+    wrap.addEventListener('mousedown', startDrag); 
+    wrap.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 2) {
+            panState.dragging = false;
+            initialDistance = getDistance(e.touches);
+            initialZoom = currentZoom;
+            e.preventDefault();
+        } else if (e.touches.length === 1) {
+            startDrag(e);
+        }
+    }, {passive: false});
+    
+    wrap.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        var delta = e.deltaY * -0.0015;
+        currentZoom = Math.max(0.3, Math.min(3, currentZoom + delta));
+        applyZoom();
+    }, { passive: false });
+
+    document.addEventListener('mousemove', drag); 
+    document.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            var currentDistance = getDistance(e.touches);
+            if (initialDistance > 0) {
+                var scale = currentDistance / initialDistance;
+                currentZoom = Math.max(0.3, Math.min(3, initialZoom * scale));
+                applyZoom();
+            }
+        } else if (panState.dragging && e.touches.length === 1) {
+            drag(e);
+        }
+    }, {passive: false});
+    
+    document.addEventListener('mouseup', endDrag); 
+    document.addEventListener('touchend', function(e) {
+        if (e.touches.length < 2) {
+            initialDistance = 0;
+        }
+        if (e.touches.length === 0) {
+            endDrag();
+        }
+    });
+  });
 }
 function startDrag(e) { panState.dragging = true; panState.activeWrap = e.currentTarget; panState.activeScaler = e.currentTarget.querySelector('div[id^="a4-scaler"]'); if(!panState.activeScaler) return; var clientX = e.touches ? e.touches[0].clientX : e.clientX; var clientY = e.touches ? e.touches[0].clientY : e.clientY; panState.startX = clientX - panState.offsetX; panState.startY = clientY - panState.offsetY; panState.activeWrap.style.cursor = 'grabbing'; e.preventDefault(); }
 function drag(e) { if(!panState.dragging || !panState.activeScaler) return; var clientX = e.touches ? e.touches[0].clientX : e.clientX; var clientY = e.touches ? e.touches[0].clientY : e.clientY; panState.offsetX = clientX - panState.startX; panState.offsetY = clientY - panState.startY; panState.activeScaler.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }
 function endDrag() { if(!panState.dragging) return; panState.dragging = false; if(panState.activeWrap) panState.activeWrap.style.cursor = 'grab'; }
-function zoomPreview(delta) { currentZoom = Math.max(0.3, Math.min(2.5, currentZoom + delta)); applyZoom(); }
 function resetZoom() { panState.offsetX = 0; panState.offsetY = 0; var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob'); var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap; if(activeWrap && activeWrap.offsetWidth > 0) { var containerWidth = activeWrap.offsetWidth - 24; var scalerWidth = 210 * 3.7795; currentZoom = Math.min(1, containerWidth / scalerWidth); } else { currentZoom = 0.6; } applyZoom(); }
-function applyZoom() { var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }); var levels = document.querySelectorAll('.zoom-level'); levels.forEach(function(l) { l.textContent = Math.round(currentZoom * 100) + '%'; }); }
+function applyZoom() { var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }); }
 
 // ================= PAGE BREAK LOGIC =================
 function applyPageBreaks(container) {
@@ -1595,14 +1644,12 @@ function recompressAllToTarget(ct,cb){
   pn();
 }
 
-function moveLampiranImage(idx, direction) {
-  var newIndex = idx + direction;
-  if (newIndex < 0 || newIndex >= lampiranImages.length) return;
-  var temp = lampiranImages[idx];
-  lampiranImages[idx] = lampiranImages[newIndex];
-  lampiranImages[newIndex] = temp;
-  renderLampiranList();
-  updateLampiranSummary();
+function jumpLampiranImage(oldIdx, newIdx) {
+    if (newIdx < 0 || newIdx >= lampiranImages.length || oldIdx === newIdx) return;
+    const item = lampiranImages.splice(oldIdx, 1)[0];
+    lampiranImages.splice(newIdx, 0, item);
+    renderLampiranList();
+    updateLampiranSummary();
 }
 
 function renderLampiranList(){
@@ -1612,22 +1659,18 @@ function renderLampiranList(){
   var h='';
   lampiranImages.forEach(function(it,idx){
     var dW=it.originalWidth||it.width,dH=it.originalHeight||it.height;
-    var isTop = idx === 0;
-    var isBottom = idx === lampiranImages.length - 1;
     h+='<div class="lampiran-item" style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:8px;background:#fff;display:flex;align-items:center;gap:12px;">';
-    h+='<div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:#DC2626; color:#fff; font-weight:700; font-size:14px; flex-shrink:0;">' + (idx + 1) + '</div>';
+    h+='<select onchange="jumpLampiranImage('+idx+', parseInt(this.value))" style="width:50px; height:36px; padding:0 5px; text-align:center; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:8px; font-weight:700; color:#DC2626; cursor:pointer; font-size:13px;">';
+    for(var k=1; k<=lampiranImages.length; k++){
+        h += '<option value="'+(k-1)+'" '+(idx===k-1?'selected':'')+'>'+k+'</option>';
+    }
+    h += '</select>';
     h+='<img src="'+it.data+'" style="width:56px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;flex-shrink:0;background:#f3f4f6;" alt="Pratinjau '+(idx+1)+'" loading="lazy">';
     h+='<div style="flex:1;min-width:0;">';
     h+='<div style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;">'+esc(it.name)+'</div>';
     h+='<div style="font-size:12px;color:#6b7280;margin-top:2px;">'+formatBytes(it.originalSize)+' → <span style="font-weight:bold;color:#DC2626;">'+formatBytes(it.compressedSize)+'</span></div>';
     h+='<div style="font-size:11px;color:#9ca3af;margin-top:2px;">Halaman '+(idx+1)+' • '+dW+'×'+dH+'px</div>';
     h+='</div>';
-    
-    h+='<div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;">';
-    h+='<button onclick="moveLampiranImage('+idx+',-1)" style="width:28px;height:28px;border-radius:6px;background:#f3f4f6;color:'+(isTop?'#d1d5db':'#6b7280')+';border:1px solid #e5e7eb;cursor:'+(isTop?'not-allowed':'pointer')+';display:flex;align-items:center;justify-content:center;" '+(isTop?'disabled':'')+' aria-label="Pindah ke atas"><i class="fa-solid fa-chevron-up text-xs"></i></button>';
-    h+='<button onclick="moveLampiranImage('+idx+',1)" style="width:28px;height:28px;border-radius:6px;background:#f3f4f6;color:'+(isBottom?'#d1d5db':'#6b7280')+';border:1px solid #e5e7eb;cursor:'+(isBottom?'not-allowed':'pointer')+';display:flex;align-items:center;justify-content:center;" '+(isBottom?'disabled':'')+' aria-label="Pindah ke bawah"><i class="fa-solid fa-chevron-down text-xs"></i></button>';
-    h+='</div>';
-    
     h+='<button onclick="removeLampiranImage('+idx+')" style="width:36px;height:36px;border-radius:8px;background:rgba(220,38,38,0.1);color:#DC2626;border:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;" aria-label="Hapus gambar"><i class="fa-solid fa-trash text-xs"></i></button>';
     h+='</div>';
   });
