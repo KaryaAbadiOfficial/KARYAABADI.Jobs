@@ -64,12 +64,13 @@
         
         .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
         
-        /* Spacing for Labels (Data Pribadi s/c Keahlian) - Precise pt to mm */
+        /* Spacing for Labels (Data Pribadi s/c Keahlian) */
+        /* 1pt = 0.352777mm */
         .a4-page .st {
             font-weight: 700;
             border-bottom: 1.5pt solid #000;
-            margin-top: 2.82mm;     /* Gap 8 pt (from data above) */
-            padding-bottom: 0.71mm; /* Gap 2 pt (before the line) */
+            margin-top: 3.53mm;     /* Gap 10 pt (from data above) */
+            padding-bottom: 0.53mm; /* Gap 1.5 pt (before the line) */
             margin-bottom: 1.41mm;  /* Gap 4 pt (after the line, before data) */
             letter-spacing: .3px;
         }
@@ -1233,7 +1234,7 @@ var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; border:none;">'; }
 if(PR){h+='<div class="st" style="margin-top:0">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}
 h+='</td></tr></table>';
-function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="'+(PR?'':'margin-top:0')+'">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
+function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){var firstMargin = PR ? '' : 'margin-top:5.29mm;'; /* 15pt gap from photo to data pribadi */ h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="'+firstMargin+'">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
 
 function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
@@ -1244,7 +1245,7 @@ var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; text-align:center; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; text-align:center; border:none;">'; }
 if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
 h+='</td></tr></table>';
-if(PR){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="margin-top:0">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
+if(PR){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="margin-top:5.29mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
 
 function renderCV3(){
   var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');
