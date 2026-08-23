@@ -458,7 +458,7 @@
     <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
     <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
   </div>
-  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+  <div id="pdf-offscreen" style="position:absolute;left:--9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 </div>
 
 <div id="view-lampiran" class="view">
@@ -1018,7 +1018,7 @@ function renderExpF(){
 }
 function addPos(i){if(!expList[i].posList)expList[i].posList=[{j:'',m:'',desc:''}];expList[i].posList.push({j:'',m:'',desc:''});renderExpF();renderPreview()}
 function rmPos(i,j){if(expList[i].posList.length>1){expList[i].posList.splice(j,1);renderExpF();renderPreview()}}
-function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m='',desc:''}]});renderExpF();renderPreview()}
+function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
 function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus" aria-label="Hapus keahlian"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<div class="flex gap-2 mt-2"><button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" title="Tambah" aria-label="Tambah keahlian"><i class="fa-solid fa-plus text-xs"></i></button></div>';c.innerHTML=h}
@@ -1717,7 +1717,7 @@ function initLampiranDropZone(){var d=document.getElementById('lampiran-drop'),i
 // ================= INITIALIZATION =================
 window.addEventListener('load', function() {
   updateVH(); renderForm(); renderPreview(); resetZoom(); initPanZoom(); initLampiranDropZone();
-  renderArticleLists(); // Render dynamic articles
+  renderArticleLists();
   var hash = window.location.hash.replace('#', '');
   if(hash && document.getElementById('view-' + hash)) { showPage(hash); }
 });
