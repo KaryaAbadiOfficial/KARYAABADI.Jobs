@@ -71,9 +71,16 @@
         
         /* A4 Page Styling */
         .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
-        /* Jarak antar label (Pendidikan s/d Keahlian) diubah menjadi 1.5pt (0.53mm) agar padat */
-        .a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:1.5pt;letter-spacing:.3px}
-        .a4-page .st:first-child{margin-top:0}
+        
+        /* Spacing for Labels (Data Pribadi s/d Keahlian) */
+        .a4-page .st {
+            font-weight: 700;
+            border-bottom: 1.5pt solid #000;
+            padding-bottom: 1pt;     /* Gap 1 pt before the line */
+            margin-bottom: 1.3pt;   /* Gap 1.3 pt after the line (before data) */
+            margin-top: 1.5pt;      /* Gap 1.5 pt before the label (from data above) */
+            letter-spacing: .3px;
+        }
         .a4-page table{width:100%;border-collapse:collapse}
         .a4-page table td{padding:.4mm 0;vertical-align:top}
         .a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; }
@@ -90,9 +97,20 @@
             z-index: 0;
         }
 
-        #preview-wrap, #preview-wrap-mob { position: relative; overflow: hidden; touch-action: none; cursor: grab; }
-        #preview-wrap:active, #preview-wrap-mob:active { cursor: grabbing; }
-        #a4-scaler, #a4-scaler-mob { position: absolute; top: 0; left: 0; transform-origin: 0 0; will-change: transform; }
+        /* Preview Wrapper - Native Scroll to see all pages */
+        #preview-wrap, #preview-wrap-mob { 
+            position: relative; 
+            overflow: auto; 
+            touch-action: pan-y; 
+            cursor: grab; 
+        }
+        #a4-scaler, #a4-scaler-mob { 
+            position: relative;
+            margin: 0 auto;
+            transform-origin: top center;
+            will-change: transform;
+            padding-bottom: 40px;
+        }
         
         #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
         .toast-item{padding:10px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;transform:translateX(120%);transition:transform .3s ease;pointer-events:auto;backdrop-filter:blur(8px)}
@@ -132,10 +150,6 @@
         input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#DC2626;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
         .addr-sub{position:relative;padding-left:16px}
         .addr-sub::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:1px;background:#DC2626}
-        .zoom-btn{padding:5px 8px;background:transparent;border:1px solid #e5e7eb;border-radius:6px;color:#6b7280;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;width:28px;height:28px}
-        .dark .zoom-btn{border-color:#2a2a2a;color:#9ca3af}
-        .zoom-btn:hover{border-color:#DC2626;color:#DC2626}
-        .zoom-btn:active{transform:scale(.90)}
         .mob-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:6px env(safe-area-inset-bottom,6px)}
         .dark .mob-bar{background:rgba(17,17,17,.95);border-top-color:#2a2a2a}
         .mob-bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:600;color:#6b7280;transition:color .2s;background:none;border:none;cursor:pointer}
@@ -253,7 +267,7 @@
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300" aria-label="Navigasi mobile">
       <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
@@ -763,11 +777,11 @@
 // ================= ARTICLES DATA & RENDERER =================
 const NEW_ARTICLES = [
   // Panduan Karier
-  { id: 'panduan-memulai-karier-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Memulai Karier untuk Fresh Graduate dan Pemula', date: '5 Januari 2025', time: '4 mnt baca', icon: 'fa-rocket', desc: 'Persiapan matang untuk lulusan baru memulai karier, mencakup riset industri, penulisan CV, hingga strategi mencari peluang magang dan pekerjaan.', html: `<p>Memulai karier sebagai fresh graduate membutuhkan strategi yang matang. Langkah pertama adalah mengenali potensi diri dan mempersiapkan dokumen lamaran yang representatif.</p><ul><li><strong>Kenali Diri Sendiri:</strong> Pahami kelebihan dan minat Anda.</li><li><strong>Persiapan Dokumen:</strong> Buat CV dan surat lamaran yang rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</li><li><strong>Mulai dari Kecil:</strong> Jangan ragu menerima magang atau pekerjaan entry-level.</li></ul><p>Dengan persiapan yang matang, langkah pertama menuju karier impian akan terasa lebih mudah.</p>` },
-  { id: 'cara-memilih-karier-minat-keahlian', cat: 'Panduan Karier', title: 'Cara Memilih Karier yang Sesuai dengan Minat dan Keahlian', date: '8 Januari 2025', time: '4 mnt baca', icon: 'fa-compass', desc: 'Tips jitu mengenali potensi diri agar tidak salah pilih jalur karier, dengan menyesuaikan minat pribadi dan keahlian teknis yang dimiliki.', html: `<p>Memilih karier yang tepat adalah kunci kepuasan kerja jangka panjang. Jangan hanya tergiur gaji, sesuaikan dengan minat dan keahlian Anda.</p><ol><li>Identifikasi hal-hal yang Anda sukai.</li><li>Latih keahlian yang Anda kuasai.</li><li>Cari industri yang relevan dengan minat tersebut.</li></ol><p>Setelah menemukan arah, buat CV profesional menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
-  { id: 'panduan-tujuan-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Menentukan Tujuan Karier untuk Masa Depan', date: '12 Januari 2025', time: '5 mnt baca', icon: 'fa-bullseye', desc: 'Panduan praktis menetapkan target jangka pendek, menengah, dan panjang agar perjalanan karier Anda lebih terarah dan terukur keberhasilannya.', html: `<p>Tujuan karier yang jelas akan membuat Anda lebih fokus dalam mencari pekerjaan dan mengembangkan diri.</p><ul><li><strong>Jangka Pendek:</strong> Mendapatkan pekerjaan pertama dalam 6 bulan.</li><li><strong>Jangka Menengah:</strong> Menjadi supervisor dalam 3 tahun.</li><li><strong>Jangka Panjang:</strong> Menjadi manajer atau ahli di bidang Anda.</li></ul><p>Susun CV yang menunjukkan potensi Anda untuk mencapai tujuan tersebut.</p>` },
+  { id: 'panduan-memulai-karier-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Memulai Karier untuk Fresh Graduate dan Pemula', date: '5 Januari 2025', time: '4 mnt baca', icon: 'fa-rocket', desc: 'Strategi praktis bagi lulusan baru untuk memulai karier, mulai dari riset industri hingga persiapan dokumen lamaran.', html: `<p>Memasuki dunia kerja sebagai lulusan baru memerlukan strategi yang matang. Langkah pertama yang perlu dilakukan adalah mengenali potensi diri dan mempersiapkan dokumen lamaran yang representatif.</p><h3>Langkah Persiapan Awal</h3><ul><li><strong>Kenali Potensi Diri:</strong> Pahami kelebihan, kelemahan, dan minat Anda untuk menentukan arah karier.</li><li><strong>Siapkan Dokumen Lamaran:</strong> Buat CV dan surat lamaran yang rapi menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV gratis kami</a>.</li><li><strong>Buka Diri terhadap Peluang:</strong> Jangan ragu untuk menerima peran magang atau posisi tingkat pemula sebagai batu loncatan.</li></ul><p>Dengan persiapan yang matang, langkah pertama menuju karier impian akan terasa lebih mudah dan terarah.</p>` },
+  { id: 'cara-memilih-karier-minat-keahlian', cat: 'Panduan Karier', title: 'Cara Memilih Karier yang Sesuai dengan Minat dan Keahlian', date: '8 Januari 2025', time: '4 mnt baca', icon: 'fa-compass', desc: 'Tips jitu mengenali potensi diri agar tidak salah pilih jalur karier, dengan menyesuaikan minat pribadi dan keahlian teknis.', html: `<p>Memilih karier yang tepat adalah kunci kepuasan kerja jangka panjang. Jangan hanya tergiur gaji, sesuaikan dengan minat dan keahlian Anda.</p><h3>Tahapan Memilih Karier</h3><ol><li>Identifikasi hal-hal yang Anda sukai.</li><li>Latih keahlian yang Anda kuasai.</li><li>Cari industri yang relevan dengan minat tersebut.</li></ol><p>Setelah menemukan arah, buat CV profesional menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-tujuan-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Menentukan Tujuan Karier untuk Masa Depan', date: '12 Januari 2025', time: '5 mnt baca', icon: 'fa-bullseye', desc: 'Panduan praktis menetapkan target jangka pendek, menengah, dan panjang agar perjalanan karier lebih terarah dan terukur.', html: `<p>Tujuan karier yang jelas akan membuat Anda lebih fokus dalam mencari pekerjaan dan mengembangkan diri.</p><h3>Penetapan Tujuan</h3><ul><li><strong>Jangka Pendek:</strong> Mendapatkan pekerjaan pertama dalam 6 bulan.</li><li><strong>Jangka Menengah:</strong> Menjadi supervisor dalam 3 tahun.</li><li><strong>Jangka Panjang:</strong> Menjadi manajer atau ahli di bidang Anda.</li></ul><p>Susun CV yang menunjukkan potensi Anda untuk mencapai tujuan tersebut.</p>` },
   { id: 'cara-merencanakan-karier-sukses', cat: 'Panduan Karier', title: 'Cara Merencanakan Karier agar Lebih Terarah dan Sukses', date: '15 Januari 2025', time: '4 mnt baca', icon: 'fa-chart-line', desc: 'Perencanaan karier bukan sekadar mimpi, tapi butuh action plan. Tuliskan langkah-langkah yang harus dicapai setiap tahun.', html: `<p>Perencanaan karier bukan sekadar mimpi, tapi butuh action plan. Tuliskan langkah-langkah yang harus dicapai setiap tahun.</p><p>Mulailah dengan memastikan dokumen lamaran Anda prima. Gunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV</a> untuk membuat CV yang menarik bagi HRD.</p>` },
-  { id: 'panduan-mengembangkan-karier-pemula-profesional', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier dari Pemula hingga Profesional', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-stairs', desc: 'Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan baru.', html: `<p>Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan baru.</p><p>Bangun jaringan profesional dan perbarui CV Anda secara berkala menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
+  { id: 'panduan-mengembangkan-karier-pemula-profesional', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier dari Pemula hingga Profesional', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-stairs', desc: 'Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan.', html: `<p>Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan baru.</p><p>Bangun jaringan profesional dan perbarui CV Anda secara berkala menggunakan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
   { id: 'skill-wajib-mengembangkan-karier', cat: 'Panduan Karier', title: 'Skill yang Wajib Dimiliki untuk Mengembangkan Karier', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-toolbox', desc: 'Selain hard skill, soft skill sangat penting. Komunikasi, problem-solving, dan adaptabilitas adalah kunci.', html: `<p>Selain hard skill, soft skill sangat penting. Komunikasi, problem-solving, dan adaptabilitas adalah kunci.</p><p>Pastikan skill Anda terdokumentasi dengan baik di CV. Buat CV profesional sekarang.</p>` },
   { id: 'cara-membangun-personal-branding-karier', cat: 'Panduan Karier', title: 'Cara Membangun Personal Branding untuk Mendukung Karier', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-fingerprint', desc: 'Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.', html: `<p>Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.</p><p>Buat CV yang merepresentasikan brand Anda dengan <a href="#" onclick="showPage('generator'); selectCat('cv'); return false;">generator CV kami</a>.</p>` },
   { id: 'panduan-pekerjaan-pertama-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Mendapatkan Pekerjaan Pertama bagi Fresh Graduate', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-briefcase', desc: 'Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.', html: `<p>Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.</p><p>Pastikan surat lamaran Anda dibuat dengan baik menggunakan <a href="#" onclick="showPage('generator'); selectCat('surat'); return false;">generator surat lamaran</a>.</p>` },
@@ -1004,7 +1018,7 @@ function renderExpF(){
 }
 function addPos(i){if(!expList[i].posList)expList[i].posList=[{j:'',m:'',desc:''}];expList[i].posList.push({j:'',m:'',desc:''});renderExpF();renderPreview()}
 function rmPos(i,j){if(expList[i].posList.length>1){expList[i].posList.splice(j,1);renderExpF();renderPreview()}}
-function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m:'',desc:''}]});renderExpF();renderPreview()}
+function addExp(){expList.push({pt:'',jl:'',kt:'',posList:[{j:'',m='',desc:''}]});renderExpF();renderPreview()}
 function rmExp(){if(expList.length>1){expList.pop();renderExpF();renderPreview()}}
 
 function renderSkIF(arr,cid,type){var c=document.getElementById(cid);if(!c)return;var h='';for(var i=0;i<arr.length;i++){h+='<div class="flex gap-2 items-center '+(i>0?'mt-2':'')+'"><input class="fi flex-1" placeholder="....." value="'+esc(arr[i])+'" oninput="window._usk(\''+type+'\','+i+',this.value)"><button onclick="window._rsk(\''+type+'\','+i+')" class="sk-rm" title="Hapus" aria-label="Hapus keahlian"><i class="fa-solid fa-minus text-xs"></i></button></div>'}h+='<div class="flex gap-2 mt-2"><button onclick="window._ask(\''+type+'\')" class="dyn-btn dyn-add" title="Tambah" aria-label="Tambah keahlian"><i class="fa-solid fa-plus text-xs"></i></button></div>';c.innerHTML=h}
@@ -1173,7 +1187,7 @@ var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
 var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
 var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:5mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; border:none;">'; }
-if(PR){h+='<div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}
+if(PR){h+='<div class="st" style="margin-top:10mm">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div>'}
 h+='</td></tr></table>';
 function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="margin-top:10mm">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
 
@@ -1204,7 +1218,7 @@ function renderCV3(){
   ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL); ls+=di('Jenis Kelamin',esc(JK),JK); ls+=di('Bangsa',esc(BN),BN); ls+=di('Agama',esc(AG),AG); ls+=di('Tinggi badan',esc(TB)+' cm',TB); ls+=di('Berat badan',esc(BB)+' kg',BB); ls+=di('No. HP',esc(HP),HP); ls+=di('Status',esc(ST),ST); ls+=di('Email',esc(EM),EM);
   if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');
   var rs='';
-  if(PR){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div></div>'}
+  if(PR){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="margin-top:0">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div></div>'}
   if(eduHTML){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}
   if(expHTML){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}
   if(SK){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}
@@ -1274,30 +1288,26 @@ function renderCV4(){
   if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm;">'+contactArr.join(' | ')+'</div>';
   if(PR) {
       h += '<div class="sec-wrap" style="break-inside: avoid;">';
-      h += '<div style="text-align:left; font-weight:700; margin-top:10mm; letter-spacing:.3px;">'+L('PROFIL')+'</div>';
-      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
-      h += '<div style="text-align:justify; word-break:break-word; margin-top:2mm;">'+PR+'</div>';
+      h += '<div class="st" style="margin-top:10mm;">'+L('PROFIL')+'</div>';
+      h += '<div style="text-align:justify; word-break:break-word;">'+PR+'</div>';
       h += '</div>';
   }
   if(eduH) {
       h += '<div class="sec-wrap" style="break-inside: avoid;">';
-      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENDIDIKAN')+'</div>';
-      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
-      h += '<div style="margin-top:2mm;">'+eduH+'</div>';
+      h += '<div class="st">'+L('PENDIDIKAN')+'</div>';
+      h += '<div>'+eduH+'</div>';
       h += '</div>';
   }
   if(expH) {
       h += '<div class="sec-wrap" style="break-inside: avoid;">';
-      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('PENGALAMAN KERJA')+'</div>';
-      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
-      h += '<div style="margin-top:2mm;">'+expH+'</div>';
+      h += '<div class="st">'+L('PENGALAMAN KERJA')+'</div>';
+      h += '<div>'+expH+'</div>';
       h += '</div>';
   }
   if(skH) {
       h += '<div class="sec-wrap" style="break-inside: avoid;">';
-      h += '<div style="text-align:left; font-weight:700; margin-top:5mm; letter-spacing:.3px;">'+L('KEAHLIAN')+'</div>';
-      h += '<div style="width:100%; border-bottom:1.5pt solid #000; margin-top:2mm; margin-bottom:4.5mm;"></div>';
-      h += '<div style="margin-top:2mm;">'+skH+'</div>';
+      h += '<div class="st">'+L('KEAHLIAN')+'</div>';
+      h += '<div>'+skH+'</div>';
       h += '</div>';
   }
   return h;
@@ -1467,9 +1477,10 @@ function resetForm() {
   renderForm(); renderPreview(); toast('Form telah direset', 'info');
 }
 
-// ================= PREVIEW FREE PAN & ZOOM LOGIC =================
-var currentZoom = 1; var panState = { dragging: false, startX: 0, startY: 0, offsetX: 0, offsetY: 0, activeScaler: null, activeWrap: null };
-var initialDistance = 0; var initialZoom = 1;
+// ================= PREVIEW ZOOM LOGIC (Native Scroll) =================
+var currentZoom = 1; 
+var initialDistance = 0; 
+var initialZoom = 1;
 
 function getDistance(touches) {
     var dx = touches[0].clientX - touches[1].clientX;
@@ -1482,18 +1493,9 @@ function initPanZoom() {
   wraps.forEach(function(wrap){
     if(!wrap) return;
     
-    wrap.addEventListener('mousedown', startDrag); 
-    wrap.addEventListener('touchstart', function(e) {
-        if (e.touches.length === 2) {
-            panState.dragging = false;
-            initialDistance = getDistance(e.touches);
-            initialZoom = currentZoom;
-            e.preventDefault();
-        } else if (e.touches.length === 1) {
-            startDrag(e);
-        }
-    }, {passive: false});
-    
+    wrap.style.touchAction = 'pan-y';
+
+    // Wheel zoom for desktop
     wrap.addEventListener('wheel', function(e) {
         e.preventDefault();
         var delta = e.deltaY * -0.0015;
@@ -1501,8 +1503,16 @@ function initPanZoom() {
         applyZoom();
     }, { passive: false });
 
-    document.addEventListener('mousemove', drag); 
-    document.addEventListener('touchmove', function(e) {
+    // Pinch zoom for touch
+    wrap.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 2) {
+            initialDistance = getDistance(e.touches);
+            initialZoom = currentZoom;
+            e.preventDefault();
+        }
+    }, {passive: false});
+    
+    wrap.addEventListener('touchmove', function(e) {
         if (e.touches.length === 2) {
             e.preventDefault();
             var currentDistance = getDistance(e.touches);
@@ -1511,27 +1521,32 @@ function initPanZoom() {
                 currentZoom = Math.max(0.3, Math.min(3, initialZoom * scale));
                 applyZoom();
             }
-        } else if (panState.dragging && e.touches.length === 1) {
-            drag(e);
         }
     }, {passive: false});
-    
-    document.addEventListener('mouseup', endDrag); 
-    document.addEventListener('touchend', function(e) {
-        if (e.touches.length < 2) {
-            initialDistance = 0;
-        }
-        if (e.touches.length === 0) {
-            endDrag();
-        }
-    });
   });
 }
-function startDrag(e) { panState.dragging = true; panState.activeWrap = e.currentTarget; panState.activeScaler = e.currentTarget.querySelector('div[id^="a4-scaler"]'); if(!panState.activeScaler) return; var clientX = e.touches ? e.touches[0].clientX : e.clientX; var clientY = e.touches ? e.touches[0].clientY : e.clientY; panState.startX = clientX - panState.offsetX; panState.startY = clientY - panState.offsetY; panState.activeWrap.style.cursor = 'grabbing'; e.preventDefault(); }
-function drag(e) { if(!panState.dragging || !panState.activeScaler) return; var clientX = e.touches ? e.touches[0].clientX : e.clientX; var clientY = e.touches ? e.touches[0].clientY : e.clientY; panState.offsetX = clientX - panState.startX; panState.offsetY = clientY - panState.startY; panState.activeScaler.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }
-function endDrag() { if(!panState.dragging) return; panState.dragging = false; if(panState.activeWrap) panState.activeWrap.style.cursor = 'grab'; }
-function resetZoom() { panState.offsetX = 0; panState.offsetY = 0; var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob'); var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap; if(activeWrap && activeWrap.offsetWidth > 0) { var containerWidth = activeWrap.offsetWidth - 24; var scalerWidth = 210 * 3.7795; currentZoom = Math.min(1, containerWidth / scalerWidth); } else { currentZoom = 0.6; } applyZoom(); }
-function applyZoom() { var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }); }
+
+function applyZoom() { 
+    var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; 
+    scalers.forEach(function(s) { 
+        if(s) s.style.transform = 'scale(' + currentZoom + ')'; 
+    }); 
+}
+
+function resetZoom() { 
+    var wrap = document.getElementById('preview-wrap'); 
+    var mobWrap = document.getElementById('preview-wrap-mob'); 
+    var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap; 
+    if(activeWrap && activeWrap.offsetWidth > 0) { 
+        var containerWidth = activeWrap.offsetWidth - 24; 
+        var scalerWidth = 210 * 3.7795; 
+        currentZoom = Math.min(1, containerWidth / scalerWidth); 
+    } else { 
+        currentZoom = 0.6; 
+    } 
+    applyZoom(); 
+    if(activeWrap) activeWrap.scrollTop = 0;
+}
 
 // ================= PAGE BREAK LOGIC (PRECISE MM CALCULATION) =================
 function applyPageBreaks(container) {
@@ -1575,9 +1590,9 @@ function downloadPDF() {
   toast('Membuat PDF, mohon tunggu...', 'info');
   setTimeout(function() {
     var targetEl = element.querySelector('.a4-page');
-    applyPageBreaks(targetEl); // Apply precise page breaks based on mm
+    applyPageBreaks(targetEl);
     html2canvas(targetEl, {scale: 2, useCORS: true, backgroundColor: '#FFFFFF'}).then(function(canvas) {
-      targetEl.querySelectorAll('.sec-wrap').forEach(function(sec){ sec.style.marginTop = ''; }); // reset margins
+      targetEl.querySelectorAll('.sec-wrap').forEach(function(sec){ sec.style.marginTop = ''; });
       var imgData = canvas.toDataURL('image/jpeg', 0.95);
       var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
       var imgWidth = 210; var pageHeight = 297; var imgHeight = canvas.height * imgWidth / canvas.width; var heightLeft = imgHeight; var position = 0;
@@ -1595,7 +1610,7 @@ function downloadWord() {
   var html = '';
   if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
   html = html.replace(/object-fit:\s*cover;?/g, '');
-  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1.5mm; margin-bottom: 4.5mm; margin-top: 5mm; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
+  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1pt; margin-bottom: 1.3pt; margin-top: 1.5pt; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
   var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
   var footer = "</body></html>";
   var sourceHTML = header + html + footer;
