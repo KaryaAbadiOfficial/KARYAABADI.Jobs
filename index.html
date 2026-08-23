@@ -1295,7 +1295,7 @@ function renderCV4(){
   var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email');
   var PR=getProfil('');
   var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length;
-  var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j and e.j.trim()); });
+  var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); });
   var eduH = '';
   if(formalCount > 0 || hasNonEdu) {
       if(hasNonEdu && formalCount > 0) { eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'; }
