@@ -71,20 +71,21 @@
         
         /* A4 Page Styling */
         .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
-        .a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:5mm;letter-spacing:.3px}
+        /* Jarak antar label (Pendidikan s/d Keahlian) diubah menjadi 1.5pt (0.53mm) agar padat */
+        .a4-page .st{font-weight:700;border-bottom:1.5pt solid #000;padding-bottom:1.5mm;margin-bottom:4.5mm;margin-top:1.5pt;letter-spacing:.3px}
         .a4-page .st:first-child{margin-top:0}
         .a4-page table{width:100%;border-collapse:collapse}
         .a4-page table td{padding:.4mm 0;vertical-align:top}
         .a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; }
         .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
         
-        /* Preview Margin Guide (Red dotted line) */
+        /* Preview Margin Guide (Garis batas merah terlihat jelas) */
         #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after {
             content: '';
             position: absolute;
             top: 12mm; left: 16mm; right: 16mm; bottom: 12mm;
-            border: 1px dashed #DC2626;
-            opacity: 0.3;
+            border: 1.5px dashed #DC2626;
+            opacity: 0.6;
             pointer-events: none;
             z-index: 0;
         }
@@ -252,7 +253,7 @@
       </button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left:0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300" aria-label="Navigasi mobile">
       <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
@@ -1532,22 +1533,36 @@ function endDrag() { if(!panState.dragging) return; panState.dragging = false; i
 function resetZoom() { panState.offsetX = 0; panState.offsetY = 0; var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob'); var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap; if(activeWrap && activeWrap.offsetWidth > 0) { var containerWidth = activeWrap.offsetWidth - 24; var scalerWidth = 210 * 3.7795; currentZoom = Math.min(1, containerWidth / scalerWidth); } else { currentZoom = 0.6; } applyZoom(); }
 function applyZoom() { var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panState.offsetX + 'px, ' + panState.offsetY + 'px) scale(' + currentZoom + ')'; }); }
 
-// ================= PAGE BREAK LOGIC =================
+// ================= PAGE BREAK LOGIC (PRECISE MM CALCULATION) =================
 function applyPageBreaks(container) {
-    var pageHeight = 297 * 3.7795275591; // A4 height in pixels at 96 DPI
+    var pageHeight = 297;
+    var padTop = 12;
+    var padBot = 12;
+    var mmToPx = 3.7795275591;
+    
     var sections = container.querySelectorAll('.sec-wrap');
-    sections.forEach(function(sec){ sec.style.marginTop = ''; }); // reset
+    sections.forEach(function(sec){ sec.style.marginTop = '0px'; });
+    
     for (var i = 0; i < sections.length; i++) {
         var sec = sections[i];
         var rect = sec.getBoundingClientRect();
         var containerRect = container.getBoundingClientRect();
-        var top = rect.top - containerRect.top;
-        var bottom = top + sec.offsetHeight;
-        var pageStart = Math.floor(top / pageHeight) * pageHeight;
-        var pageEnd = pageStart + pageHeight;
-        if (bottom > pageEnd && top < pageEnd) {
-            var marginTop = pageEnd - top;
-            sec.style.marginTop = marginTop + 'px';
+        
+        var topPx = rect.top - containerRect.top;
+        var bottomPx = topPx + sec.offsetHeight;
+        
+        var topMm = topPx / mmToPx;
+        var bottomMm = bottomPx / mmToPx;
+        
+        var pageNum = Math.floor(topMm / pageHeight);
+        var pageStartMm = pageNum * pageHeight;
+        var pageContentStartMm = pageStartMm + padTop;
+        var pageContentEndMm = pageStartMm + pageHeight - padBot;
+        
+        if (bottomMm > pageContentEndMm) {
+            var nextPageContentStartMm = (pageNum + 1) * pageHeight + padTop;
+            var marginTopMm = nextPageContentStartMm - topMm;
+            sec.style.marginTop = (marginTopMm * mmToPx) + 'px';
         }
     }
 }
@@ -1560,7 +1575,7 @@ function downloadPDF() {
   toast('Membuat PDF, mohon tunggu...', 'info');
   setTimeout(function() {
     var targetEl = element.querySelector('.a4-page');
-    applyPageBreaks(targetEl); // Apply smart page breaks
+    applyPageBreaks(targetEl); // Apply precise page breaks based on mm
     html2canvas(targetEl, {scale: 2, useCORS: true, backgroundColor: '#FFFFFF'}).then(function(canvas) {
       targetEl.querySelectorAll('.sec-wrap').forEach(function(sec){ sec.style.marginTop = ''; }); // reset margins
       var imgData = canvas.toDataURL('image/jpeg', 0.95);
