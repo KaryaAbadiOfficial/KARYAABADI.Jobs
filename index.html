@@ -1091,7 +1091,7 @@ function renderForm(){
       var ptInfo=''; ptInfo+=fldH('sPt','Nama Perusahaan','.....'); ptInfo+=fldH('sEmailPerusahaan','Email Perusahaan','.....');
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')} if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
       h+='<div class="card space-y-2">'+ptInfo+'</div>'; h+=secH('Data Diri & Kontak'); h+='<div class="card space-y-2">';
-      h+=fldH('nombre','Nama Lengkap','.....'); h+=fldH('nohp','No. Hp','.....'); h+=fldH('email','Email','.....'); h+='</div>';
+      h+=fldH('nombre','Nama Lengkap','.....'); h+=fldH('nohp,'No. Hp','.....'); h+=fldH('email','Email','.....'); h+='</div>';
       h+=secH('Daftar Lampiran Email'); h+='<div id="lamp-c"></div>'; h+=fldH('sTtd','Nama Tanda Tangan','.....');
       h+='<button onclick="openInGmail()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>Buka & Isi Otomatis di Gmail</button>';
       fc.innerHTML=h; renderLampF();
@@ -1232,7 +1232,10 @@ var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
 var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed;"><tr>';
 var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:10.58mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; border:none;">'; }
-if(PR){var profilAlign='margin-left:2.42mm;'; /* Aligns PROFIL label, its line, and the text exactly with the colon in Data Pribadi */ h+='<div class="st" style="margin-top:0; '+profilAlign+'">'+L('PROFIL')+'</div><div style="text-align:justify; '+profilAlign+'">'+PR+'</div>'}
+if(PR){
+    var profilAlign='margin-left:13mm;'; /* Menggeser PROFIL, garis bawahnya, dan teks sejajar dengan titik dua Data Pribadi (48mm - 35mm) */
+    h+='<div class="st" style="margin-top:0; '+profilAlign+'">'+L('PROFIL')+'</div><div style="text-align:justify; '+profilAlign+'">'+PR+'</div>';
+}
 h+='</td></tr></table>';
 function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){var firstMargin = 'margin-top:10.58mm;'; /* 30pt gap from photo to data pribadi */ h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="'+firstMargin+'">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
 
