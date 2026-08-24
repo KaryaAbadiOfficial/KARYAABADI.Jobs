@@ -67,10 +67,10 @@
         /* Spacing for Labels - Precise pt to mm */
         .a4-page .st {
             font-weight: 700;
-            border-bottom: 1.5pt solid #000;
+            border-bottom: 3pt solid #000; /* Garis ditebalkan menjadi 3pt */
             margin-top: 3.53mm;     /* Gap 10 pt (from data above) */
-            padding-bottom: 0.71mm; /* Gap 2 pt (between label and horizontal line) */
-            margin-bottom: 1.06mm;  /* Gap 3 pt (between line and data below) */
+            padding-bottom: 2.82mm; /* Jarak 8 pt (antara label dan garis) */
+            margin-bottom: 2.82mm;  /* Jarak 8 pt (antara garis dan data di bawah) */
             letter-spacing: .3px;
         }
         .a4-page table{width:100%;border-collapse:collapse}
@@ -801,7 +801,7 @@ const NEW_ARTICLES = [
   { id: 'cara-menjawab-pertanyaan-interview', cat: 'Tips Kerja', title: 'Cara Menjawab Pertanyaan Interview Kerja dengan Baik dan Percaya Diri', date: '12 Januari 2025', time: '4 mnt baca', icon: 'fa-comments', desc: 'Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario.' },
   { id: 'tips-cv-menarik-hrd', cat: 'Tips Kerja', title: 'Tips Membuat CV yang Menarik Perhatian HRD', date: '15 Januari 2025', time: '4 mnt baca', icon: 'fa-file-circle-plus', desc: 'HRD hanya butuh 6 detik untuk menilai CV. Gunakan desain bersih, font standar, dan poin-poin singkat.' },
   { id: 'tips-lamaran-tidak-ditolak', cat: 'Tips Kerja', title: 'Tips Agar Lamaran Kerja Tidak Ditolak dan Lebih Berpeluang Diterima', date: '18 Januari 2025', time: '5 mnt baca', icon: 'fa-circle-check', desc: 'Jangan kirim CV yang sama untuk semua posisi. Sesuaikan dengan job description. Lampirkan dokumen pendukung dalam satu PDF.' },
-  { id: 'cara-beradaptasi-lingkungan-kerja', cat: 'Tips Kerja', title: 'Cara Beradaptasi di Lingkungan Kerja Baru', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-users', desc: 'Observasi budaya kerja, perkenalkan diri dengan ramah, dan jangan ragu bertanya jika bingung.' },
+  { id: 'cara-beradaptasi-lingkungan-kerja', cat: 'Tips Kerja', title: 'Cara Beradaptasi di Lingkungan Kerja Baru', date: '22 Januari 2025', time: '4 mnt baca', icon: 'fa-users', desc: 'Observasi budaya kerja, perkenalkan diri dengan ramai, dan jangan ragu bertanya jika bingung.' },
   { id: 'tips-karyawan-profesional', cat: 'Tips Kerja', title: '7 Tips Menjadi Karyawan yang Profesional di Tempat Kerja', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-user-tie', desc: 'Junjung tinggi etika kerja, tepat waktu, dan bertanggung jawab atas tugas yang diberikan.' },
   { id: 'cara-produktivitas-kerja', cat: 'Tips Kerja', title: 'Cara Meningkatkan Produktivitas Kerja Setiap Hari', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-chart-simple', desc: 'Gunakan teknik Pomodoro, minimalkan distraksi, dan prioritaskan tugas yang paling sulit di pagi hari.' },
   { id: 'tips-mengatur-waktu-kerja', cat: 'Tips Kerja', title: 'Tips Mengatur Waktu agar Lebih Efektif di Tempat Kerja', date: '1 Februari 2025', time: '4 mnt baca', icon: 'fa-clock', desc: 'Buat to-do list harian dan blok waktu (time blocking) untuk fokus pada satu pekerjaan.' },
@@ -871,7 +871,7 @@ function generateArticleHTML(a) {
         add('Minimalkan distraksi digital. Matikan notifikasi media sosial atau gunakan aplikasi pemblokir situs saat sedang jam fokus kerja.');
         add('Prioritaskan tugas yang paling sulit dan penting di pagi hari (Eat the Frog), ketika energi dan konsentrasi Anda sedang berada di puncaknya.');
         add('Pelajari seni delegasi jika beban kerja terlalu berat. Serahkan tugas yang bisa dilakukan orang lain agar Anda fokus pada tugas strategis.');
-        add('Jangan lupa mengambil jeda istirahat secara teratur. Berdiri, meregangkan tubuh, atau berjalan sebentar dapat menyegarkan pikinan.');
+        add('Jangan lupa mengambil jeda istirahat secara teratur. Berdiri, meregangkan tubuh, atau berjalan sebentar dapat menyegarkan pikiran.');
         add('Tetapkan batas yang jelas antara pekerjaan dan kehidupan pribadi, terutama saat Work From Home (WFH). Matikan laptop saat jam kerja berakhir.');
         add('Hindari multitasking yang berlebihan. Fokus pada satu tugas hingga selesai terbukti lebih efektif daripada mengerjakan banyak hal sekaligus secara setengah hati.');
         add('Manfaatkan alat bantu digital seperti Trello, Asana, atau Notion untuk melacak progres tugas dan berkolaborasi dengan tim.');
@@ -1329,7 +1329,7 @@ function renderCV3(){
   if(eduHTML){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}
   if(expHTML){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}
   if(SK){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}
-  return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:1.5pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>';
+  return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:3pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>';
 }
 
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
@@ -1742,7 +1742,7 @@ function downloadWord() {
   var html = '';
   if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
   html = html.replace(/object-fit:\s*cover;?/g, '');
-  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 1.5pt solid #000; padding-bottom: 1pt; margin-bottom: 1.3pt; margin-top: 1.5pt; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
+  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 3pt solid #000; padding-bottom: 2.82mm; margin-bottom: 2.82mm; margin-top: 3.53mm; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
   var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
   var footer = "</body></html>";
   var sourceHTML = header + html + footer;
