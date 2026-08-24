@@ -1091,7 +1091,7 @@ function renderForm(){
       var ptInfo=''; ptInfo+=fldH('sPt','Nama Perusahaan','.....'); ptInfo+=fldH('sEmailPerusahaan','Email Perusahaan','.....');
       if(!m.semua){ptInfo+=fldH('sSumber','Sumber Informasi','.....')} if(m.pos){ptInfo+=fldH('sPosisi','Posisi yang Dilamar','.....')}
       h+='<div class="card space-y-2">'+ptInfo+'</div>'; h+=secH('Data Diri & Kontak'); h+='<div class="card space-y-2">';
-      h+=fldH('nombre','Nama Lengkap','.....'); h+=fldH('nohp,'No. Hp','.....'); h+=fldH('email','Email','.....'); h+='</div>';
+      h+=fldH('nombre','Nama Lengkap','.....'); h+=fldH('nohp','No. Hp','.....'); h+=fldH('email','Email','.....'); h+='</div>';
       h+=secH('Daftar Lampiran Email'); h+='<div id="lamp-c"></div>'; h+=fldH('sTtd','Nama Tanda Tangan','.....');
       h+='<button onclick="openInGmail()" class="w-full py-3 rounded-xl font-semibold text-sm bg-green-600 text-white hover:bg-green-700 transition active:scale-[.97] mt-4 shadow-lg"><i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>Buka & Isi Otomatis di Gmail</button>';
       fc.innerHTML=h; renderLampF();
