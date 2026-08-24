@@ -71,7 +71,7 @@
             border-bottom: 1.5pt solid #000;
             margin-top: 3.53mm;     /* Gap 10 pt (from data above) */
             padding-bottom: 0.53mm; /* Gap 1.5 pt (before the line) */
-            margin-bottom: 1.41mm;  /* Gap 4 pt (after the line, before data) */
+            margin-bottom: 0.71mm;  /* Gap 2 pt (after the line, before data) */
             letter-spacing: .3px;
         }
         .a4-page table{width:100%;border-collapse:collapse}
@@ -215,7 +215,7 @@
         .lampiran-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 8px; background: #fff; transition: all .2s; cursor: grab; }
         
         .icon-box-1col { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; margin-bottom: 2.5rem; }
-        .icon-box-1col .icon-circle { width: 64px; height: 64px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; margin-bottom: 4px; }
+        .icon-box-1col .icon-circle { width: 64px; height: 64px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 50%; display: flex; align-items: justify-content: center; font-size: 28px; flex-shrink: 0; margin-bottom: 4px; }
         .icon-box-1col .kicker { display: block; font-size: 0.875rem; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
         .icon-box-1col h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin: 0; text-align: center; }
         .dark .icon-box-1col h3 { color: #fff; }
@@ -246,7 +246,7 @@
       <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('surat'); return false;" class="hover:text-white transition-colors">Surat Lamaran</a>
       <a href="https://karyaabadijobs.my.id/#panduan-karier" onclick="showPage('panduan-karier'); return false;" class="hover:text-white transition-colors">Panduan Karier</a>
       <a href="https://karyaabadijobs.my.id/#contoh-cv" onclick="showPage('contoh-cv'); return false;" class="hover:text-white transition-colors">Contoh CV</a>
-      <a href="https://karyaabadijobs.my.id/#contoh-surat" onclick="showPage('contoh-surat'); return false;" class="hover:text-white transition-colors">Contoh Surat</a>
+      <a href="https://karyaabadijobs.my.id/#contoh-surat" onclick="showPage('contoh-surat'); return false;" class="hover:text:white transition-colors">Contoh Surat</a>
       <a href="https://karyaabadijobs.my.id/#tips-kerja" onclick="showPage('tips-kerja'); return false;" class="hover:text-white transition-colors">Tips Kerja</a>
       <a href="https://karyaabadijobs.my.id/#about" onclick="showPage('about'); return false;" class="hover:text-white transition-colors">Tentang Kami</a>
       <a href="https://karyaabadijobs.my.id/#contact" onclick="showPage('contact'); return false;" class="hover:text-white transition-colors">Kontak</a>
@@ -286,15 +286,15 @@
       <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal text-justify-padat"><strong>Karya Abadi Jobs</strong> adalah platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja sekaligus memahami cara membuat CV, surat lamaran, dan dokumen pendukung yang lebih baik. Pengguna dapat membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen menjadi PDF, serta membaca berbagai panduan karier yang dapat digunakan sebagai referensi sebelum mengirim lamaran.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span>
           <span class="block text-base uppercase tracking-wide">Buat CV Gratis</span>
         </button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white text-brand-dark font-bold rounded-xl hover:bg-gray-100 transition text-center leading-tight shadow-lg flex-1 sm:flex-none">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span>
           <span class="block text-base uppercase tracking-wide">Buat Surat Lamaran</span>
         </button>
         <button onclick="showPage('lampiran');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none">
-          <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
+          <span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span>
           <span class="block text-base uppercase tracking-wide">Gabungkan PDF</span>
         </button>
       </div>
@@ -825,7 +825,6 @@ function generateArticleHTML(a) {
         }
     }
 
-    // Konteks yang spesifik berdasarkan kata kunci di judul
     if (t.includes('interview')) {
         add('Persiapkan diri dengan mempelajari budaya perusahaan dan posisi yang dilamar. Latihan menjawab pertanyaan umum dan teknis di depan cermin agar lebih percaya diri.');
         add('Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario. Ini membantu Anda memberikan jawaban yang terstruktur dan konkret.');
@@ -904,7 +903,6 @@ function generateArticleHTML(a) {
         add('Jangan takut keluar dari zona nyaman. Ambil tugas atau proyek yang menantang agar Anda terdorong belajar hal-hal yang belum Anda kuasai.');
         add('Dokumentasikan setiap proses pembelajaran Anda. Membagikan apa yang Anda pelajari tidak hanya membantu orang lain tetapi juga memperkuat pemahaman Anda.');
     } else {
-        // Default: Career Planning & General Career
         add('Mulailah dengan mengenali potensi dan minat diri Anda. Pahami apa yang Anda sukai dan kuasai untuk menentukan arah karier yang tepat.');
         add('Tetapkan tujuan karier jangka pendek, menengah, dan panjang. Gunakan metode SMART (Specific, Measurable, Achievable, Relevant, Time-bound) agar target terukur.');
         add('Buat action plan yang detail. Mimpi tanpa rencana hanyalah angan-angan, tuliskan langkah-langkah konkret yang harus Anda capai setiap tahunnya.');
@@ -1287,11 +1285,11 @@ var h='<table style="width:100%; border:none; border-collapse:collapse; table-la
 var fi=fotoImg();
 if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding-right:10.58mm; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; border:none;">'; }
 if(PR){
-    var profilAlign='margin-left:13mm;'; /* Menggeser PROFIL, garis bawahnya, dan teks sejajar dengan titik dua Data Pribadi (48mm - 35mm) */
+    var profilAlign='margin-left:13mm;';
     h+='<div class="st" style="margin-top:0; '+profilAlign+'">'+L('PROFIL')+'</div><div style="text-align:justify; '+profilAlign+'">'+PR+'</div>';
 }
 h+='</td></tr></table>';
-function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){var firstMargin = 'margin-top:10.58mm;'; /* 30pt gap from photo to data pribadi */ h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="'+firstMargin+'">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
+function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style=" border:none;">'+L(l)+'</td><td class="dc" style=" border:none;">:</td><td style=" border:none;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?esc(a1):'')+(a1&&a2?'<br>':'')+(a2?esc(a2):''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){var firstMargin = 'margin-top:10.58mm;'; h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st" style="'+firstMargin+'">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
 
 function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
