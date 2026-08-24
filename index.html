@@ -69,8 +69,8 @@
             font-weight: 700;
             border-bottom: 1.5pt solid #000;
             margin-top: 3.53mm;     /* Gap 10 pt (from data above) */
-            padding-bottom: 0.53mm; /* Gap 1.5 pt (before the line) */
-            margin-bottom: 0.71mm;  /* Gap 2 pt (after the line, before data) */
+            padding-bottom: 0.71mm; /* Gap 2 pt (between label and horizontal line) */
+            margin-bottom: 1.06mm;  /* Gap 3 pt (between line and data below) */
             letter-spacing: .3px;
         }
         .a4-page table{width:100%;border-collapse:collapse}
@@ -190,6 +190,7 @@
             text-align: justify;
             text-align-last: center;
             text-justify: inter-word;
+            text-wrap: pretty;
             word-break: normal;
             overflow-wrap: break-word;
         }
@@ -292,15 +293,15 @@
       <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal text-justify-padat"><strong>Karya Abadi Jobs</strong> adalah platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja sekaligus memahami cara membuat CV, surat lamaran, dan dokumen pendukung yang lebih baik. Pengguna dapat membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen menjadi PDF, serta membaca berbagai panduan karier yang dapat digunakan sebagai referensi sebelum mengirim lamaran.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none">
-          <span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span>
+          <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
           <span class="block text-base uppercase tracking-wide">Buat CV Gratis</span>
         </button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white text-brand-dark font-bold rounded-xl hover:bg-gray-100 transition text-center leading-tight shadow-lg flex-1 sm:flex-none">
-          <span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span>
+          <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
           <span class="block text-base uppercase tracking-wide">Buat Surat Lamaran</span>
         </button>
         <button onclick="showPage('lampiran');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none">
-          <span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span>
+          <span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span>
           <span class="block text-base uppercase tracking-wide">Gabungkan PDF</span>
         </button>
       </div>
@@ -310,30 +311,30 @@
   <main class="max-w-7xl mx-auto px-4 pt-10 pb-12">
     <section class="text-center mb-16" aria-label="Fitur Utama">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">Alat Bantu Persiapan Lamaran Kerja</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-sm md:text-base text-justify-center" style="text-align: justify; text-align-last: center;">Bila Anda ingin melamar kerja, berbagai alat bantu di sini dapat Anda gunakan secara gratis untuk mempersiapkan dokumen lamaran agar lebih maksimal, terstruktur, dan profesional sebelum dikirimkan kepada perekrut HRD perusahaan.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto text-sm md:text-base text-justify-center">Bila Anda ingin melamar kerja, berbagai alat bantu di sini dapat Anda gunakan secara gratis untuk mempersiapkan dokumen lamaran agar lebih maksimal, terstruktur, dan profesional sebelum dikirimkan kepada perekrut HRD perusahaan.</p>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-file-lines text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Buat CV</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Membuat CV dengan struktur yang rapi dan dapat disesuaikan dengan kebutuhan pekerjaan. Tersedia beberapa template profesional yang dapat dipilih.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-center">Membuat CV dengan struktur yang rapi dan dapat disesuaikan dengan kebutuhan pekerjaan. Tersedia beberapa template profesional yang dapat dipilih.</p>
           <button onclick="showPage('generator'); selectCat('cv');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Buat CV Sekarang <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-envelope-open-text text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Buat Surat Lamaran</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Menyusun surat lamaran kerja berdasarkan posisi serta perusahaan yang dituju. Tersedia format email dan tulis tangan yang dapat disesuaikan.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-center">Menyusun surat lamaran kerja berdasarkan posisi serta perusahaan yang dituju. Tersedia format email dan tulis tangan yang dapat disesuaikan.</p>
           <button onclick="showPage('generator'); selectCat('surat');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Buat Surat Sekarang <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-file-zipper text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Gabungkan Dokumen PDF</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Menggabungkan beberapa gambar dokumen seperti ijazah, transkrip, dan sertifikat menjadi satu file PDF lampiran yang siap dikirim.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-center">Menggabungkan beberapa gambar dokumen seperti ijazah, transkrip, dan sertifikat menjadi satu file PDF lampiran yang siap dikirim.</p>
           <button onclick="showPage('lampiran');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Gabungkan PDF <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
         <article class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 flex flex-col items-center hover:shadow-lg transition">
           <div class="w-14 h-14 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-4"><i class="fa-solid fa-book-open text-2xl"></i></div>
           <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2 text-center">Panduan Pencari Kerja</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-padat">Berbagai artikel dan panduan mengenai CV, surat lamaran, email lamaran, interview, pencarian kerja, dan keamanan saat mencari lowongan.</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm text-center text-justify-center">Berbagai artikel dan panduan mengenai CV, surat lamaran, email lamaran, interview, pencarian kerja, dan keamanan saat mencari lowongan.</p>
           <button onclick="showPage('panduan-karier');" class="mt-4 text-brand-red font-semibold text-sm hover:underline">Baca Panduan <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
         </article>
       </div>
@@ -396,7 +397,7 @@
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">
           Buat CV Gratis
         </button>
-        <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white dark:bg-brand-dark border-2 border-brand-red text-brand-red font-bold rounded-xl hover:bg-brand-red hover:text:white transition text-center leading-tight">
+        <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white dark:bg-brand-dark border-2 border-brand-red text-brand-red font-bold rounded-xl hover:bg-brand-red hover:text-white transition text-center leading-tight">
           Buat Surat Lamaran
         </button>
       </div>
@@ -791,7 +792,7 @@ const NEW_ARTICLES = [
   { id: 'cara-mengembangkan-jaringan-profesional', cat: 'Panduan Karier', title: 'Cara Mengembangkan Jaringan Profesional untuk Kemajuan Karier', date: '22 Februari 2025', time: '4 mnt baca', icon: 'fa-network-wired', desc: 'Networking membuka peluang kerja yang tidak dipublikasikan. Hadiri seminar dan aktif di LinkedIn.' },
   { id: 'panduan-karier-pemula-tanpa-pengalaman', cat: 'Panduan Karier', title: 'Panduan Karier bagi Pemula yang Belum Memiliki Pengalaman Kerja', date: '25 Februari 2025', time: '5 mnt baca', icon: 'fa-seedling', desc: 'Tidak punya pengalaman bukan akhir segalanya. Fokus pada pendidikan, organisasi, dan kemauan belajar.' },
   { id: 'cara-prioritas-gaji-karier', cat: 'Panduan Karier', title: 'Cara Menentukan Prioritas antara Gaji, Karier, dan Pengembangan Diri', date: '1 Maret 2025', time: '4 mnt baca', icon: 'fa-scale-balanced', desc: 'Memilih antara gaji besar atau jalur karier yang menjanjikan? Sesuaikan dengan tujuan jangka panjang Anda.' },
-  { id: 'panduan-mempersiapkan-naik-jabatan', cat: 'Panduan Karier', title: 'Panduan Mempersiapkan Diri untuk Naik Jabatan', date: '5 Maret 2025', time: '5 mnt baca', icon: 'fa-ladder', desc: 'Naik jabatan butuh bukti kontribusi. Kumpulkan pencapaian Anda dan presentasikan kepada atasan.' },
+  { id: 'panduan-mempersiapkan-naik-jabatan', cat: 'Panduan Karier', title: 'Panduan Mempersiapkan Diri untuk Naik Jabatan', date: '5 Maret 2025', time: '5 mnt baca', icon: 'fa-ladder', desc: 'Naik jabanan butuh bukti kontribusi. Kumpulkan pencapaian Anda dan presentasikan kepada atasan.' },
   { id: 'cara-mengatasi-kebingungan-pilihan-karier', cat: 'Panduan Karier', title: 'Cara Mengatasi Kebingungan dalam Menentukan Pilihan Karier', date: '8 Maret 2025', time: '4 mnt baca', icon: 'fa-circle-question', desc: 'Kebingungan memilih karier adalah hal wajar. Coba tes kepribadian dan diskusi dengan mentor.' },
   { id: 'panduan-karier-era-digital', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier di Era Digital', date: '12 Maret 2025', time: '5 mnt baca', icon: 'fa-globe', desc: 'Era digital menuntut adaptasi cepat. Kuasai tool digital dan bangun portofolio online.' },
   
@@ -870,7 +871,7 @@ function generateArticleHTML(a) {
         add('Minimalkan distraksi digital. Matikan notifikasi media sosial atau gunakan aplikasi pemblokir situs saat sedang jam fokus kerja.');
         add('Prioritaskan tugas yang paling sulit dan penting di pagi hari (Eat the Frog), ketika energi dan konsentrasi Anda sedang berada di puncaknya.');
         add('Pelajari seni delegasi jika beban kerja terlalu berat. Serahkan tugas yang bisa dilakukan orang lain agar Anda fokus pada tugas strategis.');
-        add('Jangan lupa mengambil jeda istirahat secara teratur. Berdiri, meregangkan tubuh, atau berjalan sebentar dapat menyegarkan pikiran.');
+        add('Jangan lupa mengambil jeda istirahat secara teratur. Berdiri, meregangkan tubuh, atau berjalan sebentar dapat menyegarkan pikinan.');
         add('Tetapkan batas yang jelas antara pekerjaan dan kehidupan pribadi, terutama saat Work From Home (WFH). Matikan laptop saat jam kerja berakhir.');
         add('Hindari multitasking yang berlebihan. Fokus pada satu tugas hingga selesai terbukti lebih efektif daripada mengerjakan banyak hal sekaligus secara setengah hati.');
         add('Manfaatkan alat bantu digital seperti Trello, Asana, atau Notion untuk melacak progres tugas dan berkolaborasi dengan tim.');
