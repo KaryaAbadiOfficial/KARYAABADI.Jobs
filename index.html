@@ -812,58 +812,112 @@ const NEW_ARTICLES = [
 ];
 
 function generateArticleHTML(a) {
-    var pTitles = ['Persiapan Mental dan Dokumen', 'Analisis Mendalam', 'Fokus pada Soft Skill', 'Manfaatkan Teknologi Digital', 'Perbanyak Jaringan Profesional', 'Evaluasi Diri Secara Berkala', 'Bangun Portofolio Online', 'Cari Mentor Karier', 'Adaptasi dengan Perubahan', 'Jaga Kesehatan Mental'];
-    var pDescs = [
-        'Pastikan setiap langkah yang diambil selaras dengan tujuan karier jangka panjang Anda. Kita perlu menganalisis inti dari permasalahan. Banyak profesional muda yang gagal karena tidak memahami fondasi ini. Dengan mempersiapkan diri secara matang, baik dari segi teknis maupun mental, Anda akan lebih siap menghadapi tantangan.',
-        'Fokuskan perhatian pada pengembangan soft skill. Komunikasi yang baik, manajemen waktu, dan kemampuan beradaptasi adalah hal yang dicari oleh setiap perusahaan. Sertifikat dan pengalaman teknis memang penting, tetapi tanpa soft skill yang mumpuni, semua itu menjadi kurang bermakna dalam lingkungan kerja nyata. Latih kemampuan ini melalui kegiatan organisasi atau proyek sukarela.',
-        'Manfaatkan teknologi dan platform digital untuk mendukung aktivitas Anda. Internet menyediakan akses tak terbatas ke informasi, jaringan profesional, dan alat bantu yang krusial. Misalnya, Anda bisa menggunakan <a href="#" onclick="showPage(\'generator\'); selectCat(\'cv\'); return false;">generator CV gratis</a> kami untuk mulai membuat dokumen lamaran yang rapi dan profesional tanpa biaya.',
-        'Networking membuka peluang kerja yang tidak dipublikasikan. Hadiri seminar, webinar, dan aktif di LinkedIn untuk memperluas jaringan profesional Anda di industri yang dituju. Jangan ragu untuk mengirim pesan atau menghubungi orang-orang yang berada di posisi yang Anda inginkan untuk meminta saran.',
-        'Evaluasi secara berkala. Apakah strategi yang Anda gunakan sudah efektif? Jika belum, jangan ragu untuk mengubah pendekatan Anda. Proses pencarian kerja dan pengembangan karier adalah perjalanan dinamis yang membutuhkan ketekunan dan kemauan belajar yang tinggi. Catat setiap perkembangan dan pelajaran yang Anda dapatkan dari setiap wawancara atau uji coba.',
-        'Bangun portofolio online yang menampilkan karya dan pencapaian Anda. Ini sangat membantu HRD melihat kompetensi Anda secara nyata, terutama jika Anda melamar di industri kreatif atau teknologi. Portofolio yang baik adalah bukti nyata dari apa yang Anda mampu lakukan, bukan sekadar daftar di atas kertas.',
-        'Cari mentor karier yang dapat memberikan saran berharga. Pengalaman mereka bisa membantu Anda menghindari jebakan umum dan mempercepat perkembangan karier Anda. Seorang mentor yang baik akan membimbing Anda melalui rintangan yang pernah mereka alami sendiri di dunia kerja.',
-        'Dunia kerja terus berubah. Adaptasi dengan perubahan ini dengan terus belajar hal baru, mengikuti trend industri, dan tidak takut keluar dari zona nyaman. Teknologi dan metode kerja selalu berevolusi, dan mereka yang gagal beradaptasi akan tertinggal jauh oleh pesaing mereka.',
-        'Penting juga untuk menjaga kesehatan mental. Mencari kerja dan membangun karier bisa menjadi proses yang melelahkan. Luangkan waktu untuk istirahat agar tetap termotivasi. Jangan biarkan stres menghancurkan semangat Anda, cari keseimbangan antara berjuang dan menenangkan diri.',
-        'Pelajari kemampuan negosiasi. Baik saat menegosiasikan gaji maupun peran Anda di perusahaan, kemampuan ini akan sangat berguna sepanjang karier Anda. Negosiasi yang baik bukan tentang menang, tetapi menciptakan solusi yang menguntungkan kedua belah pihak.'
-    ];
-    var extra = [
-        'Selain poin-poin di atas, penting juga untuk menjaga kesehatan mental. Mencari kerja bisa melelahkan. Luangkan waktu untuk istirahat agar tetap termotivasi.',
-        'Aspek lain yang tidak kalah penting adalah kemampuan negosiasi. Baik saat menegosiasikan gaji maupun peran Anda di perusahaan, kemampuan ini akan sangat berguna.',
-        'Jangan ragu untuk mengambil risiko yang diperhitungkan. Peluang terbaik kadang datang dari hal-hal yang belum pernah kita coba sebelumnya dalam dunia kerja.',
-        'Perhatikan juga work-life balance. Kehidupan pribadi yang sehat akan mendukung performa kerja yang optimal. Jangan biarkan pekerjaan menghabiskan seluruh energi.',
-        'Terus tingkatkan pengetahuan dengan membaca buku, artikel, atau mengikuti kursus online. Industri selalu berkembang, dan mereka yang berhenti belajar akan tertinggal.',
-        'Bangun personal branding yang kuat. Cara orang lain melihat Anda secara profesional akan mempengaruhi peluang karier. Tunjukkan etika kerja yang baik.',
-        'Pelajari juga budaya kerja perusahaan yang dituju. Setiap tempat memiliki aturan main yang berbeda, dan menyesuaikan diri dengan cepat akan membuat Anda diterima.',
-        'Pastikan dokumen lamaran Anda prima. CV dan surat lamaran yang rapi adalah tiket pertama Anda untuk dipanggil interview. Gunakan <a href="#" onclick="showPage(\'generator\'); selectCat(\'surat\'); return false;">generator surat lamaran</a> kami.'
-    ];
-    var numMatch = a.title.match(/\d+/);
-    var num = numMatch ? parseInt(numMatch[0]) : 0;
-    var intros = 'Memahami "' + a.title + '" sangat penting bagi para pencari kerja di Indonesia. Dalam dunia kerja yang kompetitif, memiliki pengetahuan mendalam tentang ' + a.cat.toLowerCase() + ' dapat menjadi pembeda utama antara Anda dan kandidat lain. Artikel ini akan membahas secara detail langkah-langkah dan strategi yang bisa Anda terapkan.';
-    var conclusions = 'Terakhir, ingatlah bahwa keberhasilan tidak datang secara instan. Teruslah berlatih, perluas jaringan, dan jangan pernah menyerah. Dengan menerapkan tips di atas, Anda akan selangkah lebih maju. Jika Anda membutuhkan dokumen pendukung, gunakan <a href="#" onclick="showPage(\'generator\'); selectCat(\'cv\'); return false;">generator CV gratis</a> kami.';
-    var addedParas = [];
-    
-    if (num >= 10) {
-        addedParas.push('<p><strong>1. ' + pTitles[0] + '.</strong> ' + intros + ' ' + pDescs[0] + '</p>');
-        for (var i = 1; i <= 8; i++) {
-            addedParas.push('<p><strong>' + (i + 1) + '. ' + pTitles[i] + '.</strong> ' + pDescs[i] + '</p>');
+    var t = a.title.toLowerCase();
+    var p = [];
+    var numMatch = a.title.match(/^(\d+)/);
+    var num = numMatch ? parseInt(numMatch[1]) : 0;
+
+    function add(text) {
+        if (num > 0) {
+            p.push('<p><strong>' + (p.length + 1) + '.</strong> ' + text + '</p>');
+        } else {
+            p.push('<p>' + text + '</p>');
         }
-        addedParas.push('<p><strong>10. ' + pTitles[9] + '.</strong> ' + pDescs[9] + ' ' + conclusions + '</p>');
-    } else if (num > 0 && num < 10) {
-        addedParas.push('<p>' + intros + ' Berikut adalah ' + num + ' poin krusial yang perlu Anda perhatikan:</p>');
-        for (var i = 0; i < num; i++) {
-            addedParas.push('<p><strong>' + (i + 1) + '. ' + pTitles[i] + '.</strong> ' + pDescs[i] + '</p>');
-        }
-        var remaining = 10 - 1 - num;
-        for (var j = 0; j < remaining; j++) {
-            addedParas.push('<p>' + extra[j % extra.length] + '</p>');
-        }
-    } else {
-        addedParas.push('<p>' + intros + '</p>');
-        for (var j = 0; j < 8; j++) {
-            addedParas.push('<p>' + extra[j % extra.length] + '</p>');
-        }
-        addedParas.push('<p>' + conclusions + '</p>');
     }
-    return addedParas.join('');
+
+    // Konteks yang spesifik berdasarkan kata kunci di judul
+    if (t.includes('interview')) {
+        add('Persiapkan diri dengan mempelajari budaya perusahaan dan posisi yang dilamar. Latihan menjawab pertanyaan umum dan teknis di depan cermin agar lebih percaya diri.');
+        add('Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario. Ini membantu Anda memberikan jawaban yang terstruktur dan konkret.');
+        add('Perhatikan bahasa tubuh Anda. Duduk tegak, tersenyum, dan menjaga kontak mata menunjukkan bahwa Anda adalah kandididat yang percaya diri dan profesional.');
+        add('Jangan ragu untuk mengajukan pertanyaan balik di akhir interview. Ini menunjukkan minat Anda yang mendalam terhadap perusahaan dan posisi yang dilamar.');
+        add('Pelajari teknik menjawab pertanyaan sulit atau jebakan. Tetap tenang, ambil jeda sejenak untuk berpikir, dan jawab dengan jujur serta positif.');
+        add('Berpakaianlah sesuai dengan budaya perusahaan. Jika ragu, pilih pakaian formal yang rapi, karena kesan pertama sangat menentukan.');
+        add('Datang tepat waktu, bahkan lebih awal 10-15 menit. Ini menunjukkan menghargai waktu perekrut dan profesionalisme Anda.');
+        add('Tunjukkan antusiasme dan energi positif. Pewawancara tidak hanya mencari keterampilan teknis, tetapi juga orang yang menyenangkan untuk diajak bekerja sama.');
+        add('Bawa salinan dokumen lamaran, CV, dan portofolio. Kesiapan ini menunjukkan bahwa Anda sangat tertarik dan terorganisir.');
+        add('Setelah interview, kirimkan email ucapan terima kasih. Ini adalah langkah kecil namun sering dilupakan yang dapat membedakan Anda dari kandidat lain.');
+    } else if (t.includes('cv') || t.includes('lamaran')) {
+        add('Pastikan struktur CV Anda bersih dan mudah dibaca. Gunakan poin-poin singkat daripada paragraf panjang agar HRD dapat memindai informasi dengan cepat.');
+        add('Sesuaikan CV dengan deskripsi pekerjaan. Masukkan kata kunci yang relevan dari lowongan agar CV Anda lebih mudah lolos sistem ATS (Applicant Tracking System).');
+        add('Gunakan kata kerja aksi (action verbs) seperti "mengelola", "menciptakan", atau "meningkatkan" untuk mendeskripsikan pengalaman kerja Anda.');
+        add('Kuantifikasi pencapaian Anda. Daripada menulis "bertanggung jawab atas penjualan", tulis "meningkatkan penjualan sebesar 20% dalam 6 bulan".');
+        add('Jangan sertakan foto jika tidak diminta, terutama untuk perusahaan multinasional, untuk menghindari bias dan masalah ATS.');
+        add('Pastikan informasi kontak Anda jelas dan profesional. Gunakan email yang berisi nama asli Anda, bukan nama panggilan atau angka acak.');
+        add('Cek dan ricek (proofread) CV Anda berkali-kali. Kesalahan ketik atau tata bahasa dapat memberikan kesan bahwa Anda tidak teliti.');
+        add('Sertakan tautan ke portofolio online atau profil LinkedIn Anda jika relevan, pastikan tautan tersebut dapat diklik dan berfungsi dengan baik.');
+        add('Untuk CV fresh graduate, tonjolkan pendidikan, proyek kuliah, magang, dan organisasi. Ini menjadi pengganti pengalaman kerja formal.');
+        add('Gunakan <a href="#" onclick="showPage(\'generator\'); selectCat(\'cv\'); return false;">generator CV gratis</a> kami untuk memastikan tata letak Anda rapi, profesional, dan lolos ATS.');
+    } else if (t.includes('beradaptasi') || t.includes('budaya') || t.includes('lingkungan')) {
+        add('Lakukan observasi terhadap budaya kerja di hari-hari pertama. Perhatikan cara berpakaian, jam kerja, dan gaya komunikasi tim.');
+        add('Perkenalkan diri Anda dengan ramah kepada rekan kerja dan atasan. Membangun hubungan yang baik sejak awal memudahkan proses adaptasi.');
+        add('Jangan ragu untuk bertanya jika ada instruksi atau prosedur yang tidak Anda mengerti. Lebih baik bertanya daripada melakukan kesalahan.');
+        add('Tunjukkan inisiatif untuk belajar hal-hal baru di luar tugas utama Anda. Ini menunjukkan bahwa Anda proaktif dan antusias.');
+        add('Hormati hierarki dan rantai komando yang ada. Pahami kepada siapa Anda harus melapor dan bagaimana proses pengambilan keputusan di perusahaan.');
+        add('Kelola ekspektasi Anda. Sesuaikan harapan pribadi dengan realitas di tempat kerja agar tidak mudah kecewa atau stres.');
+        add('Tetap terorganisir dengan membuat to-do list harian. Ini membantu Anda mengingat tugas-tugas baru dan menyelesaikannya tepat waktu.');
+        add('Terimalah feedback atau kritik dengan pikiran terbuka. Anggap itu sebagai kesempatan untuk memperbaiki diri dan berkembang.');
+        add('Ikut serta dalam aktivitas atau acara sosial perusahaan jika ada. Ini adalah cara efektif untuk mengenal rekan kerja secara lebih santai.');
+        add('Ungkapkan rasa terima kasih kepada mereka yang telah membantu Anda beradaptasi. Sikap menghargai akan memperkuat ikatan profesional Anda.');
+    } else if (t.includes('produktivitas') || t.includes('waktu') || t.includes('wfh')) {
+        add('Terapkan teknik Pomodoro: bekerja selama 25 menit, lalu istirahat 5 menit. Ini menjaga fokus Anda tetap tajam tanpa mudah lelah.');
+        add('Gunakan time blocking (pemblokiran waktu) untuk mengelompokkan tugas yang sejenis. Ini mengurangi gangguan dan perpindahan konteks yang menghabiskan waktu.');
+        add('Minimalkan distraksi digital. Matikan notifikasi media sosial atau gunakan aplikasi pemblokir situs saat sedang jam fokus kerja.');
+        add('Prioritaskan tugas yang paling sulit dan penting di pagi hari (Eat the Frog), ketika energi dan konsentrasi Anda sedang berada di puncaknya.');
+        add('Pelajari seni delegasi jika beban kerja terlalu berat. Serahkan tugas yang bisa dilakukan orang lain agar Anda fokus pada tugas strategis.');
+        add('Jangan lupa mengambil jeda istirahat secara teratur. Berdiri, meregangkan tubuh, atau berjalan sebentar dapat menyegarkan pikiran.');
+        add('Tetapkan batas yang jelas antara pekerjaan dan kehidupan pribadi, terutama saat Work From Home (WFH). Matikan laptop saat jam kerja berakhir.');
+        add('Hindari multitasking yang berlebihan. Fokus pada satu tugas hingga selesai terbukti lebih efektif daripada mengerjakan banyak hal sekaligus secara setengah hati.');
+        add('Manfaatkan alat bantu digital seperti Trello, Asana, atau Notion untuk melacak progres tugas dan berkolaborasi dengan tim.');
+        add('Lakukan evaluasi mingguan untuk menilai produktivitas Anda. Lihat apa yang berjalan baik dan apa yang perlu diperbaiki di minggu berikutnya.');
+    } else if (t.includes('stres') || t.includes('beban') || t.includes('keseimbangan')) {
+        add('Identifikasi pemicu stres utama di tempat kerja. Apakah itu tenggat waktu, beban tugas, atau konflik antarpersonal? Mengetahui sumbernya adalah langkah pertama.');
+        add('Praktikkan teknik relaksasi seperti pernapasan dalam (deep breathing) atau meditasi singkat di meja kerja saat merasa tertekan.');
+        add('Ambil micro-breaks (jeda pendek) secara rutin. Berjalan ke pantry atau melihat keluar jendela dapat menurunkan tingkat stres secara signifikan.');
+        add('Jangan bawa pekerjaan pulang ke rumah. Pisahkan area kerja dan ruang istirahat agar otak Anda memiliki waktu untuk benar-benar memulihkan diri.');
+        add('Jangan ragu untuk meminta bantuan atau melaporkan beban kerja yang tidak masuk akal kepada atasan Anda. Komunikasi adalah kunci.');
+        add('Jaga kesehatan fisik Anda. Olahraga teratur, makan makanan bergizi, dan tidur yang cukup membuat tubuh lebih tangguh menghadapi stres.');
+        add('Luangkan waktu untuk hobi dan bersantai bersama keluarga atau teman. Kehidupan pribadi yang sehat adalah penangkal stres kerja yang ampuh.');
+        add('Pelajari untuk melepaskan apa yang tidak bisa Anda kendalikan. Fokus pada upaya terbaik Anda daripada mengkhawatirkan hasil akhir.');
+        add('Bangun sistem pendukung di tempat kerja. Bercerita dengan rekan kerja yang dipercaya dapat meringankan beban mental Anda.');
+        add('Jika stres berkepanjangan dan mengganggu kesehatan, pertimbangkan untuk mencari bantuan profesional atau konseling yang disediakan perusahaan.');
+    } else if (t.includes('branding') || t.includes('jaringan')) {
+        add('Optimalkan profil LinkedIn Anda. Pastikan foto profesional, headline yang menarik, dan ringkasan pengalaman yang menjual nilai Anda.');
+        add('Hadiri seminar, workshop, atau webinar industri. Acara tersebut adalah tempat bertemu profesional sejenis dan memperluas jaringan Anda.');
+        add('Saat networking, berikan nilai terlebih dahulu sebelum meminta bantuan. Tawarkan bantuan atau wawasan Anda sebelum meminta referral atau informasi lowongan.');
+        add('Lakukan active listening (mendengarkan aktif) saat berbicara dengan profesional lain. Minat tulus Anda akan meninggalkan kesan positif yang berkelanjutan.');
+        add('Jaga konsistensi personal branding Anda di semua platform. Pastikan pesan dan citra yang Anda bangun di LinkedIn, GitHub, atau portofolio adalah sama.');
+        add('Bagikan pengetahuan dan keahlian Anda melalui blog, posting LinkedIn, atau berbicara di acara komunitas. Ini membangun otoritas di bidang Anda.');
+        add('Selalu lakukan follow-up setelah bertemu kenalan baru. Kirim pesan singkat atau email untuk mempertahankan hubungan yang baru terjalin.');
+        add('Bergabunglah dengan asosiasi atau komunitas profesional di bidang Anda. Keanggotaan aktif membuka pintu ke informasi dan peluang yang tidak dipublikasikan.');
+        add('Cari mentor yang lebih berpengalaman. Mereka tidak hanya memberi saran karier, tetapi juga dapat memperluas jaringan profesional Anda secara eksponensial.');
+        add('Jadilah otentik. Personal branding bukan berpura-pura menjadi orang lain, melainkan menonjolkan kelebihan dan karakter asli Anda secara profesional.');
+    } else if (t.includes('skill') || t.includes('mengembangkan') || t.includes('digital')) {
+        add('Lakukan penilaian diri untuk mengetahui kelebihan dan kekurangan Anda. Identifikasi skill yang perlu ditingkatkan untuk maju di jalur karier Anda.');
+        add('Komitmen untuk pembelajaran sepanjang hayat (lifelong learning). Industri berubah cepat, dan keterampilan Anda harus ikut berkembang.');
+        add('Manfaatkan platform pembelajaran online gratis atau berbayar seperti Coursera, Udemy, atau YouTube untuk mempelajari hard skill baru.');
+        add('Jangan abaikan soft skill. Kemampuan komunikasi, kepemimpinan, dan kecerdasan emosional seringkali lebih menentukan kesuksesan daripada keahlian teknis.');
+        add('Buat proyek sampingan (side project) atau freelance untuk mengasah skill baru di luar pekerjaan utama. Praktik langsung adalah guru terbaik.');
+        add('Bangun portofolio digital. Kumpulkan hasil karya, sertifikat, dan dokumentasi proyek di satu tempat untuk menunjukkan bukti kompetensi Anda.');
+        add('Beradaptasilah dengan teknologi terbaru di industri Anda. Kemampuan untuk cepat mempelajari tool baru adalah nilai jual yang sangat dicari perusahaan.');
+        add('Cari mentor atau peer group yang bisa diajak berdiskusi. Bertukar pikiran dengan orang lain mempercepat proses pembelajaran Anda.');
+        add('Jangan takut keluar dari zona nyaman. Ambil tugas atau proyek yang menantang agar Anda terdorong belajar hal-hal yang belum Anda kuasai.');
+        add('Dokumentasikan setiap proses pembelajaran Anda. Membagikan apa yang Anda pelajari tidak hanya membantu orang lain tetapi juga memperkuat pemahaman Anda.');
+    } else {
+        // Default: Career Planning & General Career
+        add('Mulailah dengan mengenali potensi dan minat diri Anda. Pahami apa yang Anda sukai dan kuasai untuk menentukan arah karier yang tepat.');
+        add('Tetapkan tujuan karier jangka pendek, menengah, dan panjang. Gunakan metode SMART (Specific, Measurable, Achievable, Relevant, Time-bound) agar target terukur.');
+        add('Buat action plan yang detail. Mimpi tanpa rencana hanyalah angan-angan, tuliskan langkah-langkah konkret yang harus Anda capai setiap tahunnya.');
+        add('Jangan ragu untuk mengambil langkah pertama, meski harus dimulai dari posisi pemula atau magang. Pengalaman adalah batu loncatan terbaik.');
+        add('Cari mentor karier yang dapat memberikan saran berharga. Pengalaman mereka bisa membantu Anda menghindari jebakan umum dalam perjalanan karier.');
+        add('Evaluasi diri secara berkala. Apakah strategi yang Anda gunakan sudah efektif? Jika belum, jangan ragu untuk mengubah pendekatan Anda.');
+        add('Pelajari juga budaya kerja perusahaan yang dituju. Menyesuaikan diri dengan cepat akan membuat Anda lebih mudah diterima dan berkembang di lingkungan baru.');
+        add('Pastikan dokumen lamaran Anda prima. CV dan surat lamaran yang rapi adalah tiket pertama Anda untuk dipanggil interview.');
+        add('Tetaplah beradaptasi dan terbuka terhadap perubahan. Teknologi dan metode kerja selalu berevolusi, mereka yang gagal beradaptasi akan tertinggal.');
+        add('Terakhir, ingatlah bahwa keberhasilan tidak datang secara instan. Teruslah berlatih, perluas jaringan, dan jangan pernah menyerah.');
+    }
+
+    return p.join('');
 }
 
 function renderArticleLists() {
