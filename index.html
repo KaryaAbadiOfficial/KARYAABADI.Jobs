@@ -62,15 +62,28 @@
         .view { display: none; }
         .view.active { display: block; }
         
+        /* A4 Page Styling */
         .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
         
-        /* Spacing for Labels - Precise pt to mm */
+        /* CSS for Multi-Page Preview Support */
+        #preview-wrap .a4-page, #preview-wrap-mob .a4-page {
+            overflow: visible !important;
+            min-height: 297mm;
+            height: auto !important;
+            margin-bottom: 15mm; /* Jarak antar halaman di preview */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+        #preview-wrap .a4-page:last-child, #preview-wrap-mob .a4-page:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Spacing for Labels */
         .a4-page .st {
             font-weight: 700;
-            border-bottom: 3pt solid #000; /* Garis ditebalkan menjadi 3pt */
-            margin-top: 3.53mm;     /* Gap 10 pt (from data above) */
-            padding-bottom: 2.82mm; /* Jarak 8 pt (antara label dan garis) */
-            margin-bottom: 2.82mm;  /* Jarak 8 pt (antara garis dan data di bawah) */
+            border-bottom: 3pt solid #000;
+            margin-top: 3.53mm;
+            padding-bottom: 2.82mm;
+            margin-bottom: 2.82mm;
             letter-spacing: .3px;
         }
         .a4-page table{width:100%;border-collapse:collapse}
@@ -80,7 +93,7 @@
         
         #preview-wrap, #preview-wrap-mob { 
             position: relative; 
-            overflow: hidden; 
+            overflow: auto; 
             cursor: grab; 
             touch-action: none; 
         }
@@ -92,11 +105,6 @@
             will-change: transform;
             padding-bottom: 40px;
         }
-        #preview-wrap .a4-page, #preview-wrap-mob .a4-page {
-            overflow: visible !important;
-            min-height: 297mm;
-            height: auto !important;
-        }
         #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after {
             content: '';
             position: absolute;
@@ -105,6 +113,34 @@
             opacity: 0.6;
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* CV3 - Align top & border not exceeding margin */
+        .cv3-layout {
+            border-collapse: collapse !important;
+            width: 100% !important;
+            table-layout: fixed;
+        }
+        .cv3-left-col {
+            vertical-align: top !important; /* PROFIL SEJAJAR ATAS MARGIN */
+            padding-right: 6mm !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            border-right: 3pt solid #000 !important;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .cv3-right-col {
+            vertical-align: top !important;
+            padding-left: 8mm !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .cv3-foto-wrap {
+            margin-bottom: 14mm; 
+            display: block;
         }
 
         #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -1319,7 +1355,7 @@ function renderCV3(){
   if(!N && !SUB && !TTL && !JK && !BN && !AG && !TB && !BB && !HP && !ST && !EM && ap.length===0 && !PR && !eduHTML && !expHTML && !SK && !photoData) { return ''; }
   function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm">'+L(l)+'</div><div style="margin-top:0.3mm">'+val+'</div></div>'}
   function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="color:#555;padding-bottom:0.4mm;white-space:nowrap;">'+L(l)+'</div><div style="margin-top:0.3mm;white-space:nowrap;">'+val+'</div></div>'}
-  var ls='<div style="text-align:left;margin-bottom:14mm">'+fotoImg()+'</div>';
+  var ls='<div class="cv3-foto-wrap">'+fotoImg()+'</div>';
   if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';
   if(SUB)ls+='<div style="color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';
   ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL); ls+=di('Jenis Kelamin',esc(JK),JK); ls+=di('Bangsa',esc(BN),BN); ls+=di('Agama',esc(AG),AG); ls+=di('Tinggi badan',esc(TB)+' cm',TB); ls+=di('Berat badan',esc(BB)+' kg',BB); ls+=di('No. HP',esc(HP),HP); ls+=di('Status',esc(ST),ST); ls+=di('Email',esc(EM),EM);
@@ -1329,7 +1365,7 @@ function renderCV3(){
   if(eduHTML){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}
   if(expHTML){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}
   if(SK){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}
-  return'<table style="width:100%;border:none;table-layout:fixed;border-collapse:collapse;"><tr><td style="width:65mm;vertical-align:top;padding-right:6mm;border-right:3pt solid #000;word-break:break-word;overflow-wrap:break-word;">'+ls+'</td><td style="vertical-align:top;padding-left:8mm;word-break:break-word;overflow-wrap:break-word;">'+rs+'</td></tr></table>';
+  return'<table class="cv3-layout"><tr><td class="cv3-left-col">'+ls+'</td><td class="cv3-right-col">'+rs+'</td></tr></table>';
 }
 
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
@@ -1682,59 +1718,44 @@ function resetZoom() {
     applyTransform(); 
 }
 
-function applyPageBreaks(container) {
-    var pageHeight = 297;
-    var padTop = 12;
-    var padBot = 12;
-    var mmToPx = 3.7795275591;
-    
-    var sections = container.querySelectorAll('.sec-wrap');
-    sections.forEach(function(sec){ sec.style.marginTop = '0px'; });
-    
-    for (var i = 0; i < sections.length; i++) {
-        var sec = sections[i];
-        var rect = sec.getBoundingClientRect();
-        var containerRect = container.getBoundingClientRect();
-        
-        var topPx = rect.top - containerRect.top;
-        var bottomPx = topPx + sec.offsetHeight;
-        
-        var topMm = topPx / mmToPx;
-        var bottomMm = bottomPx / mmToPx;
-        
-        var pageNum = Math.floor(topMm / pageHeight);
-        var pageStartMm = pageNum * pageHeight;
-        var pageContentStartMm = pageStartMm + padTop;
-        var pageContentEndMm = pageStartMm + pageHeight - padBot;
-        
-        if (bottomMm > pageContentEndMm) {
-            var nextPageContentStartMm = (pageNum + 1) * pageHeight + padTop;
-            var marginTopMm = nextPageContentStartMm - topMm;
-            sec.style.marginTop = (marginTopMm * mmToPx) + 'px';
-        }
-    }
-}
-
 function downloadPDF() {
-  var element = document.getElementById('pdf-offscreen'); var html = '';
-  if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
+  var element = document.getElementById('pdf-offscreen'); 
+  var html = '';
+  if(curCat === 'cv') { 
+    if(curTpl === 'cv1') html = renderCV1(); 
+    else if(curTpl === 'cv2') html = renderCV2(); 
+    else if(curTpl === 'cv3') html = renderCV3(); 
+    else if(curTpl === 'cv4') html = renderCV4(); 
+  } else { 
+    html = renderSuratP(); 
+  }
   element.innerHTML = '<div class="a4-page" style="overflow:visible;font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
-  toast('Membuat PDF, mohon tunggu...', 'info');
+  
+  var btn = document.getElementById('btn-pdf');
+  if(btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Memproses...'; }
+  toast('Membuat PDF multi-halaman, mohon tunggu...', 'info');
+
   setTimeout(function() {
     var targetEl = element.querySelector('.a4-page');
-    applyPageBreaks(targetEl);
-    html2canvas(targetEl, {scale: 2, useCORS: true, backgroundColor: '#FFFFFF'}).then(function(canvas) {
-      targetEl.querySelectorAll('.sec-wrap').forEach(function(sec){ sec.style.marginTop = ''; });
-      var imgData = canvas.toDataURL('image/jpeg', 0.95);
-      var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-      var imgWidth = 210; var pageHeight = 297; var imgHeight = canvas.height * imgWidth / canvas.width; var heightLeft = imgHeight; var position = 0;
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); heightLeft -= pageHeight;
-      while (heightLeft >= 1) { position = heightLeft - imgHeight; pdf.addPage(); pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); heightLeft -= pageHeight; }
-      var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_');
-      var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_';
-      pdf.save(fileNamePrefix + safeName + '.pdf');
-      element.innerHTML = ''; toast('PDF berhasil diunduh!', 'success');
-    }).catch(function(err) { console.error(err); toast('Gagal membuat PDF', 'error'); element.innerHTML = ''; });
+    var opt = {
+      margin: [12, 16, 12, 16],
+      filename: (curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_') + (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_') + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#FFFFFF' },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+    
+    html2pdf().set(opt).from(targetEl).save().then(function() {
+      element.innerHTML = '';
+      if(btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>PDF'; }
+      toast('PDF berhasil diunduh!', 'success');
+    }).catch(function(err) {
+      console.error(err);
+      element.innerHTML = '';
+      if(btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-file-pdf mr-1.5 text-xs"></i>PDF'; }
+      toast('Gagal membuat PDF', 'error');
+    });
   }, 300);
 }
 
@@ -1997,6 +2018,15 @@ window.addEventListener('load', function() {
   if(hash && document.getElementById('view-' + hash)) { showPage(hash); }
 });
 window.addEventListener('resize', updateVH);
+
+// Inject html2pdf dynamically if not present
+(function() {
+  if (!window.html2pdf) {
+    var script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    document.head.appendChild(script);
+  }
+})();
 </script>
 </body>
 </html>
