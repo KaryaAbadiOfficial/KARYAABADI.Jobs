@@ -63,28 +63,35 @@
         .view.active { display: block; }
         
         /* A4 Page Styling */
-        .a4-page{width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none}
-        
-        /* CSS for Multi-Page Preview Support */
-        #preview-wrap .a4-page, #preview-wrap-mob .a4-page {
-            overflow: visible !important;
-            min-height: 297mm;
-            height: auto !important;
-            margin-bottom: 15mm; /* Jarak antar halaman di preview */
+        .a4-page{
+            width:210mm;
+            min-height:297mm;
+            background:#fff;
+            color:#000;
+            padding:12mm 16mm;
+            overflow:hidden;
+            position:relative;
+            user-select:none;
+            -webkit-user-select:none;
+            margin-bottom: 15px; /* Jarak antar lembar di preview */
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
-        #preview-wrap .a4-page:last-child, #preview-wrap-mob .a4-page:last-child {
+        .a4-page:last-child {
             margin-bottom: 0;
         }
         
-        /* Spacing for Labels */
+        /* Spacing for Labels - Diperbaiki */
         .a4-page .st {
             font-weight: 700;
-            border-bottom: 3pt solid #000;
-            margin-top: 3.53mm;
-            padding-bottom: 2.82mm;
-            margin-bottom: 2.82mm;
+            border-bottom: 2pt solid #000;
+            margin-top: 4mm;     
+            padding-bottom: 1.5mm; /* Jarak teks label ke garis */
+            margin-bottom: 2mm;  /* Jarak garis ke konten di bawahnya */
             letter-spacing: .3px;
+            display: block;
+        }
+        .a4-page .st:first-child {
+            margin-top: 0;
         }
         .a4-page table{width:100%;border-collapse:collapse}
         .a4-page table td{padding:.4mm 0;vertical-align:top}
@@ -122,7 +129,7 @@
             table-layout: fixed;
         }
         .cv3-left-col {
-            vertical-align: top !important; /* PROFIL SEJAJAR ATAS MARGIN */
+            vertical-align: top !important; 
             padding-right: 6mm !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
@@ -477,8 +484,8 @@
         </div>
         <button onclick="resetZoom()" class="text-[11px] font-bold text-brand-red hover:underline">Reset Tampilan</button>
       </div>
-      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0">
-        <div id="a4-scaler"><div id="a4-page" class="a4-page shadow-2xl"></div></div>
+      <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0 overflow-auto">
+        <div id="a4-scaler"><div id="a4-page"></div></div>
       </div>
     </div>
   </main>
@@ -488,15 +495,15 @@
       <button onclick="closeMobilePreview()" class="ml-2 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center" aria-label="Tutup preview"><i class="fa-solid fa-xmark text-sm text-white/60"></i></button>
     </div>
     <div class="px-4 py-1 text-center text-[10px] text-gray-400 border-b border-brand-border/50">Cubit untuk Zoom • Geser untuk Pindah</div>
-    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0">
-      <div id="a4-scaler-mob"><div id="a4-page-mob" class="a4-page shadow-2xl"></div></div>
+    <div id="preview-wrap-mob" class="flex-1 p-3 bg-gray-800/30 min-h-0 overflow-auto">
+      <div id="a4-scaler-mob"><div id="a4-page-mob"></div></div>
     </div>
   </div>
   <div class="mob-bar lg:hidden">
     <button onclick="switchMob('form')" id="mob-form" class="active"><i class="fa-solid fa-pen-to-square"></i><span>Formulir</span></button>
     <button onclick="switchMob('preview')" id="mob-preview"><i class="fa-solid fa-eye"></i><span>Preview</span></button>
   </div>
-  <div id="pdf-offscreen" style="position:absolute;left:--9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
+  <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;"></div>
 </div>
 
 <div id="view-lampiran" class="view">
@@ -807,6 +814,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 // ================= ARTICLES DATA & RENDERER =================
@@ -820,7 +828,7 @@ const NEW_ARTICLES = [
   { id: 'cara-membangun-personal-branding-karier', cat: 'Panduan Karier', title: 'Cara Membangun Personal Branding untuk Mendukung Karier', date: '25 Januari 2025', time: '5 mnt baca', icon: 'fa-fingerprint', desc: 'Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.' },
   { id: 'panduan-pekerjaan-pertama-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Mendapatkan Pekerjaan Pertama bagi Fresh Graduate', date: '28 Januari 2025', time: '4 mnt baca', icon: 'fa-briefcase', desc: 'Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.' },
   { id: 'cara-menentukan-jalur-karier-potensi-diri', cat: 'Panduan Karier', title: 'Cara Menentukan Jalur Karier yang Tepat Sesuai Potensi Diri', date: '1 Februari 2025', time: '5 mnt baca', icon: 'fa-route', desc: 'Potensi diri adalah kombinasi minat, bakat, dan kepribadian. Kenali diri Anda untuk menemukan jalur karier yang tepat.' },
-  { id: 'panduan-skill-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Meningkatkan Skill untuk Persiapan Karier Masa Depan', date: '5 Februari 2025', time: '4 mnt baca', icon: 'fa-laptop-code', desc: 'Dunia kerja terus berubah. Skill digital seperti data analysis dan digital marketing akan sangat dibutuhkan.' },
+  { id: 'panduan-skill-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Meningkatkan Skill untuk Persiapan Karier Masa Depan', date: '5 Februari 2025', time: '4 mnt baca', icon: 'fa-laptop-code', desc: 'Dunia kerka terus berubah. Skill digital seperti data analysis dan digital marketing akan sangat dibutuhkan.' },
   { id: 'cara-cv-profesional-memulai-karier', cat: 'Panduan Karier', title: 'Cara Membuat CV Profesional untuk Memulai Karier', date: '8 Februari 2025', time: '4 mnt baca', icon: 'fa-file-word', desc: 'CV profesional bukan sekadar daftar riwayat hidup, tapi dokumen pemasaran diri. Gunakan bahasa yang formal dan tata letak yang rapi.' },
   { id: 'panduan-perubahan-karier-tantangan', cat: 'Panduan Karier', title: 'Panduan Menghadapi Perubahan Karier dan Tantangan Dunia Kerja', date: '12 Februari 2025', time: '5 mnt baca', icon: 'fa-shuffle', desc: 'Pindah jalur karier (career change) membutuhkan keberanian dan persiapan dokumen yang matang. Sesuaikan CV Anda dengan industri baru.' },
   { id: 'cara-membangun-pengalaman-kerja-karier', cat: 'Panduan Karier', title: 'Cara Membangun Pengalaman Kerja untuk Mengembangkan Karier', date: '15 Februari 2025', time: '4 mnt baca', icon: 'fa-building-columns', desc: 'Jika belum punya pengalaman, mulailah dengan proyek freelance atau volunteer. Ini sangat berharga di mata HRD.' },
@@ -1064,7 +1072,7 @@ var _r2='width:50%;vertical-align:top;padding-left:3mm;word-break:break-word;';
 function v(id){var el=document.getElementById(id);return el?el.value:''}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function toast(msg,type){type=type||'success';var d=document.createElement('div');d.className='toast-item '+type;d.textContent=msg;document.getElementById('toast-box').appendChild(d);requestAnimationFrame(function(){d.classList.add('show')});setTimeout(function(){d.classList.remove('show');setTimeout(function(){d.remove()},300)},2800)}
-function applyPageStyle(){var p=document.getElementById('a4-page');if(p)p.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH;var pm=document.getElementById('a4-page-mob');if(pm)pm.style.cssText='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH}
+function applyPageStyle(){} 
 function schedulePreview(){if(_rpTimer)clearTimeout(_rpTimer);_rpTimer=setTimeout(renderPreview,60)}
 function updateVH(){document.documentElement.style.setProperty('--avh',window.innerHeight+'px')}
 function L(key){return key}
@@ -1092,7 +1100,7 @@ function photoH(){return'<div class="card"><label class="fl flex items-center ga
 
 function settingsH(){
   var h='<div class="card space-y-4"><div class="fl flex items-center gap-1.5"><i class="fa-solid fa-sliders text-brand-red text-xs"></i> Pengaturan Tampilan</div>';
-  h+='<div><label class="fl-sub" for="font-sel">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;applyPageStyle();renderPreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';applyPageStyle();schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;applyPageStyle();schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>';
+  h+='<div><label class="fl-sub" for="font-sel">Font Dokumen</label><select id="font-sel" class="fi" onchange="selFont=this.value;schedulePreview()"><option value="Arial"'+(selFont==='Arial'?' selected':'')+'>Arial</option><option value="Times New Roman"'+(selFont==='Times New Roman'?' selected':'')+'>Times New Roman</option><option value="Calibri"'+(selFont==='Calibri'?' selected':'')+'>Calibri</option></select></div><div><label class="fl-sub">Ukuran Font</label><div class="flex items-center gap-3"><input type="range" min="10" max="16" step="0.5" value="'+selSize+'" oninput="selSize=parseFloat(this.value);document.getElementById(\'sz-v\').textContent=this.value+\'pt\';schedulePreview()"><span id="sz-v" class="fl-sub" style="width:40px;text-align:right">'+selSize+'pt</span></div></div><div><label class="fl-sub">Jarak Baris</label><div class="flex items-center gap-3"><input type="range" min="1.2" max="2.0" step="0.1" value="'+selLH+'" oninput="selLH=parseFloat(this.value);document.getElementById(\'lh-v\').textContent=this.value;schedulePreview()"><span id="lh-v" class="fl-sub" style="width:24px;text-align:right">'+selLH+'</span></div></div></div>';
   return h; 
 }
 
@@ -1578,8 +1586,62 @@ function renderSuratP() {
   return tw + hl + at + body + ttd;
 }
 
+// =====================================================================
+// LOGIKA PEMECAH HALAMAN PREVIEW MULTI-A4
+// =====================================================================
+function paginatePreview(htmlString) {
+    var offscreen = document.getElementById('pdf-offscreen');
+    var pageStyle = 'font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';';
+    // Lebar konten di dalam A4 adalah 210mm - 32mm (padding 16mm kiri kanan) = 178mm
+    offscreen.innerHTML = '<div id="dummy-paginator" style="'+pageStyle+'width:178mm;visibility:hidden;position:absolute;left:-9999px;top:0;">'+htmlString+'</div>';
+    
+    var dummy = document.getElementById('dummy-paginator');
+    if(!dummy) return;
+    
+    var children = Array.from(dummy.childNodes);
+    var pageHeightPx = 297 * 3.7795275591; // 1mm = 3.7795275591px
+    var paddingPx = 24 * 3.7795275591; // 12mm top + 12mm bottom
+    var contentLimitPx = pageHeightPx - paddingPx; 
+    
+    var pagesHtml = [];
+    var currentPageNodes = [];
+    var currentHeight = 0;
+    
+    for (var i = 0; i < children.length; i++) {
+        var node = children[i];
+        if (node.nodeType === 1) {
+            var h = node.getBoundingClientRect().height;
+            if (currentHeight + h > contentLimitPx && currentPageNodes.length > 0) {
+                pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML; }).join(''));
+                currentPageNodes = [node];
+                currentHeight = h;
+            } else {
+                currentPageNodes.push(node);
+                currentHeight += h;
+            }
+        } else if (node.nodeType === 3 && node.textContent.trim() !== '') {
+            currentPageNodes.push(node);
+        }
+    }
+    if (currentPageNodes.length > 0) {
+        pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML || n.textContent; }).join(''));
+    }
+    
+    offscreen.innerHTML = '';
+    
+    if (pagesHtml.length === 0) pagesHtml.push('');
+    
+    var finalHtml = pagesHtml.map(function(p) {
+        return '<div class="a4-page" style="'+pageStyle+'">'+p+'</div>';
+    }).join('');
+    
+    var p = document.getElementById('a4-page');
+    var pm = document.getElementById('a4-page-mob');
+    if(p) p.innerHTML = finalHtml;
+    if(pm) pm.innerHTML = finalHtml;
+}
+
 function renderPreview() {
-  applyPageStyle();
   var html = '';
   if(curCat === 'cv') {
     if(curTpl === 'cv1') html = renderCV1();
@@ -1589,10 +1651,7 @@ function renderPreview() {
   } else {
     html = renderSuratP();
   }
-  var p = document.getElementById('a4-page');
-  var pm = document.getElementById('a4-page-mob');
-  if(p) p.innerHTML = html;
-  if(pm) pm.innerHTML = html;
+  paginatePreview(html);
 }
 
 function handlePhoto(event) {
@@ -1729,7 +1788,7 @@ function downloadPDF() {
   } else { 
     html = renderSuratP(); 
   }
-  element.innerHTML = '<div class="a4-page" style="overflow:visible;font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;">'+html+'</div>';
+  element.innerHTML = '<div class="a4-page" style="overflow:visible;font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';width:210mm;min-height:297mm;background:#fff;color:#000;padding:12mm 16mm;box-sizing:border-box;margin:0;">'+html+'</div>';
   
   var btn = document.getElementById('btn-pdf');
   if(btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5 text-xs"></i>Memproses...'; }
@@ -1763,7 +1822,7 @@ function downloadWord() {
   var html = '';
   if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); }
   html = html.replace(/object-fit:\s*cover;?/g, '');
-  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 3pt solid #000; padding-bottom: 2.82mm; margin-bottom: 2.82mm; margin-top: 3.53mm; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
+  var style = '<style>body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; }table { width: 100%; border-collapse: collapse; border: none; }td { vertical-align: top; border: none; }.st { font-weight: 700; border-bottom: 2pt solid #000; padding-bottom: 1.5mm; margin-bottom: 2mm; margin-top: 4mm; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>';
   var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>";
   var footer = "</body></html>";
   var sourceHTML = header + html + footer;
@@ -2018,15 +2077,6 @@ window.addEventListener('load', function() {
   if(hash && document.getElementById('view-' + hash)) { showPage(hash); }
 });
 window.addEventListener('resize', updateVH);
-
-// Inject html2pdf dynamically if not present
-(function() {
-  if (!window.html2pdf) {
-    var script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-    document.head.appendChild(script);
-  }
-})();
 </script>
 </body>
 </html>
