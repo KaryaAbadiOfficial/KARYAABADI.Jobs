@@ -327,7 +327,7 @@
     </section>
     <section class="mt-16 text-center bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-2xl p-8 md:p-12" aria-label="Ajakan Bertindak">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Mulai Persiapan Lamaran Kerja Anda Hari Ini</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang penting.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang important.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">Buat CV Gratis</button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white dark:bg-brand-dark border-2 border-brand-red text-brand-red font-bold rounded-xl hover:bg-brand-red hover:text-white transition text-center leading-tight">Buat Surat Lamaran</button>
@@ -642,7 +642,7 @@ if(PR){
 }
 h+='</td></tr></table>';
 
-function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style="border:none;vertical-align:top;">'+L(l)+'</td><td class="dc" style="border:none;vertical-align:top;">:</td><td style="border:none;vertical-align:top;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?a1:'')+(a1&&a2?'<br>':'')+(a2?a2:''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);
+function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style="border:none;vertical-align:top;">'+L(l)+'</td><td class="dc" style="border:none;vertical-align:top;">:</td><td style="border:none;vertical-align:top;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?a1:'')+(a1&&a2?'<br>':'')+(a2?a2:''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);
 
 var firstStyle = cv1FirstApplied ? '' : 'margin-top: '+cv1FirstMargin+';';
 if(rows){ h+='<div class="sec-wrap" style="break-inside: avoid; '+firstStyle+'"><div class="st">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'; cv1FirstApplied=true; }
@@ -673,7 +673,7 @@ if(fi){
 } else { 
     h+='<td colspan="2" style="vertical-align:top; text-align:center; padding:0; border:none;">'; 
 }
-if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+al1+'</div>';if(al2)h+='<div>'+al2+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
+if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+al1+'</div>';if(al2)h+='<div>'+al2+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
 h+='</td></tr></table>';
 
 var firstStyle = cv2FirstApplied ? '' : 'margin-top: '+cv2FirstMargin+';';
@@ -703,7 +703,7 @@ function renderCV3(){
   var ls='<div class="cv3-foto-wrap">'+fotoImg()+'</div>';
   if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';
   if(SUB)ls+='<div style="color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';
-  ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL); ls+=di('Jenis Kelamin',esc(JK),JK); ls+=di('Bangsa',esc(BN),BN); ls+=di('Agama',esc(AG),AG); ls+=di('Tinggi badan',esc(TB)+' cm',TB); ls+=di('Berat badan',esc(BB)+' kg',BB); ls+=di('No. HP',esc(HP),HP); ls+=di('Status',esc(ST),ST); ls+=di('Email',esc(EM),EM);
+  ls+=diNoWrap('Tempat, Tanggal Lahir',esc(TTL),TTL); ls+=di('Jenis Kelamin',esc(JK),JK); ls+=di('Agama',esc(AG),AG); ls+=di('Tinggi badan',esc(TB)+' cm',TB); ls+=di('Berat badan',esc(BB)+' kg',BB); ls+=di('No. HP',esc(HP),HP); ls+=di('Status',esc(ST),ST); ls+=di('Email',esc(EM),EM);
   if(ap.length)ls+=di('Alamat',ap.map(function(l){return '<div>'+esc(l)+'</div>'}).join(''),'1');
   var rs='';
   if(PR){rs+='<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;margin-bottom:3mm;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div></div>'}
