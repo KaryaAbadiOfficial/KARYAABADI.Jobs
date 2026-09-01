@@ -62,7 +62,6 @@
         .view { display: none; }
         .view.active { display: block; }
 
-        /* ====== Halaman A4 ====== */
         .a4-page{
             width:210mm;
             min-height:297mm;
@@ -99,7 +98,6 @@
         .a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; }
         .dp-t td{padding:.6mm 0}.dp-t .dl{width:48mm;white-space:nowrap}.dp-t .dc{width:3mm;text-align:center}
 
-        /* ====== Komponen CV ====== */
         .cv-foto{width:30mm;height:40mm;display:block}
         .cv-name{font-size:16pt;font-weight:800;letter-spacing:.4px;line-height:1.2}
         .cv-role{font-size:10.5pt;text-transform:uppercase;letter-spacing:1.6px;color:#DC2626;font-weight:700;margin-top:1mm}
@@ -120,14 +118,15 @@
         .skl-t td{width:50%;padding:.5mm 0 !important;font-size:10pt;vertical-align:top}
         .skl-dot{display:inline-block;width:2mm;height:2mm;background:#000;border-radius:50%;margin-right:2mm;vertical-align:1pt}
 
-        /* CV 2 : jarak bagian Profil dirapatkan ke bawah foto */
-        .cv2-head{text-align:center;border-bottom:1.2pt solid #000;padding-bottom:2.5mm;margin-bottom:1.5mm}
-        .cv2-foto{margin:0 auto 2mm auto}
-        .cv2-name{font-size:17pt}
-        .cv2-contact{font-size:9.5pt;color:#333;margin-top:1.5mm}
-        .cv2-profile{margin-top:0}
+        /* CV 2 : Profil dirapatkan ke bawah foto */
+        .cv2-head{text-align:center;border-bottom:1.2pt solid #000;padding-bottom:1.5mm;margin-bottom:0.8mm}
+        .cv2-foto{margin:0 auto 1mm auto;display:block}
+        .cv2-name{font-size:17pt;margin-top:0.5mm}
+        .cv2-contact{font-size:9.5pt;color:#333;margin-top:1mm}
+        .cv2-profile{margin-top:1.5mm !important;margin-bottom:5mm !important}
+        .cv2-profile .st{margin-bottom:2mm}
+        .cv2-profile p{margin-bottom:0}
 
-        /* CV 3 : dua kolom */
         .cv3-layout { border-collapse: collapse !important; width: 100% !important; table-layout: fixed; }
         .cv3-left-col {
             width: 40% !important; vertical-align: top !important; padding-right: 6mm !important;
@@ -150,7 +149,6 @@
         .cv3-srow{margin-bottom:2mm;font-size:9.5pt;line-height:1.45}
         .cv3-srow b{display:block;font-size:7.5pt;text-transform:uppercase;letter-spacing:.5px;color:#555}
 
-        /* CV 4 : aksen merah */
         .cv4-head{border-bottom:2.5pt solid #DC2626;padding-bottom:4mm}
         .cv4-t{width:100%}
         .cv4-t td{vertical-align:middle !important;padding:0 !important}
@@ -158,7 +156,6 @@
         .cv4-foto-td{width:34mm;text-align:right}
         .cv4-contact{font-size:9.5pt;color:#333;margin-top:2mm}
 
-        /* Surat lamaran */
         .sr-sender{margin-bottom:6mm;line-height:1.5}
         .sr-date{text-align:right;margin-bottom:6mm}
         .sr-rcpt{margin-bottom:5mm;line-height:1.5}
@@ -168,7 +165,6 @@
         .sr-sign{margin-top:8mm;line-height:1.5}
         .sr-sign-space{height:18mm}
 
-        /* ====== Preview A4 ====== */
         #preview-wrap { position: relative; overflow: auto; cursor: grab; }
         #preview-wrap:active { cursor: grabbing; }
         #preview-wrap-mob { position: relative; overflow: auto; cursor: grab; touch-action: none; }
@@ -180,7 +176,6 @@
             border: 1.5px dashed #DC2626; opacity: 0.6; pointer-events: none; z-index: 0;
         }
 
-        /* ====== Halaman contoh ====== */
         .contoh-label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
         .contoh-name{font-size:15px;font-weight:800;color:#DC2626}
         .contoh-desc{font-size:11px;color:#6b7280;font-weight:600}
@@ -218,7 +213,6 @@
         .sk-row{display:flex;gap:8px;align-items:center}
         .sk-row .fi{flex:1}
 
-        /* ====== Pemilih template ====== */
         #tpl-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
         .tpl-btn{padding:9px 4px;border-radius:10px;border:1.5px solid #e5e7eb;font-size:12.5px;font-weight:700;color:#6b7280;background:#fff;cursor:pointer;transition:all .15s;text-align:center}
         .tpl-btn:hover{border-color:#DC2626;color:#DC2626}
@@ -227,7 +221,6 @@
         .dark .tpl-btn:hover{border-color:#DC2626;color:#e5e5e5}
         .dark .tpl-btn.active{background:#DC2626;color:#fff;border-color:#DC2626}
 
-        /* ====== Kotak Panduan ====== */
         .guide-box{padding:0;overflow:hidden;border-color:rgba(220,38,38,.35)}
         .guide-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:11px 14px;background:transparent;border:none;cursor:pointer;text-align:left}
         .guide-ico{width:30px;height:30px;border-radius:9px;background:rgba(220,38,38,.1);color:#DC2626;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
@@ -241,7 +234,6 @@
         .dark .guide-list li{color:#cbd5e1}
         .guide-list li::before{content:counter(gs);position:absolute;left:0;top:2px;width:17px;height:17px;border-radius:50%;background:rgba(220,38,38,.1);color:#DC2626;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
 
-        /* ====== Entri formulir dinamis (bisa digeser) ====== */
         .dyn-entry{border:1.5px solid #e5e7eb;border-radius:12px;padding:10px;background:#fff;display:flex;flex-direction:column;gap:8px}
         .dark .dyn-entry{background:#151515;border-color:#2a2a2a}
         .dyn-head{display:flex;align-items:center;gap:8px}
@@ -272,7 +264,7 @@
         .dark .form-sec{border-bottom-color:#2a2a2a}
         .form-sec::before{content:'';width:3px;height:14px;background:#DC2626;border-radius:2px;flex-shrink:0}
         .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
-        .dark .card{background:#1A1A1A;border-color:#2a2a2a}
+        .dark .card{background:#1A1A1A;border-color:#2A2A2A}
         .fp-scroll{max-height:calc(var(--avh) - 220px);min-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
         @media(min-width:1024px){.fp-scroll{max-height:calc(var(--avh) - 150px)}}
         .pv-scroll{max-height:calc(var(--avh) - 150px);overflow:hidden;display:flex;flex-direction:column}
@@ -311,7 +303,6 @@
         .dark .article-meta { color: #9ca3af; border-bottom-color: #2a2a2a; }
         .article-meta span { display: flex; align-items: center; gap: 0.5rem; }
 
-        /* ====== Lampiran / gabung PDF ====== */
         .lampiran-upload-area { border: 2.5px dashed #d1d5db; border-radius: 14px; padding: 36px 20px; text-align: center; cursor: pointer; transition: all .2s; background: #f9fafb; position: relative; }
         .dark .lampiran-upload-area { background: #151515; border-color: #2a2a2a; }
         .lampiran-upload-area.dragover { border-color: #DC2626; background: #fee2e2; }
@@ -608,18 +599,12 @@
   </div>
 </footer>
 
-<!-- Kontainer tersembunyi (di level body agar pengukuran halaman selalu akurat) -->
 <div id="pdf-offscreen" style="position:absolute;left:-9999px;top:0;z-index:-9999;pointer-events:none;overflow:visible;width:210mm;" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <script>
-/* ================================================================
-   KARYA ABADI JOBS - Skrip Utama
-   ================================================================ */
-
-/* ---------- Utilitas dasar ---------- */
 function $(id){ return document.getElementById(id); }
 function esc(s){
   return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -678,7 +663,6 @@ function readFileAsDataURL(file){
     r.readAsDataURL(file);
   });
 }
-/* Potong gambar ke rasio tertentu (misal pas foto 3:4) */
 function cropToRatio(img,rw,rh,maxW){
   var iw=img.naturalWidth||img.width||1, ih=img.naturalHeight||img.height||1;
   var target=rw/rh, sw=iw, sh=ih, sx=0, sy=0;
@@ -692,7 +676,6 @@ function cropToRatio(img,rw,rh,maxW){
   return {url:c.toDataURL('image/jpeg',0.9),w:dw,h:dh};
 }
 
-/* ---------- Navigasi & tampilan ---------- */
 var VIEWS=['home','generator','lampiran','panduan-karier','tips-kerja','contoh-cv','contoh-surat','dynamic-article','about','contact'];
 var currentPage='home';
 function showPage(id){
@@ -741,7 +724,6 @@ function closeMobileMenu(){
   var mb=$('menu-btn'); if(mb) mb.setAttribute('aria-expanded','false');
 }
 
-/* ---------- Kotak Panduan (di atas formulir) ---------- */
 function guideBox(id,title,items){
   var lis='';
   for(var i=0;i<items.length;i++){ lis+='<li>'+items[i]+'</li>'; }
@@ -808,7 +790,6 @@ function renderSuratGuide(){
   }
 }
 
-/* ---------- Generator: kategori & template ---------- */
 var TPL_DEFS=[
   {id:'cv1',label:'CV 1',desc:'Klasik - foto kiri, tabel data lengkap'},
   {id:'cv2',label:'CV 2',desc:'Simetris - foto tengah, tampilan formal'},
@@ -862,64 +843,40 @@ function renderForm(){
   else renderSuratForm(suratStateCache);
 }
 
-/* ---------- Formulir CV ---------- */
 function renderCvForm(state){
   var s=state||{pengalaman:[],pendidikan:[],keahlian:[]};
   cvPhoto=s.foto||null;
   var fc=$('form-content');
-  fc.innerHTML=`
-    <div class="mb-1">${guideBox('guide-cv','Panduan Cara Mengisi Formulir CV',CV_GUIDE)}</div>
-    <div class="form-sec mt-3">Data Diri</div>
-    <div class="card">
-      <div class="flex gap-3 items-center">
-        <div class="w-[60px] h-[80px] rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-800 flex-shrink-0">
-          <img id="cv-photo-img" class="w-full h-full object-cover hidden" alt="Foto profil">
-          <i id="cv-photo-ico" class="fa-solid fa-user text-gray-300 dark:text-gray-600 text-xl"></i>
-        </div>
-        <div class="flex-1 flex flex-col gap-2 min-w-0">
-          <input type="file" id="cv-foto" accept="image/jpeg,image/jpg,image/png" class="hidden" onchange="onPhotoPicked(event)">
-          <button type="button" onclick="document.getElementById('cv-foto').click()" class="w-full py-2 text-xs font-bold rounded-lg border border-gray-200 dark:border-brand-border text-gray-600 dark:text-gray-300 hover:border-brand-red hover:text-brand-red transition"><i class="fa-solid fa-camera mr-1.5"></i>Pilih Foto (opsional)</button>
-          <button type="button" id="btn-photo-rm" onclick="removePhoto()" class="hidden w-full py-2 text-xs font-bold rounded-lg border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-red-400 hover:text-red-500 transition"><i class="fa-solid fa-trash-can mr-1.5"></i>Hapus Foto</button>
-        </div>
-      </div>
-      <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">Gambar akan dipotong otomatis ke rasio pas foto 3:4.</p>
-    </div>
-    <div><label class="fl" for="cv-nama">Nama Lengkap</label><input id="cv-nama" class="fi" placeholder="cth: Andi Pratama" value="${esc(s.nama||'')}"></div>
-    <div><label class="fl" for="cv-posisi">Posisi / Bidang yang Dilamar</label><input id="cv-posisi" class="fi" placeholder="cth: Staff Administrasi" value="${esc(s.posisi||'')}"></div>
-    <div><label class="fl" for="cv-alamat">Alamat</label><input id="cv-alamat" class="fi" placeholder="cth: Jl. Melati No. 12, Bandung" value="${esc(s.alamat||'')}"></div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="cv-telp">No. Telepon / WA</label><input id="cv-telp" class="fi" placeholder="0812-3456-7890" value="${esc(s.telp||'')}"></div>
-      <div><label class="fl" for="cv-email">Email</label><input id="cv-email" class="fi" placeholder="nama@email.com" value="${esc(s.email||'')}"></div>
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="cv-tempat-lahir">Tempat Lahir</label><input id="cv-tempat-lahir" class="fi" placeholder="cth: Bandung" value="${esc(s.tempatLahir||'')}"></div>
-      <div><label class="fl" for="cv-tgl-lahir">Tanggal Lahir</label><input id="cv-tgl-lahir" type="date" class="fi" value="${esc(s.tanggalLahir||'')}"></div>
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="cv-jk">Jenis Kelamin</label><select id="cv-jk" class="fi"><option value="">- Pilih -</option><option>Laki-laki</option><option>Perempuan</option></select></div>
-      <div><label class="fl" for="cv-kwn">Kewarganegaraan (Bangsa)</label><input id="cv-kwn" class="fi" placeholder="Indonesia" value="${esc(s.kwn!==undefined?s.kwn:'Indonesia')}"></div>
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="cv-agama">Agama</label><select id="cv-agama" class="fi"><option value="">- Pilih -</option><option>Islam</option><option>Kristen Protestan</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Khonghucu</option></select></div>
-      <div><label class="fl" for="cv-status">Status Perkawinan</label><select id="cv-status" class="fi"><option value="">- Pilih -</option><option>Belum Menikah</option><option>Menikah</option></select></div>
-    </div>
-    <div class="form-sec">Profil Singkat</div>
-    <div><textarea id="cv-profil" class="fi" rows="4" placeholder="Tuliskan ringkasan tentang diri Anda, keahlian utama, dan tujuan karier...">${esc(s.profil||'')}</textarea></div>
-    <div class="form-sec">Pengalaman Kerja</div>
-    <div class="lampiran-hint"><i class="fa-solid fa-hand-pointer text-brand-red text-[10px]"></i>Tarik tombol <i class="fa-solid fa-grip-vertical text-brand-red"></i> atau gunakan tombol panah untuk mengatur urutan pengalaman kerja.</div>
-    <div id="pengalaman-list" class="space-y-3">
-      <div class="dyn-empty text-xs text-gray-400 dark:text-gray-500 text-center py-3 border border-dashed border-gray-200 dark:border-brand-border rounded-xl">Belum ada pengalaman kerja. Klik tombol di bawah untuk menambahkan.</div>
-    </div>
-    <button type="button" class="add-entry-btn mt-1" onclick="addPengalamanEntry()"><i class="fa-solid fa-plus mr-1.5"></i>Tambah Pengalaman Kerja</button>
-    <div class="form-sec">Riwayat Pendidikan</div>
-    <div id="pendidikan-list" class="space-y-3">
-      <div class="dyn-empty text-xs text-gray-400 dark:text-gray-500 text-center py-3 border border-dashed border-gray-200 dark:border-brand-border rounded-xl">Belum ada riwayat pendidikan. Klik tombol di bawah untuk menambahkan.</div>
-    </div>
-    <button type="button" class="add-entry-btn mt-1" onclick="addPendidikanEntry()"><i class="fa-solid fa-plus mr-1.5"></i>Tambah Pendidikan</button>
-    <div class="form-sec">Keahlian</div>
-    <div id="skill-list" class="space-y-2"></div>
-    <button type="button" class="add-entry-btn mt-1" onclick="addSkillRow()"><i class="fa-solid fa-plus mr-1.5"></i>Tambah Keahlian</button>
-  `;
+  fc.innerHTML='<div class="mb-1">'+guideBox('guide-cv','Panduan Cara Mengisi Formulir CV',CV_GUIDE)+'</div>'+
+    '<div class="form-sec mt-3">Data Diri</div>'+
+    '<div class="card"><div class="flex gap-3 items-center">'+
+    '<div class="w-[60px] h-[80px] rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-800 flex-shrink-0">'+
+    '<img id="cv-photo-img" class="w-full h-full object-cover hidden" alt="Foto profil">'+
+    '<i id="cv-photo-ico" class="fa-solid fa-user text-gray-300 dark:text-gray-600 text-xl"></i></div>'+
+    '<div class="flex-1 flex flex-col gap-2 min-w-0">'+
+    '<input type="file" id="cv-foto" accept="image/jpeg,image/jpg,image/png" class="hidden" onchange="onPhotoPicked(event)">'+
+    '<button type="button" onclick="document.getElementById(\'cv-foto\').click()" class="w-full py-2 text-xs font-bold rounded-lg border border-gray-200 dark:border-brand-border text-gray-600 dark:text-gray-300 hover:border-brand-red hover:text-brand-red transition"><i class="fa-solid fa-camera mr-1.5"></i>Pilih Foto (opsional)</button>'+
+    '<button type="button" id="btn-photo-rm" onclick="removePhoto()" class="hidden w-full py-2 text-xs font-bold rounded-lg border border-gray-200 dark:border-brand-border text-gray-500 dark:text-gray-400 hover:border-red-400 hover:text-red-500 transition"><i class="fa-solid fa-trash-can mr-1.5"></i>Hapus Foto</button>'+
+    '</div></div><p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">Gambar akan dipotong otomatis ke rasio pas foto 3:4.</p></div>'+
+    '<div><label class="fl" for="cv-nama">Nama Lengkap</label><input id="cv-nama" class="fi" placeholder="cth: Andi Pratama" value="'+esc(s.nama||'')+'"></div>'+
+    '<div><label class="fl" for="cv-posisi">Posisi / Bidang yang Dilamar</label><input id="cv-posisi" class="fi" placeholder="cth: Staff Administrasi" value="'+esc(s.posisi||'')+'"></div>'+
+    '<div><label class="fl" for="cv-alamat">Alamat</label><input id="cv-alamat" class="fi" placeholder="cth: Jl. Melati No. 12, Bandung" value="'+esc(s.alamat||'')+'"></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="cv-telp">No. Telepon / WA</label><input id="cv-telp" class="fi" placeholder="0812-3456-7890" value="'+esc(s.telp||'')+'"></div><div><label class="fl" for="cv-email">Email</label><input id="cv-email" class="fi" placeholder="nama@email.com" value="'+esc(s.email||'')+'"></div></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="cv-tempat-lahir">Tempat Lahir</label><input id="cv-tempat-lahir" class="fi" placeholder="cth: Bandung" value="'+esc(s.tempatLahir||'')+'"></div><div><label class="fl" for="cv-tgl-lahir">Tanggal Lahir</label><input id="cv-tgl-lahir" type="date" class="fi" value="'+esc(s.tanggalLahir||'')+'"></div></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="cv-jk">Jenis Kelamin</label><select id="cv-jk" class="fi"><option value="">- Pilih -</option><option>Laki-laki</option><option>Perempuan</option></select></div><div><label class="fl" for="cv-kwn">Kewarganegaraan (Bangsa)</label><input id="cv-kwn" class="fi" placeholder="Indonesia" value="'+esc(s.kwn!==undefined?s.kwn:'Indonesia')+'"></div></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="cv-agama">Agama</label><select id="cv-agama" class="fi"><option value="">- Pilih -</option><option>Islam</option><option>Kristen Protestan</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Khonghucu</option></select></div><div><label class="fl" for="cv-status">Status Perkawinan</label><select id="cv-status" class="fi"><option value="">- Pilih -</option><option>Belum Menikah</option><option>Menikah</option></select></div></div>'+
+    '<div class="form-sec">Profil Singkat</div>'+
+    '<div><textarea id="cv-profil" class="fi" rows="4" placeholder="Tuliskan ringkasan tentang diri Anda, keahlian utama, dan tujuan karier...">'+esc(s.profil||'')+'</textarea></div>'+
+    '<div class="form-sec">Pengalaman Kerja</div>'+
+    '<div class="lampiran-hint"><i class="fa-solid fa-hand-pointer text-brand-red text-[10px]"></i>Tarik tombol <i class="fa-solid fa-grip-vertical text-brand-red"></i> atau gunakan tombol panah untuk mengatur urutan pengalaman kerja.</div>'+
+    '<div id="pengalaman-list" class="space-y-3"><div class="dyn-empty text-xs text-gray-400 dark:text-gray-500 text-center py-3 border border-dashed border-gray-200 dark:border-brand-border rounded-xl">Belum ada pengalaman kerja. Klik tombol di bawah untuk menambahkan.</div></div>'+
+    '<button type="button" class="add-entry-btn mt-1" onclick="addPengalamanEntry()"><i class="fa-solid fa-plus mr-1.5"></i>Tambah Pengalaman Kerja</button>'+
+    '<div class="form-sec">Riwayat Pendidikan</div>'+
+    '<div id="pendidikan-list" class="space-y-3"><div class="dyn-empty text-xs text-gray-400 dark:text-gray-500 text-center py-3 border border-dashed border-gray-200 dark:border-brand-border rounded-xl">Belum ada riwayat pendidikan. Klik tombol di bawah untuk menambahkan.</div></div>'+
+    '<button type="button" class="add-entry-btn mt-1" onclick="addPendidikanEntry()"><i class="fa-solid fa-plus mr-1.5"></i>Tambah Pendidikan</button>'+
+    '<div class="form-sec">Keahlian</div>'+
+    '<div id="skill-list" class="space-y-2"></div>'+
+    '<button type="button" class="add-entry-btn mt-1" onclick="addSkillRow()"><i class="fa-solid fa-plus mr-1.5"></i>Tambah Keahlian</button>';
   $('cv-jk').value=s.jk||'';
   $('cv-agama').value=s.agama||'';
   $('cv-status').value=s.status||'';
@@ -977,20 +934,7 @@ function addPengalamanEntry(data,silent){
   var list=$('pengalaman-list'); if(!list) return;
   var div=document.createElement('div');
   div.className='dyn-entry';
-  div.innerHTML=`
-    <div class="dyn-head">
-      <span class="drag-handle" title="Geser untuk mengatur urutan"><i class="fa-solid fa-grip-vertical"></i></span>
-      <span class="dyn-title">Pengalaman <span class="dyn-num">0</span></span>
-      <span class="flex gap-1.5 ml-auto">
-        <button type="button" class="dyn-mini" onclick="moveEntry(this,-1)" title="Naikkan urutan"><i class="fa-solid fa-arrow-up"></i></button>
-        <button type="button" class="dyn-mini" onclick="moveEntry(this,1)" title="Turunkan urutan"><i class="fa-solid fa-arrow-down"></i></button>
-        <button type="button" class="dyn-rm" onclick="removeEntry(this)" title="Hapus pengalaman"><i class="fa-solid fa-xmark"></i></button>
-      </span>
-    </div>
-    <input class="fi pe-posisi" placeholder="Posisi / Jabatan, cth: Staff Administrasi" value="${esc(data?data.posisi:'')}">
-    <input class="fi pe-perusahaan" placeholder="Nama Perusahaan" value="${esc(data?data.perusahaan:'')}">
-    <input class="fi pe-periode" placeholder="Periode, cth: Jan 2022 - Sekarang" value="${esc(data?data.periode:'')}">
-    <textarea class="fi pe-deskripsi" rows="2" placeholder="Deskripsi tugas, tanggung jawab, atau pencapaian">${esc(data?data.deskripsi:'')}</textarea>`;
+  div.innerHTML='<div class="dyn-head"><span class="drag-handle" title="Geser untuk mengatur urutan"><i class="fa-solid fa-grip-vertical"></i></span><span class="dyn-title">Pengalaman <span class="dyn-num">0</span></span><span class="flex gap-1.5 ml-auto"><button type="button" class="dyn-mini" onclick="moveEntry(this,-1)" title="Naikkan urutan"><i class="fa-solid fa-arrow-up"></i></button><button type="button" class="dyn-mini" onclick="moveEntry(this,1)" title="Turunkan urutan"><i class="fa-solid fa-arrow-down"></i></button><button type="button" class="dyn-rm" onclick="removeEntry(this)" title="Hapus pengalaman"><i class="fa-solid fa-xmark"></i></button></span></div><input class="fi pe-posisi" placeholder="Posisi / Jabatan, cth: Staff Administrasi" value="'+esc(data?data.posisi:'')+'"><input class="fi pe-perusahaan" placeholder="Nama Perusahaan" value="'+esc(data?data.perusahaan:'')+'"><input class="fi pe-periode" placeholder="Periode, cth: Jan 2022 - Sekarang" value="'+esc(data?data.periode:'')+'"><textarea class="fi pe-deskripsi" rows="2" placeholder="Deskripsi tugas, tanggung jawab, atau pencapaian">'+esc(data?data.deskripsi:'')+'</textarea>';
   list.appendChild(div);
   renumberDyn();
   if(!silent) updatePreview();
@@ -999,22 +943,7 @@ function addPendidikanEntry(data,silent){
   var list=$('pendidikan-list'); if(!list) return;
   var div=document.createElement('div');
   div.className='dyn-entry';
-  div.innerHTML=`
-    <div class="dyn-head">
-      <span class="drag-handle" title="Geser untuk mengatur urutan"><i class="fa-solid fa-grip-vertical"></i></span>
-      <span class="dyn-title">Pendidikan <span class="dyn-num">0</span></span>
-      <span class="flex gap-1.5 ml-auto">
-        <button type="button" class="dyn-mini" onclick="moveEntry(this,-1)" title="Naikkan urutan"><i class="fa-solid fa-arrow-up"></i></button>
-        <button type="button" class="dyn-mini" onclick="moveEntry(this,1)" title="Turunkan urutan"><i class="fa-solid fa-arrow-down"></i></button>
-        <button type="button" class="dyn-rm" onclick="removeEntry(this)" title="Hapus pendidikan"><i class="fa-solid fa-xmark"></i></button>
-      </span>
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-      <input class="fi pd-jenjang" placeholder="Jenjang, cth: SMA/SMK, D3, S1" value="${esc(data?data.jenjang:'')}">
-      <input class="fi pd-tahun" placeholder="Tahun, cth: 2018 - 2021" value="${esc(data?data.tahun:'')}">
-    </div>
-    <input class="fi pd-institusi" placeholder="Nama Sekolah / Kampus" value="${esc(data?data.institusi:'')}">
-    <input class="fi pd-jurusan" placeholder="Jurusan (opsional)" value="${esc(data?data.jurusan:'')}">`;
+  div.innerHTML='<div class="dyn-head"><span class="drag-handle" title="Geser untuk mengatur urutan"><i class="fa-solid fa-grip-vertical"></i></span><span class="dyn-title">Pendidikan <span class="dyn-num">0</span></span><span class="flex gap-1.5 ml-auto"><button type="button" class="dyn-mini" onclick="moveEntry(this,-1)" title="Naikkan urutan"><i class="fa-solid fa-arrow-up"></i></button><button type="button" class="dyn-mini" onclick="moveEntry(this,1)" title="Turunkan urutan"><i class="fa-solid fa-arrow-down"></i></button><button type="button" class="dyn-rm" onclick="removeEntry(this)" title="Hapus pendidikan"><i class="fa-solid fa-xmark"></i></button></span></div><div class="grid grid-cols-2 gap-2"><input class="fi pd-jenjang" placeholder="Jenjang, cth: SMA/SMK, D3, S1" value="'+esc(data?data.jenjang:'')+'"><input class="fi pd-tahun" placeholder="Tahun, cth: 2018 - 2021" value="'+esc(data?data.tahun:'')+'"></div><input class="fi pd-institusi" placeholder="Nama Sekolah / Kampus" value="'+esc(data?data.institusi:'')+'"><input class="fi pd-jurusan" placeholder="Jurusan (opsional)" value="'+esc(data?data.jurusan:'')+'">';
   list.appendChild(div);
   renumberDyn();
   if(!silent) updatePreview();
@@ -1023,7 +952,7 @@ function addSkillRow(val,silent){
   var list=$('skill-list'); if(!list) return;
   var row=document.createElement('div');
   row.className='sk-row';
-  row.innerHTML=`<input class="fi sk-val" placeholder="cth: Microsoft Excel" value="${esc(val||'')}"><button type="button" class="sk-rm" onclick="removeSkillRow(this)" title="Hapus keahlian"><i class="fa-solid fa-xmark"></i></button>`;
+  row.innerHTML='<input class="fi sk-val" placeholder="cth: Microsoft Excel" value="'+esc(val||'')+'"><button type="button" class="sk-rm" onclick="removeSkillRow(this)" title="Hapus keahlian"><i class="fa-solid fa-xmark"></i></button>';
   list.appendChild(row);
   if(!silent) updatePreview();
 }
@@ -1098,7 +1027,6 @@ function collectCvData(){
   };
 }
 
-/* ---------- Formulir Surat Lamaran ---------- */
 function suratDefaults(){
   var t=new Date();
   function pad(n){ return (n<10?'0':'')+n; }
@@ -1114,44 +1042,23 @@ function suratDefaults(){
 function renderSuratForm(state){
   var s=state||suratDefaults();
   var fc=$('form-content');
-  fc.innerHTML=`
-    <div class="mb-1" id="surat-guide-box"></div>
-    <div class="form-sec mt-3">Data Pelamar</div>
-    <div><label class="fl" for="su-nama">Nama Lengkap</label><input id="su-nama" class="fi" placeholder="cth: Rina Kusuma" value="${esc(s.nama||'')}"></div>
-    <div><label class="fl" for="su-alamat">Alamat</label><textarea id="su-alamat" class="fi" rows="2" placeholder="Jl. ... No. ..., Kota">${esc(s.alamat||'')}</textarea></div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="su-telp">No. Telepon / WA</label><input id="su-telp" class="fi" placeholder="0812-...." value="${esc(s.telp||'')}"></div>
-      <div><label class="fl" for="su-email">Email</label><input id="su-email" class="fi" placeholder="nama@email.com" value="${esc(s.email||'')}"></div>
-    </div>
-    <div class="form-sec">Surat &amp; Perusahaan Tujuan</div>
-    <div>
-      <label class="fl" for="su-format">Format Surat</label>
-      <select id="su-format" class="fi">
-        <option value="formal">Formal - Siap Cetak</option>
-        <option value="email">Email Lamaran</option>
-      </select>
-      <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-1">Panduan pengisian di atas formulir akan menyesuaikan format yang Anda pilih.</p>
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="su-kota">Kota Penulisan Surat</label><input id="su-kota" class="fi" placeholder="cth: Bandung" value="${esc(s.kota||'')}"></div>
-      <div><label class="fl" for="su-tanggal">Tanggal Surat</label><input id="su-tanggal" type="date" class="fi" value="${esc(s.tanggal||'')}"></div>
-    </div>
-    <div><label class="fl" for="su-perusahaan">Nama Perusahaan Tujuan</label><input id="su-perusahaan" class="fi" placeholder="cth: PT Maju Bersama" value="${esc(s.perusahaan||'')}"></div>
-    <div><label class="fl" for="su-alamat-pt">Alamat Perusahaan</label><textarea id="su-alamat-pt" class="fi" rows="2" placeholder="Jl. ... No. ..., Kota">${esc(s.alamatPt||'')}</textarea></div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="su-up">Perhatian (u.p.)</label><input id="su-up" class="fi" placeholder="HRD" value="${esc(s.up||'')}"></div>
-      <div><label class="fl" for="su-posisi">Posisi yang Dilamar</label><input id="su-posisi" class="fi" placeholder="cth: Staff Administrasi" value="${esc(s.posisi||'')}"></div>
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-      <div><label class="fl" for="su-sumber">Sumber Info Lowongan</label><input id="su-sumber" class="fi" placeholder="cth: situs lowongan kerja" value="${esc(s.sumber||'')}"></div>
-      <div><label class="fl" for="su-lampiran">Lampiran</label><input id="su-lampiran" class="fi" placeholder="1 (satu) berkas" value="${esc(s.lampiran||'')}"></div>
-    </div>
-    <div class="form-sec">Isi Surat</div>
-    <div><label class="fl" for="su-p1">Paragraf Pembuka</label><textarea id="su-p1" class="fi" rows="3">${esc(s.p1||'')}</textarea></div>
-    <div><label class="fl" for="su-p2">Paragraf Isi</label><textarea id="su-p2" class="fi" rows="3">${esc(s.p2||'')}</textarea></div>
-    <div><label class="fl" for="su-p3">Paragraf Penutup</label><textarea id="su-p3" class="fi" rows="3">${esc(s.p3||'')}</textarea></div>
-    <p class="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">Tips: sebutkan sumber informasi, posisi yang dilamar, dan alasan singkat mengapa Anda cocok. Sunting paragraf di atas sesuai kebutuhan.</p>
-  `;
+  fc.innerHTML='<div class="mb-1" id="surat-guide-box"></div>'+
+    '<div class="form-sec mt-3">Data Pelamar</div>'+
+    '<div><label class="fl" for="su-nama">Nama Lengkap</label><input id="su-nama" class="fi" placeholder="cth: Rina Kusuma" value="'+esc(s.nama||'')+'"></div>'+
+    '<div><label class="fl" for="su-alamat">Alamat</label><textarea id="su-alamat" class="fi" rows="2" placeholder="Jl. ... No. ..., Kota">'+esc(s.alamat||'')+'</textarea></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="su-telp">No. Telepon / WA</label><input id="su-telp" class="fi" placeholder="0812-...." value="'+esc(s.telp||'')+'"></div><div><label class="fl" for="su-email">Email</label><input id="su-email" class="fi" placeholder="nama@email.com" value="'+esc(s.email||'')+'"></div></div>'+
+    '<div class="form-sec">Surat &amp; Perusahaan Tujuan</div>'+
+    '<div><label class="fl" for="su-format">Format Surat</label><select id="su-format" class="fi"><option value="formal">Formal - Siap Cetak</option><option value="email">Email Lamaran</option></select><p class="text-[11px] text-gray-500 dark:text-gray-400 mt-1">Panduan pengisian di atas formulir akan menyesuaikan format yang Anda pilih.</p></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="su-kota">Kota Penulisan Surat</label><input id="su-kota" class="fi" placeholder="cth: Bandung" value="'+esc(s.kota||'')+'"></div><div><label class="fl" for="su-tanggal">Tanggal Surat</label><input id="su-tanggal" type="date" class="fi" value="'+esc(s.tanggal||'')+'"></div></div>'+
+    '<div><label class="fl" for="su-perusahaan">Nama Perusahaan Tujuan</label><input id="su-perusahaan" class="fi" placeholder="cth: PT Maju Bersama" value="'+esc(s.perusahaan||'')+'"></div>'+
+    '<div><label class="fl" for="su-alamat-pt">Alamat Perusahaan</label><textarea id="su-alamat-pt" class="fi" rows="2" placeholder="Jl. ... No. ..., Kota">'+esc(s.alamatPt||'')+'</textarea></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="su-up">Perhatian (u.p.)</label><input id="su-up" class="fi" placeholder="HRD" value="'+esc(s.up||'')+'"></div><div><label class="fl" for="su-posisi">Posisi yang Dilamar</label><input id="su-posisi" class="fi" placeholder="cth: Staff Administrasi" value="'+esc(s.posisi||'')+'"></div></div>'+
+    '<div class="grid grid-cols-2 gap-2"><div><label class="fl" for="su-sumber">Sumber Info Lowongan</label><input id="su-sumber" class="fi" placeholder="cth: situs lowongan kerja" value="'+esc(s.sumber||'')+'"></div><div><label class="fl" for="su-lampiran">Lampiran</label><input id="su-lampiran" class="fi" placeholder="1 (satu) berkas" value="'+esc(s.lampiran||'')+'"></div></div>'+
+    '<div class="form-sec">Isi Surat</div>'+
+    '<div><label class="fl" for="su-p1">Paragraf Pembuka</label><textarea id="su-p1" class="fi" rows="3">'+esc(s.p1||'')+'</textarea></div>'+
+    '<div><label class="fl" for="su-p2">Paragraf Isi</label><textarea id="su-p2" class="fi" rows="3">'+esc(s.p2||'')+'</textarea></div>'+
+    '<div><label class="fl" for="su-p3">Paragraf Penutup</label><textarea id="su-p3" class="fi" rows="3">'+esc(s.p3||'')+'</textarea></div>'+
+    '<p class="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">Tips: sebutkan sumber informasi, posisi yang dilamar, dan alasan singkat mengapa Anda cocok. Sunting paragraf di atas sesuai kebutuhan.</p>';
   $('su-format').value=(s.format==='email')?'email':'formal';
   renderSuratGuide();
   updatePreview();
@@ -1168,7 +1075,6 @@ function collectSuratData(){
   };
 }
 
-/* ---------- Perender template CV & Surat ---------- */
 function orPh(v,ph){ return v?esc(v):'<span class="cv-ph">'+esc(ph)+'</span>'; }
 function stTitle(t,cls){ return '<div class="st '+(cls||'')+'">'+esc(t)+'</div>'; }
 function sectionBlock(title,inner,cls){ return '<div class="sec-wrap">'+stTitle(title,cls)+(inner||'')+'</div>'; }
@@ -1234,7 +1140,6 @@ function sklSection(d,cls){
   }
   return sectionBlock('Keahlian','<table class="skl-t">'+rows.join('')+'</table>',cls);
 }
-/* CV 1 - Klasik */
 function renderCV1(d){
   var blocks=[];
   blocks.push('<div class="sec-wrap cv-head"><table><tr>'+
@@ -1250,7 +1155,6 @@ function renderCV1(d){
   var k=sklSection(d); if(k) blocks.push(k);
   return blocks;
 }
-/* CV 2 - Simetris (Profil dirapatkan ke bawah foto) */
 function renderCV2(d){
   var blocks=[];
   blocks.push('<div class="sec-wrap cv2-head">'+
@@ -1266,7 +1170,6 @@ function renderCV2(d){
   var k=sklSection(d); if(k) blocks.push(k);
   return blocks;
 }
-/* CV 3 - Dua kolom */
 function cv3SideSec(title,inner){
   return '<div class="cv3-ssec">'+stTitle(title)+inner+'</div>';
 }
@@ -1305,7 +1208,6 @@ function renderCV3(d){
   var p=pdSection(d); if(p) rightBlocks.push(p);
   return {sidebar:sidebar,rightBlocks:rightBlocks};
 }
-/* CV 4 - Modern aksen merah */
 function renderCV4(d){
   var blocks=[];
   blocks.push('<div class="sec-wrap cv4-head"><table class="cv4-t"><tr>'+
@@ -1321,7 +1223,6 @@ function renderCV4(d){
   var k=sklSection(d,'st-red'); if(k) blocks.push(k);
   return blocks;
 }
-/* Surat - format formal */
 function renderSuratFormal(d){
   var B=[];
   B.push('<div class="sr-sender"><div class="sr-name">'+orPh(d.nama,'Nama Anda')+'</div>'+
@@ -1339,7 +1240,6 @@ function renderSuratFormal(d){
   B.push('<div class="sr-sign"><div>Hormat saya,</div><div class="sr-sign-space"></div><div class="sr-name">'+orPh(d.nama,'Nama Anda')+'</div></div>');
   return B;
 }
-/* Surat - format email */
 function renderSuratEmail(d){
   var B=[];
   B.push('<div>Kepada Yth.'+(d.up?', '+esc(d.up):'')+',</div>');
@@ -1353,7 +1253,6 @@ function renderSuratEmail(d){
   return B;
 }
 
-/* ---------- Pembagian halaman otomatis & preview ---------- */
 function htmlToEl(html){
   var t=document.createElement('div');
   t.innerHTML=html;
@@ -1537,7 +1436,6 @@ function initPreviewInteractions(){
   });
 }
 
-/* ---------- Ekspor PDF & Word ---------- */
 async function downloadPDF(){
   var btn=$('btn-pdf'), old=btn.innerHTML;
   btn.disabled=true;
@@ -1590,7 +1488,7 @@ var WORD_CSS='@page{size:210mm 297mm;margin:0}body{margin:0;font-family:Arial,He
 '.cv1-foto-td{width:36mm;padding-right:6mm}.cv1-id-td{vertical-align:middle}'+
 '.exp-item{margin-bottom:3.2mm}.exp-t{width:100%}.exp-t td{padding:0;vertical-align:baseline}.exp-pos{font-weight:700;font-size:10.5pt}.exp-per{text-align:right;font-size:9pt;font-style:italic;color:#444;white-space:nowrap;padding-left:4mm}.exp-comp-inline{font-weight:600;font-size:10pt}.exp-comp{font-weight:600;font-size:10pt}.exp-desc{font-size:10pt;text-align:justify}'+
 '.skl-t td{width:50%;padding:.5mm 0;font-size:10pt;vertical-align:top}.skl-dot{display:inline-block;width:2mm;height:2mm;background:#000;border-radius:50%;margin-right:2mm}'+
-'.cv2-head{text-align:center;border-bottom:1.2pt solid #000;padding-bottom:2.5mm;margin-bottom:1.5mm}.cv2-foto{margin:0 auto 2mm auto}.cv2-name{font-size:17pt}.cv2-contact{font-size:9.5pt;color:#333}'+
+'.cv2-head{text-align:center;border-bottom:1.2pt solid #000;padding-bottom:1.5mm;margin-bottom:0.8mm}.cv2-foto{margin:0 auto 1mm auto;display:block}.cv2-name{font-size:17pt;margin-top:0.5mm}.cv2-contact{font-size:9.5pt;color:#333;margin-top:1mm}.cv2-profile{margin-top:1.5mm;margin-bottom:5mm}'+
 '.cv3-layout{width:100%}.cv3-left-col{width:40%;vertical-align:top;padding-right:6mm;border-right:3pt solid #000}.cv3-right-col{width:60%;vertical-align:top;padding-left:8mm}'+
 '.cv3-name{font-size:17pt;font-weight:800}.cv3-role{font-size:10.5pt;text-transform:uppercase;letter-spacing:1.6px;color:#DC2626;font-weight:700}.cv3-rule{height:2.5pt;background:#000;margin:3mm 0 5mm}'+
 '.cv3-foto-wrap{margin-bottom:10mm;text-align:center}.cv3-foto-wrap .cv-foto{margin:0 auto}'+
@@ -1629,7 +1527,6 @@ function resetForm(){
   toast('Formulir berhasil direset.','success');
 }
 
-/* ---------- Lampiran: gabung gambar jadi PDF maks 1 MB ---------- */
 var lampiranImages=[];
 var lampiranId=0;
 var generating=false;
@@ -1844,28 +1741,26 @@ async function generateLampiranPDF(){
     setProg('Menganalisis gambar...');
     var eMin=await estimatePdfSize(1,0.55);
     if(eMin<=MAX){
-      /* Kualitas tertinggi yang tetap muat di bawah 1 MB */
       var lo=0.55, hi=0.97;
       params={s:1,q:0.55};
-      for(var i=0;i<5;i++){
+      for(var i=0;i<6;i++){
         var mid=(lo+hi)/2;
-        setProg('Menganalisis gambar... ('+(i+1)+'/5)');
+        setProg('Menganalisis gambar... ('+(i+1)+'/6)');
         var em=await estimatePdfSize(1,mid);
         if(em<=MAX){ params={s:1,q:mid}; lo=mid; } else { hi=mid; }
       }
     }else{
-      /* Cari skala terbesar yang muat, lalu naikkan kualitas */
       var q0=0.8, loS=0.15, hiS=1, fitted=false;
       params={s:0.15,q:0.6};
-      for(var j=0;j<7;j++){
+      for(var j=0;j<8;j++){
         var midS=(loS+hiS)/2;
-        setProg('Menganalisis gambar... ('+(j+1)+'/7)');
+        setProg('Menganalisis gambar... ('+(j+1)+'/8)');
         var es=await estimatePdfSize(midS,q0);
         if(es<=MAX){ fitted=true; loS=midS; params={s:midS,q:q0}; } else { hiS=midS; }
       }
       if(fitted){
         var loQ=0.6, hiQ=0.92;
-        for(var k=0;k<3;k++){
+        for(var k=0;k<4;k++){
           var midQ=(loQ+hiQ)/2;
           setProg('Menganalisis gambar... (kualitas)');
           var eq=await estimatePdfSize(params.s,midQ);
@@ -1875,22 +1770,25 @@ async function generateLampiranPDF(){
     }
     setProg('Menyusun PDF...');
     var blob=await buildLampiranPdf(params.s,params.q,setProg);
-    /* Kompresi tambahan bila masih melebihi 1 MB */
     var guard=0;
-    while(blob.size>MAX&&guard<8){
+    while(blob.size>MAX&&guard<10){
       guard++;
       var ns=params.s>0.11?Math.max(0.1,params.s*0.85):params.s;
-      var nq=(ns===params.s)?Math.max(0.25,params.q-0.1):Math.min(params.q,0.7);
+      var nq=(ns===params.s)?Math.max(0.25,params.q-0.08):Math.min(params.q,0.7);
       params={s:ns,q:nq};
       setProg('Kompresi tambahan... ('+guard+')');
       blob=await buildLampiranPdf(params.s,params.q,setProg);
     }
-    /* Bila masih jauh di bawah 1 MB, coba naikkan kualitas sekali */
     if(blob.size<MAX*0.85&&params.q<0.96){
       setProg('Menaikkan kualitas gambar...');
-      var nq2=Math.min(0.96,params.q+0.08);
+      var nq2=Math.min(0.96,params.q+0.06);
       var b2=await buildLampiranPdf(params.s,nq2,setProg);
       if(b2.size<=MAX&&b2.size>=blob.size){ blob=b2; params={s:params.s,q:nq2}; }
+      if(blob.size<MAX*0.92&&params.q<0.96){
+        var nq3=Math.min(0.97,params.q+0.04);
+        var b3=await buildLampiranPdf(params.s,nq3,setProg);
+        if(b3.size<=MAX&&b3.size>=blob.size){ blob=b3; params={s:params.s,q:nq3}; }
+      }
     }
     var raw=($('lampiran-filename').value||'').trim()||'Lampiran_Lamaran';
     var fname=raw.replace(/[\\\/:*?"<>|]+/g,'_')+'.pdf';
@@ -1917,7 +1815,6 @@ async function generateLampiranPDF(){
   }
 }
 
-/* ---------- Artikel ---------- */
 var ARTICLES=[
   {id:'ats-cv-fresh-graduate',cat:'panduan',icon:'fa-robot',date:'15 Mei 2024',read:'5 menit',
   title:'Cara Membuat CV ATS Friendly untuk Fresh Graduate',
@@ -1981,7 +1878,6 @@ function openArticle(id){
   showPage('dynamic-article');
 }
 
-/* ---------- Halaman contoh ---------- */
 function makePlaceholderPhoto(){
   var c=document.createElement('canvas'); c.width=300; c.height=400;
   var ctx=c.getContext('2d');
@@ -2107,7 +2003,6 @@ function useContohSurat(format){
   toast('Format surat siap digunakan. Ikuti panduan di atas formulir.','success');
 }
 
-/* ---------- Kontak ---------- */
 function submitContact(e){
   e.preventDefault();
   var nama=$('ct-nama').value.trim();
@@ -2117,7 +2012,6 @@ function submitContact(e){
   toast('Terima kasih, '+nama+'. Pesan Anda telah dicatat. Untuk respons cepat, silakan kirim email ke support@karyaabadijobs.my.id.','success',5000);
 }
 
-/* ---------- Inisialisasi ---------- */
 (function init(){
   initDark();
   var fy=$('ft-year'); if(fy) fy.textContent=String(new Date().getFullYear());
