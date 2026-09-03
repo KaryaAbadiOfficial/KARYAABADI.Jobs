@@ -65,8 +65,8 @@
             font-weight: 700;
             border-bottom: 3pt solid #000;
             margin-top: 0;
-            padding-bottom: 2pt;
-            margin-bottom: 10pt; /* Jarak 10pt di bawah garis label agar tidak menempel */
+            padding-bottom: 1pt; /* Jarak teks label ke garis bawah dirapatkan */
+            margin-bottom: 6pt; /* Jarak garis bawah ke teks isi dirapatkan agar rapi */
             letter-spacing: .3px;
             display: block;
         }
@@ -339,7 +339,7 @@
 </div>
 
 <div id="view-lampiran" class="view">
-  <div class="max-w-4xl mx-auto px-4 pt-4"><button onclick="showPage('home');" class="px-3 py-2 text-sm bg-gray-200 dark:bg-brand-card dark:text-white rounded-lg hover:bg gray-300 dark:hover:bg-brand-border transition flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</button></div>
+  <div class="max-w-4xl mx-auto px-4 pt-4"><button onclick="showPage('home');" class="px-3 py-2 text-sm bg-gray-200 dark:bg-brand-card dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-brand-border transition flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</button></div>
   <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border mt-2">
     <div class="max-w-4xl mx-auto px-4 py-10 md:py-12 text-center">
       <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-4">OTOMATIS KOMPRES KE 1 MB</span>
@@ -792,7 +792,7 @@ if(fi){
     h+='<td colspan="2" style="vertical-align:top; padding:0; border:none;">'; 
 }
 if(PR){ 
-    h+='<div class="st" style="margin-top:0 !important;">'+L('PROFIL')+'</div><div style="text-align:justify;">'+PR+'</div>'; 
+    h+='<div class="sec-wrap" style="break-inside: avoid; margin-top:0 !important;"><div class="st" style="margin-top:0 !important;">'+L('PROFIL')+'</div><div style="text-align:justify;">'+PR+'</div></div>'; 
 }
 h+='</td></tr></table>';
 
@@ -962,7 +962,7 @@ function renderSuratP() {
     h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">' + pembukaEmail + '</p>'; 
     h += '<p style="margin: 0 0 2mm 0; text-align: justify; line-height: 1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF (' + namaFile + '.pdf) yang mencakup:</p>'; 
     h += '<div style="margin: 0 0 4mm 8mm; line-height: 1.5;">' + lamps + '</div>'; 
-    h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi and kontribusi yang dapat saya berikan bagi perusahaan.</p>'; 
+    h += '<p style="margin: 0 0 4mm 0; text-align: justify; line-height: 1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>'; 
     h += '<p style="margin: 0 0 8mm 0; text-align: justify; line-height: 1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>'; 
     h += '<div class="sec-wrap" style="break-inside: avoid; margin-top: 6mm; line-height: 1.6;">Hormat saya,<br><br><span style="font-weight: bold; text-decoration: underline;">' + esc(TTD) + '</span><br>' + esc(HP) + '<br>' + esc(EM) + '</div>'; 
     return h; 
@@ -1052,7 +1052,7 @@ function paginatePreview(htmlString) {
     var pagesHtml = [];
     var currentPageNodes = [];
     var currentHeight = 0;
-    var tolerance = 2; 
+    var tolerance = 5; 
     for (var i = 0; i < children.length; i++) {
         var node = children[i];
         if (node.nodeType === 1) {
@@ -1104,7 +1104,7 @@ function renderPreview() {
 }
 
 function handlePhoto(event) { var file = event.target.files[0]; if(!file) return; if(file.size > 5 * 1024 * 1024) { toast('Ukuran foto maksimal 5MB', 'error'); return; } var reader = new FileReader(); reader.onload = function(e) { var img = new Image(); img.onload = function() { var targetRatio = 3.81 / 5.59; var imgRatio = img.width / img.height; var cropWidth, cropHeight, cropX, cropY; if (imgRatio > targetRatio) { cropHeight = img.height; cropWidth = cropHeight * targetRatio; cropX = (img.width - cropWidth) / 2; cropY = 0; } else { cropWidth = img.width; cropHeight = cropWidth / targetRatio; cropX = 0; cropY = (img.height - cropHeight) / 2; } var canvas = document.createElement('canvas'); canvas.width = 381; canvas.height = 559; var ctx = canvas.getContext('2d'); ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height); photoData = canvas.toDataURL('image/jpeg', 0.9); restorePhoto(); renderPreview(); toast('Foto berhasil dipotong otomatis (3.81x5.59 cm)', 'success'); }; img.src = e.target.result; }; reader.readAsDataURL(file); }
-function resetForm() { if(!confirm('Apakah Anda yakin ingin mereset semua data?')) return; document.querySelectorAll('.fi-s, .fi').forEach(function(el) { if(el.tagName === 'SELECT') el.selectedIndex = 0; else el.value = ''; }); eduList = [{t:'',m:'y',p:'',y:''}]; eduNonList = [{t:'',k:'',d:'',j:''}]; expList = [{pt:'', jl:'', kt:'', posList:[{j:'',m:'',desc:''}]}]; hSkills = ['']; sSkills = ['']; kSkills = ['']; lampList = ['']; photoData = null; restorePhoto(); renderForm(); renderPreview(); toast('Form telah direset', 'info'); }
+function resetForm() { if(!confirm('Apakah Anda yakin ingin mereset semua data?')) return; document.querySelectorAll('.fi-s, .fi').forEach(function(el) { if(el.tagName === 'SELECT') el.selectedIndex = 0; else el.value = ''; }); eduList = [{t:'',m:'y',p:'',y:''}]; eduNonList = [{t:'',k:'',d:'',j:''}]; expList = [{pt:'', jl:'', kt:'', posList:[{j:'', m:'', desc:''}]}]; hSkills = ['']; sSkills = ['']; kSkills = ['']; lampList = ['']; photoData = null; restorePhoto(); renderForm(); renderPreview(); toast('Form telah direset', 'info'); }
 
 var currentZoom = 1; var panX = 0, panY = 0; var isPanning = false; var startPanX = 0, startPanY = 0; var initialDistance = 0; var initialZoom = 1;
 function getDistance(touches) { var dx = touches[0].clientX - touches[1].clientX; var dy = touches[0].clientY - touches[1].clientY; return Math.sqrt(dx * dx + dy * dy); }
@@ -1179,7 +1179,7 @@ function downloadPDF() {
   });
 }
 
-function downloadWord() { var html = ''; if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); } html = html.replace(/object-fit:\s*cover;?/g, ''); var style = '<style>@page { margin: 1.5cm; } body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; } table { width: 100%; border-collapse: collapse; border: none; } td { vertical-align: top; border: none; }.sec-wrap { margin-bottom: 10pt; }.st { font-weight: 700; border-bottom: 3pt solid #000; padding-bottom: 2pt; margin-bottom: 10pt; margin-top: 2pt; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>'; var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>"; var footer = "</body></html>"; var sourceHTML = header + html + footer; var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' }); var url = URL.createObjectURL(blob); var fileDownload = document.createElement("a"); fileDownload.href = url; var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_'); var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_'; fileDownload.download = fileNamePrefix + safeName + '.doc'; document.body.appendChild(fileDownload); fileDownload.click(); document.body.removeChild(fileDownload); toast('File Word berhasil diunduh!', 'success'); }
+function downloadWord() { var html = ''; if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); } html = html.replace(/object-fit:\s*cover;?/g, ''); var style = '<style>@page { margin: 1.5cm; } body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; } table { width: 100%; border-collapse: collapse; border: none; } td { vertical-align: top; border: none; }.sec-wrap { margin-bottom: 10pt; }.st { font-weight: 700; border-bottom: 3pt solid #000; padding-bottom: 1pt; margin-bottom: 6pt; margin-top: 2pt; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>'; var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>"; var footer = "</body></html>"; var sourceHTML = header + html + footer; var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' }); var url = URL.createObjectURL(blob); var fileDownload = document.createElement("a"); fileDownload.href = url; var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_'); var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_'; fileDownload.download = fileNamePrefix + safeName + '.doc'; document.body.appendChild(fileDownload); fileDownload.click(); document.body.removeChild(fileDownload); toast('File Word berhasil diunduh!', 'success'); }
 function formatBytes(b){if(!b||b<=0)return'0 B';if(b<1024)return b+' B';if(b<1024*1024)return(b/1024).toFixed(1)+' KB';return(b/1024/1024).toFixed(2)+' MB';}
 function dataUrlSize(u){if(!u)return 0;var i=u.indexOf(',');if(i<0)return 0;return Math.round((u.length-i-1)*3/4);}
 function compressImageToSize(img,t,cb){ var m=2200,w=img.width,h=img.height; if(w>m||h>m){if(w>h){h=h*m/w;w=m;}else{w=w*m/h;h=m;}} function att(w,h){ var c=document.createElement('canvas');c.width=w;c.height=h; var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h); var l=0.25,hi=0.92,b=null; for(var i=0;i<8;i++){ var mid=(l+hi)/2; var u=c.toDataURL('image/jpeg',mid); var s=dataUrlSize(u); if(s<=t){b={dataUrl:u,size:s,w:w,h:h};l=mid;}else{hi=mid;} } return b; } var r=att(w,h); var sc=0.85; while(!r&&sc>0.15){ var nw=Math.round(w*sc);var nh=Math.round(h*sc); if(nw<100||nh<100)break; r=att(nw,nh);sc-=0.1; } if(!r){ var c=document.createElement('canvas');var mw=Math.min(w,800);var mh=Math.round(h*mw/w); c.width=mw;c.height=mh; var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,mw,mh);x.drawImage(img,0,0,mw,mh); var u=c.toDataURL('image/jpeg',0.3); r={dataUrl:u,size:dataUrlSize(u),w:mw,h:mh}; } cb(r.dataUrl,r.size,r.w,r.h); }
