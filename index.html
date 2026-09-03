@@ -63,45 +63,15 @@
         .view.active { display: block; }
 
         .a4-page{
-            width:210mm;
-            min-height:297mm;
-            background:#fff;
-            color:#000;
-            padding:15mm;
-            overflow:hidden;
-            position:relative;
-            user-select:none;
-            -webkit-user-select:none;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            width:210mm;min-height:297mm;background:#fff;color:#000;padding:15mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none;margin-bottom:15px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
         }
         .a4-page:last-child { margin-bottom: 0; }
-
-        .a4-page > *:first-child,
-        .a4-page > table:first-child > tbody > tr > td > *:first-child,
-        #pdf-content > *:first-child,
-        #pdf-content > table:first-child > tbody > tr > td > *:first-child {
-            margin-top: 0 !important;
-        }
-        .a4-page > *:last-child,
-        .a4-page > table:last-child > tbody > tr > td > *:last-child,
-        #pdf-content > *:last-child,
-        #pdf-content > table:last-child > tbody > tr > td > *:last-child {
-            margin-bottom: 0 !important;
-        }
+        .a4-page > *:first-child, .a4-page > table:first-child > tbody > tr > td > *:first-child, #pdf-content > *:first-child, #pdf-content > table:first-child > tbody > tr > td > *:first-child { margin-top: 0 !important; }
+        .a4-page > *:last-child, .a4-page > table:last-child > tbody > tr > td > *:last-child, #pdf-content > *:last-child, #pdf-content > table:last-child > tbody > tr > td > *:last-child { margin-bottom: 0 !important; }
 
         .sec-wrap { margin-bottom: 10pt; }
         .sec-wrap:last-child { margin-bottom: 0; }
-
-        .st {
-            font-weight: 700;
-            border-bottom: 3pt solid #000;
-            margin-top: 0;
-            padding-bottom: 1pt;
-            margin-bottom: 4pt;
-            letter-spacing: .3px;
-            display: block;
-        }
+        .st { font-weight: 700; border-bottom: 3pt solid #000; margin-top: 0; padding-bottom: 1pt; margin-bottom: 4pt; letter-spacing: .3px; display: block; }
         .a4-page table{width:100%;border-collapse:collapse}
         .a4-page table td{padding:.4mm 0;vertical-align:top}
         .a4-page p { margin: 0 0 4mm 0; line-height: 1.5; text-align: justify; }
@@ -110,23 +80,11 @@
         #preview-wrap, #preview-wrap-mob { position: relative; overflow: auto; cursor: grab; touch-action: none; }
         #preview-wrap:active, #preview-wrap-mob:active { cursor: grabbing; }
         #a4-scaler, #a4-scaler-mob { position: relative; margin: 0 auto; transform-origin: center top; will-change: transform; padding-bottom: 40px; }
-        #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after {
-            content: ''; position: absolute; top: 15mm; left: 15mm; right: 15mm; bottom: 15mm;
-            border: 1.5px dashed #DC2626; opacity: 0.6; pointer-events: none; z-index: 0;
-        }
+        #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after { content: ''; position: absolute; top: 15mm; left: 15mm; right: 15mm; bottom: 15mm; border: 1.5px dashed #DC2626; opacity: 0.6; pointer-events: none; z-index: 0; }
 
         .cv3-layout { border-collapse: collapse !important; width: 100% !important; table-layout: fixed; }
-        .cv3-left-col {
-            width: 40% !important; vertical-align: top !important; padding-right: 6mm !important;
-            padding-top: 0 !important; padding-bottom: 0 !important;
-            border-right: 3pt solid #000 !important; word-break: break-word; overflow-wrap: break-word;
-            box-sizing: border-box;
-        }
-        .cv3-right-col {
-            width: 60% !important; vertical-align: top !important; padding-left: 8mm !important;
-            padding-top: 0 !important; padding-bottom: 0 !important; word-break: break-word; overflow-wrap: break-word;
-            box-sizing: border-box;
-        }
+        .cv3-left-col { width: 40% !important; vertical-align: top !important; padding-right: 6mm !important; padding-top: 0 !important; padding-bottom: 0 !important; border-right: 3pt solid #000 !important; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box; }
+        .cv3-right-col { width: 60% !important; vertical-align: top !important; padding-left: 8mm !important; padding-top: 0 !important; padding-bottom: 0 !important; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box; }
         .cv3-foto-wrap { margin-bottom: 14mm; display: block; }
 
         #toast-box{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -421,7 +379,6 @@
   <main class="max-w-4xl mx-auto px-4 py-10 article-content prose dark:prose-invert">
     <h1 class="text-center">Contoh CV dan Penjelasan Template</h1>
     <p class="text-center text-justify-padat mb-8">Di Karya Abadi Jobs, kami menyediakan beberapa pilihan template CV yang bisa disesuaikan dengan kebutuhan industri dan posisi yang Anda lamar. Berikut adalah ilustrasi dan penjelasan masing-masing template:</p>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-col items-start justify-start">
@@ -448,7 +405,6 @@
         <p>Desain formal dengan foto di sudut kiri atas. Sangat cocok untuk melamar di instansi pemerintah, BUMN, bank, atau perusahaan tradisional yang mementingkan kelengkapan data pribadi kandidat.</p>
       </div>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-col items-center justify-start text-center">
@@ -468,7 +424,6 @@
         <p>Desain modern dengan nama dan info kontak di tengah. Cocok untuk fresh graduate atau pelamar di industri kreatif, media, dan startup yang dinamis.</p>
       </div>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-row justify-start items-stretch">
@@ -495,7 +450,6 @@
         <p>Memanfaatkan layout dua kolom (sidebar kiri). Ideal untuk Anda yang memiliki banyak pengalaman kerja dan daftar keahlian panjang, sehingga CV terlihat lebih terstruktur dan rapi.</p>
       </div>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-col items-center justify-start text-center">
@@ -516,7 +470,6 @@
         <p>Tanpa foto dan berfokus pada teks murni. Ini adalah template yang direkomendasikan jika Anda melamar di perusahaan multinasional yang menggunakan sistem ATS (Applicant Tracking System).</p>
       </div>
     </div>
-
     <p class="text-center">Jika Anda sudah siap, langsung buat CV Anda sekarang menggunakan <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('cv'); return false;">Generator CV Gratis</a> kami. Pastikan untuk membaca <a href="https://karyaabadijobs.my.id/#artikel-cv-fresh-graduate" onclick="showPage('artikel-cv-fresh-graduate'); return false;">panduan membuat CV ATS Friendly</a> terlebih dahulu.</p>
   </main>
 </div>
@@ -525,7 +478,6 @@
   <main class="max-w-4xl mx-auto px-4 py-10 article-content prose dark:prose-invert">
     <h1 class="text-center">Contoh Surat Lamaran dan Penjelasan Template</h1>
     <p class="text-center text-justify-padat mb-8">Template surat lamaran kami dibagi menjadi format Email dan Tulis Tangan, dengan variasi umum, posisi spesifik, dan semua PT. Berikut adalah ilustrasi dan panduan memilihnya:</p>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-col items-start justify-start text-left">
@@ -547,7 +499,6 @@
         <p>Gunakan format <strong>Email</strong> jika perusahaan meminta mengirim lamaran via email. Desain lebih ringkas, tanpa tempat dan tanggal di pojok kanan atas, dan ditujukan langsung melalui email HRD.</p>
       </div>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-col items-start justify-start text-left">
@@ -579,7 +530,6 @@
         <p>Gunakan format <strong>Tulis Tangan</strong> jika syarat lowongan secara tegas menyebutkan surat lamaran ditulis tangan pada kertas HVS. Surat akan memiliki format kertas formal dengan tempat dan tanggal di kanan atas, lalu alamat tujuan, dan tanda tangan di bawah.</p>
       </div>
     </div>
-
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8">
       <h2 style="margin-top:0;">Variasi Konten Surat</h2>
       <p>Selain format penyampaian (Email/Tulis Tangan), Anda juga bisa memilih variasi isi surat:</p>
@@ -589,7 +539,6 @@
         <li><strong>Semua PT:</strong> Digunakan jika Anda membuat satu surat lamaran bawaan yang akan diperbanyak dengan fotokopi dan dikirim ke beberapa perusahaan sekaligus.</li>
       </ul>
     </div>
-
     <p class="text-center">Pelajari juga <a href="https://karyaabadijobs.my.id/#artikel-surat-email" onclick="showArticle('artikel-surat-email'); return false;">cara menulis subject email lamaran</a> jika Anda memilih format email. Jika sudah siap, buat surat lamaran Anda <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('surat'); return false;">di sini</a>.</p>
   </main>
 </div>
@@ -640,7 +589,7 @@ var NEW_ARTICLES = [
   { id: 'cara-mengatasi-stres-kerja', cat: 'Tips Kerja', title: 'Cara Mengatasi Stres dan Tekanan di Tempat Kerja', date: '5 Februari 2026', time: '5 mnt baca', icon: 'fa-spa', desc: 'Ambil jeda pendek, bernapas dalam, dan jangan bawa pekerjaan pulang jika bisa.' },
   { id: 'tips-hubungan-rekan-kerja', cat: 'Tips Kerja', title: 'Tips Membangun Hubungan Baik dengan Rekan Kerja', date: '8 Februari 2026', time: '4 mnt baca', icon: 'fa-people-arrows', desc: 'Saling membantu, menghargai pendapat, dan menjaga komunikasi yang positif.' },
   { id: 'cara-komunikasi-atasan', cat: 'Tips Kerja', title: 'Cara Berkomunikasi dengan Atasan secara Profesional', date: '12 Februari 2026', time: '4 mnt baca', icon: 'fa-comment-dots', desc: 'Sampaikan laporan secara ringkas, jelas, dan tanyakan feedback secara berkala.' },
-  { id: 'tips-rekan-kerja-sulit', cat: 'Tips Kerja', title: 'Tips Menghadapi Rekan Kerja yang Sulit dan Menjaga Profesionalitas', date: '15 Februari 2026', time: '5 mnt baca', icon: 'fa-shield-halved', desc: 'Tetap tenang, fokus pada pekerjaan, dan hindari pertikaian pribadi. Gunakan jalur formal jika perlu.' },
+  { id: 'tips-rekan-kerja-sulit', cat: 'Tips Kerja', title: 'Tips Menghadapi Rekan Kerja yang Sulit dan Menjaga Profesionalitas', date: '15 Februari 2026', time: '5 mnt baca', icon: 'fa-shield-halved', desc: 'Tetap tenang, fokus pada pekerjaan, dan hindari pertikaian pribain. Gunakan jalur formal jika perlu.' },
   { id: 'cara-menghindari-kesalahan-karyawan-baru', cat: 'Tips Kerja', title: 'Cara Menghindari Kesalahan yang Sering Dilakukan Karyawan Baru', date: '18 Februari 2026', time: '4 mnt baca', icon: 'fa-triangle-exclamation', desc: 'Jangan mengira tahu segalanya, catat instruksi, dan minta bantuan jika bingung.' },
   { id: 'tips-budaya-kerja-perusahaan', cat: 'Tips Kerja', title: 'Tips Agar Cepat Beradaptasi dengan Budaya Kerja Perusahaan', date: '22 Februari 2026', time: '4 mnt baca', icon: 'fa-users', desc: 'Amati cara berpakaian, jam kerja, dan gaya komunikasi tim. Ikuti aturan main yang ada.' },
   { id: 'cara-produktif-wfh', cat: 'Tips Kerja', title: 'Cara Tetap Produktif Saat Bekerja dari Rumah', date: '25 Februari 2026', time: '5 mnt baca', icon: 'fa-house-laptop', desc: 'Pisahkan area kerja dan istirahat, gunakan pakaian rapi agar mood kerja tetap terjaga.' },
@@ -761,9 +710,7 @@ function addLamp(){lampList.push('');renderLampF();schedulePreview()}
 function renderForm(){
   var fc=document.getElementById('form-content');
   var guideCV = '<details class="card mb-4"><summary class="fl cursor-pointer flex items-center gap-2"><i class="fa-solid fa-circle-info text-brand-red"></i> Panduan Pengisian Cepat</summary><div class="text-xs text-gray-600 dark:text-gray-400 mt-3 space-y-2 text-justify-padat"><p><strong>Profil:</strong> Ceritakan singkat tentang diri Anda, lulusan apa, dan tujuan karier.</p><p><strong>Data Pribadi:</strong> Isi sesuai dokumen resmi (KTP/KK). Pastikan email dan no HP aktif.</p><p><strong>Pendidikan:</strong> Mulai dari SMA/SMK. Jika punya gelar D3/S1, letakkan di paling atas.</p><p><strong>Pengalaman:</strong> Gunakan poin-poin untuk deskripsi pekerjaan agar mudah dibaca HRD.</p><p><strong>Keahlian:</strong> Tulis skill yang relevan dengan posisi yang dilamar.</p></div></details>';
-
   var guideSurat = '<details class="card mb-4"><summary class="fl cursor-pointer flex items-center gap-2"><i class="fa-solid fa-circle-info text-brand-red"></i> Panduan Pengisian Cepat</summary><div class="text-xs text-gray-600 dark:text-gray-400 mt-3 space-y-2 text-justify-padat"><p><strong>Tujuan Surat:</strong> Pilih format surat (Email atau Tulis Tangan) sesuai dengan instruksi lowongan.</p><p><strong>Data Diri & Perusahaan:</strong> Isi nama perusahaan dan alamat email tujuan (jika email) atau alamat lengkap perusahaan (jika tulis tangan).</p><p><strong>Kalimat Pembuka & Penutup:</strong> Biarkan kosong agar otomatis menggunakan kalimat standar profesional, atau tulis sendiri untuk kustomisasi.</p><p><strong>Lampiran:</strong> Sebutkan dokumen yang dilampirkan dalam email (misal: CV, Ijazah, Transkrip).</p><p><strong>Tanda Tangan:</strong> Gunakan nama lengkap sesuai KTP.</p></div></details>';
-
   if(curCat==='cv'){
     var h=guideCV + settingsH();
     if(curTpl!=='cv4'){h+=photoH()}
@@ -1085,6 +1032,7 @@ function paginatePreview(htmlString) {
     var pagesHtml = [];
     var currentPageNodes = [];
     var currentHeight = 0;
+    var tolerance = 2; 
     for (var i = 0; i < children.length; i++) {
         var node = children[i];
         if (node.nodeType === 1) {
@@ -1096,7 +1044,7 @@ function paginatePreview(htmlString) {
                     currentHeight = 0;
                 }
                 pagesHtml.push(node.outerHTML);
-            } else if (currentHeight + h > contentLimitPx && currentPageNodes.length > 0) {
+            } else if (currentHeight + h > contentLimitPx - tolerance && currentPageNodes.length > 0) {
                 pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML; }).join(''));
                 currentPageNodes = [node];
                 currentHeight = h;
@@ -1161,28 +1109,36 @@ function downloadPDF() {
   
   var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
   var promises = [];
+  var pxPerMM = 3.7795275591;
   
   pages.forEach(function(pageEl, index) {
       var clone = pageEl.cloneNode(true);
       clone.style.marginBottom = '0';
+      clone.style.height = '297mm';
+      clone.style.minHeight = '297mm';
+      clone.style.width = '210mm';
+      clone.style.padding = '15mm';
+      
       var tempContainer = document.createElement('div');
-      tempContainer.style.position = 'absolute';
+      tempContainer.style.position = 'fixed';
       tempContainer.style.left = '-9999px';
       tempContainer.style.top = '0';
       tempContainer.appendChild(clone);
       document.body.appendChild(tempContainer);
       
       promises.push(
-          html2canvas(clone, { scale: 2, useCORS: true, backgroundColor: '#FFFFFF', windowWidth: 210 * 3.7795 }).then(function(canvas) {
+          html2canvas(clone, { 
+              scale: 2, 
+              useCORS: true, 
+              backgroundColor: '#FFFFFF', 
+              width: 210 * pxPerMM, 
+              height: 297 * pxPerMM,
+              windowWidth: 210 * pxPerMM,
+              windowHeight: 297 * pxPerMM
+          }).then(function(canvas) {
               var imgData = canvas.toDataURL('image/jpeg', 0.98);
-              var imgWidth = 210; 
-              var pageHeight = 297; 
-              var imgHeight = canvas.height * imgWidth / canvas.width;
-              
-              if(imgHeight > pageHeight) imgHeight = pageHeight; 
-              
               if(index > 0) pdf.addPage();
-              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+              pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
               document.body.removeChild(tempContainer);
           }).catch(function(err) {
               console.error(err);
