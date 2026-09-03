@@ -37,18 +37,6 @@
         gtag('config', 'G-0W6GP10X59');
     </script>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Karya Abadi Jobs",
-      "url": "https://karyaabadijobs.my.id/",
-      "logo": "https://karyaabadijobs.my.id/favicon.png",
-      "description": "Platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja.",
-      "sameAs": []
-    }
-    </script>
-
     <style>
         :root{--avh:100vh}
         @supports(height:100dvh){:root{--avh:100dvh}}
@@ -63,17 +51,7 @@
         .view.active { display: block; }
 
         .a4-page{
-            width:210mm;
-            min-height:297mm;
-            background:#fff;
-            color:#000;
-            padding:20mm; /* 2 cm margin all sides */
-            overflow:hidden;
-            position:relative;
-            user-select:none;
-            -webkit-user-select:none;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            width:210mm;min-height:297mm;background:#fff;color:#000;padding:20mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none;margin-bottom:15px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
         }
         .a4-page:last-child { margin-bottom: 0; }
         .a4-page > *:first-child, .a4-page > table:first-child > tbody > tr > td > *:first-child, #pdf-content > *:first-child, #pdf-content > table:first-child > tbody > tr > td > *:first-child { margin-top: 0 !important; }
@@ -81,13 +59,14 @@
 
         .sec-wrap { margin-bottom: 10pt; break-inside: avoid; }
         .sec-wrap:last-child { margin-bottom: 0; }
+        .sec-wrap > *:not(.st) { margin-top: 6pt; } /* Memastikan jarak antara label dan konten */
         
         .st {
             font-weight: 700;
             border-bottom: 3pt solid #000;
             margin-top: 0;
-            padding-bottom: 1pt;
-            margin-bottom: 5pt; /* Jarak 5pt di bawah garis label */
+            padding-bottom: 4pt;
+            margin-bottom: 10pt; /* Jarak 10pt di bawah garis label */
             letter-spacing: .3px;
             display: block;
         }
@@ -99,10 +78,7 @@
         #preview-wrap, #preview-wrap-mob { position: relative; overflow: auto; cursor: grab; touch-action: none; }
         #preview-wrap:active, #preview-wrap-mob:active { cursor: grabbing; }
         #a4-scaler, #a4-scaler-mob { position: relative; margin: 0 auto; transform-origin: center top; will-change: transform; padding-bottom: 40px; }
-        #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after {
-            content: ''; position: absolute; top: 20mm; left: 20mm; right: 20mm; bottom: 20mm;
-            border: 3px dashed #DC2626; opacity: 0.7; pointer-events: none; z-index: 0;
-        }
+        #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after { content: ''; position: absolute; top: 20mm; left: 20mm; right: 20mm; bottom: 20mm; border: 3px dashed #DC2626; opacity: 0.7; pointer-events: none; z-index: 0; }
 
         .cv3-layout { border-collapse: collapse !important; width: 100% !important; table-layout: fixed; }
         .cv3-left-col { width: 40% !important; vertical-align: top !important; padding-right: 6mm !important; padding-top: 0 !important; padding-bottom: 0 !important; border-right: 3pt solid #000 !important; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box; }
@@ -177,7 +153,7 @@
         @media(max-width:1023px){.ft-inner{padding-bottom:70px}}
 
         .article-content p, .article-content li, .text-justify-padat { text-align: justify; text-align-last: left; text-justify: inter-word; text-wrap: pretty; word-break: normal; overflow-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; line-height: 1.6; }
-        .text-justify-center { text-align: justify; text-align-last: center; text-justify: inter-word; text-wrap: pretty; word-break: normal; overflow-wrap: break-word; }
+        .text-justify-center { text-align: justify; text-align-last: center; text-justify: inter-word; text-wrap: pretty; word-break: normal; overflow-wrap: break-word; line-height: 1.8; }
         .article-content h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; color: #111827; margin-bottom: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
         .dark .article-content h1 { color: #fff; border-bottom-color: #2a2a2a; }
         .article-content h2 { font-size: clamp(1.25rem, 4vw, 1.5rem); font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #111827; text-align: left; }
@@ -589,56 +565,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-var NEW_ARTICLES = [
-  { id: 'panduan-memulai-karier-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Memulai Karier untuk Fresh Graduate dan Pemula', date: '5 Januari 2026', time: '4 mnt baca', icon: 'fa-rocket', desc: 'Strategi praktis bagi lulusan baru untuk memulai karier, mulai dari riset industri hingga persiapan dokumen lamaran.' },
-  { id: 'cara-memilih-karier-minat-keahlian', cat: 'Panduan Karier', title: 'Cara Memilih Karier yang Sesuai dengan Minat dan Keahlian', date: '8 Januari 2026', time: '4 mnt baca', icon: 'fa-compass', desc: 'Tips jitu mengenali potensi diri agar tidak salah pilih jalur karier, dengan menyesuaikan minat pribadi dan keahlian teknis.' },
-  { id: 'panduan-tujuan-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Menentukan Tujuan Karier untuk Masa Depan', date: '12 Januari 2026', time: '5 mnt baca', icon: 'fa-bullseye', desc: 'Panduan praktis menetapkan target jangka pendek, menengah, dan panjang agar perjalanan karier lebih terarah dan terukur.' },
-  { id: 'cara-merencanakan-karier-sukses', cat: 'Panduan Karier', title: 'Cara Merencanakan Karier agar Lebih Terarah dan Sukses', date: '15 Januari 2026', time: '4 mnt baca', icon: 'fa-chart-line', desc: 'Perencanaan karier bukan sekadar mimpi, tapi butuh action plan. Tuliskan langkah-langkah yang harus dicapai setiap tahun.' },
-  { id: 'panduan-mengembangkan-karier-pemula-profesional', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier dari Pemula hingga Profesional', date: '18 Januari 2026', time: '5 mnt baca', icon: 'fa-stairs', desc: 'Transisi dari pemula menjadi profesional butuh waktu dan dedikasi. Teruslah belajar dan jangan takut menghadapi tantangan.' },
-  { id: 'skill-wajib-mengembangkan-karier', cat: 'Panduan Karier', title: '5 Skill yang Wajib Dimiliki untuk Mengembangkan Karier', date: '22 Januari 2026', time: '4 mnt baca', icon: 'fa-toolbox', desc: 'Selain hard skill, soft skill sangat penting. Simak 5 skill wajib yang dicari perusahaan modern saat ini.' },
-  { id: 'cara-membangun-personal-branding-karier', cat: 'Panduan Karier', title: 'Cara Membangun Personal Branding untuk Mendukung Karier', date: '25 Januari 2026', time: '5 mnt baca', icon: 'fa-fingerprint', desc: 'Personal branding adalah cara orang lain melihat Anda secara profesional. Kuatkan branding melalui CV yang konsisten dan profil LinkedIn yang rapi.' },
-  { id: 'panduan-pekerjaan-pertama-fresh-graduate', cat: 'Panduan Karier', title: 'Panduan Mendapatkan Pekerjaan Pertama bagi Fresh Graduate', date: '28 Januari 2026', time: '4 mnt baca', icon: 'fa-briefcase', desc: 'Mendapatkan pekerjaan pertama membutuhkan ketekunan. Kirim lamaran setiap hari dan ikutkan magang sebagai pengalaman.' },
-  { id: 'cara-menentukan-jalur-karier-potensi-diri', cat: 'Panduan Karier', title: 'Cara Menentukan Jalur Karier yang Tepat Sesuai Potensi Diri', date: '1 Februari 2026', time: '5 mnt baca', icon: 'fa-route', desc: 'Potensi diri adalah kombinasi minat, bakat, dan kepribadian. Kenali diri Anda untuk menemukan jalur karier yang tepat.' },
-  { id: 'panduan-skill-karier-masa-depan', cat: 'Panduan Karier', title: 'Panduan Meningkatkan Skill untuk Persiapan Karier Masa Depan', date: '5 Februari 2026', time: '4 mnt baca', icon: 'fa-laptop-code', desc: 'Dunia kerja terus berubah. Skill digital seperti data analysis dan digital marketing akan sangat dibutuhkan.' },
-  { id: 'cara-cv-profesional-memulai-karier', cat: 'Panduan Karier', title: 'Cara Membuat CV Profesional untuk Memulai Karier', date: '8 Februari 2026', time: '4 mnt baca', icon: 'fa-file-word', desc: 'CV profesional bukan sekadar daftar riwayat hidup, tapi dokumen pemasaran diri. Gunakan bahasa yang formal dan tata letak yang rapi.' },
-  { id: 'panduan-perubahan-karier-tantangan', cat: 'Panduan Karier', title: 'Panduan Menghadapi Perubahan Karier dan Tantangan Dunia Kerja', date: '12 Februari 2026', time: '5 mnt baca', icon: 'fa-shuffle', desc: 'Pindah jalur karier (career change) membutuhkan keberanian dan persiapan dokumen yang matang. Sesuaikan CV Anda dengan industri baru.' },
-  { id: 'cara-membangun-pengalaman-kerja-karier', cat: 'Panduan Karier', title: 'Cara Membangun Pengalaman Kerja untuk Mengembangkan Karier', date: '15 Februari 2026', time: '4 mnt baca', icon: 'fa-building-columns', desc: 'Jika belum punya pengalaman, mulailah dengan proyek freelance atau volunteer. Ini sangat berharga di mata HRD.' },
-  { id: 'panduan-persiapan-karier-dunia-kerja', cat: 'Panduan Karier', title: 'Panduan Persiapan Karier Sebelum Masuk Dunia Kerja', date: '18 Februari 2026', time: '5 mnt baca', icon: 'fa-clipboard-check', desc: 'Persiapan mental dan dokumen adalah kunci sebelum terjun ke dunia kerja. Siapkan CV, surat lamaran, dan mental interview.' },
-  { id: 'cara-mengembangkan-jaringan-profesional', cat: 'Panduan Karier', title: 'Cara Mengembangkan Jaringan Profesional untuk Kemajuan Karier', date: '22 Februari 2026', time: '4 mnt baca', icon: 'fa-network-wired', desc: 'Networking membuka peluang kerja yang tidak dipublikasikan. Hadiri seminar dan aktif di LinkedIn.' },
-  { id: 'panduan-karier-pemula-tanpa-pengalaman', cat: 'Panduan Karier', title: 'Panduan Karier bagi Pemula yang Belum Memiliki Pengalaman Kerja', date: '25 Februari 2026', time: '5 mnt baca', icon: 'fa-seedling', desc: 'Tidak punya pengalaman bukan akhir segalanya. Fokus pada pendidikan, organisasi, dan kemauan belajar.' },
-  { id: 'cara-prioritas-gaji-karier', cat: 'Panduan Karier', title: 'Cara Menentukan Prioritas antara Gaji, Karier, dan Pengembangan Diri', date: '1 Maret 2026', time: '4 mnt baca', icon: 'fa-scale-balanced', desc: 'Memilih antara gaji besar atau jalur karier yang menjanjikan? Sesuaikan dengan tujuan jangka panjang Anda.' },
-  { id: 'panduan-mempersiapkan-naik-jabatan', cat: 'Panduan Karier', title: 'Panduan Mempersiapkan Diri untuk Naik Jabatan', date: '5 Maret 2026', time: '5 mnt baca', icon: 'fa-arrow-trend-up', desc: 'Naik jabatan butuh bukti kontribusi. Kumpulkan pencapaian Anda dan presentasikan kepada atasan.' },
-  { id: 'cara-mengatasi-kebingungan-pilihan-karier', cat: 'Panduan Karier', title: 'Cara Mengatasi Kebingungan dalam Menentukan Pilihan Karier', date: '8 Maret 2026', time: '4 mnt baca', icon: 'fa-circle-question', desc: 'Kebingungan memilih karier adalah hal wajar. Coba tes kepribadian dan diskusi dengan mentor.' },
-  { id: 'panduan-karier-era-digital', cat: 'Panduan Karier', title: 'Panduan Mengembangkan Karier di Era Digital', date: '12 Maret 2026', time: '5 mnt baca', icon: 'fa-globe', desc: 'Era digital menuntut adaptasi cepat. Kuasai tool digital dan bangun portofolio online.' },
-  { id: 'tips-cepat-panggilan-interview', cat: 'Tips Kerja', title: 'Tips Mencari Kerja agar Cepat Mendapatkan Panggilan Interview', date: '5 Januari 2026', time: '4 mnt baca', icon: 'fa-phone-volume', desc: 'Agar cepat dipanggil interview, pastikan CV Anda sesuai dengan kualifikasi lowongan dan kirim lamaran tepat waktu.' },
-  { id: 'tips-lolos-interview-fresh-graduate', cat: 'Tips Kerja', title: '10 Tips Lolos Interview Kerja untuk Fresh Graduate', date: '8 Januari 2026', time: '5 mnt baca', icon: 'fa-handshake-simple', desc: 'Pelajari tentang perusahaan, berpakaian rapi, dan jawab pertanyaan dengan percaya diri. Bawa juga salinan CV Anda.' },
-  { id: 'cara-menjawab-pertanyaan-interview', cat: 'Tips Kerja', title: 'Cara Menjawab Pertanyaan Interview Kerja dengan Baik dan Percaya Diri', date: '12 Januari 2026', time: '4 mnt baca', icon: 'fa-comments', desc: 'Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario.' },
-  { id: 'tips-cv-menarik-hrd', cat: 'Tips Kerja', title: 'Tips Membuat CV yang Menarik Perhatian HRD', date: '15 Januari 2026', time: '4 mnt baca', icon: 'fa-file-circle-plus', desc: 'HRD hanya butuh 6 detik untuk menilai CV. Gunakan desain bersih, font standar, dan poin-poin singkat.' },
-  { id: 'tips-lamaran-tidak-ditolak', cat: 'Tips Kerja', title: 'Tips Agar Lamaran Kerja Tidak Ditolak dan Lebih Berpeluang Diterima', date: '18 Januari 2026', time: '5 mnt baca', icon: 'fa-circle-check', desc: 'Jangan kirim CV yang sama untuk semua posisi. Sesuaikan dengan job description. Lampirkan dokumen pendukung dalam satu PDF.' },
-  { id: 'cara-beradaptasi-lingkungan-kerja', cat: 'Tips Kerja', title: 'Cara Beradaptasi di Lingkungan Kerja Baru', date: '22 Januari 2026', time: '4 mnt baca', icon: 'fa-users', desc: 'Observasi budaya kerja, perkenalkan diri dengan ramah, dan jangan ragu bertanya jika bingung.' },
-  { id: 'tips-karyawan-profesional', cat: 'Tips Kerja', title: '7 Tips Menjadi Karyawan yang Profesional di Tempat Kerja', date: '25 Januari 2026', time: '5 mnt baca', icon: 'fa-user-tie', desc: 'Junjung tinggi etika kerja, tepat waktu, dan bertanggung jawab atas tugas yang diberikan.' },
-  { id: 'cara-produktivitas-kerja', cat: 'Tips Kerja', title: 'Cara Meningkatkan Produktivitas Kerja Setiap Hari', date: '28 Januari 2026', time: '4 mnt baca', icon: 'fa-chart-simple', desc: 'Gunakan teknik Pomodoro, minimalkan distraksi, dan prioritaskan tugas yang paling sulit di pagi hari.' },
-  { id: 'tips-mengatur-waktu-kerja', cat: 'Tips Kerja', title: 'Tips Mengatur Waktu agar Lebih Efektif di Tempat Kerja', date: '1 Februari 2026', time: '4 mnt baca', icon: 'fa-clock', desc: 'Buat to-do list harian dan blok waktu (time blocking) untuk fokus pada satu pekerjaan.' },
-  { id: 'cara-mengatasi-stres-kerja', cat: 'Tips Kerja', title: 'Cara Mengatasi Stres dan Tekanan di Tempat Kerja', date: '5 Februari 2026', time: '5 mnt baca', icon: 'fa-spa', desc: 'Ambil jeda pendek, bernapas dalam, dan jangan bawa pekerjaan pulang jika bisa.' },
-  { id: 'tips-hubungan-rekan-kerja', cat: 'Tips Kerja', title: 'Tips Membangun Hubungan Baik dengan Rekan Kerja', date: '8 Februari 2026', time: '4 mnt baca', icon: 'fa-people-arrows', desc: 'Saling membantu, menghargai pendapat, dan menjaga komunikasi yang positif.' },
-  { id: 'cara-komunikasi-atasan', cat: 'Tips Kerja', title: 'Cara Berkomunikasi dengan Atasan secara Profesional', date: '12 Februari 2026', time: '4 mnt baca', icon: 'fa-comment-dots', desc: 'Sampaikan laporan secara ringkas, jelas, dan tanyakan feedback secara berkala.' },
-  { id: 'tips-rekan-kerja-sulit', cat: 'Tips Kerja', title: 'Tips Menghadapi Rekan Kerja yang Sulit dan Menjaga Profesionalitas', date: '15 Februari 2026', time: '5 mnt baca', icon: 'fa-shield-halved', desc: 'Tetap tenang, fokus pada pekerjaan, dan hindari pertikaian pribadi. Gunakan jalur formal jika perlu.' },
-  { id: 'cara-menghindari-kesalahan-karyawan-baru', cat: 'Tips Kerja', title: 'Cara Menghindari Kesalahan yang Sering Dilakukan Karyawan Baru', date: '18 Februari 2026', time: '4 mnt baca', icon: 'fa-triangle-exclamation', desc: 'Jangan mengira tahu segalanya, catat instruksi, dan minta bantuan jika bingung.' },
-  { id: 'tips-budaya-kerja-perusahaan', cat: 'Tips Kerja', title: 'Tips Agar Cepat Beradaptasi dengan Budaya Kerja Perusahaan', date: '22 Februari 2026', time: '4 mnt baca', icon: 'fa-users', desc: 'Amati cara berpakaian, jam kerja, dan gaya komunikasi tim. Ikuti aturan main yang ada.' },
-  { id: 'cara-produktif-wfh', cat: 'Tips Kerja', title: 'Cara Tetap Produktif Saat Bekerja dari Rumah', date: '25 Februari 2026', time: '5 mnt baca', icon: 'fa-house-laptop', desc: 'Pisahkan area kerja dan istirahat, gunakan pakaian rapi agar mood kerja tetap terjaga.' },
-  { id: 'tips-motivasi-kerja', cat: 'Tips Kerja', title: 'Tips Menjaga Motivasi dan Semangat Kerja', date: '1 Maret 2026', time: '4 mnt baca', icon: 'fa-fire-flame-curved', desc: 'Ingat tujuan awal Anda bekerja, beri reward pada diri sendiri saat target tercapai.' },
-  { id: 'cara-beban-kerja-banyak', cat: 'Tips Kerja', title: 'Cara Menghadapi Beban Kerja yang Terlalu Banyak', date: '5 Maret 2026', time: '4 mnt baca', icon: 'fa-weight-hanging', desc: 'Pelajari delegasi tugas, komunikasikan kapasitas Anda pada atasan, dan prioritaskan kualitas.' },
-  { id: 'tips-keseimbangan-kerja', cat: 'Tips Kerja', title: '5 Tips Menjaga Keseimbangan antara Kehidupan dan Pekerjaan', date: '8 Maret 2026', time: '5 mnt baca', icon: 'fa-scale-balanced', desc: 'Tinggalkan pekerjaan di kantor, luangkan waktu untuk keluarga dan hobi.' },
-  { id: 'cara-disukai-atasan', cat: 'Tips Kerja', title: 'Cara Menjadi Karyawan yang Lebih Disukai dan Dipercaya Atasan', date: '12 Maret 2026', time: '4 mnt baca', icon: 'fa-thumbs-up', desc: 'Tunjukkan inisiatif, selesaikan tugas tepat waktu, dan jangan takut mengambil tanggung jawab.' }
-];
+var _pTitles = [['Merencanakan Karier Jangka Panjang','fa-route'],['Mengenali Potensi Diri','fa-search'],['Strategi Transisi Karier','fa-shuffle'],['Pentingnya Personal Branding','fa-fingerprint'],['Membangun Jaringan Profesional','fa-network-wired'],['Kesiapan Mental Kerja','fa-brain'],['Manajemen Waktu di Tempat Kerja','fa-clock'],['Etika Profesi dan Bisnis','fa-handshake'],['Negosiasi Gaji yang Ideal','fa-comments-dollar'],['Menghadapi Tantangan Karier','fa-mountain'],['Mengembangkan Kepemimpinan','fa-users-cog'],['Strategi Promosi Jabatan','fa-arrow-up'],['Keseimbangan Kerja dan Kehidupan','fa-balance-scale'],['Karier di Era Digital','fa-laptop-code'],['Peluang Kerja Remote','fa-house-laptop'],['Mempersiapkan Pensiun Dini','fa-umbrella-beach'],['Investasi untuk Masa Depan','fa-chart-line'],['Menghadapi Perubahan Industri','fa-sync'],['Pentingnya Soft Skill','fa-hand-holding-heart'],['Mengasah Hard Skill','fa-tools'],['Strategi Mencari Kerja Pertama','fa-shoe-prints'],['Membuat Portofolio Menarik','fa-briefcase'],['Tips Menulis Email Lamaran','fa-envelope-open-text'],['Memilih Mentor Karier','fa-user-tie'],['Keuntungan Magang','fa-seedling'],['Karier Freelance vs Full-time','fa-user-shield'],['Menentukan Nilai Jual Diri','fa-tag'],['Strategi Networking Online','fa-globe'],['Menghadapi Keputusan Sulit','fa-code-branch'],['Mengukur Keberhasilan Karier','fa-trophy']];
+var _tTitles = [['Tips Interview Online','fa-video'],['Tips Interview Tatap Muka','fa-user-check'],['Menjawab Pertanyaan Sulit','fa-comment-dots'],['Bahasa Tubuh saat Interview','fa-walking'],['Berpakaian untuk Interview','fa-tshirt'],['Riset Perusahaan Sebelum Interview','fa-building'],['Mengirim Email Tindak Lanjut','fa-paper-plane'],['Tips Membuat CV ATS Friendly','fa-robot'],['Desain CV yang Menarik','fa-paint-brush'],['Menulis Pengalaman Kerja','fa-history'],['Menulis Surat Lamaran','fa-file-signature'],['Menyusun Lampiran PDF','fa-file-pdf'],['Menghadapi Tes Psikologi','fa-puzzle-piece'],['Tips Tes Bakat Skolastik','fa-square-root-variable'],['Menghadapi Tes Koding','fa-code'],['Tips Presentasi Kerja','fa-presentation-screen'],['Mengatasi Rasa Gugup','fa-wind'],['Berkomunikasi dengan HRD','fa-headset'],['Menyusun Target Harian','fa-list-check'],['Tips Bekerja dari Rumah','fa-couch'],['Tips Produktivitas Kerja','fa-rocket'],['Mengatasi Konflik Kantor','fa-bolt'],['Bekerja Sama dalam Tim','fa-people-group'],['Menerima Kritik Kerja','fa-thumbs-up'],['Mengelola Stres Pekerjaan','fa-spa'],['Tips Naik Gaji','fa-money-bill-trend-up'],['Menghadapi Rekan Kerja Toxic','fa-shield-virus'],['Tips Menjaga Fokus','fa-bullseye'],['Mengatur Prioritas Tugas','fa-diagram-project'],['Menyusun Laporan Kerja','fa-file-lines']];
 
-function generateArticleHTML(a) {
-    var t = a.title.toLowerCase(); var p = []; var numMatch = a.title.match(/^(\d+)/); var num = numMatch ? parseInt(numMatch[1]) : 0;
-    function add(text) { if (num > 0) { p.push('<p><strong>' + (p.length + 1) + '.</strong> ' + text + '</p>'); } else { p.push('<p>' + text + '</p>'); } }
-    if (t.includes('interview')) { add('Persiapkan diri dengan mempelajari budaya perusahaan dan posisi yang dilamar. Latihan menjawab pertanyaan umum dan teknis di depan cermin agar lebih percaya diri.'); add('Gunakan metode STAR (Situation, Task, Action, Result) saat menjawab pertanyaan berbasis skenario. Ini membantu Anda memberikan jawaban yang terstruktur dan konkret.'); add('Perhatikan bahasa tubuh Anda. Duduk tegak, tersenyum, dan menjaga kontak mata menunjukkan bahwa Anda adalah kandidat yang percaya diri dan profesional.'); add('Jangan ragu untuk mengajukan pertanyaan balik di akhir interview. Ini menunjukkan minat Anda yang mendalam terhadap perusahaan dan posisi yang dilamar.'); add('Pelajari teknik menjawab pertanyaan sulit atau jebakan. Tetap tenang, ambil jeda sejenak untuk berpikir, dan jawab dengan jujur serta positif.'); add('Berpakaianlah sesuai dengan budaya perusahaan. Jika ragu, pilih pakaian formal yang rapi, karena kesan pertama sangat menentukan.'); add('Datang tepat waktu, bahkan lebih awal 10-15 menit. Ini menunjukkan menghargai waktu perekrut dan profesionalisme Anda.'); add('Tunjukkan antusiasme dan energi positif. Pewawancara tidak hanya mencari keterampilan teknis, tetapi juga orang yang menyenangkan untuk diajak bekerja sama.'); add('Bawa salinan dokumen lamaran, CV, dan portofolio. Kesiapan ini menunjukkan bahwa Anda sangat tertarik dan terorganisir.'); add('Setelah interview, kirimkan email ucapan terima kasih. Ini adalah langkah kecil namun sering dilupakan yang dapat membedakan Anda dari kandidat lain.'); }
-    else if (t.includes('cv') || t.includes('lamaran')) { add('Pastikan struktur CV Anda bersih dan mudah dibaca. Gunakan poin-poin singkat daripada paragraf panjang agar HRD dapat memindai informasi dengan cepat.'); add('Sesuaikan CV dengan deskripsi pekerjaan. Masukkan kata kunci yang relevan dari lowongan agar CV Anda lebih mudah lolos sistem ATS (Applicant Tracking System).'); add('Gunakan kata kerja aksi (action verbs) seperti "mengelola", "menciptakan", atau "meningkatkan" untuk mendeskripsikan pengalaman kerja Anda.'); add('Kuantifikasi pencapaian Anda. Daripada menulis "bertanggung jawab atas penjualan", tulis "meningkatkan penjualan sebesar 20% dalam 6 bulan".'); add('Jangan sertakan foto jika tidak diminta, terutama untuk perusahaan multinasional, untuk menghindari bias dan masalah ATS.'); add('Pastikan informasi kontak Anda jelas dan profesional. Gunakan email yang berisi nama asli Anda, bukan nama panggilan atau angka acak.'); add('Cek dan ricek (proofread) CV Anda berkali-kali. Kesalahan ketik atau tata bahasa dapat memberikan kesan bahwa Anda tidak teliti.'); add('Sertakan tautan ke portofolio online atau profil LinkedIn Anda jika relevan, pastikan tautan tersebut dapat diklik dan berfungsi dengan baik.'); add('Untuk CV fresh graduate, tonjolkan pendidikan, proyek kuliah, magang, dan organisasi. Ini menjadi pengganti pengalaman kerja formal.'); add('Gunakan <a href="#" onclick="showPage(\'generator\'); selectCat(\'cv\'); return false;">generator CV gratis</a> kami untuk memastikan tata letak Anda rapi, profesional, dan lolos ATS.'); }
-    else { add('Mulailah dengan mengenali potensi dan minat diri Anda. Pahami apa yang Anda sukai dan kuasai untuk menentukan arah karier yang tepat.'); add('Tetapkan tujuan karier jangka pendek, menengah, dan panjang. Gunakan metode SMART (Specific, Measurable, Achievable, Relevant, Time-bound) agar target terukur.'); add('Buat action plan yang detail. Mimpi tanpa rencana hanyalah angan-angan, tuliskan langkah-langkah konkret yang harus Anda capai setiap tahunnya.'); add('Jangan ragu untuk mengambil langkah pertama, meski harus dimulai dari posisi pemula atau magang. Pengalaman adalah batu loncatan terbaik.'); add('Cari mentor karier yang dapat memberikan saran berharga. Pengalaman mereka bisa membantu Anda menghindari jebakan umum dalam perjalanan karier.'); add('Evaluasi diri secara berkala. Apakah strategi yang Anda gunakan sudah efektif? Jika belum, jangan ragu untuk mengubah pendekatan Anda.'); add('Pelajari juga budaya kerja perusahaan yang dituju. Menyesuaikan diri dengan cepat akan membuat Anda lebih mudah diterima dan berkembang di lingkungan baru.'); add('Pastikan dokumen lamaran Anda prima. CV dan surat lamaran yang rapi adalah tiket pertama Anda untuk dipanggil interview.'); add('Tetaplah beradaptasi dan terbuka terhadap perubahan. Teknologi dan metode kerja selalu berevolusi, mereka yang gagal beradaptasi akan tertinggal.'); add('Terakhir, ingatlah bahwa keberhasilan tidak datang secara instan. Teruslah berlatih, perluas jaringan, dan jangan pernah menyerah.'); }
-    return p.join('');
+var NEW_ARTICLES = [];
+var _dateOpts = ['5 Januari 2026','12 Januari 2026','20 Januari 2026','1 Februari 2026','10 Februari 2026','18 Februari 2026','25 Februari 2026','5 Maret 2026','12 Maret 2026','20 Maret 2026'];
+_pTitles.forEach(function(t, i){ NEW_ARTICLES.push({id:'p-'+i, cat:'Panduan Karier', title:t[0], icon:t[1], date:_dateOpts[i%10], time:'5 mnt baca', desc:'Panduan lengkap mengenai '+t[0]+' untuk membangun masa depan profesional yang lebih cerah dan terarah.'}); });
+_tTitles.forEach(function(t, i){ NEW_ARTICLES.push({id:'t-'+i, cat:'Tips Kerja', title:t[0], icon:t[1], date:_dateOpts[i%10], time:'4 mnt baca', desc:'Tips praktis dan strategis seputar '+t[0]+' agar Anda lebih siap menghadapi dunia kerja.'}); });
+
+var _V=["menganalisis","menerapkan","mengoptimalkan","mengevaluasi","mengintegrasikan","menyusun","merancang","memvalidasi","mengembangkan","mempraktikkan","mensinergikan","mengkonsolidasikan","mengonsep","mengimplementasikan","menstandarisasi"];
+var _N=["strategi","sistem","fondasi","konsep","metodologi","kerangka kerja","pendekatan","taktik","skema","prinsip","paradigma","arsitektur","ekosistem","instrumen","roadmap"];
+var _A=["solutif","inovatif","adaptif","kolaboratif","strategis","analitis","kompeten","produktif","profesional","proaktif","komprehensif","integral","agile","resiliens","visioner"];
+var _D=["secara efektif","dengan cermat","secara konsisten","dengan presisi","secara signifikan","dengan harmonis","secara objektif","dengan tepat","secara progresif","dengan komprehensif","secara dinamis","dengan sistematis","secara simultan","dengan terstruktur","secara meyakinkan"];
+
+function generateArticleHTML(a, idx) {
+    var title = a.title; var h = '';
+    for(var i=0; i<10; i++){
+        var k = (idx*10+i);
+        var s1 = "Dalam upaya " + title + ", seorang profesional wajib " + _V[k%15] + " " + _N[(k+1)%15] + " yang " + _A[(k+2)%15] + ".";
+        var s2 = "Penerapan " + _N[(k+3)%15] + " ini harus dilakukan " + _D[(k+4)%15] + " agar tidak terjadi kesalahan fatal.";
+        var s3 = "Banyak pelaku industri mengabaikan " + _N[(k+5)%15] + " sehingga hasilnya tidak " + _A[(k+6)%15] + " seperti yang diharapkan.";
+        var s4 = "Oleh karena itu, penting untuk terus " + _V[(k+7)%15] + " setiap " + _N[(k+8)%15] + " secara " + _D[(k+9)%15] + " sepanjang perjalanan karier.";
+        var s5 = "Pada akhirnya, " + title + " akan memberikan dampak " + _A[(k+10)%15] + " jika semua " + _N[(k+11)%15] + " dijalankan " + _D[(k+12)%15] + ".";
+        h += '<p class="text-justify-center text-justify-padat">'+s1+' '+s2+' '+s3+' '+s4+' '+s5+'</p>';
+    }
+    return h;
 }
 
 function getArticleCardHTML(a) {
@@ -661,14 +612,14 @@ function renderArticleLists(query) {
     }
 }
 
-function filterArticles(query) {
-    renderArticleLists(query);
-}
+function filterArticles(query) { renderArticleLists(query); }
 
 function showArticle(id) {
-  var a = NEW_ARTICLES.find(function(x){return x.id === id;}); if(!a) return;
+  var idx = NEW_ARTICLES.findIndex(function(x){return x.id === id;});
+  if(idx === -1) return;
+  var a = NEW_ARTICLES[idx];
   var view = document.getElementById('view-dynamic-article');
-  view.innerHTML = '<main class="max-w-3xl mx-auto px-4 py-10 article-content prose dark:prose-invert"><h1>'+a.title+'</h1><div class="article-meta"><span><i class="fa-solid fa-user"></i> Tim Karya Abadi Jobs</span><span><i class="fa-solid fa-calendar-days"></i> '+a.date+'</span><span><i class="fa-solid fa-folder"></i> '+a.cat+'</span><span><i class="fa-solid fa-clock"></i> '+a.time+'</span></div>'+generateArticleHTML(a)+'<div class="mt-8 pt-4 border-t border-gray-200 dark:border-brand-border text-center"><button onclick="showPage(\'artikel\')" class="px-4 py-2 bg-gray-200 dark:bg-brand-card dark:text-white rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-brand-border transition inline-flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Artikel</button></div></main>';
+  view.innerHTML = '<main class="max-w-3xl mx-auto px-4 py-10 article-content prose dark:prose-invert"><h1>'+a.title+'</h1><div class="article-meta"><span><i class="fa-solid fa-user"></i> Tim Karya Abadi Jobs</span><span><i class="fa-solid fa-calendar-days"></i> '+a.date+'</span><span><i class="fa-solid fa-folder"></i> '+a.cat+'</span><span><i class="fa-solid fa-clock"></i> '+a.time+'</span></div>'+generateArticleHTML(a, idx)+'<div class="mt-8 pt-4 border-t border-gray-200 dark:border-brand-border text-center"><button onclick="showPage(\'artikel\')" class="px-4 py-2 bg-gray-200 dark:bg-brand-card dark:text-white rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-brand-border transition inline-flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Artikel</button></div></main>';
   showPage('dynamic-article');
 }
 
@@ -1081,7 +1032,7 @@ function paginatePreview(htmlString) {
     if(!dummy) return;
     var children = Array.from(dummy.childNodes);
     var pageHeightPx = 297 * 3.7795275591; 
-    var marginPx = 40 * 3.7795275591; // 2cm top + 2cm bottom = 4cm = 40mm
+    var marginPx = 40 * 3.7795275591;
     var contentLimitPx = pageHeightPx - marginPx; 
     var pagesHtml = [];
     var currentPageNodes = [];
@@ -1171,7 +1122,7 @@ function downloadPDF() {
       clone.style.height = '297mm';
       clone.style.minHeight = '297mm';
       clone.style.width = '210mm';
-      clone.style.padding = '20mm'; // 2cm margins
+      clone.style.padding = '20mm';
       
       var tempContainer = document.createElement('div');
       tempContainer.style.position = 'fixed';
@@ -1213,7 +1164,7 @@ function downloadPDF() {
   });
 }
 
-function downloadWord() { var html = ''; if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); } html = html.replace(/object-fit:\s*cover;?/g, ''); var style = '<style>@page { margin: 2cm; } body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; } table { width: 100%; border-collapse: collapse; border: none; } td { vertical-align: top; border: none; }.sec-wrap { margin-bottom: 10pt; }.st { font-weight: 700; border-bottom: 3pt solid #000; padding-bottom: 1pt; margin-bottom: 5pt; margin-top: 2pt; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>'; var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>"; var footer = "</body></html>"; var sourceHTML = header + html + footer; var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' }); var url = URL.createObjectURL(blob); var fileDownload = document.createElement("a"); fileDownload.href = url; var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_'); var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_'; fileDownload.download = fileNamePrefix + safeName + '.doc'; document.body.appendChild(fileDownload); fileDownload.click(); document.body.removeChild(fileDownload); toast('File Word berhasil diunduh!', 'success'); }
+function downloadWord() { var html = ''; if(curCat === 'cv') { if(curTpl === 'cv1') html = renderCV1(); else if(curTpl === 'cv2') html = renderCV2(); else if(curTpl === 'cv3') html = renderCV3(); else if(curTpl === 'cv4') html = renderCV4(); } else { html = renderSuratP(); } html = html.replace(/object-fit:\s*cover;?/g, ''); var style = '<style>@page { margin: 2cm; } body { font-family: '+selFont+'; font-size: '+selSize+'pt; line-height: '+selLH+'; color: #000; margin: 0; } table { width: 100%; border-collapse: collapse; border: none; } td { vertical-align: top; border: none; }.sec-wrap { margin-bottom: 10pt; }.st { font-weight: 700; border-bottom: 3pt solid #000; padding-bottom: 4pt; margin-bottom: 10pt; margin-top: 2pt; }.dp-t td { padding: 0.6mm 0; }.dp-t .dl { width: 48mm; white-space: nowrap; }.dp-t .dc { width: 3mm; text-align: center; }p { margin: 0 0 5mm 0; }</style>'; var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>"+style+"</head><body>"; var footer = "</body></html>"; var sourceHTML = header + html + footer; var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' }); var url = URL.createObjectURL(blob); var fileDownload = document.createElement("a"); fileDownload.href = url; var safeName = (v('nombre') || 'Unduhan').trim().replace(/\s+/g, '_'); var fileNamePrefix = curCat === 'cv' ? 'CV_' : 'Surat_Lamaran_'; fileDownload.download = fileNamePrefix + safeName + '.doc'; document.body.appendChild(fileDownload); fileDownload.click(); document.body.removeChild(fileDownload); toast('File Word berhasil diunduh!', 'success'); }
 function formatBytes(b){if(!b||b<=0)return'0 B';if(b<1024)return b+' B';if(b<1024*1024)return(b/1024).toFixed(1)+' KB';return(b/1024/1024).toFixed(2)+' MB';}
 function dataUrlSize(u){if(!u)return 0;var i=u.indexOf(',');if(i<0)return 0;return Math.round((u.length-i-1)*3/4);}
 function compressImageToSize(img,t,cb){ var m=2200,w=img.width,h=img.height; if(w>m||h>m){if(w>h){h=h*m/w;w=m;}else{w=w*m/h;h=m;}} function att(w,h){ var c=document.createElement('canvas');c.width=w;c.height=h; var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h); var l=0.25,hi=0.92,b=null; for(var i=0;i<8;i++){ var mid=(l+hi)/2; var u=c.toDataURL('image/jpeg',mid); var s=dataUrlSize(u); if(s<=t){b={dataUrl:u,size:s,w:w,h:h};l=mid;}else{hi=mid;} } return b; } var r=att(w,h); var sc=0.85; while(!r&&sc>0.15){ var nw=Math.round(w*sc);var nh=Math.round(h*sc); if(nw<100||nh<100)break; r=att(nw,nh);sc-=0.1; } if(!r){ var c=document.createElement('canvas');var mw=Math.min(w,800);var mh=Math.round(h*mw/w); c.width=mw;c.height=mh; var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,mw,mh);x.drawImage(img,0,0,mw,mh); var u=c.toDataURL('image/jpeg',0.3); r={dataUrl:u,size:dataUrlSize(u),w:mw,h:mh}; } cb(r.dataUrl,r.size,r.w,r.h); }
