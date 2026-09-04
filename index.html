@@ -207,7 +207,7 @@
 <div id="toast-box" role="region" aria-label="Notifikasi"></div>
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
-    <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink:0" aria-label="Karya Abadi Jobs - Beranda">
+    <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0" aria-label="Karya Abadi Jobs - Beranda">
       <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high" width="40" height="40">
       <div class="flex flex-col leading-none whitespace-nowrap"><div class="flex items-baseline gap-1"><span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span><span class="text-red-500 font-bold text-[13px] sm:text-base">JOBS</span></div></div>
     </a>
@@ -421,14 +421,18 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-col items-center justify-start text-center">
-          <div class="w-12 h-12 tpl-box rounded-full mb-4 mt-4"></div>
+          <div class="w-10 h-14 tpl-box mb-4 mt-2"></div>
           <div class="tpl-title w-1/2 mb-2"></div>
-          <div class="tpl-line w-3/4"></div>
-          <div class="tpl-line w-1/2"></div>
-          <div class="w-full space-y-2 mt-6">
-            <div class="tpl-title w-1/2 ml-auto mr-auto"></div>
-            <div class="tpl-line ml-auto mr-auto"></div>
-            <div class="tpl-line w-5/6 ml-auto mr-auto"></div>
+          <div class="tpl-line w-3/4 mb-1"></div>
+          <div class="tpl-line w-1/2 mb-1"></div>
+          <div class="tpl-line w-2/3 mb-1"></div>
+          <div class="w-full space-y-2 mt-6 text-left">
+            <div class="tpl-title w-1/3"></div>
+            <div class="tpl-line"></div>
+            <div class="tpl-line w-5/6"></div>
+            <div class="tpl-title w-1/3 mt-3"></div>
+            <div class="tpl-line"></div>
+            <div class="tpl-line w-2/3"></div>
           </div>
         </div>
       </div>
@@ -763,11 +767,17 @@ function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
-var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed; margin-top:0; margin-bottom:10mm;"><tr>';
+var h='<div style="text-align:center; margin-top:0; margin-bottom:10mm;">';
 var fi=fotoImg();
-if(fi){ h+='<td style="width:3.5cm; vertical-align:top; padding:0 5mm 0 0; border:none;">'+fi+'</td>'; h+='<td style="vertical-align:top; text-align:center; padding:0; border:none;">'; } else { h+='<td colspan="2" style="vertical-align:top; text-align:center; padding:0; border:none;">'; }
-if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+al1+'</div>';if(al2)h+='<div>'+al2+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
-h+='</td></tr></table>';
+if(fi){ h+=fi+'<div style="height:4mm;"></div>'; }
+if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';
+if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';
+if(TTL)h+='<div>'+esc(TTL)+'</div>';
+var infoBits=[];if(JK)infoBits.push(esc(JK));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';
+if(al1)h+='<div>'+al1+'</div>';
+if(al2)h+='<div>'+al2+'</div>';
+var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
+h+='</div>';
 if(PR){h+='<div class="sec-wrap" style="margin-top:0 !important;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div></div>';}
 if(eduHTML){h+='<div class="sec-wrap"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>';}
 if(expHTML){h+='<div class="sec-wrap"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>';}
