@@ -185,7 +185,7 @@
         .exp-card.dragging { opacity: 0.4; }
         .exp-card.drag-over { border-color: #DC2626 !important; box-shadow: 0 0 0 2px rgba(220,38,38,0.2); }
         .icon-box-1col { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; margin-bottom: 2.5rem; }
-        .icon-box-1col .icon-circle { width: 64px; height: 64px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; margin-bottom: 4px; }
+        .icon-box-1col .icon-circle { width: 64px; height: 64px; background: rgba(220,38,38,0.1); color: #DC2626; border-radius: 50%; display: flex; align-items:center; justify-content: center; font-size: 28px; flex-shrink: 0; margin-bottom: 4px; }
         .icon-box-1col .kicker { display: block; font-size: 0.875rem; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
         .icon-box-1col h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin: 0; text-align: center; }
         .dark .icon-box-1col h3 { color: #fff; }
@@ -207,7 +207,7 @@
 <div id="toast-box" role="region" aria-label="Notifikasi"></div>
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
-    <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0" aria-label="Karya Abadi Jobs - Beranda">
+    <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink:0" aria-label="Karya Abadi Jobs - Beranda">
       <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high" width="40" height="40">
       <div class="flex flex-col leading-none whitespace-nowrap"><div class="flex items-baseline gap-1"><span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span><span class="text-red-500 font-bold text-[13px] sm:text-base">JOBS</span></div></div>
     </a>
@@ -972,52 +972,157 @@ function paginatePreview(htmlString) {
     offscreen.innerHTML = '<div id="dummy-paginator" style="'+pageStyle+'width:180mm;visibility:hidden;position:absolute;left:-9999px;top:0;">'+htmlString+'</div>';
     var dummy = document.getElementById('dummy-paginator');
     if(!dummy) return;
+    
     var pageHeightPx = 297 * 3.7795275591; 
     var marginPx = 30 * 3.7795275591; 
-    var contentLimitPx = pageHeightPx - marginPx; 
-    var tolerance = 5; 
+    var contentLimitPx = pageHeightPx - marginPx - 10; 
+    var tolerance = 2; 
+    
     var pagesHtml = [];
     var currentPageNodes = [];
     var currentHeight = 0;
-    function getHTML(node) { if (!node) return ''; if (node.nodeType === 1) return node.outerHTML; if (node.nodeType === 3) return node.textContent; return ''; }
-    function wrapAndPush(nodes, wrapperNode) {
-        if (nodes.length === 0) return;
-        if (wrapperNode && wrapperNode.nodeType === 1) {
-            var clone = wrapperNode.cloneNode(false);
-            clone.classList.add('cont-page');
-            nodes.forEach(function(n){ clone.appendChild(n.cloneNode(true)); });
-            pagesHtml.push(clone.outerHTML);
-        } else {
-            pagesHtml.push(nodes.map(getHTML).join(''));
-        }
+
+    function getHTML(node) {
+        if (!node) return '';
+        if (node.nodeType === 1) return node.outerHTML;
+        if (node.nodeType === 3) return node.textContent;
+        return '';
     }
-    function processNodes(nodes, wrapperNode) {
+
+    function pushPage(prependNodes, wrapper) {
+        if (currentPageNodes.length === 0 && (!prependNodes || prependNodes.length === 0)) return;
+        var html = '';
+        if (wrapper) {
+            html += '<' + wrapper.tag + ' class="' + wrapper.cls + '"><tr>';
+            if (wrapper.left) {
+                html += '<td class="' + wrapper.leftCls + '">' + wrapper.left + '</td>';
+            }
+            html += '<td class="' + wrapper.rightCls + '">';
+        }
+        if (prependNodes) {
+            prependNodes.forEach(function(n){ html += getHTML(n); });
+        }
+        currentPageNodes.forEach(function(n){ html += getHTML(n); });
+        if (wrapper) {
+            html += '</td></tr></' + wrapper.tag + '>';
+        }
+        pagesHtml.push(html);
+        currentPageNodes = [];
+        currentHeight = 0;
+    }
+
+    function processNodes(nodes, prependNodes, wrapper) {
         for (var i = 0; i < nodes.length; i++) {
             var node = nodes[i];
             if (node.nodeType === 3 && node.textContent.trim() === '') continue;
+            
             var h = 0;
             if (node.nodeType === 1) {
                 h = node.getBoundingClientRect().height;
-                if (h > contentLimitPx - tolerance && node.childNodes.length > 1) {
-                    if (currentPageNodes.length > 0) { wrapAndPush(currentPageNodes, wrapperNode); currentPageNodes = []; currentHeight = 0; }
-                    processNodes(Array.from(node.childNodes), node);
+                
+                if (node.classList.contains('cv3-layout') && h > contentLimitPx - tolerance) {
+                    if (currentPageNodes.length > 0) {
+                        pushPage(prependNodes, wrapper);
+                    }
+                    var leftTd = node.querySelector('.cv3-left-col');
+                    var rightTd = node.querySelector('.cv3-right-col');
+                    var leftHTML = leftTd ? leftTd.innerHTML : '';
+                    var leftCls = leftTd ? leftTd.className : '';
+                    var rightCls = rightTd ? rightTd.className : '';
+                    var leftHeight = leftTd ? leftTd.getBoundingClientRect().height : 0;
+                    
+                    var newWrapper = { tag: 'table', cls: 'cv3-layout', left: leftHTML, leftCls: leftCls, rightCls: rightCls };
+                    var newPrepend = prependNodes ? prependNodes.slice() : [];
+                    
+                    currentHeight += leftHeight;
+                    processNodes(Array.from(rightTd.childNodes), newPrepend, newWrapper);
+                    continue;
+                }
+                
+                if (node.classList.contains('sec-wrap') && h > contentLimitPx - tolerance) {
+                    if (currentPageNodes.length > 0) {
+                        pushPage(prependNodes, wrapper);
+                    }
+                    var labelNode = node.querySelector(':scope > .st');
+                    var contentNodes = Array.from(node.childNodes).filter(function(n) { return n !== labelNode; });
+                    var labelClone = labelNode ? labelNode.cloneNode(true) : null;
+                    
+                    var newPrepend = prependNodes ? prependNodes.slice() : [];
+                    if (labelClone) newPrepend.push(labelClone);
+                    
+                    if (labelClone) {
+                        currentPageNodes.push(labelClone);
+                        currentHeight += labelNode.getBoundingClientRect().height;
+                    }
+                    processNodes(contentNodes, newPrepend, wrapper);
+                    continue;
+                }
+                
+                if (node.tagName === 'TABLE' && !node.classList.contains('cv3-layout') && h > contentLimitPx - tolerance && node.rows.length > 1) {
+                    if (currentPageNodes.length > 0) {
+                        pushPage(prependNodes, wrapper);
+                    }
+                    
+                    var rows = node.querySelectorAll(':scope > tbody > tr, :scope > tr');
+                    if (rows.length === 0) rows = node.querySelectorAll('tr');
+                    
+                    var tableClone = node.cloneNode(false);
+                    var tbody = node.querySelector('tbody');
+                    var currentTable = tableClone.cloneNode(false);
+                    if (tbody) currentTable.appendChild(tbody.cloneNode(false));
+                    
+                    var currentTableHeight = 0;
+                    
+                    for (var r = 0; r < rows.length; r++) {
+                        var row = rows[r];
+                        var rowH = row.getBoundingClientRect().height;
+                        
+                        if (currentHeight + currentTableHeight + rowH > contentLimitPx - tolerance && currentTable.rows.length > 0) {
+                            currentPageNodes.push(currentTable);
+                            currentHeight += currentTableHeight;
+                            pushPage(prependNodes, wrapper);
+                            
+                            currentTable = tableClone.cloneNode(false);
+                            if (tbody) currentTable.appendChild(tbody.cloneNode(false));
+                            currentTableHeight = 0;
+                        }
+                        
+                        if (tbody) {
+                            currentTable.firstChild.appendChild(row.cloneNode(true));
+                        } else {
+                            currentTable.appendChild(row.cloneNode(true));
+                        }
+                        currentTableHeight += rowH;
+                    }
+                    
+                    if (currentTable.rows.length > 0) {
+                        currentPageNodes.push(currentTable);
+                        currentHeight += currentTableHeight;
+                    }
                     continue;
                 }
             }
+            
             if (currentHeight + h > contentLimitPx - tolerance && currentPageNodes.length > 0) {
-                wrapAndPush(currentPageNodes, wrapperNode);
-                currentPageNodes = [];
-                currentHeight = 0;
+                pushPage(prependNodes, wrapper);
             }
-            currentPageNodes.push(node);
+            
+            currentPageNodes.push(node.cloneNode(true));
             currentHeight += h;
         }
     }
-    processNodes(Array.from(dummy.childNodes), null);
-    if (currentPageNodes.length > 0) { wrapAndPush(currentPageNodes, null); }
+
+    processNodes(Array.from(dummy.childNodes), null, null);
+
+    if (currentPageNodes.length > 0) {
+        pushPage(null, null);
+    }
+
     offscreen.innerHTML = '';
     if (pagesHtml.length === 0) pagesHtml.push('');
-    var finalHtml = pagesHtml.map(function(p) { return '<div class="a4-page" style="'+pageStyle+'">'+p+'</div>'; }).join('');
+    var finalHtml = pagesHtml.map(function(p) {
+        return '<div class="a4-page" style="'+pageStyle+'">'+p+'</div>';
+    }).join('');
     var p = document.getElementById('a4-page');
     var pm = document.getElementById('a4-page-mob');
     if(p) p.innerHTML = finalHtml;
