@@ -81,7 +81,7 @@
         #preview-wrap .a4-page::after, #preview-wrap-mob .a4-page::after { content: ''; position: absolute; top: 15mm; left: 15mm; right: 15mm; bottom: 15mm; border: 3px dashed #DC2626; opacity: 0.7; pointer-events: none; z-index: 0; }
 
         .cv3-layout { border-collapse: collapse !important; width: 100% !important; table-layout: fixed; }
-        .cv3-left-col { width: 40% !important; vertical-align: top !important; padding-right: 6mm !important; padding-top: 0 !important; padding-bottom: 0 !important; border-right: 3pt solid #000 !important; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box; }
+        .cv3-left-col { width: 40% !important; vertical-align: top !important; padding-right: 6mm !important; padding-top: 0 !important; padding-bottom: 0 !important; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box; }
         .cv3-right-col { width: 60% !important; vertical-align: top !important; padding-left: 8mm !important; padding-top: 0 !important; padding-bottom: 0 !important; word-break: break-word; overflow-wrap: break-word; box-sizing: border-box; }
         .cv3-foto-wrap { margin-bottom: 14mm; display: block; }
 
@@ -207,7 +207,7 @@
 <div id="toast-box" role="region" aria-label="Notifikasi"></div>
 <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-xl border-b border-brand-border/50 flex-shrink-0 relative">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
-    <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink:0" aria-label="Karya Abadi Jobs - Beranda">
+    <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); return false;" class="flex items-center gap-2 cursor-pointer flex-shrink-0" aria-label="Karya Abadi Jobs - Beranda">
       <img src="https://z-cdn-media.chatglm.cn/files/c75ddb27-8d8e-4460-9d23-2848d8380d74.png?auth_key=1884878062-20f5b90229b04877b272feb0f9eed393-0-abf93347e9efa627c0eb3719a129ae12" alt="Logo Karya Abadi Jobs" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-contain bg-black p-1 flex-shrink-0" fetchpriority="high" width="40" height="40">
       <div class="flex flex-col leading-none whitespace-nowrap"><div class="flex items-baseline gap-1"><span class="text-white font-bold text-[13px] sm:text-base tracking-tight">KARYA ABADI</span><span class="text-red-500 font-bold text-[13px] sm:text-base">JOBS</span></div></div>
     </a>
@@ -231,7 +231,7 @@
       <button onclick="toggleMobileMenu()" id="menu-btn" class="lg:hidden w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition" aria-label="Buka menu navigasi" aria-expanded="false"><i class="fa-solid fa-bars text-sm text-white/70 menu-icon-open"></i><i class="fa-solid fa-xmark text-sm text-white/70 menu-icon-close hidden"></i></button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right-0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-14 left-0 right:0 bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border shadow-xl">
     <nav class="flex flex-col p-4 space-y-1 text-sm font-medium text-gray-300" aria-label="Navigasi mobile">
       <a href="https://karyaabadijobs.my.id/" onclick="showPage('home'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Beranda</a>
       <a href="https://karyaabadijobs.my.id/#generator" onclick="showPage('generator'); selectCat('cv'); toggleMobileMenu(); return false;" class="block px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-white">Buat CV</a>
@@ -253,9 +253,9 @@
       <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Membantu Anda Mempersiapkan Lamaran Kerja</h1>
       <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal text-justify-padat"><strong>Karya Abadi Jobs</strong> adalah platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja sekaligus memahami cara membuat CV, surat lamaran, dan dokumen pendukung yang lebih baik. Pengguna dapat membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen menjadi PDF, serta membaca berbagai panduan karier yang dapat digunakan sebagai referensi sebelum mengirim lamaran.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat CV Gratis</span></button>
-        <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white text-brand-dark font-bold rounded-xl hover:bg-gray-100 transition text-center leading-tight shadow-lg flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat Surat Lamaran</span></button>
-        <button onclick="showPage('lampiran');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Gabungkan PDF</span></button>
+        <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat CV Gratis</span></button>
+        <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white text-brand-dark font-bold rounded-xl hover:bg-gray-100 transition text-center leading-tight shadow-lg flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat Surat Lamaran</span></button>
+        <button onclick="showPage('lampiran');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Gabungkan PDF</span></button>
       </div>
     </div>
   </section>
@@ -294,7 +294,7 @@
     </section>
     <section class="mt-16 text-center bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-2xl p-8 md:p-12" aria-label="Ajakan Bertindak">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Mulai Persiapan Lamaran Kerja Anda Hari Ini</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang penting.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang important.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">Buat CV Gratis</button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white dark:bg-brand-dark border-2 border-brand-red text-brand-red font-bold rounded-xl hover:bg-brand-red hover:text-white transition text-center leading-tight">Buat Surat Lamaran</button>
@@ -449,7 +449,7 @@
     <div class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-6 mb-8 flex flex-col md:flex-row gap-6 items-center">
       <div class="w-full md:w-1/4 flex-shrink-0">
         <div class="tpl-illustration flex flex-row justify-start items-stretch">
-          <div class="w-1/3 h-full border-r border-gray-300 dark:border-gray-700 p-2 flex flex-col items-center justify-start">
+          <div class="w-1/3 h-full p-2 flex flex-col items-center justify-start">
             <div class="w-10 h-14 tpl-box mb-3"></div>
             <div class="tpl-line w-3/4 mb-1"></div>
             <div class="tpl-line w-1/2 mb-3"></div>
