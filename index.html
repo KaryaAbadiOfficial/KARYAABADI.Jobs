@@ -51,7 +51,7 @@
         .view.active { display: block; }
 
         .a4-page{
-            width:210mm;min-height:297mm;background:#fff;color:#000;padding:15mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none;margin-bottom:15px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
+            width:210mm;height:297mm;background:#fff;color:#000;padding:15mm;overflow:hidden;position:relative;user-select:none;-webkit-user-select:none;margin-bottom:15px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
         }
         .a4-page:last-child { margin-bottom: 0; }
         .a4-page > *:first-child, .a4-page > table:first-child > tbody > tr > td > *:first-child, #pdf-content > *:first-child, #pdf-content > table:first-child > tbody > tr > td > *:first-child { margin-top: 0 !important; }
@@ -65,8 +65,8 @@
             font-weight: 700;
             border-bottom: 3pt solid #000;
             margin-top: 0;
-            padding-bottom: 3pt; /* Jarak teks label ke garis bawah dirapatkan */
-            margin-bottom: 12pt; /* Jarak garis bawah ke teks isi diperlebar agar TIDAK MENEMPEL */
+            padding-bottom: 3pt;
+            margin-bottom: 12pt;
             letter-spacing: .3px;
             display: block;
         }
@@ -651,7 +651,7 @@ var ST_M=[
   {id:'s-ts',name:'Tulis Tangan (Semua PT)',pos:false,on:false,semua:true}
 ];
 
-var lampiranImages = []; var TARGET_PDF_SIZE = 1048576; // 1 MB exactly
+var lampiranImages = []; var TARGET_PDF_SIZE = 1048576; 
 var lampiranProcessing = false; var draggedItemIdx = null; var dragExpIdx = null;
 var _tw='width:100%;table-layout:fixed;border-collapse:collapse;border:none;';
 var _r1='width:50%;vertical-align:top;padding-right:3mm;word-break:break-word;';
@@ -735,7 +735,7 @@ function renderForm(){
     var h=guideCV + settingsH();
     if(curTpl!=='cv4'){h+=photoH()}
     h+='<div class="card"><label class="fl flex items-center gap-1.5"><i class="fa-solid fa-user-graduate text-brand-red text-xs"></i> Deskripsi Profil</label><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="fl-sub">Lulusan</label><input id="lulusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div><div><label class="fl-sub">Jurusan</label><input id="jurusan" class="fi fi-s" placeholder="....." oninput="schedulePreview()"></div></div></div>';
-    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldHDef('bangsa','Bangsa','.....','Indonesia')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldHDef('bangsa','Bangsa','.....','Indonesia')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldHDef('bangsa','Bangsa','.....','Indonesia')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Keterangan di bawah Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+fldH('alamat1','Alamat','Jl. No. / Dsn. RT. RW., Kelurahan/Desa, Kecamatan, Kabupaten/Kota')+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
+    if(curTpl==='cv1'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldHDef('bangsa','Bangsa','.....','Indonesia')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH()}if(curTpl==='cv2'){h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Posisi Lowongan Kerja/Pengalaman Kerja','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldHDef('bangsa','Bangsa','.....','Indonesia')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+selH('status','Status',statusOpts)+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=taH('profil','Profil (opsional)','.....');h+=addressFormH3()}if(curTpl==='cv3'){h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Posisi Lowongan Kerja/Pengalaman Kerja','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+selH('jk','Jenis Kelamin',jkOpts)+fldHDef('bangsa','Bangsa','.....','Indonesia')+datalistH('agama','Agama','.....',['Islam','Kristen','Hindu','Budha','Konghucu'])+'<div class="grid grid-cols-2 gap-2">'+fldUnit('tb','Tinggi Badan','.....','cm')+fldUnit('bb','Berat Badan','.....','kg')+'</div>'+fldH('nohp','No. HP','.....')+selH('status','Status',statusOpts)+fldH('email','Email','.....')+'</div>'+addressFormH3()}if(curTpl==='cv4'){skillMode='k';h+=taH('profil','Profil (opsional)','.....');h+=secH('Data Pribadi');h+='<div class="card space-y-2">'+fldH('nombre','Nama','.....')+fldH('subtitle','Posisi Lowongan Kerja/Pengalaman Kerja','.....')+fldH('ttl','Tempat, Tanggal Lahir','.....')+'</div>';h+=addressFormH3();h+='<div class="card space-y-2">'+fldH('nohp','No. HP','.....')+fldH('email','Email','.....')+'</div>';h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-list-check"></i>Daftar Keahlian</div><div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(kSkills,'k-c','k');restoreStatic();restorePhoto();fc.classList.remove('fade-up');void fc.offsetWidth;fc.classList.add('fade-up');return}
     h+=secH('Pendidikan');h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Formal</div><div id="edu-c"></div>'+dynBtns('addEdu()','rmEdu()')+'</div>';h+='<div class="card"><div class="form-subsec"><i class="fa-solid fa-graduation-cap"></i>Pendidikan Non Formal</div><div id="edu-non-c"></div>'+dynBtns('addEduNon()','rmEduNon()')+'</div>';h+=secH('Pengalaman Kerja');h+='<div id="exp-c" class="card"></div>'+dynBtns('addExp()','rmExp()');h+=secH('Keahlian');h+='<div class="card"><label class="fl" for="skill-mode">Mode Tampilan Keahlian</label><select id="skill-mode" class="fi fi-s" onchange="toggleSkillMode(this.value)"><option value="hs"'+(skillMode==='hs'?' selected':'')+'>Hard Skill dan Soft Skill</option><option value="k"'+(skillMode==='k'?' selected':'')+'>Daftar Keahlian</option></select></div>';h+='<div id="wrap-hs" style="'+(skillMode==='k'?'display:none':'')+'">'+secH('Hard Skill')+'<div id="hard-c"></div>'+secH('Soft Skill')+'<div id="soft-c"></div></div>';h+='<div id="wrap-k" style="'+(skillMode==='hs'?'display:none':'')+'">'+secH('Daftar Keahlian')+'<div id="k-c"></div></div>';fc.innerHTML=h;renderEduF();renderEduNonF();renderExpF();renderSkIF(hSkills,'hard-c','hard');renderSkIF(sSkills,'soft-c','soft');renderSkIF(kSkills,'k-c','k')
   } else {
     var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return;
@@ -812,13 +812,13 @@ if(SK){h+='<div class="sec-wrap" style="break-inside: avoid; '+firstStyle+'"><di
 
 return h}
 
-function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=joinAddr(v('alamat1'),v('alamat2')),al2=joinAddr(v('alamat3'),v('alamat4'));var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
+function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);
 var eduCount=eduList.filter(function(e){return (e.t&&e.t.trim()) || (e.y&&e.y.trim()) || (e.p&&e.p.trim());}).length;
 var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');
 var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);
 var h='<table style="width:100%; border:none; border-collapse:collapse; table-layout:fixed; margin-top:0;"><tr>';
 var fi=fotoImg();
-var cv2FirstMargin = fi ? '5mm' : '0'; 
+var cv2FirstMargin = fi ? '20mm' : '0'; 
 var cv2FirstApplied = false;
 
 if(fi){ 
@@ -827,7 +827,7 @@ if(fi){
 } else { 
     h+='<td colspan="2" style="vertical-align:top; text-align:center; padding:0; border:none;">'; 
 }
-if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+al1+'</div>';if(al2)h+='<div>'+al2+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
+if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(ap.length)h+='<div>'+ap.map(esc).join('<br>')+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';
 h+='</td></tr></table>';
 
 var firstStyle = cv2FirstApplied ? '' : 'margin-top: '+cv2FirstMargin+';';
@@ -868,7 +868,7 @@ function renderCV3(){
 }
 function parseSkillCV4(text){var t=text.trim();var parts=t.split(/[-:]/);if(parts.length>1){return{title:parts[0].trim(),val:parts.slice(1).join(':').trim()}}return{title:t,val:''}}
 function renderSkillsCV4(skillArr){ var items = (skillArr || []).filter(function(s){ return s && s.trim(); }); if(!items.length) return ''; var h = '<table style="width:100%;border-collapse:collapse;border:none;">'; items.forEach(function(s){ var p = parseSkillCV4(s); if(!p.title && !p.val) return; h += '<tr>'; h += '<td style="width:5mm; vertical-align:top; padding:0 1mm 2mm 0; border:none;">\u2022</td>'; if (p.val) { h += '<td style="vertical-align:top; padding:0 1mm 2mm 0; border:none;"><span style="font-weight:700;">' + esc(p.title) + '</span> &mdash; ' + esc(p.val) + '</td>'; } else { h += '<td style="vertical-align:top; padding:0 1mm 2mm 0; border:none;">' + esc(p.title) + '</td>'; } h += '</tr>'; }); h += '</table>'; return h; }
-function renderCV4(){ var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),AL=v('alamat1'),HP=v('nohp'),EM=v('email'); var PR=getProfil(''); var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length; var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); }); var eduH = ''; if(formalCount > 0 || hasNonEdu) { if(hasNonEdu && formalCount > 0) { eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'; } eduH += '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">'; eduList.forEach(function(e){ if(e.t || e.y || e.p){ var midVal = ''; var rightVal = ''; if(e.m==='p' && e.p && e.p.trim()){ rightVal = esc(e.p); } else if(e.y && e.y.trim()){ midVal = 'Tahun Lulus'; rightVal = esc(e.y); } else if(e.p && e.p.trim()){ rightVal = esc(e.p); } eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%; border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%; border:none;">'+rightVal+'</td></tr>'; } }); eduH += '</table>'; if(hasNonEdu){ eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>'; eduH += '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">'; eduNonList.forEach(function(e){ var leftVal1 = e.t ? esc(e.t) : ''; var rightVal1 = e.d ? esc(e.d) : ''; var subDetails = []; if (e.k && e.k.trim()) subDetails.push(esc(e.k)); if (e.j && e.j.trim()) subDetails.push('(' + esc(e.j) + ')'); if(leftVal1 || rightVal1) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>'; } if(subDetails.length > 0) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+subDetails.join(' ')+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>'; } }); eduH += '</table>'; } } var expH = expPH(expList); var skH = renderSkillsCV4(kSkills); var h = ''; if(N) h += '<div style="text-align:center; font-size:18pt; font-weight:700; text-transform:uppercase; margin-bottom:1mm;">'+esc(N)+'</div>'; if(SUB) h += '<div style="text-align:center; color:#333; margin-bottom:4mm;">'+esc(SUB)+'</div>'; var contactArr = []; if(TTL) contactArr.push(esc(TTL)); if(AL) contactArr.push(esc(AL)); if(HP) contactArr.push(esc(HP)); if(EM) contactArr.push(esc(EM)); if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm;">'+contactArr.join(' | ')+'</div>'; if(PR) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify; word-break:break-word;">'+PR+'</div></div>'; } if(eduH) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENDIDIKAN')+'</div><div>'+eduH+'</div></div>'; } if(expH) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div><div>'+expH+'</div></div>'; } if(skH) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div><div>'+skH+'</div></div>'; } return h; }
+function renderCV4(){ var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),HP=v('nohp'),EM=v('email'); var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()}); var PR=getProfil(''); var formalCount = eduList.filter(function(e){ return (e.t && e.t.trim()) || (e.y && e.y.trim()) || (e.p && e.p.trim()); }).length; var hasNonEdu = eduNonList.some(function(e){ return (e.t && e.t.trim()) || (e.d && e.d.trim()) || (e.k && e.k.trim()) || (e.j && e.j.trim()); }); var eduH = ''; if(formalCount > 0 || hasNonEdu) { if(hasNonEdu && formalCount > 0) { eduH += '<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>'; } eduH += '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">'; eduList.forEach(function(e){ if(e.t || e.y || e.p){ var midVal = ''; var rightVal = ''; if(e.m==='p' && e.p && e.p.trim()){ rightVal = esc(e.p); } else if(e.y && e.y.trim()){ midVal = 'Tahun Lulus'; rightVal = esc(e.y); } else if(e.p && e.p.trim()){ rightVal = esc(e.p); } eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0; text-align:center; width:30%; border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right; white-space:nowrap; width:20%; border:none;">'+rightVal+'</td></tr>'; } }); eduH += '</table>'; if(hasNonEdu){ eduH += '<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>'; eduH += '<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">'; eduNonList.forEach(function(e){ var leftVal1 = e.t ? esc(e.t) : ''; var rightVal1 = e.d ? esc(e.d) : ''; var subDetails = []; if (e.k && e.k.trim()) subDetails.push(esc(e.k)); if (e.j && e.j.trim()) subDetails.push('(' + esc(e.j) + ')'); if(leftVal1 || rightVal1) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+leftVal1+'</td><td style="padding:1mm 0; text-align:right; white-space:nowrap; width:50%; border:none;">'+rightVal1+'</td></tr>'; } if(subDetails.length > 0) { eduH += '<tr><td style="padding:1mm 0; word-break:break-word; width:50%; border:none;">'+subDetails.join(' ')+'</td><td style="padding:1mm 0; width:50%; border:none;"></td></tr>'; } }); eduH += '</table>'; } } var expH = expPH(expList); var skH = renderSkillsCV4(kSkills); var h = ''; if(N) h += '<div style="text-align:center; font-size:18pt; font-weight:700; text-transform:uppercase; margin-bottom:1mm;">'+esc(N)+'</div>'; if(SUB) h += '<div style="text-align:center; color:#333; margin-bottom:4mm;">'+esc(SUB)+'</div>'; var contactArr = []; if(TTL) contactArr.push(esc(TTL)); if(ap.length) contactArr.push(ap.map(esc).join(', ')); if(HP) contactArr.push(esc(HP)); if(EM) contactArr.push(esc(EM)); if(contactArr.length) h += '<div style="text-align:center; margin-bottom:5mm;">'+contactArr.join(' | ')+'</div>'; if(PR) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify; word-break:break-word;">'+PR+'</div></div>'; } if(eduH) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENDIDIKAN')+'</div><div>'+eduH+'</div></div>'; } if(expH) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div><div>'+expH+'</div></div>'; } if(skH) { h += '<div class="sec-wrap" style="break-inside: avoid;"><div class="st">'+L('KEAHLIAN')+'</div><div>'+skH+'</div></div>'; } return h; }
 
 function openInGmail() { 
   var m = ST_M.find(function(t){return t.id===curTpl}); 
@@ -1045,45 +1045,92 @@ function paginatePreview(htmlString) {
     offscreen.innerHTML = '<div id="dummy-paginator" style="'+pageStyle+'width:180mm;visibility:hidden;position:absolute;left:-9999px;top:0;">'+htmlString+'</div>';
     var dummy = document.getElementById('dummy-paginator');
     if(!dummy) return;
-    var children = Array.from(dummy.childNodes);
+    
     var pageHeightPx = 297 * 3.7795275591; 
-    var marginPx = 30 * 3.7795275591; // 1.5cm top + 1.5cm bottom = 3cm = 30mm
-    var contentLimitPx = pageHeightPx - marginPx; 
+    var marginPx = 15 * 3.7795275591; 
+    var contentLimitPx = pageHeightPx - (2 * marginPx); 
+    
     var pagesHtml = [];
     var currentPageNodes = [];
     var currentHeight = 0;
-    var tolerance = 5; 
+    
+    function flushPage() {
+        if (currentPageNodes.length > 0) {
+            pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML || n.textContent; }).join(''));
+            currentPageNodes = [];
+            currentHeight = 0;
+        }
+    }
+
+    var children = Array.from(dummy.childNodes);
     for (var i = 0; i < children.length; i++) {
         var node = children[i];
         if (node.nodeType === 1) {
             var h = node.getBoundingClientRect().height;
-            if (h > contentLimitPx) {
-                if (currentPageNodes.length > 0) {
-                    pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML; }).join(''));
-                    currentPageNodes = [];
-                    currentHeight = 0;
+            if (node.classList.contains('sec-wrap')) {
+                var st = node.querySelector('.st');
+                var stHTML = st ? st.outerHTML : '';
+                var stText = st ? st.textContent.trim() : '';
+                var stTextLanjutan = stText + ' (Lanjutan)';
+                var stHTMLLanjutan = st ? st.outerHTML.replace(stText, stTextLanjutan) : '';
+                
+                if (currentHeight + h <= contentLimitPx) {
+                    currentPageNodes.push(node);
+                    currentHeight += h;
+                } else {
+                    var secChildren = Array.from(node.childNodes);
+                    var pushedToNewPage = false;
+                    var isFirstChildSt = false;
+                    
+                    for (var j = 0; j < secChildren.length; j++) {
+                        var sc = secChildren[j];
+                        if (j === 0 && sc.classList && sc.classList.contains('st')) {
+                            isFirstChildSt = true;
+                        }
+                        
+                        var scH = sc.getBoundingClientRect ? sc.getBoundingClientRect().height : 0;
+                        
+                        if (currentHeight + scH > contentLimitPx && currentPageNodes.length > 0) {
+                            flushPage();
+                            if (!pushedToNewPage && stHTMLLanjutan) {
+                                var tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = stHTMLLanjutan;
+                                currentPageNodes.push(tempDiv.firstChild);
+                                currentHeight = tempDiv.firstChild.getBoundingClientRect().height;
+                            }
+                            pushedToNewPage = true;
+                        }
+                        
+                        if (pushedToNewPage && isFirstChildSt && j === 0) {
+                            // skip adding the original st
+                        } else {
+                            currentPageNodes.push(sc);
+                            currentHeight += scH;
+                        }
+                    }
                 }
-                pagesHtml.push(node.outerHTML);
-            } else if (currentHeight + h > contentLimitPx - tolerance && currentPageNodes.length > 0) {
-                pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML; }).join(''));
-                currentPageNodes = [node];
-                currentHeight = h;
             } else {
-                currentPageNodes.push(node);
-                currentHeight += h;
+                if (currentHeight + h > contentLimitPx && currentPageNodes.length > 0) {
+                    flushPage();
+                    currentPageNodes.push(node);
+                    currentHeight = h;
+                } else {
+                    currentPageNodes.push(node);
+                    currentHeight += h;
+                }
             }
         } else if (node.nodeType === 3 && node.textContent.trim() !== '') {
             currentPageNodes.push(node);
         }
     }
-    if (currentPageNodes.length > 0) {
-        pagesHtml.push(currentPageNodes.map(function(n){ return n.outerHTML || n.textContent; }).join(''));
-    }
+    flushPage();
+    
     offscreen.innerHTML = '';
     if (pagesHtml.length === 0) pagesHtml.push('');
     var finalHtml = pagesHtml.map(function(p) {
         return '<div class="a4-page" style="'+pageStyle+'">'+p+'</div>';
     }).join('');
+    
     var p = document.getElementById('a4-page');
     var pm = document.getElementById('a4-page-mob');
     if(p) p.innerHTML = finalHtml;
@@ -1108,7 +1155,7 @@ function resetForm() { if(!confirm('Apakah Anda yakin ingin mereset semua data?'
 
 var currentZoom = 1; var panX = 0, panY = 0; var isPanning = false; var startPanX = 0, startPanY = 0; var initialDistance = 0; var initialZoom = 1;
 function getDistance(touches) { var dx = touches[0].clientX - touches[1].clientX; var dy = touches[0].clientY - touches[1].clientY; return Math.sqrt(dx * dx + dy * dy); }
-function initPanZoom() { var wraps = [document.getElementById('preview-wrap'), document.getElementById('preview-wrap-mob')]; wraps.forEach(function(wrap){ if(!wrap) return; wrap.addEventListener('wheel', function(e) { e.preventDefault(); var delta = e.deltaY * -0.0015; currentZoom = Math.max(0.3, Math.min(3, currentZoom + delta)); applyTransform(); }, { passive: false }); wrap.addEventListener('mousedown', function(e) { if(e.target.closest('button, a, input, select, label')) return; isPanning = true; startPanX = e.clientX - panX; startPanY = e.clientY - panY; }); wrap.addEventListener('mousemove', function(e) { if(!isPanning) return; e.preventDefault(); panX = e.clientX - startPanX; panY = e.clientY - startPanY; applyTransform(); }); window.addEventListener('mouseup', function() { isPanning = false; }); wrap.addEventListener('touchstart', function(e) { if (e.touches.length === 1) { if(e.target.closest('button, a, input, select, label')) return; isPanning = true; startPanX = e.touches[0].clientX - panX; startPanY = e.touches[0].clientY - startPanY; } else if (e.touches.length === 2) { isPanning = false; initialDistance = getDistance(e.touches); initialZoom = currentZoom; } }, {passive: false}); wrap.addEventListener('touchmove', function(e) { e.preventDefault(); if (e.touches.length === 1 && isPanning) { panX = e.touches[0].clientX - startPanX; panY = e.touches[0].clientY - startPanY; applyTransform(); } else if (e.touches.length === 2) { var currentDistance = getDistance(e.touches); if (initialDistance > 0) { var scale = currentDistance / initialDistance; currentZoom = Math.max(0.3, Math.min(3, initialZoom * scale)); applyTransform(); } } }, {passive: false}); wrap.addEventListener('touchend', function() { isPanning = false; }); }); }
+function initPanZoom() { var wraps = [document.getElementById('preview-wrap'), document.getElementById('preview-wrap-mob')]; wraps.forEach(function(wrap){ if(!wrap) return; wrap.addEventListener('wheel', function(e) { e.preventDefault(); var delta = e.deltaY * -0.0015; currentZoom = Math.max(0.3, Math.min(3, currentZoom + delta)); applyTransform(); }, { passive: false }); wrap.addEventListener('mousedown', function(e) { if(e.target.closest('button, a, input, select, label')) return; isPanning = true; startPanX = e.clientX - panX; startPanY = e.clientY - panY; }); wrap.addEventListener('mousemove', function(e) { if(!isPanning) return; e.preventDefault(); panX = e.clientX - startPanX; panY = e.clientY - startPanY; applyTransform(); }); window.addEventListener('mouseup', function() { isPanning = false; }); wrap.addEventListener('touchstart', function(e) { if (e.touches.length === 1) { if(e.target.closest('button, a, input, select, label')) return; isPanning = true; startPanX = e.touches[0].clientX - panX; startPanY = e.touches[0].clientY - panY; } else if (e.touches.length === 2) { isPanning = false; initialDistance = getDistance(e.touches); initialZoom = currentZoom; } }, {passive: false}); wrap.addEventListener('touchmove', function(e) { e.preventDefault(); if (e.touches.length === 1 && isPanning) { panX = e.touches[0].clientX - startPanX; panY = e.touches[0].clientY - startPanY; applyTransform(); } else if (e.touches.length === 2) { var currentDistance = getDistance(e.touches); if (initialDistance > 0) { var scale = currentDistance / initialDistance; currentZoom = Math.max(0.3, Math.min(3, initialZoom * scale)); applyTransform(); } } }, {passive: false}); wrap.addEventListener('touchend', function() { isPanning = false; }); }); }
 function applyTransform() { var scalers = [document.getElementById('a4-scaler'), document.getElementById('a4-scaler-mob')]; scalers.forEach(function(s) { if(s) s.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + currentZoom + ')'; }); }
 function resetZoom() { panX = 0; panY = 0; var wrap = document.getElementById('preview-wrap'); var mobWrap = document.getElementById('preview-wrap-mob'); var activeWrap = (mobWrap && !mobWrap.parentElement.classList.contains('hidden')) ? mobWrap : wrap; if(activeWrap && activeWrap.offsetWidth > 0) { var containerWidth = activeWrap.offsetWidth - 24; var scalerWidth = 210 * 3.7795; currentZoom = Math.min(1, containerWidth / scalerWidth); } else { currentZoom = 0.6; } applyTransform(); }
 
@@ -1137,7 +1184,7 @@ function downloadPDF() {
       clone.style.height = '297mm';
       clone.style.minHeight = '297mm';
       clone.style.width = '210mm';
-      clone.style.padding = '15mm'; // 1.5cm margins
+      clone.style.padding = '15mm'; 
       
       var tempContainer = document.createElement('div');
       tempContainer.style.position = 'fixed';
