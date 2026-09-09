@@ -294,7 +294,7 @@
     </section>
     <section class="mt-16 text-center bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-2xl p-8 md:p-12" aria-label="Ajakan Bertindak">
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Mulai Persiapan Lamaran Kerja Anda Hari Ini</h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang penting.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto text-sm md:text-base text-justify-padat">Gunakan alat bantu gratis dari Karya Abadi Jobs untuk membuat dokumen lamaran kerja yang rapi dan terstruktur. Keputusan rekrutmen sepenuhnya berada pada perusahaan, tetapi dokumen yang baik adalah langkah pertama yang important.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20">Buat CV Gratis</button>
         <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white dark:bg-brand-dark border-2 border-brand-red text-brand-red font-bold rounded-xl hover:bg-brand-red hover:text-white transition text-center leading-tight">Buat Surat Lamaran</button>
@@ -1048,7 +1048,7 @@ function paginatePreview(htmlString) {
     
     var pageHeightPx = 297 * 3.7795275591; 
     var marginPx = 15 * 3.7795275591; 
-    var contentLimitPx = pageHeightPx - (2 * marginPx); 
+    var contentLimitPx = pageHeightPx - (2 * marginPx) + 5; 
     
     var pagesHtml = [];
     var currentPageNodes = [];
@@ -1067,57 +1067,50 @@ function paginatePreview(htmlString) {
         var node = children[i];
         if (node.nodeType === 1) {
             var h = node.getBoundingClientRect().height;
-            if (node.classList.contains('sec-wrap')) {
-                var st = node.querySelector('.st');
-                var stHTML = st ? st.outerHTML : '';
-                var stText = st ? st.textContent.trim() : '';
-                var stTextLanjutan = stText + ' (Lanjutan)';
-                var stHTMLLanjutan = st ? st.outerHTML.replace(stText, stTextLanjutan) : '';
+            
+            if (h > contentLimitPx) {
+                // Jika elemen terlalu besar (melebihi 1 halaman), kita pecah isinya
+                var subNodes = Array.from(node.childNodes);
+                var clonedNode = document.createElement(node.tagName);
+                clonedNode.className = node.className;
+                clonedNode.style.cssText = node.style.cssText;
+                var clonedHeight = 0;
                 
-                if (currentHeight + h <= contentLimitPx) {
-                    currentPageNodes.push(node);
-                    currentHeight += h;
-                } else {
-                    var secChildren = Array.from(node.childNodes);
-                    var pushedToNewPage = false;
-                    var isFirstChildSt = false;
+                for (var j = 0; j < subNodes.length; j++) {
+                    var subNode = subNodes[j];
+                    var subH = subNode.getBoundingClientRect ? subNode.getBoundingClientRect().height : 0;
                     
-                    for (var j = 0; j < secChildren.length; j++) {
-                        var sc = secChildren[j];
-                        if (j === 0 && sc.classList && sc.classList.contains('st')) {
-                            isFirstChildSt = true;
+                    if (currentHeight + clonedHeight + subH > contentLimitPx) {
+                        if (clonedNode.childNodes.length > 0) {
+                            currentPageNodes.push(clonedNode);
                         }
-                        
-                        var scH = sc.getBoundingClientRect ? sc.getBoundingClientRect().height : 0;
-                        
-                        if (currentHeight + scH > contentLimitPx && currentPageNodes.length > 0) {
-                            flushPage();
-                            if (!pushedToNewPage && stHTMLLanjutan) {
-                                var tempDiv = document.createElement('div');
-                                tempDiv.innerHTML = stHTMLLanjutan;
-                                currentPageNodes.push(tempDiv.firstChild);
-                                currentHeight = tempDiv.firstChild.getBoundingClientRect().height;
-                            }
-                            pushedToNewPage = true;
-                        }
-                        
-                        if (pushedToNewPage && isFirstChildSt && j === 0) {
-                            // skip adding the original st
-                        } else {
-                            currentPageNodes.push(sc);
-                            currentHeight += scH;
-                        }
+                        flushPage();
+                        clonedNode = document.createElement(node.tagName);
+                        clonedNode.className = node.className;
+                        clonedNode.style.cssText = node.style.cssText;
+                        clonedHeight = 0;
+                    }
+                    if (subNode.nodeType === 1) {
+                        clonedNode.appendChild(subNode.cloneNode(true));
+                        clonedHeight += subH;
+                    } else if (subNode.nodeType === 3 && subNode.textContent.trim() !== '') {
+                        clonedNode.appendChild(subNode.cloneNode(true));
                     }
                 }
+                if (clonedNode.childNodes.length > 0) {
+                    if (currentHeight + clonedHeight > contentLimitPx && currentPageNodes.length > 0) {
+                        flushPage();
+                    }
+                    currentPageNodes.push(clonedNode);
+                    currentHeight += clonedHeight;
+                }
             } else {
+                // Jika elemen muat di 1 halaman, cek apakah sisa halaman cukup
                 if (currentHeight + h > contentLimitPx && currentPageNodes.length > 0) {
                     flushPage();
-                    currentPageNodes.push(node);
-                    currentHeight = h;
-                } else {
-                    currentPageNodes.push(node);
-                    currentHeight += h;
                 }
+                currentPageNodes.push(node);
+                currentHeight += h;
             }
         } else if (node.nodeType === 3 && node.textContent.trim() !== '') {
             currentPageNodes.push(node);
