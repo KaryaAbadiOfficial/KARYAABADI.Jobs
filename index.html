@@ -120,7 +120,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
 <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Siapkan Dokumen Lamaran Kerja Anda Secara Profesional</h1>
 <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal text-justify-padat"><strong>Karya Abadi Jobs</strong> membantu Anda membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen pendukung menjadi PDF, serta membaca panduan karier. Semua proses dilakukan secara lokal di peramban Anda <strong>tanpa biaya dan tanpa registrasi</strong> agar data Anda tetap aman.</p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-<button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity:80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat CV Gratis</span></button>
+<button onclick="showPage('generator'); selectCat('cv');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition pulse-red text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat CV Gratis</span></button>
 <button onclick="showPage('generator'); selectCat('surat');" class="px-8 py-4 bg-white text-brand-dark font-bold rounded-xl hover:bg-gray-100 transition text-center leading-tight shadow-lg flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Buat Surat Lamaran</span></button>
 <button onclick="showPage('lampiran');" class="px-8 py-4 bg-brand-red text-white font-bold rounded-xl hover:bg-brand-darkred transition text-center leading-tight shadow-lg shadow-red-900/20 flex-1 sm:flex-none"><span class="block text-xs uppercase tracking-wider opacity-80">Mulai Sekarang</span><span class="block text-base uppercase tracking-wide">Gabungkan PDF</span></button>
 </div>
@@ -209,7 +209,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
 <button onclick="downloadWord()" id="btn-word" class="flex-1 py-3 rounded-xl font-semibold text-sm bg-blue-600 text-white hover:bg-blue-700 transition active:scale-[.97] shadow-lg"><i class="fa-solid fa-file-word mr-1.5 text-xs"></i>Word</button>
 </div>
 </div>
-<div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-100 dark:bg-brand-dark/50 min-h-0 pv-scroll">
+<div id="preview-panel" class="hidden lg:flex flex-1 flex-col p-4 bg-gray-101 dark:bg-brand-dark/50 min-h-0 pv-scroll">
 <div class="flex items-center justify-between mb-2 flex-shrink-0"><div class="text-[11px] font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-eye text-xs"></i>Preview A4</div><button onclick="resetZoom()" class="text-[11px] font-bold text-brand-red hover:underline">Reset Tampilan</button></div>
 <div id="preview-wrap" class="flex-1 rounded-xl bg-gray-200 dark:bg-gray-800/50 p-3 min-h-0 overflow-auto"><div id="a4-scaler"><div id="a4-page"></div></div></div>
 </div>
@@ -394,12 +394,8 @@ _tTitles.forEach(function(t,i){
     NEW_ARTICLES.push({id:'t-'+i,cat:'Tips Kerja',title:title,icon:t[1],date:_dateOpts[i%10],time:'4 mnt baca',desc:desc})
 });
 
-var _V=["menganalisis","menerapkan","mengoptimalkan","mengevaluasi","mengintegrasikan","menyusun","merancang","memvalidasi","mengembangkan","mempraktikkan","mensinergikan","mengkonsolidasikan","mengonsep","mengimplementasikan","menstandarisasi"];
-var _N=["strategi","sistem","fondasi","konsep","metodologi","kerangka kerja","pendekatan","taktik","skema","prinsip","paradigma","arsitektur","ekosistem","instrumen","roadmap"];
-var _A=["solutif","inovatif","adaptif","kolaboratif","strategis","analitis","kompeten","produktif","profesional","proaktif","komprehensif","integral","agile","resiliens","visioner"];
-var _D=["secara efektif","dengan cermat","secara konsisten","dengan presisi","secara signifikan","dengan harmonis","secara objektif","dengan tepat","secara progresif","dengan komprehensif","secara dinamis","dengan sistematis","secara simultan","dengan terstruktur","secara meyakinkan"];
-
 function generateArticleHTML(a, idx) {
+    // Custom articles (p-0, t-0, t-1, t-7) remain as they are specific and detailed.
     if (a.id === 'p-0') {
         var h = '';
         h += '<p class="text-justify-padat">Dulu banget, saya mikir kerja itu cuma soal dapet gaji tiap bulan. Asal kerja, ya udah. Nyatanya, tanpa perencanaan, saya kerasukan kerja-kerjaan yang nggak ada hubungannya sama sekali sama latar belakang pendidikan saya. Ini ngerugiin waktu banget! Mari kita bahas kenapa merencanakan karier itu ibarat ngisi bensin sebelum jalan jauh.</p>';
@@ -458,11 +454,16 @@ function generateArticleHTML(a, idx) {
         return h;
     }
 
-    var title = a.title;
+    // Default 10-Paragraph Generator for ALL OTHER ARTICLES
+    // Guarantees 10 distinct paragraphs with no repetition.
+    var title = a.title.toLowerCase();
     var h = '';
-    h += '<p class="text-justify-padat">Pernah kepikiran nggak sih, sebenarnya apa rahasia orang-orang yang sukses ngelakuin '+title.toLowerCase()+'? Dulu saya sempet mikir ini cuma soal bakat atau keberuntungan. Tapi setelah berkali-kali mencoba dan gagal, saya sadar kalau ada pola dan cara khusus yang bikin semuanya jadi lebih gampang. Yuk, kita bahas tuntas biar kamu nggak nyasar lagi.</p>';
+    
+    h += '<p class="text-justify-padat">Pernah kepikiran nggak sih, sebenarnya apa rahasia orang-orang yang sukses ngelakuin '+title+'? Dulu saya sempet mikir ini cuma soal bakat atau keberuntungan. Tapi setelah berkali-kali mencoba dan gagal, saya sadar kalau ada pola dan cara khusus yang bikin semuanya jadi lebih gampang. Yuk, kita bahas tuntas biar kamu nggak nyasar lagi.</p>';
+    
     h += '<h2>Kenapa Banyak Orang Gagal di Tahap Ini?</h2>';
     h += '<p class="text-justify-padat">Jangan malu dulu kalau kamu pernah ngalamin ini. <strong>Kesalahan paling umum yang sering banget dilakukan:</strong> Menganggap remeh persiapan. Banyak yang pikir asal jalan terus tanpa strategi, hasilnya bakal bagus. Padahal, tanpa peta yang jelas, kita cuma bakal muter-muter dan buang waktu. Di dunia kerja yang super ketat sekarang, detail kecil inilah yang membedakan kamu sama ratusan pelamar lain.</p>';
+    
     h += '<h2>Tips Praktis yang Bisa Kamu Terapkan Hari Ini</h2>';
     h += '<p class="text-justify-padat">Gak susah kok, cuma butuh komitmen. Coba praktekin langkah-langkah di bawah ini:</p>';
     h += '<ul>';
@@ -470,6 +471,21 @@ function generateArticleHTML(a, idx) {
     h += '<li><strong>Belajar dari Kesalahan:</strong> Jangan takut gagal. Gagal itu wajar, yang nggak boleh adalah ngulang kesalahan yang sama berkali-kali.</li>';
     h += '<li><strong>Jaga Konsistensi:</strong> Sedikit-sedikit asal lama. Lakukan hal kecil tiap hari secara konsisten daripada sekali bikin gebrakan besar tapi berhenti.</li>';
     h += '</ul>';
+    
+    h += '<p class="text-justify-padat">Selain tiga poin di atas, ada satu hal yang sering dilupakan: <strong>Networking</strong>. Siapa sangka, kenalan dengan orang yang lebih berpengalaman di bidang ini bisa ngebuka pintu yang gak pernah kamu bayangin sebelumnya. Jangan ragu buat mulai obrolan singkat di LinkedIn atau forum profesi. Siapa tau ada mentor yang mau ngasih insight berharga soal '+title+' buat kamu.</p>';
+    
+    h += '<p class="text-justify-padat">Terus, gimana cara ngejaga mental biar gak gampang down? Jujur, proses belajar '+title+' itu gak mulus-mulus amat. Pasti ada aja hambatan kayak ditolak, dikritik, atau ngerasa mentok. Di fase ini, kamu harus ingat kalau semua pro player juga pernah ngalamin hal yang sama. Bedanya, mereka gak nyerah di titik terendah itu. Ambil napas, istirahat sebentar, lalu balik lagi ke taktik kamu.</p>';
+    
+    h += '<p class="text-justify-padat">Bicara soal taktik, jangan lupa untuk selalu nge-track kemajuan kamu. Gak peduli sekecil apa pun. Misalnya, hari ini kamu udah paham satu konsep baru, catat itu. Besoknya, coba praktekin. Dengan ngecatat progres, kamu jadi punya gambaran jelas sejauh mana perjalanan kamu soal '+title+'. Ini juga ampuh banget buat nge-boost motivasi pas lagi merasa gak ada kemajuan.</p>';
+    
+    h += '<p class="text-justify-padat">Di era digital kayak sekarang, sumber belajar itu banyak banget. Dari YouTube, blog, sampe podcast. Tapi hati-hati, jangan sampe kena "tutorial hell". Kepalan teori tapi gak pernah praktek. Baca satu dua artikel soal '+title+', lalu langsung eksekusi. Ilmu tanpa praktek itu cuma info yang numpuk di kepala, bukan skill yang nempel di tangan kamu.</p>';
+    
+    h += '<p class="text-justify-padat">Kadang, kita suka lupa kalau ngelakuin '+title+' itu gak harus selalu sendirian. Gak salahnya nyari partner buat belajar bareng atau diskusi. Dari beda pandangan, kamu bisa nemu celah-celah pemikiran yang gak pernah kepikiran sebelumnya. Diskusi itu bikin otak lebih encer dan bikin kamu lebih nge-definisiin ulang pemahaman kamu soal '+title+'.</p>';
+    
+    h += '<p class="text-justify-padat">Ada satu rahasia kecil yang sering diabaikan: istirahat itu bagian dari belajar. Kalo kamu ngerasa udah mentok banget pas nyoba nguasain '+title+', gak usah dipaksain. Step away dari meja kamu, keluar bentar, ngopi atau apapun itu. Kadang ide paling cemerlang datang pas otak kita lagi gak difokusin ke masalah tersebut. Setelah balik, biasanya kelihatan jalan keluarnya.</p>';
+    
+    h += '<p class="text-justify-padat">Di akhir cerita, yang nentuin kamu sukses atau nggak di '+title+' itu bukan seberapa jenius kamu. Tapi seberapa besar keinginan kamu buat terus berkembang dan gak takut nyoba hal baru. Orang sukses itu dibentuk dari ribuan kegagalan kecil yang mereka jadikan batu loncatan. Jadi, jangan takut bikin salah, yang penting kamu tahu gimana caranya bangkit dan belajar dari situ.</p>';
+    
     return h;
 }
 
@@ -492,6 +508,7 @@ function showArticle(id){
     if(idx===-1)return;
     var a=NEW_ARTICLES[idx];
     
+    // Generate dynamic SVG illustration for all articles
     var imgText = "Ilustrasi: " + a.title;
     var featuredImageHTML = '<div class="mb-8 rounded-xl overflow-hidden shadow-lg border border-brand-border/50 bg-brand-card flex flex-col items-center justify-center py-12">';
     featuredImageHTML += '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="200" viewBox="0 0 800 300" preserveAspectRatio="xMidYMid slice"><rect width="100%" height="100%" fill="#1A1A1A"/><text x="50%" y="50%" font-family="Inter,sans-serif" font-size="28" font-weight="bold" fill="#DC2626" text-anchor="middle" dominant-baseline="middle">KARYA ABADI JOBS</text><text x="50%" y="65%" font-family="Inter,sans-serif" font-size="18" fill="#9ca3af" text-anchor="middle" dominant-baseline="middle">'+imgText+'</text></svg>';
