@@ -326,12 +326,47 @@ var _tTitles=[['Tips Interview Online','fa-video'],['Tips Interview Tatap Muka',
 var NEW_ARTICLES=[];var _dateOpts=['5 Januari 2026','12 Januari 2026','20 Januari 2026','1 Februari 2026','10 Februari 2026','18 Februari 2026','25 Februari 2026','5 Maret 2026','12 Maret 2026','20 Maret 2026'];
 _pTitles.forEach(function(t,i){NEW_ARTICLES.push({id:'p-'+i,cat:'Panduan Karier',title:t[0],icon:t[1],date:_dateOpts[i%10],time:'5 mnt baca',desc:'Panduan lengkap mengenai '+t[0]+' untuk membangun masa depan profesional yang lebih cerah dan terarah.'})});
 _tTitles.forEach(function(t,i){NEW_ARTICLES.push({id:'t-'+i,cat:'Tips Kerja',title:t[0],icon:t[1],date:_dateOpts[i%10],time:'4 mnt baca',desc:'Tips praktis dan strategis seputar '+t[0]+' agar Anda lebih siap menghadapi dunia kerja.'})});
-var _articleImgPool=['photo-1521737604893-d14cc237f11d','photo-1522202176988-66273c2fd55f','photo-1517245386807-bb43f82c3393','photo-1517694712202-14dd9538aa97','photo-1542744173-8e7e53415bb0','photo-1573496359142-b8d87734a5a2','photo-1556761175-5973dc0f32e7','photo-1454165804606-c3d57bc86b40','photo-1499209974431-9dddcece7f88','photo-1600880292203-757bb62b4b6d','photo-1531497865144-0464ef8fb9a9','photo-1522071820081-009f0129c71c','photo-1559136555-9303baea8ebd','photo-1581291518857-4e27b48ff24e','photo-1486406146926-c627a92ad1ab','photo-1542626991-cbc4e32524cc','photo-1596526131083-e8c6c1b1dfe4','photo-1551836022-d5d88e9218df','photo-1551288049-bebda4e38f71','photo-1542744095-fcf48d80b83d'];
+
+/* Daftar 30 foto Unsplash yang merepresentasikan suasana kantor, pekerja profesional (relevan dengan konteks Indonesia/Asia) */
+var _articleImgPool=[
+'photo-1521737711867-e3b97375f902', 
+'photo-1522071820081-009f0129c71c', 
+'photo-1517245386807-bb43f82c3393', 
+'photo-1517694712202-14dd9538aa97', 
+'photo-1531497865144-0464ef8fb9a9', 
+'photo-1573496359142-b8d87734a5a2', 
+'photo-1556761175-5973dc0f32e7', 
+'photo-1542744173-8e7e53415bb0', 
+'photo-1517048676732-d65bc537f9e6', 
+'photo-1600880292203-757bb62b4b6d', 
+'photo-1559136555-9303baea8ebd', 
+'photo-1542626991-cbc4e32524cc', 
+'photo-1581291518857-4e27b48ff24e', 
+'photo-1521791136064-7986c2920216', 
+'photo-1542751371-adc38448a05e', 
+'photo-1551434678-e076c223a692', 
+'photo-1518770660439-4636190af475', 
+'photo-1499209974431-9dddcece7f88', 
+'photo-1454165804606-c3d57bc86b40', 
+'photo-1486406146926-c627a92ad1ab', 
+'photo-1507842217343-583bb7270b66', 
+'photo-1522202176988-66273c2fd55f', 
+'photo-1506784983877-45594efa4cbe', 
+'photo-1579621970563-ebec7560ff3e', 
+'photo-1551836022-d5d88e9218df', 
+'photo-1551288049-bebda4e38f71', 
+'photo-1596526131083-e8c6c1b1dfe4', 
+'photo-1531973576160-7125cd663d86', 
+'photo-1556155092-490a1ba16284', 
+'photo-1559666126-84f389727b9a'
+];
 function getArticleImg(id){var hash=0;for(var i=0;i<id.length;i++){hash=((hash<<5)-hash)+id.charCodeAt(i);hash=hash&hash;}return _articleImgPool[Math.abs(hash)%_articleImgPool.length];}
+
 var _V=["menganalisis","menerapkan","mengoptimalkan","mengevaluasi","mengintegrasikan","menyusun","merancang","memvalidasi","mengembangkan","mempraktikkan","mensinergikan","mengkonsolidasikan","mengonsep","mengimplementasikan","menstandarisasi"];
 var _N=["strategi","sistem","fondasi","konsep","metodologi","kerangka kerja","pendekatan","taktik","skema","prinsip","paradigma","arsitektur","ekosistem","instrumen","roadmap"];
 var _A=["solutif","inovatif","adaptif","kolaboratif","strategis","analitis","kompeten","produktif","profesional","proaktif","komprehensif","integral","agile","resiliens","visioner"];
 var _D=["secara efektif","dengan cermat","secara konsisten","dengan presisi","secara signifikan","dengan harmonis","secara objektif","dengan tepat","secara progresif","dengan komprehensif","secara dinamis","dengan sistematis","secara simultan","dengan terstruktur","secara meyakinkan"];
+
 function generateArticleHTML(a,idx){
 var title=a.title;var imgId=getArticleImg(a.id);
 var heroUrl='https://images.unsplash.com/'+imgId+'?w=800&h=450&fit=crop&q=80';
@@ -359,11 +394,13 @@ h+='<h2>Kesimpulan</h2>';
 h+='<p class="text-justify-padat">'+esc(title)+' membutuhkan pemahaman yang mendalam, strategi yang tepat, dan konsistensi dalam pelaksanaan. Dengan menerapkan prinsip-prinsip yang telah dibahas dalam artikel ini, Anda akan lebih siap menghadapi tantangan karier di masa depan. Ingatlah bahwa setiap langkah kecil yang Anda ambil hari ini akan berdampak besar pada kesuksesan jangka panjang. Tetap semangat dan terus berusaha!</p>';
 return h;
 }
+
 function getArticleCardHTML(a){
 var imgId=getArticleImg(a.id);
 var imgUrl='https://images.unsplash.com/'+imgId+'?w=400&h=200&fit=crop&q=80';
 return '<a href="https://karyaabadijobs.my.id/#'+a.id+'" onclick="showArticle(\''+a.id+'\'); return false;" class="bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl overflow-hidden hover:shadow-lg transition group flex flex-col"><div class="w-full h-40 overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0"><img src="'+imgUrl+'" alt="'+esc(a.title)+'" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.parentElement.style.display=\'none\'"></div><div class="p-5 flex flex-col items-center text-center flex-1"><div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center text-brand-red mb-3"><i class="fa-solid '+a.icon+' text-lg"></i></div><h2 class="text-base font-bold text-gray-900 dark:text-white group-hover:text-brand-red">'+a.title+'</h2><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">'+a.desc+'</p></div></a>';
 }
+
 function renderArticleLists(query){
 query=(query||'').toLowerCase().trim();
 var panduanList=document.getElementById('panduan-list');
