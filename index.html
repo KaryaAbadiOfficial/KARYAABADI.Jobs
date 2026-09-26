@@ -100,7 +100,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
 </header>
 <div id="view-home" class="view active">
 <section class="bg-gradient-to-br from-brand-dark to-brand-black border-b border-brand-border" aria-label="Hero Section">
-<div class="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
+<div class="max-w-7xl mx-auto px-4 py-12 md:py=16 text-center">
 <span class="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-xs font-extrabold tracking-wider mb-6">GENERATOR CV DAN SURAT MELAMAR PEKERJAAN DI INDONESIA</span>
 <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">Membantu Anda Mempersiapkan Lamaran Kerja</h1>
 <p class="max-w-2xl mx-auto text-gray-300 mb-8 px-4 text-sm md:text-base font-normal text-justify-padat"><strong>Karya Abadi Jobs</strong> adalah platform yang membantu pencari kerja di Indonesia mempersiapkan dokumen lamaran kerja sekaligus memahami cara membuat CV, surat lamaran, dan dokumen pendukung yang lebih baik. Pengguna dapat membuat CV, menyusun surat lamaran kerja, menggabungkan dokumen menjadi PDF, serta membaca berbagai panduan karier yang dapat digunakan sebagai referensi sebelum mengirim lamaran.</p>
@@ -559,9 +559,9 @@ function autoCropDocument(img, cb, applyScan) {
             
             cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
             cv.GaussianBlur(gray, gray, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
-            cv.Canny(gray, edges, 30, 150); // Lower threshold for more edges
+            cv.Canny(gray, edges, 30, 150); 
             
-            kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(15, 15)); // Larger kernel to close gaps
+            kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(15, 15)); 
             cv.dilate(edges, edges, kernel);
             
             cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
@@ -792,7 +792,7 @@ function processLampiranFiles(f){
                         } else {
                             finalize(finalImg);
                         }
-                    }, applyScan); // Pass applyScan to autoCropDocument as well for efficiency
+                    }, applyScan); 
                 } else {
                     if (applyScan) {
                         var tempCanvas = document.createElement('canvas');
