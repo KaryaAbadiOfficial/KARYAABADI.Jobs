@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <script src="https://cdn.tailwindcss.com"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0W6GP10X59"></script>
+<!-- Library OpenCV.js untuk Fitur Perspective Crop (Meluruskan Dokumen) -->
+<script async src="https://docs.opencv.org/4.8.0/opencv.js"></script>
 <script>
 tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{body:['Inter','system-ui','sans-serif']},colors:{brand:{red:'#DC2626',darkred:'#991B1B',black:'#0A0A0A',dark:'#111111',card:'#1A1A1A',border:'#2A2A2A'}}}}}
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0W6GP10X59');
@@ -489,7 +491,7 @@ function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG
 function renderCV3(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);var eduCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);if(!N&&!SUB&&!TTL&&!JK&&!BN&&!AG&&!TB&&!BB&&!HP&&!ST&&!EM&&ap.length===0&&!PR&&!eduHTML&&!expHTML&&!SK&&!photoData){return''}function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="font-weight:400;">'+L(l)+':</div><div style="font-weight:700;">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="font-weight:400;white-space:nowrap;">'+L(l)+':</div><div style="font-weight:700;white-space:nowrap;">'+val+'</div></div>'}function diDiv(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="font-weight:400;">'+L(l)+':</div><div style="font-weight:700;margin-top:0.3mm">'+val+'</div></div>'}var ls='';var fi=fotoImg();if(fi)ls+='<div class="cv3-foto-wrap">'+fi+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, tanggal lahir',esc(TTL),TTL);ls+=di('Jenis kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=diDiv('Alamat',ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="sec-wrap" style="break-inside:avoid;margin-top:0;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div></div>'}if(eduHTML){rs+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){rs+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){rs+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return'<table class="cv3-layout" style="margin-top:0;"><tr><td class="cv3-left-col">'+ls+'</td><td class="cv3-right-col">'+rs+'</td></tr></table>'}
 function renderCV4(){var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),HP=v('nohp'),EM=v('email');var JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status');var al1=v('alamat1');var PR=getProfil('');var formalCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var hasNonEdu=eduNonList.some(function(e){return(e.t&&e.t.trim())||(e.d&&e.d.trim())||(e.k&&e.k.trim())||(e.j&&e.j.trim())});var eduH='';if(formalCount>0||hasNonEdu){if(hasNonEdu&&formalCount>0)eduH+='<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';eduH+='<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';eduList.forEach(function(e){if(e.t||e.y||e.p){var midVal='';var rightVal='';if(e.m==='p'&&e.p&&e.p.trim())rightVal=esc(e.p);else if(e.y&&e.y.trim()){midVal='Tahun Lulus';rightVal=esc(e.y)}else if(e.p&&e.p.trim())rightVal=esc(e.p);eduH+='<tr><td style="padding:1mm 0;word-break:break-word;width:50%;border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0;text-align:center;width:30%;border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right;white-space:nowrap;width:20%;border:none;">'+rightVal+'</td></tr>'}});eduH+='</table>';if(hasNonEdu){eduH+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';eduH+='<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';eduNonList.forEach(function(e){var leftVal1=e.t?esc(e.t):'';var rightVal1=e.d?esc(e.d):'';var subDetails=[];if(e.k&&e.k.trim())subDetails.push(esc(e.k));if(e.j&&e.j.trim())subDetails.push('('+esc(e.j)+')');if(leftVal1||rightVal1)eduH+='<tr><td style="padding:1mm 0;word-break:break-word;width:50%;border:none;">'+leftVal1+'</td><td style="padding:1mm 0;text-align:right;white-space:nowrap;width:50%;border:none;">'+rightVal1+'</td></tr>';if(subDetails.length>0)eduH+='<tr><td style="padding:1mm 0;word-break:break-word;width:50%;border:none;">'+subDetails.join(' ')+'</td><td style="padding:1mm 0;width:50%;border:none;"></td></tr>'});eduH+='</table>'}}var expH=expPH(expList);var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);if(!N&&!SUB&&!TTL&&!HP&&!EM&&!JK&&!BN&&!AG&&!TB&&!BB&&!ST&&!al1&&!PR&&!eduH&&!expH&&!SK){return''}var h='';if(N)h+='<div style="text-align:center;font-size:18pt;font-weight:700;text-transform:uppercase;margin-bottom:1mm;margin-top:0;">'+esc(N)+'</div>';if(SUB)h+='<div style="text-align:center;color:#333;margin-bottom:4mm;">'+esc(SUB)+'</div>';var infoArr=[];if(TTL)infoArr.push(esc(TTL));var detailBits=[];if(JK)detailBits.push(esc(JK));if(BN)detailBits.push(esc(BN));if(AG)detailBits.push(esc(AG));if(TB)detailBits.push(esc(TB)+' cm');if(BB)detailBits.push(esc(BB)+' kg');if(ST)detailBits.push(esc(ST));if(detailBits.length)infoArr.push(detailBits.join(' | '));if(al1)infoArr.push(esc(al1));var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)infoArr.push(contactBits.join(' | '));if(infoArr.length)h+='<div style="text-align:center;margin-bottom:15mm;line-height:1.5;">'+infoArr.join('<br>')+'</div>';if(PR){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;word-break:break-word;">'+PR+'</div></div>'}if(eduH){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENDIDIKAN')+'</div><div>'+eduH+'</div></div>'}if(expH){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div><div>'+expH+'</div></div>'}if(SK){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div><div>'+SK+'</div></div>'}return h}
 function openInGmail(){var m=ST_M.find(function(t){return t.id===curTpl});if(!m||!m.on)return;var dot='...........';var N=v('nombre')||dot;var TTD=v('sTtd')||N;var HP=v('nohp')||dot;var EM=v('email')||dot;var PT=v('sPt')||dot;var sEmailPerusahaan=v('sEmailPerusahaan')||'';var subjek='Lamaran Pekerjaan';if(m.pos&&v('sPosisi'))subjek+=': '+v('sPosisi');if(N!==dot)subjek+=' - '+N;var sumberStr;if(m.semua)sumberStr='informasi lowongan pekerjaan yang ada';else sumberStr='informasi lowongan pekerjaan yang saya peroleh dari '+(v('sSumber')||dot);var pembukaEmail;if(m.pos)pembukaEmail='Sehubungan dengan '+sumberStr+' bahwa '+PT+' sedang membuka lowongan untuk posisi '+(v('sPosisi')||dot)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';else pembukaEmail='Sehubungan dengan '+sumberStr+' di '+PT+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';var li=[];for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push(val)}var namaFile=(N!==dot)?N:'Nama Pelamar';if(m.pos&&v('sPosisi'))namaFile+='_'+(v('sPosisi')||'');var body='';body+='Kepada Yth.\nBapak/Ibu HRD\n'+PT+'\ndi Tempat\n\nDengan hormat,\n\n'+pembukaEmail+'\n\nSebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF ('+namaFile+'.pdf) yang mencakup:\n';if(li.length){li.forEach(function(item,idx){body+=(idx+1)+'. '+item+'\n'})}else{body+='1. ...........\n2. ...........\n3. ...........\n'}body+='\nBesar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.\n\nDemikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\nHormat saya,\n\n\n'+TTD+'\n'+HP+'\n'+EM;var gmailUrl='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(sEmailPerusahaan)+'&su='+encodeURIComponent(subjek)+'&body='+encodeURIComponent(body);window.open(gmailUrl,'_blank');toast('Membuka Gmail di tab baru...','info')}
-function renderSuratP(){var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return'';var dot='...........';var dot2='...................';var N=v('nombre')||dot;var TTD=v('sTtd')||N;var HP=v('nohp')||dot;var EM=v('email')||dot;var PT=v('sPt')||dot;if(m.on){var sEmailPerusahaan=v('sEmailPerusahaan')||dot;var subjek='Lamaran Pekerjaan';if(m.pos&&v('sPosisi'))subjek+=': '+v('sPosisi');if(v('nombre'))subjek+=' - '+v('nombre');var sumberStr;if(m.semua)sumberStr='informasi lowongan pekerjaan yang ada';else sumberStr='informasi lowongan pekerjaan yang saya peroleh dari '+esc(v('sSumber')||dot);var pembukaEmail;if(m.pos)pembukaEmail='Sehubungan dengan '+sumberStr+' bahwa '+esc(PT)+' sedang membuka lowongan untuk posisi '+esc(v('sPosisi')||dot)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';else pembukaEmail='Sehubungan dengan '+sumberStr+' di '+esc(PT)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';var li=[];var lc=0;for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push(val);lc++}var lamps=li.length?li.map(function(item,idx){return'<div style="margin-bottom:1mm;">'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>1. ...........</div><div>2. ...........</div><div>3. ...........</div>';var namaFile=(N!==dot)?esc(N):'Nama Pelamar';if(m.pos&&v('sPosisi'))namaFile+='_'+esc(v('sPosisi'));var h='';h+='<table style="width:100%;margin-bottom:4mm;border:none;border-collapse:collapse;">';h+='<tr><td style="width:20mm;border:none;padding:0 2mm 1mm 0;vertical-align:top;">Kepada</td><td style="width:3mm;border:none;padding:0 0 1mm 0;">:</td><td style="border:none;padding:0 0 1mm 0;">'+esc(sEmailPerusahaan)+'</td></tr>';h+='<tr><td style="width:20mm;border:none;padding:0 2mm 0 0;vertical-align:top;">Subjek</td><td style="width:3mm;border:none;padding:0;">:</td><td style="border:none;padding:0;">'+esc(subjek)+'</td></tr>';h+='</table>';h+='<div style="margin-bottom:5mm;line-height:1.5;">Kepada Yth.<br>Bapak/Ibu HRD<br>'+esc(PT)+'<br>di Tempat</div>';h+='<p style="margin:0 0 4mm 0;line-height:1.5;">Dengan hormat,</p>';h+='<p style="margin:0 0 4mm 0;text-align:justify;line-height:1.5;">'+pembukaEmail+'</p>';h+='<p style="margin:0 0 2mm 0;text-align:justify;line-height:1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF ('+namaFile+'.pdf) yang mencakup:</p>';h+='<div style="margin:0 0 4mm 8mm;line-height:1.5;">'+lamps+'</div>';h+='<p style="margin:0 0 4mm 0;text-align:justify;line-height:1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>';h+='<p style="margin:0 0 8mm 0;text-align:justify;line-height:1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>';h+='<div class="sec-wrap" style="break-inside:avoid;margin-top:6mm;line-height:1.6;">Hormat saya,<br><br><span style="font-weight:bold;text-decoration:underline;">'+esc(TTD)+'</span><br>'+esc(HP)+'<br>'+esc(EM)+'</div>';return h}var sK=v('sKota')||dot;var sT=v('sTgl')||dot;var sBT=v('sBlnThn')||dot;var JL=v('sJl')||dot;var JL2=v('sJl2')||'';var SUM=v('sSumber')||dot;var POS=v('sPosisi')||dot;var TTL=v('ttl')||dot;var JK=v('jk')||dot2;var AG=v('agama')||dot2;var PA=v('pendAkhir')||dot;var AL=v('alamat1')||dot;var AL2=v('alamat2')||'';var autoPembuka='';if(m.semua)autoPembuka='Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:';else if(m.pos)autoPembuka='Berdasarkan informasi lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai '+esc(POS)+'.';else autoPembuka='Berdasarkan informasi lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin.';var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;var autoPenutup='Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';var customPenutup=v('sPenutup')&&v('sPenutup').trim();var penutupText=customPenutup?customPenutup:autoPenutup;var li=[];var lc=0;for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push(val);lc++}var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>...................</div>';var lampLabel=L('lembar');var lampCountText=lc>0?(lc+' '+lampLabel):('..... '+lampLabel);var labelStyle='width:45mm;padding-right:2mm;white-space:nowrap;text-align:left;vertical-align:top;';var colonStyle='width:3mm;text-align:center;vertical-align:top;';function dr(l,val){return'<tr><td style="'+labelStyle+'">'+L(l)+'</td><td style="'+colonStyle+'">:</td><td style="text-align:left;vertical-align:top">'+val+'</td></tr>'}var al2r=AL2?'<tr><td style="'+labelStyle+'">&nbsp;</td><td style="'+colonStyle+'">&nbsp;</td><td style="text-align:left;vertical-align:top">'+esc(AL2)+'</td></tr>':'';var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">'+L('Hal')+'</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">'+L('Lampiran')+'</td><td style="padding-left:2mm">: '+lampCountText+'</td></tr></table>';var at='<div style="margin-top:2mm;text-align:left">'+L('Kepada Yth.')+'</div><div style="text-align:left">'+L('Bapak/Ibu HRD')+'</div>';if(m.semua)at+='<div style="text-align:left">'+L('di Tempat')+'</div>';else{at+='<div style="text-align:left">'+esc(PT)+'</div><div style="text-align:left">'+esc(JL)+'</div>';if(JL2&&JL2.trim())at+='<div style="text-align:left">'+esc(JL2)+'</div>'}var body='';if(!m.on)body+='<div style="margin-top:4mm;text-align:left">'+L('Dengan Hormat,')+'</div>';body+='<div class="sec-wrap" style="break-inside:avoid;"><div style="margin-top:2mm;text-align:justify;text-indent:8mm">'+esc(pembukaText).replace(/\n/g,'<br>')+'</div>';if(!m.semua)body+='<div style="margin-top:3mm;text-align:left">'+L('Bersama ini, saya yang bertanda tangan di bawah ini:')+'</div>';body+='<table style="width:100%;margin-top:2mm">';body+=dr('Nama',esc(N));body+=dr('Tempat dan Tanggal Lahir',esc(TTL));body+=dr('Jenis Kelamin',esc(JK));body+=dr('Agama',esc(AG));body+=dr('Pendidikan Terakhir',esc(PA));body+=dr('Alamat',esc(AL));body+=al2r;body+=dr('Email',esc(EM));body+=dr('No HP',esc(HP));body+='</table>';body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini turut saya lampirkan:</div>';body+='<div style="margin-left:8mm;margin-top:2mm">'+lamps+'</div>';body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">'+esc(penutupText).replace(/\n/g,'<br>')+'</div></div>';var ttdN=esc(TTD)||dot2;var ttd='<div class="sec-wrap" style="break-inside:avoid;margin-top:8mm;text-align:right"><div style="display:inline-block;text-align-center"><div>'+L('Hormat saya,')+'</div><div style="height:14mm"></div><div style="font-weight:600;text-decoration:underline">'+ttdN+'</div></div></div>';return tw+hl+at+body+ttd}
+function renderSuratP(){var m=ST_M.find(function(t){return t.id===curTpl});if(!m)return'';var dot='...........';var dot2='...................';var N=v('nombre')||dot;var TTD=v('sTtd')||N;var HP=v('nohp')||dot;var EM=v('email')||dot;var PT=v('sPt')||dot;if(m.on){var sEmailPerusahaan=v('sEmailPerusahaan')||dot;var subjek='Lamaran Pekerjaan';if(m.pos&&v('sPosisi'))subjek+=': '+v('sPosisi');if(v('nombre'))subjek+=' - '+v('nombre');var sumberStr;if(m.semua)sumberStr='informasi lowongan pekerjaan yang ada';else sumberStr='informasi lowongan pekerjaan yang saya peroleh dari '+esc(v('sSumber')||dot);var pembukaEmail;if(m.pos)pembukaEmail='Sehubungan dengan '+sumberStr+' bahwa '+esc(PT)+' sedang membuka lowongan untuk posisi '+esc(v('sPosisi')||dot)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';else pembukaEmail='Sehubungan dengan '+sumberStr+' di '+esc(PT)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';var li=[];var lc=0;for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push(val);lc++}var lamps=li.length?li.map(function(item,idx){return'<div style="margin-bottom:1mm;">'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>1. ...........</div><div>2. ...........</div><div>3. ...........</div>';var namaFile=(N!==dot)?esc(N):'Nama Pelamar';if(m.pos&&v('sPosisi'))namaFile+='_'+esc(v('sPosisi'));var h='';h+='<table style="width:100%;margin-bottom:4mm;border:none;border-collapse:collapse;">';h+='<tr><td style="width:20mm;border:none;padding:0 2mm 1mm 0;vertical-align:top;">Kepada</td><td style="width:3mm;border:none;padding:0 0 1mm 0;">:</td><td style="border:none;padding:0 0 1mm 0;">'+esc(sEmailPerusahaan)+'</td></tr>';h+='<tr><td style="width:20mm;border:none;padding:0 2mm 0 0;vertical-align:top;">Subjek</td><td style="width:3mm;border:none;padding:0;">:</td><td style="border:none;padding:0;">'+esc(subjek)+'</td></tr>';h+='</table>';h+='<div style="margin-bottom:5mm;line-height:1.5;">Kepada Yth.<br>Bapak/Ibu HRD<br>'+esc(PT)+'<br>di Tempat</div>';h+='<p style="margin:0 0 4mm 0;line-height:1.5;">Dengan hormat,</p>';h+='<p style="margin:0 0 4mm 0;text-align:justify;line-height:1.5;">'+pembukaEmail+'</p>';h+='<p style="margin:0 0 2mm 0;text-align:justify;line-height:1.5;">Sebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF ('+namaFile+'.pdf) yang mencakup:</p>';h+='<div style="margin:0 0 4mm 8mm;line-height:1.5;">'+lamps+'</div>';h+='<p style="margin:0 0 4mm 0;text-align:justify;line-height:1.5;">Besar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.</p>';h+='<p style="margin:0 0 8mm 0;text-align:justify;line-height:1.5;">Demikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.</p>';h+='<div class="sec-wrap" style="break-inside:avoid;margin-top:6mm;line-height:1.6;">Hormat saya,<br><br><span style="font-weight:bold;text-decoration:underline;">'+esc(TTD)+'</span><br>'+esc(HP)+'<br>'+esc(EM)+'</div>';return h}var sK=v('sKota')||dot;var sT=v('sTgl')||dot;var sBT=v('sBlnThn')||dot;var JL=v('sJl')||dot;var JL2=v('sJl2')||'';var SUM=v('sSumber')||dot;var POS=v('sPosisi')||dot;var TTL=v('ttl')||dot;var JK=v('jk')||dot2;var AG=v('agama')||dot2;var PA=v('pendAkhir')||dot;var AL=v('alamat1')||dot;var AL2=v('alamat2')||'';var autoPembuka='';if(m.semua)autoPembuka='Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin. Sebagai bahan pertimbangan, berikut saya lampirkan data diri saya:';else if(m.pos)autoPembuka='Berdasarkan informasi lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', dengan ini saya bermaksud mengajukan lamaran untuk mengisi posisi sebagai '+esc(POS)+'.';else autoPembuka='Berdasarkan informasi lowongan pekerjaan di '+esc(PT)+' yang saya peroleh dari '+esc(SUM)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan di perusahaan yang Bapak/Ibu pimpin.';var customPembuka=v('sPembuka')&&v('sPembuka').trim();var pembukaText=customPembuka?customPembuka:autoPembuka;var autoPenutup='Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk dapat bergabung dan berkontribusi di perusahaan yang Bapak/Ibu pimpin. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.';var customPenutup=v('sPenutup')&&v('sPenutup').trim();var penutupText=customPenutup?customPenutup:autoPenutup;var li=[];var lc=0;for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push(val);lc++}var lamps=li.length?li.map(function(item,idx){return'<div>'+(idx+1)+'. '+esc(item)+'</div>'}).join(''):'<div>...................</div>';var lampLabel=L('lembar');var lampCountText=lc>0?(lc+' '+lampLabel):('..... '+lampLabel);var labelStyle='width:45mm;padding-right:2mm;white-space:nowrap;text-align:left;vertical-align:top;';var colonStyle='width:3mm;text-align:center;vertical-align:top;';function dr(l,val){return'<tr><td style="'+labelStyle+'">'+L(l)+'</td><td style="'+colonStyle+'">:</td><td style="text-align:left;vertical-align:top">'+val+'</td></tr>'}var al2r=AL2?'<tr><td style="'+labelStyle+'">&nbsp;</td><td style="'+colonStyle+'">&nbsp;</td><td style="text-align:left;vertical-align:top">'+esc(AL2)+'</td></tr>':'';var tw='<div style="text-align:right">'+esc(sK)+', '+esc(sT)+' '+esc(sBT)+'</div>';var hl='<table style="width:auto;margin-bottom:1mm;margin-top:1mm"><tr><td style="width:18mm;padding-right:2mm">'+L('Hal')+'</td><td style="padding-left:2mm">: Lamaran Pekerjaan</td></tr><tr><td style="width:18mm;padding-right:2mm">'+L('Lampiran')+'</td><td style="padding-left:2mm">: '+lampCountText+'</td></tr></table>';var at='<div style="margin-top:2mm;text-align:left">'+L('Kepada Yth.')+'</div><div style="text-align:left">'+L('Bapak/Ibu HRD')+'</div>';if(m.semua)at+='<div style="text-align:left">'+L('di Tempat')+'</div>';else{at+='<div style="text-align-left">'+esc(PT)+'</div><div style="text-align-left">'+esc(JL)+'</div>';if(JL2&&JL2.trim())at+='<div style="text-align-left">'+esc(JL2)+'</div>'}var body='';if(!m.on)body+='<div style="margin-top:4mm;text-align:left">'+L('Dengan Hormat,')+'</div>';body+='<div class="sec-wrap" style="break-inside:avoid;"><div style="margin-top:2mm;text-align:justify;text-indent:8mm">'+esc(pembukaText).replace(/\n/g,'<br>')+'</div>';if(!m.semua)body+='<div style="margin-top:3mm;text-align:left">'+L('Bersama ini, saya yang bertanda tangan di bawah ini:')+'</div>';body+='<table style="width:100%;margin-top:2mm">';body+=dr('Nama',esc(N));body+=dr('Tempat dan Tanggal Lahir',esc(TTL));body+=dr('Jenis Kelamin',esc(JK));body+=dr('Agama',esc(AG));body+=dr('Pendidikan Terakhir',esc(PA));body+=dr('Alamat',esc(AL));body+=al2r;body+=dr('Email',esc(EM));body+=dr('No HP',esc(HP));body+='</table>';body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">Sebagai bahan pertimbangan, bersama surat ini turut saya lampirkan:</div>';body+='<div style="margin-left:8mm;margin-top:2mm">'+lamps+'</div>';body+='<div style="margin-top:3mm;text-align:justify;text-indent:8mm">'+esc(penutupText).replace(/\n/g,'<br>')+'</div></div>';var ttdN=esc(TTD)||dot2;var ttd='<div class="sec-wrap" style="break-inside:avoid;margin-top:8mm;text-align:right"><div style="display:inline-block;text-align-center"><div>'+L('Hormat saya,')+'</div><div style="height:14mm"></div><div style="font-weight:600;text-decoration:underline">'+ttdN+'</div></div></div>';return tw+hl+at+body+ttd}
 function paginatePreview(htmlString){var offscreen=document.getElementById('pdf-offscreen');var pageStyle='font-family:'+selFont+';font-size:'+selSize+'pt;line-height:'+selLH+';';offscreen.innerHTML='<div id="dummy-paginator" style="'+pageStyle+'width:180mm;visibility:hidden;position:relative;left:0;top:0;">'+htmlString+'</div>';var dummy=document.getElementById('dummy-paginator');if(!dummy)return;var pageHeightPx=297*3.7795275591;var marginPx=15*3.7795275591;var contentLimitPx=pageHeightPx-(2*marginPx)-10;var pagesHtml=[];var currentPageNodes=[];var currentHeight=0;function flushPage(){if(currentPageNodes.length>0){var tempDiv=document.createElement('div');currentPageNodes.forEach(function(n){tempDiv.appendChild(n.cloneNode(true))});pagesHtml.push(tempDiv.innerHTML);currentPageNodes=[];currentHeight=0}}var children=Array.from(dummy.childNodes);for(var i=0;i<children.length;i++){var node=children[i];if(node.nodeType===1){var style=window.getComputedStyle(node);var mt=parseFloat(style.marginTop)||0;var mb=parseFloat(style.marginBottom)||0;var h=node.getBoundingClientRect().height;if(currentHeight===0){h=h+mb}else{h=h+mt+mb}if(h===0&&(node.textContent||'').trim()===''&&!node.querySelector('img')){continue}if(currentHeight+h>contentLimitPx&&currentPageNodes.length>0){flushPage();h=node.getBoundingClientRect().height+mb}currentPageNodes.push(node);currentHeight+=h}else if(node.nodeType===3&&node.textContent.trim()!==''){if(currentPageNodes.length>0){currentPageNodes.push(node)}}}flushPage();offscreen.innerHTML='';if(pagesHtml.length===0)pagesHtml.push('');var finalHtml=pagesHtml.map(function(p){return'<div class="a4-page" style="'+pageStyle+'">'+p+'</div>'}).join('');var p=document.getElementById('a4-page');var pm=document.getElementById('a4-page-mob');if(p)p.innerHTML=finalHtml;if(pm)pm.innerHTML=finalHtml}
 function renderPreview(){var html='';if(curCat==='cv'){if(curTpl==='cv1')html=renderCV1();else if(curTpl==='cv2')html=renderCV2();else if(curTpl==='cv3')html=renderCV3();else if(curTpl==='cv4')html=renderCV4()}else{html=renderSuratP()}paginatePreview(html)}
 function handlePhoto(event){var file=event.target.files[0];if(!file)return;if(file.size>5*1024*1024){toast('Ukuran foto maksimal 5MB','error');return}var reader=new FileReader();reader.onload=function(e){var img=new Image();img.onload=function(){var targetRatio=3.81/5.59;var imgRatio=img.width/img.height;var cropWidth,cropHeight,cropX,cropY;if(imgRatio>targetRatio){cropHeight=img.height;cropWidth=cropHeight*targetRatio;cropX=(img.width-cropWidth)/2;cropY=0}else{cropWidth=img.width;cropHeight=cropWidth/targetRatio;cropX=0;cropY=(img.height-cropHeight)/2}var canvas=document.createElement('canvas');canvas.width=381;canvas.height=559;var ctx=canvas.getContext('2d');ctx.drawImage(img,cropX,cropY,cropWidth,cropHeight,0,0,canvas.width,canvas.height);photoData=canvas.toDataURL('image/jpeg',0.9);restorePhoto();renderPreview();toast('Foto berhasil dipotong otomatis (3.81x5.59 cm)','success')};img.src=e.target.result};reader.readAsDataURL(file)}
@@ -505,133 +507,210 @@ function formatBytes(b){if(!b||b<=0)return'0 B';if(b<1024)return b+' B';if(b<102
 function dataUrlSize(u){if(!u)return 0;var i=u.indexOf(',');if(i<0)return 0;return Math.round((u.length-i-1)*3/4)}
 function compressImageToSize(img,t,cb){var m=2200,w=img.width,h=img.height;if(w>m||h>m){if(w>h){h=h*m/w;w=m}else{w=w*m/h;h=m}}function att(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);var l=0.25,hi=0.92,b=null;for(var i=0;i<8;i++){var mid=(l+hi)/2;var u=c.toDataURL('image/jpeg',mid);var s=dataUrlSize(u);if(s<=t){b={dataUrl:u,size:s,w:w,h:h};l=mid}else{hi=mid}}return b}var r=att(w,h);var sc=0.85;while(!r&&sc>0.15){var nw=Math.round(w*sc);var nh=Math.round(h*sc);if(nw<100||nh<100)break;r=att(nw,nh);sc-=0.1}if(!r){var c=document.createElement('canvas');var mw=Math.min(w,800);var mh=Math.round(h*mw/w);c.width=mw;c.height=mh;var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,mw,mh);x.drawImage(img,0,0,mw,mh);var u=c.toDataURL('image/jpeg',0.3);r={dataUrl:u,size:dataUrlSize(u),w:mw,h:mh}}cb(r.dataUrl,r.size,r.w,r.h)}
 function autoCropDocument(img, cb) {
+    // Jika library OpenCV.js sudah selesai dimuat, gunakan sistem Perspektif (Perspective Crop)
+    if (typeof cv !== 'undefined' && cv.Mat) {
+        var src = null, gray = null, edges = null, contours = null, hierarchy = null, approx = null, maxContour = null, M = null, dst = null, srcTri = null, dstTri = null, kernel = null;
+        try {
+            src = cv.imread(img);
+            gray = new cv.Mat();
+            edges = new cv.Mat();
+            contours = new cv.MatVector();
+            hierarchy = new cv.Mat();
+            approx = new cv.Mat();
+            
+            // 1. Preprocessing gambar (Grayscale, Blur, Canny Edge)
+            cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+            cv.GaussianBlur(gray, gray, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
+            cv.Canny(gray, edges, 75, 200);
+            
+            // Dilasi untuk menghubungkan tepi yang terputus
+            kernel = cv.Mat.ones(5, 5, cv.CV_8U);
+            cv.dilate(edges, edges, kernel);
+            
+            // 2. Cari kontur terbesar
+            cv.findContours(edges, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+            
+            var maxArea = 0;
+            for (var i = 0; i < contours.size(); ++i) {
+                var cnt = contours.get(i);
+                var area = cv.contourArea(cnt);
+                var peri = cv.arcLength(cnt, true);
+                cv.approxPolyDP(cnt, approx, 0.02 * peri, true);
+                
+                // Jika kontur memiliki 4 titik (persegi) dan areanya > 1000px
+                if (area > 1000 && approx.rows === 4 && area > maxArea) {
+                    maxArea = area;
+                    if (maxContour) maxContour.delete();
+                    maxContour = approx.clone();
+                }
+                cnt.delete();
+            }
+            
+            // 3. Jika dokumen 4 sudut ditemukan, lakukan Warp Perspective
+            if (maxContour && maxArea > 0) {
+                var pts = [];
+                for (var i = 0; i < maxContour.data32S.length; i += 2) {
+                    pts.push({x: maxContour.data32S[i], y: maxContour.data32S[i+1]});
+                }
+                
+                if (pts.length === 4) {
+                    // Urutkan titik: kiri-atas, kanan-atas, kanan-bawah, kiri-bawah
+                    var tl = pts.reduce(function(a, b){ return (a.x + a.y < b.x + b.y ? a : b); });
+                    var br = pts.reduce(function(a, b){ return (a.x + a.y > b.x + b.y ? a : b); });
+                    var tr = pts.reduce(function(a, b){ return (a.y - a.x < b.y - b.x ? a : b); });
+                    var bl = pts.reduce(function(a, b){ return (a.y - a.x > b.y - b.x ? a : b); });
+                    
+                    // Hitung lebar dan tinggi maksimal untuk gambar baru
+                    var widthA = Math.sqrt(Math.pow(tr.x - br.x, 2) + Math.pow(tr.y - br.y, 2));
+                    var widthB = Math.sqrt(Math.pow(tl.x - bl.x, 2) + Math.pow(tl.y - bl.y, 2));
+                    var maxWidth = Math.round(Math.max(widthA, widthB));
+                    
+                    var heightA = Math.sqrt(Math.pow(tr.x - tl.x, 2) + Math.pow(tr.y - tl.y, 2));
+                    var heightB = Math.sqrt(Math.pow(br.x - bl.x, 2) + Math.pow(br.y - bl.y, 2));
+                    var maxHeight = Math.round(Math.max(heightA, heightB));
+                    
+                    // Buat matriks transformasi
+                    srcTri = cv.matFromArray(4, 1, cv.CV_32FC2, [tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y]);
+                    dstTri = cv.matFromArray(4, 1, cv.CV_32FC2, [0, 0, maxWidth, 0, maxWidth, maxHeight, 0, maxHeight]);
+                    
+                    M = cv.getPerspectiveTransform(srcTri, dstTri);
+                    dst = new cv.Mat();
+                    var dsize = new cv.Size(maxWidth, maxHeight);
+                    
+                    // Terapkan warp perspective (meluruskan dokumen)
+                    cv.warpPerspective(src, dst, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar(0, 0, 0, 255));
+                    
+                    var canvas = document.createElement('canvas');
+                    cv.imshow(canvas, dst);
+                    
+                    var cImg = new Image();
+                    cImg.onload = function() { cb(cImg); };
+                    cImg.src = canvas.toDataURL('image/jpeg', 1.0);
+                    
+                    // Cleanup memory OpenCV
+                    src.delete(); gray.delete(); edges.delete(); contours.delete(); hierarchy.delete();
+                    approx.delete(); maxContour.delete(); kernel.delete(); M.delete(); dst.delete(); srcTri.delete(); dstTri.delete();
+                    return;
+                }
+            }
+        } catch(e) {
+            console.error("OpenCV Error, falling back to simple crop:", e);
+        } finally {
+            // Pastikan memory dihapus meskipun terjadi error
+            if (src) src.delete();
+            if (gray) gray.delete();
+            if (edges) edges.delete();
+            if (contours) contours.delete();
+            if (hierarchy) hierarchy.delete();
+            if (approx) approx.delete();
+            if (maxContour) maxContour.delete();
+            if (kernel) kernel.delete();
+            if (M) M.delete();
+            if (dst) dst.delete();
+            if (srcTri) srcTri.delete();
+            if (dstTri) dstTri.delete();
+        }
+    }
+    
+    // ==============================================================
+    // FALLBACK: Jika OpenCV belum selesai dimuat, gunakan Flood Fill
+    // ==============================================================
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var w = img.width, h = img.height;
-
-    // Scale down for performance (max 300px)
-    var maxDim = 300;
+    var maxDim = 200;
     var scale = Math.min(1, maxDim / Math.max(w, h));
     var sw = Math.max(1, Math.round(w * scale));
     var sh = Math.max(1, Math.round(h * scale));
-    
-    canvas.width = sw; 
-    canvas.height = sh;
+    canvas.width = sw; canvas.height = sh;
     ctx.drawImage(img, 0, 0, sw, sh);
-    
     var imageData;
     try { imageData = ctx.getImageData(0, 0, sw, sh); } catch(e) { cb(null); return; }
     var data = imageData.data;
-    
-    // 1. Convert to Grayscale
-    var gray = new Array(sw * sh);
-    for (var i = 0, j = 0; i < data.length; i += 4, j++) {
-        gray[j] = (data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114);
-    }
-    
-    // 2. Edge Detection (Simple Gradient)
-    var edges = new Array(sw * sh).fill(0);
-    var edgeThreshold = 30;
-    for (var y = 0; y < sh - 1; y++) {
-        for (var x = 0; x < sw - 1; x++) {
-            var idx = y * sw + x;
-            var dx = Math.abs(gray[idx] - gray[idx + 1]);
-            var dy = Math.abs(gray[idx] - gray[idx + sw]);
-            var mag = dx + dy;
-            if (mag > edgeThreshold) {
-                edges[idx] = 1;
-            }
+    function colorDist(r1, g1, b1, r2, g2, b2) { return Math.sqrt((r1-r2)*(r1-r2) + (g1-g2)*(g1-g2) + (b1-b2)*(b1-b2)); }
+    var visited = new Array(sw * sh).fill(false);
+    var isBg = new Array(sw * sh).fill(false);
+    var threshold = 40;
+    var queue = [];
+    var corners = [0, sw - 1, (sh - 1) * sw, (sh - 1) * sw + sw - 1];
+    corners.forEach(function(idx) {
+        if (!visited[idx]) {
+            queue.push(idx);
+            visited[idx] = true;
+            isBg[idx] = true;
         }
-    }
-    
-    // 3. Morphological Dilation (Merge nearby text/edges into one big blob)
-    var dilated = edges.slice();
-    var dilIter = 3; // 3 iterations to bridge gaps between words/lines
-    for (var d = 0; d < dilIter; d++) {
-        var temp = dilated.slice();
-        for (var y = 1; y < sh - 1; y++) {
-            for (var x = 1; x < sw - 1; x++) {
-                var idx = y * sw + x;
-                if (temp[idx] === 1) continue;
-                // Check 8 neighbors
-                if (temp[idx - 1] || temp[idx + 1] || temp[idx - sw] || temp[idx + sw] ||
-                    temp[idx - sw - 1] || temp[idx - sw + 1] || temp[idx + sw - 1] || temp[idx + sw + 1]) {
-                    dilated[idx] = 1;
+    });
+    var head = 0;
+    while (head < queue.length) {
+        var curr = queue[head++];
+        var x = curr % sw;
+        var y = Math.floor(curr / sw);
+        var i = curr * 4;
+        var r1 = data[i], g1 = data[i+1], b1 = data[i+2];
+        var neighbors = [];
+        if (x > 0) neighbors.push(curr - 1);
+        if (x < sw - 1) neighbors.push(curr + 1);
+        if (y > 0) neighbors.push(curr - sw);
+        if (y < sh - 1) neighbors.push(curr + sw);
+        for (var n = 0; n < neighbors.length; n++) {
+            var nIdx = neighbors[n];
+            if (!visited[nIdx]) {
+                var ni = nIdx * 4;
+                var r2 = data[ni], g2 = data[ni+1], b2 = data[ni+2];
+                if (colorDist(r1, g1, b1, r2, g2, b2) < threshold) {
+                    visited[nIdx] = true;
+                    isBg[nIdx] = true;
+                    queue.push(nIdx);
+                } else {
+                    visited[nIdx] = true; 
                 }
             }
         }
     }
-    
-    // 4. Connected Components to find the largest document blob
-    var visited = new Array(sw * sh).fill(false);
-    var bestBox = null;
-    var bestArea = 0;
-    
+    var minX = sw, minY = sh, maxX = 0, maxY = 0;
+    var foundContent = false;
     for (var y = 0; y < sh; y++) {
         for (var x = 0; x < sw; x++) {
             var idx = y * sw + x;
-            if (dilated[idx] && !visited[idx]) {
-                var queue = [idx];
-                var head = 0;
-                visited[idx] = true;
-                var minx = x, maxx = x, miny = y, maxy = y;
-                var count = 0;
-                
-                while (head < queue.length) {
-                    var curr = queue[head++];
-                    var cx = curr % sw, cy = Math.floor(curr / sw);
-                    minx = Math.min(minx, cx); maxx = Math.max(maxx, cx);
-                    miny = Math.min(miny, cy); maxy = Math.max(maxy, cy);
-                    count++;
-                    
-                    if (cx > 0 && dilated[curr - 1] && !visited[curr - 1]) { visited[curr - 1] = true; queue.push(curr - 1); }
-                    if (cx < sw - 1 && dilated[curr + 1] && !visited[curr + 1]) { visited[curr + 1] = true; queue.push(curr + 1); }
-                    if (cy > 0 && dilated[curr - sw] && !visited[curr - sw]) { visited[curr - sw] = true; queue.push(curr - sw); }
-                    if (cy < sh - 1 && dilated[curr + sw] && !visited[curr + sw]) { visited[curr + sw] = true; queue.push(curr + sw); }
-                }
-                
-                var bw = maxx - minx + 1;
-                var bh = maxy - miny + 1;
-                var aspect = bw / bh;
-                
-                // Filter small noise and extreme aspect ratios (like a pen or a long keyboard edge)
-                if (count > (sw * sh * 0.05) && aspect > 0.2 && aspect < 5.0) {
-                    if (count > bestArea) {
-                        bestArea = count;
-                        bestBox = { minx: minx, miny: miny, maxx: maxx, maxy: maxy };
-                    }
-                }
+            if (!isBg[idx]) {
+                foundContent = true;
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
             }
         }
     }
-    
-    // If the largest blob covers >85% of the image, it's likely a full-page document (like an A4 Ijazah)
-    // In this case, we just trim a small 2% margin to avoid cutting off text near the edges.
-    if (bestArea > (sw * sh * 0.85)) {
-        bestBox = { minx: sw * 0.02, miny: sh * 0.02, maxx: sw * 0.98, maxy: sh * 0.98 };
+    if (!foundContent || (maxX - minX < sw * 0.3 && maxY - minY < sh * 0.3)) {
+        minX = sw; minY = sh; maxX = 0; maxY = 0;
+        for (var y = 0; y < sh; y++) {
+            for (var x = 0; x < sw; x++) {
+                var idx = y * sw + x;
+                var i = idx * 4;
+                var r = data[i], g = data[i+1], b = data[i+2];
+                if (r < 230 || g < 230 || b < 230) {
+                    if (x < minX) minX = x;
+                    if (x > maxX) maxX = x;
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+        if (minX === sw) { cb(null); return; }
     }
-    
-    // Fallback to whole image if no blob found
-    if (!bestBox) {
-        bestBox = { minx: 0, miny: 0, maxx: sw, maxy: sh };
-    }
-    
-    // Map back to original image coordinates and add a 2% padding
-    var padW = w * 0.02;
-    var padH = h * 0.02;
-    var minX = Math.max(0, Math.floor((bestBox.minx / scale) - padW));
-    var minY = Math.max(0, Math.floor((bestBox.miny / scale) - padH));
-    var maxX = Math.min(w, Math.ceil((bestBox.maxx / scale) + padW));
-    var maxY = Math.min(h, Math.ceil((bestBox.maxy / scale) + padH));
-    
-    var cW = maxX - minX, cH = maxY - minY;
-    if (cW < 10 || cH < 10) { cb(null); return; }
-    
+    var padW = w * 0.03;
+    var padH = h * 0.03;
+    var cropX = Math.max(0, Math.floor((minX / scale) - padW));
+    var cropY = Math.max(0, Math.floor((minY / scale) - padH));
+    var cropW = Math.min(w, Math.ceil(((maxX - minX + 1) / scale) + padW * 2));
+    var cropH = Math.min(h, Math.ceil(((maxY - minY + 1) / scale) + padH * 2));
+    if (cropX + cropW > w) cropW = w - cropX;
+    if (cropY + cropH > h) cropH = h - cropY;
+    if (cropW < 10 || cropH < 10) { cb(null); return; }
     var cropCanvas = document.createElement('canvas');
-    cropCanvas.width = cW; 
-    cropCanvas.height = cH;
+    cropCanvas.width = cropW; cropCanvas.height = cropH;
     var cropCtx = cropCanvas.getContext('2d');
-    cropCtx.drawImage(img, minX, minY, cW, cH, 0, 0, cW, cH);
+    cropCtx.drawImage(img, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
     var cImg = new Image();
     cImg.onload = function() { cb(cImg); };
     cImg.src = cropCanvas.toDataURL('image/jpeg', 1.0);
