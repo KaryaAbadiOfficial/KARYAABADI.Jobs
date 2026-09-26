@@ -505,46 +505,136 @@ function formatBytes(b){if(!b||b<=0)return'0 B';if(b<1024)return b+' B';if(b<102
 function dataUrlSize(u){if(!u)return 0;var i=u.indexOf(',');if(i<0)return 0;return Math.round((u.length-i-1)*3/4)}
 function compressImageToSize(img,t,cb){var m=2200,w=img.width,h=img.height;if(w>m||h>m){if(w>h){h=h*m/w;w=m}else{w=w*m/h;h=m}}function att(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);var l=0.25,hi=0.92,b=null;for(var i=0;i<8;i++){var mid=(l+hi)/2;var u=c.toDataURL('image/jpeg',mid);var s=dataUrlSize(u);if(s<=t){b={dataUrl:u,size:s,w:w,h:h};l=mid}else{hi=mid}}return b}var r=att(w,h);var sc=0.85;while(!r&&sc>0.15){var nw=Math.round(w*sc);var nh=Math.round(h*sc);if(nw<100||nh<100)break;r=att(nw,nh);sc-=0.1}if(!r){var c=document.createElement('canvas');var mw=Math.min(w,800);var mh=Math.round(h*mw/w);c.width=mw;c.height=mh;var x=c.getContext('2d');x.fillStyle='#FFFFFF';x.fillRect(0,0,mw,mh);x.drawImage(img,0,0,mw,mh);var u=c.toDataURL('image/jpeg',0.3);r={dataUrl:u,size:dataUrlSize(u),w:mw,h:mh}}cb(r.dataUrl,r.size,r.w,r.h)}
 function autoCropDocument(img, cb) {
-    var canvas=document.createElement('canvas');
-    var ctx=canvas.getContext('2d');
-    var w=img.width, h=img.height;
-    canvas.width=w;canvas.height=h;
-    ctx.drawImage(img,0,0,w,h);
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var w = img.width, h = img.height;
+
+    // Scale down for performance (max 300px)
+    var maxDim = 300;
+    var scale = Math.min(1, maxDim / Math.max(w, h));
+    var sw = Math.max(1, Math.round(w * scale));
+    var sh = Math.max(1, Math.round(h * scale));
+    
+    canvas.width = sw; 
+    canvas.height = sh;
+    ctx.drawImage(img, 0, 0, sw, sh);
+    
     var imageData;
-    try { imageData=ctx.getImageData(0,0,w,h); } catch(e) { cb(null); return; }
-    var data=imageData.data;
-    var threshold=240; 
-    var minX=w,minY=h,maxX=0,maxY=0;
-    var foundContent=false;
-    var step=Math.max(1, Math.floor(w/300)); 
-    for(var y=0;y<h;y+=step){
-        for(var x=0;x<w;x+=step){
-            var i=(y*w+x)*4;
-            var r=data[i],g=data[i+1],b=data[i+2];
-            if(r<threshold || g<threshold || b<threshold){
-                if(x<minX)minX=x;
-                if(x>maxX)maxX=x;
-                if(y<minY)minY=y;
-                if(y>maxY)maxY=y;
-                foundContent=true;
+    try { imageData = ctx.getImageData(0, 0, sw, sh); } catch(e) { cb(null); return; }
+    var data = imageData.data;
+    
+    // 1. Convert to Grayscale
+    var gray = new Array(sw * sh);
+    for (var i = 0, j = 0; i < data.length; i += 4, j++) {
+        gray[j] = (data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114);
+    }
+    
+    // 2. Edge Detection (Simple Gradient)
+    var edges = new Array(sw * sh).fill(0);
+    var edgeThreshold = 30;
+    for (var y = 0; y < sh - 1; y++) {
+        for (var x = 0; x < sw - 1; x++) {
+            var idx = y * sw + x;
+            var dx = Math.abs(gray[idx] - gray[idx + 1]);
+            var dy = Math.abs(gray[idx] - gray[idx + sw]);
+            var mag = dx + dy;
+            if (mag > edgeThreshold) {
+                edges[idx] = 1;
             }
         }
     }
-    if(!foundContent){cb(null);return;}
-    var pad=Math.min(w,h)*0.02; 
-    minX=Math.max(0,Math.floor(minX-pad));
-    minY=Math.max(0,Math.floor(minY-pad));
-    maxX=Math.min(w,Math.ceil(maxX+pad));
-    maxY=Math.min(h,Math.ceil(maxY+pad));
-    var cW=maxX-minX, cH=maxY-minY;
-    if(cW<10||cH<10){cb(null);return;}
-    var cropCanvas=document.createElement('canvas');
-    cropCanvas.width=cW;cropCanvas.height=cH;
-    var cropCtx=cropCanvas.getContext('2d');
-    cropCtx.drawImage(img,minX,minY,cW,cH,0,0,cW,cH);
-    var cImg=new Image();
-    cImg.onload=function(){cb(cImg);};
-    cImg.src=cropCanvas.toDataURL('image/jpeg',1.0);
+    
+    // 3. Morphological Dilation (Merge nearby text/edges into one big blob)
+    var dilated = edges.slice();
+    var dilIter = 3; // 3 iterations to bridge gaps between words/lines
+    for (var d = 0; d < dilIter; d++) {
+        var temp = dilated.slice();
+        for (var y = 1; y < sh - 1; y++) {
+            for (var x = 1; x < sw - 1; x++) {
+                var idx = y * sw + x;
+                if (temp[idx] === 1) continue;
+                // Check 8 neighbors
+                if (temp[idx - 1] || temp[idx + 1] || temp[idx - sw] || temp[idx + sw] ||
+                    temp[idx - sw - 1] || temp[idx - sw + 1] || temp[idx + sw - 1] || temp[idx + sw + 1]) {
+                    dilated[idx] = 1;
+                }
+            }
+        }
+    }
+    
+    // 4. Connected Components to find the largest document blob
+    var visited = new Array(sw * sh).fill(false);
+    var bestBox = null;
+    var bestArea = 0;
+    
+    for (var y = 0; y < sh; y++) {
+        for (var x = 0; x < sw; x++) {
+            var idx = y * sw + x;
+            if (dilated[idx] && !visited[idx]) {
+                var queue = [idx];
+                var head = 0;
+                visited[idx] = true;
+                var minx = x, maxx = x, miny = y, maxy = y;
+                var count = 0;
+                
+                while (head < queue.length) {
+                    var curr = queue[head++];
+                    var cx = curr % sw, cy = Math.floor(curr / sw);
+                    minx = Math.min(minx, cx); maxx = Math.max(maxx, cx);
+                    miny = Math.min(miny, cy); maxy = Math.max(maxy, cy);
+                    count++;
+                    
+                    if (cx > 0 && dilated[curr - 1] && !visited[curr - 1]) { visited[curr - 1] = true; queue.push(curr - 1); }
+                    if (cx < sw - 1 && dilated[curr + 1] && !visited[curr + 1]) { visited[curr + 1] = true; queue.push(curr + 1); }
+                    if (cy > 0 && dilated[curr - sw] && !visited[curr - sw]) { visited[curr - sw] = true; queue.push(curr - sw); }
+                    if (cy < sh - 1 && dilated[curr + sw] && !visited[curr + sw]) { visited[curr + sw] = true; queue.push(curr + sw); }
+                }
+                
+                var bw = maxx - minx + 1;
+                var bh = maxy - miny + 1;
+                var aspect = bw / bh;
+                
+                // Filter small noise and extreme aspect ratios (like a pen or a long keyboard edge)
+                if (count > (sw * sh * 0.05) && aspect > 0.2 && aspect < 5.0) {
+                    if (count > bestArea) {
+                        bestArea = count;
+                        bestBox = { minx: minx, miny: miny, maxx: maxx, maxy: maxy };
+                    }
+                }
+            }
+        }
+    }
+    
+    // If the largest blob covers >85% of the image, it's likely a full-page document (like an A4 Ijazah)
+    // In this case, we just trim a small 2% margin to avoid cutting off text near the edges.
+    if (bestArea > (sw * sh * 0.85)) {
+        bestBox = { minx: sw * 0.02, miny: sh * 0.02, maxx: sw * 0.98, maxy: sh * 0.98 };
+    }
+    
+    // Fallback to whole image if no blob found
+    if (!bestBox) {
+        bestBox = { minx: 0, miny: 0, maxx: sw, maxy: sh };
+    }
+    
+    // Map back to original image coordinates and add a 2% padding
+    var padW = w * 0.02;
+    var padH = h * 0.02;
+    var minX = Math.max(0, Math.floor((bestBox.minx / scale) - padW));
+    var minY = Math.max(0, Math.floor((bestBox.miny / scale) - padH));
+    var maxX = Math.min(w, Math.ceil((bestBox.maxx / scale) + padW));
+    var maxY = Math.min(h, Math.ceil((bestBox.maxy / scale) + padH));
+    
+    var cW = maxX - minX, cH = maxY - minY;
+    if (cW < 10 || cH < 10) { cb(null); return; }
+    
+    var cropCanvas = document.createElement('canvas');
+    cropCanvas.width = cW; 
+    cropCanvas.height = cH;
+    var cropCtx = cropCanvas.getContext('2d');
+    cropCtx.drawImage(img, minX, minY, cW, cH, 0, 0, cW, cH);
+    var cImg = new Image();
+    cImg.onload = function() { cb(cImg); };
+    cImg.src = cropCanvas.toDataURL('image/jpeg', 1.0);
 }
 function handleLampiranUpload(e){var f=e.target.files;if(!f||!f.length)return;processLampiranFiles(Array.from(f));e.target.value=''}
 function processLampiranFiles(f){
