@@ -201,12 +201,15 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
 <div class="lampiran-upload-area" id="lampiran-drop"><i class="fa-solid fa-images text-4xl text-brand-red mb-3"></i><p class="font-bold text-gray-900 dark:text-white mb-1 text-sm">Klik atau seret gambar ke sini</p><p class="text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG &nbsp;&bull;&nbsp; Tanpa Batas Jumlah Gambar &nbsp;&bull;&nbsp; <span class="text-brand-red font-semibold">Auto Crop Cerdas</span></p><input type="file" id="lampiran-input" accept="image/jpeg,image/png,image/jpg" multiple class="hidden"></div>
 </div>
 
-<!-- Toggle Mode Scan CamScanner -->
-<div class="card mb-6 flex items-center justify-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-300 bg-brand-red/5 border-brand-red/20">
-    <i class="fa-solid fa-wand-magic-sparkles text-brand-red text-lg"></i>
+<!-- Toggle Mode Scan CamScanner & Auto Crop -->
+<div class="card mb-6 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm font-medium text-gray-700 dark:text-gray-300 bg-brand-red/5 border-brand-red/20">
+    <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" id="lampiran-autocrop-mode" class="w-4 h-4 rounded text-brand-red focus:ring-brand-red" checked>
+        <span><strong>Auto Crop:</strong> Potong otomatis area dokumen</span>
+    </label>
     <label class="flex items-center gap-2 cursor-pointer">
         <input type="checkbox" id="lampiran-scan-mode" class="w-4 h-4 rounded text-brand-red focus:ring-brand-red" checked>
-        <span><strong>Mode Scan CamScanner:</strong> Tingkatkan kecerahan & ketajaman teks dokumen</span>
+        <span><strong>Mode Scan CamScanner:</strong> Tingkatkan kecerahan & ketajaman teks</span>
     </label>
 </div>
 
@@ -496,8 +499,8 @@ function kSkillPH(list){var items=(list||[]).filter(function(s){return s&&s.trim
 function kSkillPHSingle(list){var items=(list||[]).filter(function(s){return s&&s.trim()});if(!items.length)return'';var h='';for(var i=0;i<items.length;i++){var val=items[i].trim();h+='<div style="margin-bottom:1mm;"><table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;"><tr><td style="width:4mm;vertical-align:top;border:none;">\u2022</td><td style="vertical-align:top;border:none;word-break:break-word;">'+esc(val)+'</td></tr></table></div>'}return h}
 function skCombined(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var html='';if(hItems.length){var thirdH=Math.ceil(hItems.length/3);var hC1=hItems.slice(0,thirdH),hC2=hItems.slice(thirdH,thirdH*2),hC3=hItems.slice(thirdH*2);function bl(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;"><tr><td style="width:4mm;vertical-align:top;border:none;">\u2022</td><td style="vertical-align:top;border:none;word-break:break-word;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';html+='<table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;margin-bottom:3mm;"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;border:none;word-break:break-word;">'+bl(hC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm;border:none;word-break:break-word;">'+bl(hC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0;border:none;word-break:break-word;">'+bl(hC3)+'</td></tr></table>'}if(sItems.length){var thirdS=Math.ceil(sItems.length/3);var sC1=sItems.slice(0,thirdS),sC2=sItems.slice(thirdS,thirdS*2),sC3=sItems.slice(thirdS*2);function bl2(arr){return arr.filter(function(s){return s&&s.trim()}).map(function(s){return'<div style="margin-bottom:1mm;"><table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;"><tr><td style="width:4mm;vertical-align:top;border:none;">\u2022</td><td style="vertical-align:top;border:none;word-break:break-word;">'+esc(s.trim())+'</td></tr></table></div>'}).join('')}html+='<div style="font-weight:700;margin-bottom:1mm">'+L('Soft Skill')+'</div>';html+='<table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;"><tr><td style="width:33%;vertical-align:top;padding:0.2mm 2mm 0.2mm 0;border:none;word-break:break-word;">'+bl2(sC1)+'</td><td style="width:34%;vertical-align:top;padding:0.2mm 2mm;border:none;word-break:break-word;">'+bl2(sC2)+'</td><td style="width:33%;vertical-align:top;padding:0.2mm 0;border:none;word-break:break-word;">'+bl2(sC3)+'</td></tr></table>'}return html}
 function skCV3single(hardSkills,softSkills){var hItems=(hardSkills||[]).filter(function(s){return s&&s.trim()});var sItems=(softSkills||[]).filter(function(s){return s&&s.trim()});if(!hItems.length&&!sItems.length)return'';var h='';if(hItems.length){h+='<div style="font-weight:700;margin-bottom:1mm">'+L('Hard Skill')+'</div>';for(var i=0;i<hItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;"><tr><td style="width:4mm;vertical-align:top;border:none;">\u2022</td><td style="vertical-align:top;border:none;word-break:break-word;">'+esc(hItems[i].trim())+'</td></tr></table></div>'}if(sItems.length){h+='<div style="font-weight:700;margin-top:3mm;margin-bottom:1mm">'+L('Soft Skill')+'</div>';for(var i=0;i<sItems.length;i++)h+='<div style="margin-bottom:1mm;"><table style="width:100%;table-layout:fixed;border:none;border-collapse:collapse;"><tr><td style="width:4mm;vertical-align:top;border:none;">\u2022</td><td style="vertical-align:top;border:none;word-break:break-word;">'+esc(sItems[i].trim())+'</td></tr></table></div>'}return h}
-function renderCV1(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);if(!N&&!TTL&&!JK&&!BN&&!AG&&!TB&&!BB&&!HP&&!ST&&!EM&&!a1&&!a2&&!PR&&!eduHTML&&!expHTML&&!SK&&!photoData){return''}var fi=fotoImg();var h='<table style="width:100%;border:none;border-collapse:collapse;table-layout:fixed;margin-top:0;'+(fi?'margin-bottom:10mm;':'')+'"><tr>';if(fi){h+='<td style="width:51mm;vertical-align:top;padding:0;border:none;">'+fi+'</td>';h+='<td style="vertical-align:top;padding:0;border:none;">'}else{h+='<td colspan="2" style="vertical-align:top;padding:0;border:none;">'}if(PR){h+='<div class="sec-wrap" style="break-inside:avoid;margin-top:0;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;">'+PR+'</div></div>'}h+='</td></tr></table>';function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style="border:none;vertical-align:top;">'+L(l)+'</td><td class="dc" style="border:none;vertical-align:top;">:</td><td style="border:none;vertical-align:top;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?a1:'')+(a1&&a2?'<br>':'')+(a2?a2:''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
-function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=v('alamat1'),al2=v('alamat2');var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);if(!N&&!SUB&&!TTL&&!JK&&!BN&&!AG&&!TB&&!BB&&!ST&&!al1&&!al2&&!HP&&!EM&&!PR&&!eduHTML&&!expHTML&&!SK&&!photoData){return''}var fi=fotoImg();var h='<table style="width:100%;border:none;border-collapse:collapse;table-layout:fixed;margin-top:0;'+(fi?'margin-bottom:10mm;':'')+'"><tr>';if(fi){h+='<td style="width:33%;vertical-align:top;padding:0 5mm 0 0;border:none;">'+fi+'</td>';h+='<td style="width:67%;vertical-align:top;text-align:right;padding:0;border:none;">'}else{h+='<td style="width:33%;border:none;"></td>';h+='<td style="width:67%;vertical-align:top;text-align:right;padding:0;border:none;">'}if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';h+='</td></tr></table>';if(PR){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
+function renderCV1(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var a1=joinAddr(v('alamat1'),v('alamat2')),a2=joinAddr(v('alamat3'),v('alamat4'));var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);if(!N&&!TTL&&!JK&&!BN&&!AG&&!TB&&!BB&&!HP&&!ST&&!EM&&!a1&&!a2&&!PR&&!eduHTML&&!expHTML&&!SK&&!photoData){return''}var fi=fotoImg();var h='<table style="width:100%;border:none;border-collapse:collapse;table-layout:fixed;margin-top:0;'+(fi?'margin-bottom:10mm;':'')+'"><tr>';if(fi){h+='<td style="width:51mm;vertical-align:top;padding:0;border:none;">'+fi+'</td>';h+='<td style="vertical-align:top;padding:0;border:none;">'}else{h+='<td colspan="2" style="vertical-align:top;padding:0;border:none;">"}if(PR){h+='<div class="sec-wrap" style="break-inside:avoid;margin-top:0;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;">'+PR+'</div></div>'}h+='</td></tr></table>';function dp(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<tr><td class="dl" style="border:none;vertical-align:top;">'+L(l)+'</td><td class="dc" style="border:none;vertical-align:top;">:</td><td style="border:none;vertical-align:top;">'+val+'</td></tr>'}var rows='';rows+=dp('Nama',esc(N),N);rows+=dp('Tempat, tanggal lahir',esc(TTL),TTL);rows+=dp('Jenis Kelamin',esc(JK),JK);rows+=dp('Bangsa',esc(BN),BN);rows+=dp('Agama',esc(AG),AG);rows+=dp('Tinggi Badan',esc(TB)+' cm',TB);rows+=dp('Berat Badan',esc(BB)+' kg',BB);rows+=dp('Alamat',(a1?a1:'')+(a1&&a2?'<br>':'')+(a2?a2:''),a1||a2);rows+=dp('No. Hp',esc(HP),HP);rows+=dp('Status',esc(ST),ST);rows+=dp('Email',esc(EM),EM);if(rows){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('DATA PRIBADI')+'</div><table class="dp-t">'+rows+'</table></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
+function renderCV2(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status'),HP=v('nohp'),EM=v('email');var al1=v('alamat1'),al2=v('alamat2');var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);var eduCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'aligned');var expHTML=expPH(expList);if(!N&&!SUB&&!TTL&&!JK&&!BN&&!AG&&!TB&&!BB&&!ST&&!al1&&!al2&&!HP&&!EM&&!PR&&!eduHTML&&!expHTML&&!SK&&!photoData){return''}var fi=fotoImg();var h='<table style="width:100%;border:none;border-collapse:collapse;table-layout:fixed;margin-top:0;'+(fi?'margin-bottom:10mm;':'')+'"><tr>';if(fi){h+='<td style="width:33%;vertical-align:top;padding:0 5mm 0 0;border:none;">'+fi+'</td>';h+='<td style="width:67%;vertical-align:top;text-align:right;padding:0;border:none;">'}else{h+='<td style="width:33%;border:none;"></td>';h+='<td style="width:67%;vertical-align:top;text-align:right;padding:0;border:none;">"}if(N)h+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)h+='<div style="color:#333;margin-bottom:3mm">'+esc(SUB)+'</div>';else h+='<div style="margin-bottom:3mm"></div>';if(TTL)h+='<div>'+esc(TTL)+'</div>';var infoBits=[];if(JK)infoBits.push(esc(JK));if(BN)infoBits.push(esc(BN));if(AG)infoBits.push(esc(AG));if(TB)infoBits.push(esc(TB)+' cm');if(BB)infoBits.push(esc(BB)+' kg');if(ST)infoBits.push(esc(ST));if(infoBits.length)h+='<div>'+infoBits.join(' | ')+'</div>';if(al1)h+='<div>'+esc(al1)+'</div>';if(al2)h+='<div>'+esc(al2)+'</div>';var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)h+='<div>'+contactBits.join(' | ')+'</div>';h+='</td></tr></table>';if(PR){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify">'+PR+'</div></div>'}if(eduHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return h}
 function renderCV3(){var N=v('nombre'),TTL=v('ttl'),JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),HP=v('nohp'),ST=v('status'),EM=v('email');var ap=[v('alamat1'),v('alamat2'),v('alamat3'),v('alamat4'),v('alamat5')].filter(function(x){return x&&x.trim()});var SUB=v('subtitle');var PR=getProfil('');var SK=skillMode==='k'?kSkillPHSingle(kSkills):skCV3single(hSkills,sSkills);var eduCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var eduTitle=eduCount>1?L('RIWAYAT PENDIDIKAN'):L('PENDIDIKAN TERAKHIR');var eduHTML=eduPHDual(eduList,eduNonList,'right');var expHTML=expPH3(expList);if(!N&&!SUB&&!TTL&&!JK&&!BN&&!AG&&!TB&&!BB&&!HP&&!ST&&!EM&&ap.length===0&&!PR&&!eduHTML&&!expHTML&&!SK&&!photoData){return''}function di(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="font-weight:400;">'+L(l)+':</div><div style="font-weight:700;">'+val+'</div></div>'}function diNoWrap(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="font-weight:400;white-space:nowrap;">'+L(l)+':</div><div style="font-weight:700;white-space:nowrap;">'+val+'</div></div>'}function diDiv(l,val,rawVal){rawVal=rawVal!==undefined?rawVal:val;if(!String(rawVal).trim())return'';return'<div style="margin-bottom:2.5mm"><div style="font-weight:400;">'+L(l)+':</div><div style="font-weight:700;margin-top:0.3mm">'+val+'</div></div>'}var ls='';var fi=fotoImg();if(fi)ls+='<div class="cv3-foto-wrap">'+fi+'</div>';if(N)ls+='<div style="font-size:16pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:left;margin-bottom:1mm">'+esc(N)+'</div>';if(SUB)ls+='<div style="color:#555;margin-bottom:5mm">'+esc(SUB)+'</div>';else ls+='<div style="margin-bottom:5mm"></div>';ls+=diNoWrap('Tempat, tanggal lahir',esc(TTL),TTL);ls+=di('Jenis kelamin',esc(JK),JK);ls+=di('Bangsa',esc(BN),BN);ls+=di('Agama',esc(AG),AG);ls+=di('Tinggi badan',esc(TB)+' cm',TB);ls+=di('Berat badan',esc(BB)+' kg',BB);ls+=di('No. HP',esc(HP),HP);ls+=di('Status',esc(ST),ST);ls+=di('Email',esc(EM),EM);if(ap.length)ls+=diDiv('Alamat',ap.map(function(l){return'<div>'+esc(l)+'</div>'}).join(''),'1');var rs='';if(PR){rs+='<div class="sec-wrap" style="break-inside:avoid;margin-top:0;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;word-break:break-word;overflow-wrap:break-word;">'+PR+'</div></div>'}if(eduHTML){rs+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+eduTitle+'</div>'+eduHTML+'</div>'}if(expHTML){rs+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div>'+expHTML+'</div>'}if(SK){rs+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div>'+SK+'</div>'}return'<table class="cv3-layout" style="margin-top:0;"><tr><td class="cv3-left-col">'+ls+'</td><td class="cv3-right-col">'+rs+'</td></tr></table>'}
 function renderCV4(){var N=v('nombre'),SUB=v('subtitle'),TTL=v('ttl'),HP=v('nohp'),EM=v('email');var JK=v('jk'),BN=v('bangsa'),AG=v('agama'),TB=v('tb'),BB=v('bb'),ST=v('status');var al1=v('alamat1');var PR=getProfil('');var formalCount=eduList.filter(function(e){return(e.t&&e.t.trim())||(e.y&&e.y.trim())||(e.p&&e.p.trim())}).length;var hasNonEdu=eduNonList.some(function(e){return(e.t&&e.t.trim())||(e.d&&e.d.trim())||(e.k&&e.k.trim())||(e.j&&e.j.trim())});var eduH='';if(formalCount>0||hasNonEdu){if(hasNonEdu&&formalCount>0)eduH+='<div style="font-weight:600;margin-bottom:2mm">Pendidikan Formal</div>';eduH+='<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';eduList.forEach(function(e){if(e.t||e.y||e.p){var midVal='';var rightVal='';if(e.m==='p'&&e.p&&e.p.trim())rightVal=esc(e.p);else if(e.y&&e.y.trim()){midVal='Tahun Lulus';rightVal=esc(e.y)}else if(e.p&&e.p.trim())rightVal=esc(e.p);eduH+='<tr><td style="padding:1mm 0;word-break:break-word;width:50%;border:none;">'+esc(e.t||'')+'</td><td style="padding:1mm 0;text-align:center;width:30%;border:none;">'+midVal+'</td><td style="padding:1mm 0;text-align:right;white-space:nowrap;width:20%;border:none;">'+rightVal+'</td></tr>'}});eduH+='</table>';if(hasNonEdu){eduH+='<div style="font-weight:600;margin-top:3mm;margin-bottom:2mm">Pendidikan Nonformal</div>';eduH+='<table style="width:100%;table-layout:fixed;border-collapse:collapse;border:none;">';eduNonList.forEach(function(e){var leftVal1=e.t?esc(e.t):'';var rightVal1=e.d?esc(e.d):'';var subDetails=[];if(e.k&&e.k.trim())subDetails.push(esc(e.k));if(e.j&&e.j.trim())subDetails.push('('+esc(e.j)+')');if(leftVal1||rightVal1)eduH+='<tr><td style="padding:1mm 0;word-break:break-word;width:50%;border:none;">'+leftVal1+'</td><td style="padding:1mm 0;text-align:right;white-space:nowrap;width:50%;border:none;">'+rightVal1+'</td></tr>';if(subDetails.length>0)eduH+='<tr><td style="padding:1mm 0;word-break:break-word;width:50%;border:none;">'+subDetails.join(' ')+'</td><td style="padding:1mm 0;width:50%;border:none;"></td></tr>'});eduH+='</table>'}}var expH=expPH(expList);var SK=skillMode==='k'?kSkillPH(kSkills):skCombined(hSkills,sSkills);if(!N&&!SUB&&!TTL&&!HP&&!EM&&!JK&&!BN&&!AG&&!TB&&!BB&&!ST&&!al1&&!PR&&!eduH&&!expH&&!SK){return''}var h='';if(N)h+='<div style="text-align:center;font-size:18pt;font-weight:700;text-transform:uppercase;margin-bottom:1mm;margin-top:0;">'+esc(N)+'</div>';if(SUB)h+='<div style="text-align:center;color:#333;margin-bottom:4mm;">'+esc(SUB)+'</div>';var infoArr=[];if(TTL)infoArr.push(esc(TTL));var detailBits=[];if(JK)detailBits.push(esc(JK));if(BN)detailBits.push(esc(BN));if(AG)detailBits.push(esc(AG));if(TB)detailBits.push(esc(TB)+' cm');if(BB)detailBits.push(esc(BB)+' kg');if(ST)detailBits.push(esc(ST));if(detailBits.length)infoArr.push(detailBits.join(' | '));if(al1)infoArr.push(esc(al1));var contactBits=[];if(HP)contactBits.push(esc(HP));if(EM)contactBits.push(esc(EM));if(contactBits.length)infoArr.push(contactBits.join(' | '));if(infoArr.length)h+='<div style="text-align:center;margin-bottom:15mm;line-height:1.5;">'+infoArr.join('<br>')+'</div>';if(PR){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PROFIL')+'</div><div style="text-align:justify;word-break:break-word;">'+PR+'</div></div>'}if(eduH){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENDIDIKAN')+'</div><div>'+eduH+'</div></div>'}if(expH){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('PENGALAMAN KERJA')+'</div><div>'+expH+'</div></div>'}if(SK){h+='<div class="sec-wrap" style="break-inside:avoid;"><div class="st">'+L('KEAHLIAN')+'</div><div>'+SK+'</div></div>'}return h}
 function openInGmail(){var m=ST_M.find(function(t){return t.id===curTpl});if(!m||!m.on)return;var dot='...........';var N=v('nombre')||dot;var TTD=v('sTtd')||N;var HP=v('nohp')||dot;var EM=v('email')||dot;var PT=v('sPt')||dot;var sEmailPerusahaan=v('sEmailPerusahaan')||'';var subjek='Lamaran Pekerjaan';if(m.pos&&v('sPosisi'))subjek+=': '+v('sPosisi');if(N!==dot)subjek+=' - '+N;var sumberStr;if(m.semua)sumberStr='informasi lowongan pekerjaan yang ada';else sumberStr='informasi lowongan pekerjaan yang saya peroleh dari '+(v('sSumber')||dot);var pembukaEmail;if(m.pos)pembukaEmail='Sehubungan dengan '+sumberStr+' bahwa '+PT+' sedang membuka lowongan untuk posisi '+(v('sPosisi')||dot)+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';else pembukaEmail='Sehubungan dengan '+sumberStr+' di '+PT+', dengan ini saya bermaksud mengajukan lamaran pekerjaan untuk bergabung di perusahaan yang Bapak/Ibu pimpin.';var li=[];for(var i=0;i<lampList.length;i++){var val=lampList[i]&&lampList[i].trim();if(!val)continue;li.push(val)}var namaFile=(N!==dot)?N:'Nama Pelamar';if(m.pos&&v('sPosisi'))namaFile+='_'+(v('sPosisi')||'');var body='';body+='Kepada Yth.\nBapak/Ibu HRD\n'+PT+'\ndi Tempat\n\nDengan hormat,\n\n'+pembukaEmail+'\n\nSebagai bahan pertimbangan, bersama email ini saya telah melampirkan berkas lamaran dalam satu file PDF ('+namaFile+'.pdf) yang mencakup:\n';if(li.length){li.forEach(function(item,idx){body+=(idx+1)+'. '+item+'\n'})}else{body+='1. ...........\n2. ...........\n3. ...........\n'}body+='\nBesar harapan saya untuk dapat mengikuti tahap wawancara, sehingga saya dapat menjelaskan lebih rinci mengenai kompetensi dan kontribusi yang dapat saya berikan bagi perusahaan.\n\nDemikian surat lamaran ini saya sampaikan. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya ucapkan terima kasih.\n\nHormat saya,\n\n\n'+TTD+'\n'+HP+'\n'+EM;var gmailUrl='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(sEmailPerusahaan)+'&su='+encodeURIComponent(subjek)+'&body='+encodeURIComponent(body);window.open(gmailUrl,'_blank');toast('Membuka Gmail di tab baru...','info')}
@@ -556,12 +559,12 @@ function autoCropDocument(img, cb, applyScan) {
             
             cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
             cv.GaussianBlur(gray, gray, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT);
-            cv.Canny(gray, edges, 75, 200);
+            cv.Canny(gray, edges, 30, 150); // Lower threshold for more edges
             
-            kernel = cv.Mat.ones(5, 5, cv.CV_8U);
+            kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(15, 15)); // Larger kernel to close gaps
             cv.dilate(edges, edges, kernel);
             
-            cv.findContours(edges, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
+            cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
             
             var maxArea = 0;
             for (var i = 0; i < contours.size(); ++i) {
@@ -656,10 +659,11 @@ function autoCropDocument(img, cb, applyScan) {
         }
     }
     
+    // Fallback JS Edge Detection (Row/Col Variance)
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var w = img.width, h = img.height;
-    var maxDim = 200;
+    var maxDim = 150;
     var scale = Math.min(1, maxDim / Math.max(w, h));
     var sw = Math.max(1, Math.round(w * scale));
     var sh = Math.max(1, Math.round(h * scale));
@@ -668,82 +672,60 @@ function autoCropDocument(img, cb, applyScan) {
     var imageData;
     try { imageData = ctx.getImageData(0, 0, sw, sh); } catch(e) { cb(null); return; }
     var data = imageData.data;
-    function colorDist(r1, g1, b1, r2, g2, b2) { return Math.sqrt((r1-r2)*(r1-r2) + (g1-g2)*(g1-g2) + (b1-b2)*(b1-b2)); }
-    var visited = new Array(sw * sh).fill(false);
-    var isBg = new Array(sw * sh).fill(false);
-    var threshold = 40;
-    var queue = [];
-    var corners = [0, sw - 1, (sh - 1) * sw, (sh - 1) * sw + sw - 1];
-    corners.forEach(function(idx) {
-        if (!visited[idx]) {
-            queue.push(idx);
-            visited[idx] = true;
-            isBg[idx] = true;
-        }
-    });
-    var head = 0;
-    while (head < queue.length) {
-        var curr = queue[head++];
-        var x = curr % sw;
-        var y = Math.floor(curr / sw);
-        var i = curr * 4;
-        var r1 = data[i], g1 = data[i+1], b1 = data[i+2];
-        var neighbors = [];
-        if (x > 0) neighbors.push(curr - 1);
-        if (x < sw - 1) neighbors.push(curr + 1);
-        if (y > 0) neighbors.push(curr - sw);
-        if (y < sh - 1) neighbors.push(curr + sw);
-        for (var n = 0; n < neighbors.length; n++) {
-            var nIdx = neighbors[n];
-            if (!visited[nIdx]) {
-                var ni = nIdx * 4;
-                var r2 = data[ni], g2 = data[ni+1], b2 = data[ni+2];
-                if (colorDist(r1, g1, b1, r2, g2, b2) < threshold) {
-                    visited[nIdx] = true;
-                    isBg[nIdx] = true;
-                    queue.push(nIdx);
-                } else {
-                    visited[nIdx] = true; 
-                }
-            }
-        }
+    
+    var gray = new Array(sw * sh);
+    for (var i = 0, j = 0; i < data.length; i += 4, j++) {
+        gray[j] = (data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114);
     }
-    var minX = sw, minY = sh, maxX = 0, maxY = 0;
-    var foundContent = false;
+    
+    var colHasContent = new Array(sw).fill(false);
+    var rowHasContent = new Array(sh).fill(false);
+    var edgeThreshold = 25;
+    
     for (var y = 0; y < sh; y++) {
         for (var x = 0; x < sw; x++) {
             var idx = y * sw + x;
-            if (!isBg[idx]) {
-                foundContent = true;
-                if (x < minX) minX = x;
-                if (x > maxX) maxX = x;
-                if (y < minY) minY = y;
-                if (y > maxY) maxY = y;
+            if (x < sw - 1 && Math.abs(gray[idx] - gray[idx + 1]) > edgeThreshold) {
+                colHasContent[x] = true;
+                colHasContent[x+1] = true;
+                rowHasContent[y] = true;
+            }
+            if (y < sh - 1 && Math.abs(gray[idx] - gray[idx + sw]) > edgeThreshold) {
+                colHasContent[x] = true;
+                rowHasContent[y] = true;
+                rowHasContent[y+1] = true;
             }
         }
-    }
-    if (!foundContent || (maxX - minX < sw * 0.3 && maxY - minY < sh * 0.3)) {
-        minX = sw; minY = sh; maxX = 0; maxY = 0;
-        for (var y = 0; y < sh; y++) {
-            for (var x = 0; x < sw; x++) {
-                var idx = y * sw + x;
-                var i = idx * 4;
-                var r = data[i], g = data[i+1], b = data[i+2];
-                if (r < 230 || g < 230 || b < 230) {
-                    if (x < minX) minX = x;
-                    if (x > maxX) maxX = x;
-                    if (y < minY) minY = y;
-                    if (y > maxY) maxY = y;
-                }
-            }
-        }
-        if (minX === sw) { cb(null); return; }
     }
     
-    var cropX = Math.max(0, Math.floor(minX / scale));
-    var cropY = Math.max(0, Math.floor(minY / scale));
-    var cropW = Math.min(w, Math.ceil((maxX - minX + 1) / scale));
-    var cropH = Math.min(h, Math.ceil((maxY - minY + 1) / scale));
+    var minX = sw, maxX = -1;
+    for (var x = 0; x < sw; x++) {
+        if (colHasContent[x]) {
+            minX = Math.min(minX, x);
+            maxX = Math.max(maxX, x);
+        }
+    }
+    var minY = sh, maxY = -1;
+    for (var y = 0; y < sh; y++) {
+        if (rowHasContent[y]) {
+            minY = Math.min(minY, y);
+            maxY = Math.max(maxY, y);
+        }
+    }
+    
+    if (maxX === -1 || maxY === -1) { cb(null); return; }
+    
+    var padW = sw * 0.02;
+    var padH = sh * 0.02;
+    minX = Math.max(0, Math.floor(minX - padW));
+    maxX = Math.min(sw - 1, Math.ceil(maxX + padW));
+    minY = Math.max(0, Math.floor(minY - padH));
+    maxY = Math.min(sh - 1, Math.ceil(maxY + padH));
+    
+    var cropX = Math.floor(minX / scale);
+    var cropY = Math.floor(minY / scale);
+    var cropW = Math.ceil((maxX - minX + 1) / scale);
+    var cropH = Math.ceil((maxY - minY + 1) / scale);
     
     if (cropW < 10 || cropH < 10) { cb(null); return; }
     var cropCanvas = document.createElement('canvas');
@@ -769,6 +751,7 @@ function processLampiranFiles(f){
     document.getElementById('btn-lampiran-clear').disabled=true;
     toast('Memproses & auto-crop '+img.length+' gambar...','info');
     
+    var applyAutoCrop = document.getElementById('lampiran-autocrop-mode') ? document.getElementById('lampiran-autocrop-mode').checked : true;
     var applyScan = document.getElementById('lampiran-scan-mode') ? document.getElementById('lampiran-scan-mode').checked : false;
     
     var rem=img.length;var ni=[];
@@ -777,11 +760,10 @@ function processLampiranFiles(f){
         r.onload=function(e){
             var im=new Image();
             im.onload=function(){
-                autoCropDocument(im, function(croppedImg) {
-                    var finalImg = croppedImg || im;
-                    var totalExpected=lampiranImages.length+img.length;
-                    var tb=Math.floor((TARGET_PDF_SIZE-15000)/Math.max(1,totalExpected));
-                    tb=Math.max(10*1024,Math.min(tb,800*1024));
+                var tb=Math.floor((TARGET_PDF_SIZE-15000)/Math.max(1,lampiranImages.length+img.length));
+                tb=Math.max(10*1024,Math.min(tb,800*1024));
+                
+                function finalize(finalImg) {
                     compressImageToSize(finalImg,tb,function(u,s,w,h){
                         ni.push({data:u,name:fl.name,originalSize:fl.size,compressedSize:s,width:w,height:h,originalWidth:finalImg.width,originalHeight:finalImg.height});
                         rem--;
@@ -792,7 +774,40 @@ function processLampiranFiles(f){
                             finalizeLampiranUpload();
                         }
                     });
-                }, applyScan);
+                }
+                
+                if (applyAutoCrop) {
+                    autoCropDocument(im, function(croppedImg) {
+                        var finalImg = croppedImg || im;
+                        if (applyScan) {
+                            var tempCanvas = document.createElement('canvas');
+                            tempCanvas.width = finalImg.width;
+                            tempCanvas.height = finalImg.height;
+                            var tempCtx = tempCanvas.getContext('2d');
+                            tempCtx.drawImage(finalImg, 0, 0);
+                            applyCamScannerEffect(tempCanvas);
+                            var newImg = new Image();
+                            newImg.onload = function() { finalize(newImg); };
+                            newImg.src = tempCanvas.toDataURL('image/jpeg', 1.0);
+                        } else {
+                            finalize(finalImg);
+                        }
+                    }, applyScan); // Pass applyScan to autoCropDocument as well for efficiency
+                } else {
+                    if (applyScan) {
+                        var tempCanvas = document.createElement('canvas');
+                        tempCanvas.width = im.width;
+                        tempCanvas.height = im.height;
+                        var tempCtx = tempCanvas.getContext('2d');
+                        tempCtx.drawImage(im, 0, 0);
+                        applyCamScannerEffect(tempCanvas);
+                        var newImg = new Image();
+                        newImg.onload = function() { finalize(newImg); };
+                        newImg.src = tempCanvas.toDataURL('image/jpeg', 1.0);
+                    } else {
+                        finalize(im);
+                    }
+                }
             };
             im.onerror=function(){rem--;if(rem===0){lampiranImages=lampiranImages.concat(ni);lampiranProcessing=false;finalizeLampiranUpload()}};
             im.src=e.target.result;
