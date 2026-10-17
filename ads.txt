@@ -1,0 +1,10 @@
+# ads.txt untuk Karya Abadi Jobs
+# https://karyaabadijobs.my.id/ads.txt
+#
+# File ini mendeklarasikan authorized digital sellers (sellers.json)
+# sesuai standar IAB Tech Lab untuk mencegah penyalahgunaan inventaris iklan.
+#
+# Format: <publisher_id>, <publisher_name>, <account_type>, <certificate_id>
+# Publisher ID Google AdSense Anda: ca-pub-2272135901889807
+
+google.com, pub-2272135901889807, DIRECT, f08c47fec0942fa0

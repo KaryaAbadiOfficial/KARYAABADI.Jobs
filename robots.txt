@@ -1,0 +1,24 @@
+# robots.txt untuk Karya Abadi Jobs
+# https://karyaabadijobs.my.id/
+
+# Izinkan semua mesin pencari untuk mengcrawl seluruh konten
+User-agent: *
+Allow: /
+Disallow:
+
+# Izinkan crawler Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
+Disallow:
+
+# Izinkan crawler Google AdsBot
+User-agent: AdsBot-Google
+Allow: /
+Disallow:
+
+# Izinkan Googlebot untuk crawling gambar
+User-agent: Googlebot-Image
+Allow: /
+
+# Lokasi sitemap
+Sitemap: https://karyaabadijobs.my.id/sitemap.xml
