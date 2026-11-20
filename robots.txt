@@ -1,0 +1,17 @@
+# robots.txt untuk https://karyaabadijobs.my.id/
+# File ini memastikan Googlebot dan mesin pencari lain dapat
+# meng-crawl seluruh isi website (syarat "site is reachable" AdSense).
+
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+Sitemap: https://karyaabadijobs.my.id/sitemap.xml
